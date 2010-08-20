@@ -10,20 +10,20 @@ public plan UpdateCellsAround extends Plan
 {
 	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-	/*
+/*
 Plan Name: UpdateCellsAround
 Description: Update the beliefs about the cells around a location
-	 */
+*/
 	//Events handled by the plan are declared here.
 	#handles event EUpdateBel eupdatebel_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data GoldAt bel_goldAt_dat;
-
 	#modifies data CellEmpty bel_cellEmpty_dat;
 
-	/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	#modifies data GoldAt bel_goldAt_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 	// The enclosing agent or capability has to implement these interfaces
 	#uses interface DebugInterface consoleIface;

@@ -7,9 +7,9 @@ public event ECellStatusChanged extends BDIGoalEvent
 /*
  * Message Name: ECellStatusChanged
 */
-	#uses data AgentPositions bel_agentPositions_dat;
-
 	#uses data CellEmpty bel_cellEmpty_dat;
+
+	#uses data AgentPositions bel_agentPositions_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	logical int $x,$y;

@@ -10,13 +10,11 @@
 <Entity DataFields="boolean debugConsole, boolean debugGUI" DataType="CurrentStatus" ID="34561" name="bel_currentStatus" package=""/>
 <Entity CodeFileURI="file:/home/james/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/BeliefReporting.plan" ID="46593" name="BeliefReporting"/>
 <Entity CodeFileURI="file:/home/james/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EAct.event" ID="33793" name="EAct"/>
-<Entity CodeFileURI="file:/home/james/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/bel_test.java" DataType="bel_test" ID="290305" name="bel_test"/>
 <Entity CodeFileURI="file:/home/james/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/Player.agent" ID="20993" name="Player"/>
 <Entity CodeFileURI="file:/home/james/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/FinishGame.plan" ID="45057" name="FinishGame"/>
 <Entity ID="252673" name="LastActionSentBel" package="rmit.ai.clima.iface.LastActionSentBel"/>
 <Entity CodeFileURI="file:/home/james/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PickGold.plan" ID="313601" name="PickGold"/>
 <Entity ID="32257" name="ClimaTalking"/>
-<Entity CodeFileURI="file:/home/james/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/mein.event" ID="349697" name="mein"/>
 <Entity ID="7425" name="mouse-click"/>
 <Entity CodeFileURI="file:/home/james/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BAgentNumbers.bel" ID="275969" name="BAgentNumbers"/>
 <Entity DataFields="String agentName, int agentNo" DataType="BAgentNumbers" ID="275201" name="bel_agentNumbers"/>

@@ -7,9 +7,9 @@ public plan Coord_ReportAgentInformation extends Plan
 {
 	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-	/*
+/*
 Plan Name: Coord_ReportAgentInformation
-	 */
+*/
 	//Events handled by the plan are declared here.
 	#handles event MEInformAgentStatus meinformagentstatus_h;
 
@@ -17,7 +17,7 @@ Plan Name: Coord_ReportAgentInformation
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data AgentPositions bel_agentPositions_dat;
 
-	/******** End PDT Design Block *** DO NOT EDIT IT *********/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
 	// The enclosing agent or capability has to implement these interfaces
 	#uses interface DebugInterface consoleIface;
 	context()

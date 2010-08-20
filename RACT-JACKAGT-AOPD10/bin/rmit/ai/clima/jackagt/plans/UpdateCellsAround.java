@@ -16,8 +16,8 @@ import aos.jack.jak.core.Generator;
 import aos.jack.jak.cursor.Cursor;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.EUpdateBel;
-import rmit.ai.clima.jackagt.data.GoldAt;
 import rmit.ai.clima.jackagt.data.CellEmpty;
+import rmit.ai.clima.jackagt.data.GoldAt;
 import rmit.ai.clima.interfaces.DebugInterface;
 import rmit.ai.clima.comms.Cell;
 import rmit.ai.clima.gui.grid.GridPoint;
@@ -27,8 +27,8 @@ import aos.jack.jak.core.Jak;
 
 public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EUpdateBel eupdatebel_h;
-    public rmit.ai.clima.jackagt.data.GoldAt bel_goldAt_dat;
     public rmit.ai.clima.jackagt.data.CellEmpty bel_cellEmpty_dat;
+    public rmit.ai.clima.jackagt.data.GoldAt bel_goldAt_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -62,13 +62,13 @@ public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
             "42"};
     private final static java.lang.String[] __planVariableNames = {
             "eupdatebel_h",
-            "bel_goldAt_dat",
             "bel_cellEmpty_dat",
+            "bel_goldAt_dat",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.EUpdateBel",
-            "rmit.ai.clima.jackagt.data.GoldAt",
             "rmit.ai.clima.jackagt.data.CellEmpty",
+            "rmit.ai.clima.jackagt.data.GoldAt",
             "DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -121,8 +121,8 @@ public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
         __planTask = __t;
         __logic = __t.logic;
         eupdatebel_h = __env.eupdatebel_h;
-        bel_goldAt_dat = __env.bel_goldAt_dat;
         bel_cellEmpty_dat = __env.bel_cellEmpty_dat;
+        bel_goldAt_dat = __env.bel_goldAt_dat;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
     
@@ -133,14 +133,14 @@ public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
             warning("Failed to find EUpdateBel eupdatebel_h");
             return false;
         }
-        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_goldAt_dat == null) {
-            warning("Failed to find GoldAt bel_goldAt_dat");
-            return false;
-        }
         bel_cellEmpty_dat = (rmit.ai.clima.jackagt.data.CellEmpty) lookupNamedObject("bel_cellEmpty_dat","rmit.ai.clima.jackagt.data.CellEmpty",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_cellEmpty_dat == null) {
             warning("Failed to find CellEmpty bel_cellEmpty_dat");
+            return false;
+        }
+        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_goldAt_dat == null) {
+            warning("Failed to find GoldAt bel_goldAt_dat");
             return false;
         }
         return true;
@@ -244,11 +244,11 @@ public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
             }
             case 1: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_cellEmpty_dat);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_cellEmpty_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 3: 
             {

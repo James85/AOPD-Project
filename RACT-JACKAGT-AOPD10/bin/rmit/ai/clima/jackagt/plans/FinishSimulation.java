@@ -17,11 +17,11 @@ import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MESimEnd;
 import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
 import rmit.ai.clima.iface.PerceiveClimaServer;
-import rmit.ai.clima.jackagt.data.CurrentRequestActionId;
 import rmit.ai.clima.jackagt.data.NumCarryingGold;
 import rmit.ai.clima.jackagt.data.GoldAt;
-import rmit.ai.clima.jackagt.data.CellEmpty;
 import rmit.ai.clima.jackagt.data.SimulationProp;
+import rmit.ai.clima.jackagt.data.CellEmpty;
+import rmit.ai.clima.jackagt.data.CurrentRequestActionId;
 import rmit.ai.clima.interfaces.DebugInterface;
 import java.lang.Object;
 import aos.jack.jak.cursor.Cursor;
@@ -33,11 +33,11 @@ public class FinishSimulation extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.MESimEnd mesimend_s;
     public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
     public rmit.ai.clima.iface.PerceiveClimaServer perceiveclimaserver_h;
-    public rmit.ai.clima.jackagt.data.CurrentRequestActionId bel_currentRequestActionId_dat;
     public rmit.ai.clima.jackagt.data.NumCarryingGold bel_numCarryingGold_dat;
     public rmit.ai.clima.jackagt.data.GoldAt bel_goldAt_dat;
-    public rmit.ai.clima.jackagt.data.CellEmpty bel_cellEmpty_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
+    public rmit.ai.clima.jackagt.data.CellEmpty bel_cellEmpty_dat;
+    public rmit.ai.clima.jackagt.data.CurrentRequestActionId bel_currentRequestActionId_dat;
     public rmit.ai.clima.interfaces.DebugInterface debugIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -58,21 +58,21 @@ public class FinishSimulation extends aos.jack.jak.plan.Plan {
             "mesimend_s",
             "eguidebugmessage_s",
             "perceiveclimaserver_h",
-            "bel_currentRequestActionId_dat",
             "bel_numCarryingGold_dat",
             "bel_goldAt_dat",
-            "bel_cellEmpty_dat",
             "bel_simulationProp_dat",
+            "bel_cellEmpty_dat",
+            "bel_currentRequestActionId_dat",
             "debugIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "MESimEnd",
             "EGUIDebugMessage",
             "PerceiveClimaServer",
-            "rmit.ai.clima.jackagt.data.CurrentRequestActionId",
             "rmit.ai.clima.jackagt.data.NumCarryingGold",
             "rmit.ai.clima.jackagt.data.GoldAt",
-            "rmit.ai.clima.jackagt.data.CellEmpty",
             "rmit.ai.clima.jackagt.data.SimulationProp",
+            "rmit.ai.clima.jackagt.data.CellEmpty",
+            "rmit.ai.clima.jackagt.data.CurrentRequestActionId",
             "rmit.ai.clima.interfaces.DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -124,11 +124,11 @@ public class FinishSimulation extends aos.jack.jak.plan.Plan {
         mesimend_s = __env.mesimend_s;
         eguidebugmessage_s = __env.eguidebugmessage_s;
         perceiveclimaserver_h = __env.perceiveclimaserver_h;
-        bel_currentRequestActionId_dat = __env.bel_currentRequestActionId_dat;
         bel_numCarryingGold_dat = __env.bel_numCarryingGold_dat;
         bel_goldAt_dat = __env.bel_goldAt_dat;
-        bel_cellEmpty_dat = __env.bel_cellEmpty_dat;
         bel_simulationProp_dat = __env.bel_simulationProp_dat;
+        bel_cellEmpty_dat = __env.bel_cellEmpty_dat;
+        bel_currentRequestActionId_dat = __env.bel_currentRequestActionId_dat;
         debugIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
     
@@ -149,11 +149,6 @@ public class FinishSimulation extends aos.jack.jak.plan.Plan {
             warning("Failed to find PerceiveClimaServer perceiveclimaserver_h");
             return false;
         }
-        bel_currentRequestActionId_dat = (rmit.ai.clima.jackagt.data.CurrentRequestActionId) lookupNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_currentRequestActionId_dat == null) {
-            warning("Failed to find CurrentRequestActionId bel_currentRequestActionId_dat");
-            return false;
-        }
         bel_numCarryingGold_dat = (rmit.ai.clima.jackagt.data.NumCarryingGold) lookupNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.NumCarryingGold",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_numCarryingGold_dat == null) {
             warning("Failed to find NumCarryingGold bel_numCarryingGold_dat");
@@ -164,14 +159,19 @@ public class FinishSimulation extends aos.jack.jak.plan.Plan {
             warning("Failed to find GoldAt bel_goldAt_dat");
             return false;
         }
+        bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_simulationProp_dat == null) {
+            warning("Failed to find SimulationProp bel_simulationProp_dat");
+            return false;
+        }
         bel_cellEmpty_dat = (rmit.ai.clima.jackagt.data.CellEmpty) lookupNamedObject("bel_cellEmpty_dat","rmit.ai.clima.jackagt.data.CellEmpty",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_cellEmpty_dat == null) {
             warning("Failed to find CellEmpty bel_cellEmpty_dat");
             return false;
         }
-        bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_simulationProp_dat == null) {
-            warning("Failed to find SimulationProp bel_simulationProp_dat");
+        bel_currentRequestActionId_dat = (rmit.ai.clima.jackagt.data.CurrentRequestActionId) lookupNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_currentRequestActionId_dat == null) {
+            warning("Failed to find CurrentRequestActionId bel_currentRequestActionId_dat");
             return false;
         }
         return true;
@@ -283,15 +283,15 @@ public class FinishSimulation extends aos.jack.jak.plan.Plan {
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_currentRequestActionId_dat);
+                return aos.util.ToObject.box(bel_numCarryingGold_dat);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_numCarryingGold_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_simulationProp_dat);
             }
             case 6: 
             {
@@ -299,7 +299,7 @@ public class FinishSimulation extends aos.jack.jak.plan.Plan {
             }
             case 7: 
             {
-                return aos.util.ToObject.box(bel_simulationProp_dat);
+                return aos.util.ToObject.box(bel_currentRequestActionId_dat);
             }
             case 8: 
             {

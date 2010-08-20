@@ -21,23 +21,23 @@ public class ECellStatusChanged extends aos.jack.jak.event.BDIGoalEvent implemen
     aos.jack.jak.logic.IntegerVariable $y;
     aos.jack.jak.logic.StringVariable $agentName;
     public java.lang.String msg;
-    public rmit.ai.clima.jackagt.data.AgentPositions bel_agentPositions_dat;
     public rmit.ai.clima.jackagt.data.CellEmpty bel_cellEmpty_dat;
+    public rmit.ai.clima.jackagt.data.AgentPositions bel_agentPositions_dat;
     public aos.jack.jak.logic.LogicEnv __logic = null;
     private final static java.lang.String[] __eventVariableNames = {
             "$x",
             "$y",
             "$agentName",
             "msg",
-            "bel_agentPositions_dat",
-            "bel_cellEmpty_dat"};
+            "bel_cellEmpty_dat",
+            "bel_agentPositions_dat"};
     private final static java.lang.String[] __eventVariableTypes = {
             "logical int",
             "logical int",
             "logical String",
             "String",
-            "AgentPositions",
-            "CellEmpty"};
+            "CellEmpty",
+            "AgentPositions"};
     private boolean __rule_init = false;
     public java.lang.Object genObject(int __index)
     {
@@ -169,11 +169,11 @@ public class ECellStatusChanged extends aos.jack.jak.event.BDIGoalEvent implemen
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_agentPositions_dat);
+                return aos.util.ToObject.box(bel_cellEmpty_dat);
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_cellEmpty_dat);
+                return aos.util.ToObject.box(bel_agentPositions_dat);
             }
             default: 
             {
@@ -193,8 +193,8 @@ public class ECellStatusChanged extends aos.jack.jak.event.BDIGoalEvent implemen
         }
         catch (aos.jack.jak.logic.LogicException e) {
         }
-        bel_agentPositions_dat = (rmit.ai.clima.jackagt.data.AgentPositions) agent.getNamedObject("bel_agentPositions_dat","rmit.ai.clima.jackagt.data.AgentPositions");
         bel_cellEmpty_dat = (rmit.ai.clima.jackagt.data.CellEmpty) agent.getNamedObject("bel_cellEmpty_dat","rmit.ai.clima.jackagt.data.CellEmpty");
+        bel_agentPositions_dat = (rmit.ai.clima.jackagt.data.AgentPositions) agent.getNamedObject("bel_agentPositions_dat","rmit.ai.clima.jackagt.data.AgentPositions");
         new aos.extension.rule.RuleMonitor(this,0);
         new aos.extension.rule.RuleMonitor(this,1);
     }

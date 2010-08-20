@@ -30,15 +30,15 @@ Capability Name: GUIUpdateCapability
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event MEInformAgentStatus ;
-
-	#handles external event MESimStart ;
-
 	#handles external event EGUIDebugMessage ;
+
+	#handles external event MEInformAgentStatus ;
 
 	#handles external event MEInformCellStatus ;
 
 	#handles external event MESimEnd ;
+
+	#handles external event MESimStart ;
 
 
 	//Plans directly used are declared here.
@@ -46,11 +46,11 @@ Capability Name: GUIUpdateCapability
 
 	#uses plan GUIUpdateCell ;
 
+	#uses plan GUIInitiate ;
+
 	#uses plan GUIReportMessage ;
 
 	#uses plan GUIUpdateAgentLoc ;
-
-	#uses plan GUIInitiate ;
 
 
 	// Inner capabilities are declared here.
