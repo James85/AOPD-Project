@@ -1,0 +1,69 @@
+package rmit.ai.clima.jackagt.events;
+
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.*;
+import rmit.ai.clima.gui.graphic.*;
+
+public event ECellChange extends BDIGoalEvent
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Message Name: ECellChange
+ * Covered: true
+ * Overlap: true
+*/
+	#uses data CellEmpty bel_cellEmpty_dat;
+
+	#uses data GoldAt bel_goldAt_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	#set transport java;
+	 
+	public String message;
+	public GridObject gridObject;
+
+
+
+	logical int $x, $y, $id;
+	        
+	   #posted as goldRemoved(int x,int y)
+	   {
+		   this.gridObject = new GridObject(x,y, "nogold");  
+	   }   
+	   
+	#posted when (bel_goldAt_dat.getLocWithGold($x, $y))
+	{
+		// Cell has a gold
+		gridObject = new GridObject($x.as_int(),$y.as_int(),GameGraphics.getGoldString());
+		message = "Just learned of gold at " +GridPoint.toString($x.as_int(),$y.as_int());
+	}
+	#posted when (!bel_goldAt_dat.getLocWithGold($x, $y))
+	{
+		// Cell has no gold
+		
+		gridObject = new GridObject($x.as_int(), $y.as_int(), "nogold");
+		message = "Just learned no gold at " + GridPoint.toString($x.as_int(),$y.as_int());
+	}
+	   
+	
+   // Cell does not have an obstacle
+   #posted when (bel_cellEmpty_dat.get($x,$y)) {
+
+	  gridObject = new GridObject($x.as_int(),$y.as_int(), GameGraphics.getEmptyString());
+	  
+	  message = "Just learned of an empty cell at location " + GridPoint.toString($x.as_int(),$y.as_int()); 
+   }
+
+
+   // Cell has an obstacle
+   #posted when (!bel_cellEmpty_dat.get($x, $y)){
+
+	  gridObject = new GridObject($x.as_int(),$y.as_int(), GameGraphics.getObstacleString());
+
+	  message = "Just learned of an obstacle at location " + GridPoint.toString($x.as_int(),$y.as_int());
+   }
+
+
+   
+}

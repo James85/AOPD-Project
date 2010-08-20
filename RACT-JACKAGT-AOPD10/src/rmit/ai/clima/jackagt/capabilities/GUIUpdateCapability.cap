@@ -1,0 +1,73 @@
+package rmit.ai.clima.jackagt.capabilities;
+import rmit.ai.clima.jackagt.plans.*;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import aos.jack.util.thread.Semaphore;
+
+public capability GUIUpdateCapability extends Capability
+		 /*implements Interface*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+Capability Name: GUIUpdateCapability
+*/
+
+	//Knowledge bases used are declared here.
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#private data Semaphore mutex_accessGUI_dat(/**/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#private data BAgentNumbers bel_agentNumbers_dat(/*String agentName, int agentNo*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#private data GUICurrentStep bel_GUICurrentStep_dat(/*int agentNum, int step*/);
+
+
+	//Events handled, posted and sent are declared here.
+	#handles external event MEInformAgentStatus ;
+
+	#handles external event MESimStart ;
+
+	#handles external event EGUIDebugMessage ;
+
+	#handles external event MEInformCellStatus ;
+
+	#handles external event MESimEnd ;
+
+
+	//Plans directly used are declared here.
+	#uses plan GUIClose ;
+
+	#uses plan GUIUpdateCell ;
+
+	#uses plan GUIReportMessage ;
+
+	#uses plan GUIUpdateAgentLoc ;
+
+	#uses plan GUIInitiate ;
+
+
+	// Inner capabilities are declared here.
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   
+   
+   // As the semaphore is grabbed initially by the constructing thread, 
+   // it must also be released by a call to signal(). 
+   // This releases the semaphore after it has been constructed,
+   protected void autorun()
+      {
+         mutex_accessGUI_dat.signal();
+      }
+   
+   
+   
+   
+   
+}

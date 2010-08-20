@@ -1,0 +1,42 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.agents.*;
+
+import aos.jack.util.thread.Semaphore;
+
+public plan GUIClose extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: GUIClose
+Description: Close the GUI interface
+*/
+	//Events handled by the plan are declared here.
+	#handles event MESimEnd mesimend_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#uses data Semaphore mutex_accessGUI_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   context()
+   {
+      true;
+   }
+
+   body()
+   {
+		GUIAgent gui = (GUIAgent)getAgent();
+		
+		@waitFor(mutex_accessGUI_dat.planWait()); // Hold the mutex for updating the GUI
+		
+			gui.reset();
+		
+		mutex_accessGUI_dat.signal(); // release mutex
+					
+	
+   }
+}

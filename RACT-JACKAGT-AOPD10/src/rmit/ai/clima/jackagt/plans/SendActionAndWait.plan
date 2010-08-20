@@ -1,0 +1,74 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.iface;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+//modify
+import rmit.ai.clima.comms.Action;
+import rmit.ai.clima.iface.TellClimaServer;
+import rmit.ai.clima.interfaces.*;
+
+public plan SendActionAndWait extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: SendActionAndWait
+Description: Send an action to the game server and wait for the next request-action message
+*/
+	//Events handled by the plan are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#posts event TellClimaServer tellclimaserver_p;
+
+	#handles event EExecuteCLIMAaction eexecuteclimaaction_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#reads data LastActionSentBel bel_lastActionSent_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface debugIface;
+
+   final static String ID = "SEND_ACT";	// The ID of the plan (for printing)	
+
+   static boolean relevant(EExecuteCLIMAaction ev)
+    {
+        return true;
+    }
+    
+    context()
+    {
+        true;
+    }
+  
+  
+    #reasoning method
+    body()
+    {
+        
+		// Get the id of the most recent request action
+    	logical int $id;
+    	bel_currentRequestActionId_dat.query_id($id);
+
+    	// Send the action with the most recent request action
+    	// It is important to set this id as the server will only execute
+    	// an action if it has its id = to the id of the last pending request-action
+		@post(tellclimaserver_p.tell(new Action(eexecuteclimaaction_h.message, getAgent().name(), "" + 	$id.as_int())));
+     
+		// Report that the action was sent for execution
+        debugIface.showConsoleDebug("I sent CLIMA action *" + eexecuteclimaaction_h.message +"* for execution with id " + $id.as_int());
+		@send("gui", eguidebugmessage_s.reportMessage(ID, "I have decided to move towards: " + "*"+eexecuteclimaaction_h.message+"*"));
+
+
+        // Wait until the next RequestAction arrives from the server and belief
+        // sets are updated: wait until we have digested a new request-action.
+        @wait_for(bel_currentRequestActionId_dat.check_id($id.as_int() + 1));
+    }  
+    
+}

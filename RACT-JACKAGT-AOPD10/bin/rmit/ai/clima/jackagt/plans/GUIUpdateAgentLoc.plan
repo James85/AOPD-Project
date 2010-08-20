@@ -1,0 +1,67 @@
+package rmit.ai.clima.jackagt.plans;
+
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.agents.*;
+
+import rmit.ai.clima.grid.content.*;
+import rmit.ai.clima.gui.grid.*;
+
+
+import rmit.ai.clima.*;
+import rmit.ai.clima.utility.AgentUtils;	// several agent utilities
+
+import aos.jack.util.thread.Semaphore;
+
+public plan GUIUpdateAgentLoc extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: GUIUpdateAgentLoc
+Description: Update the location of an agent in the GUI
+*/
+	//Events handled by the plan are declared here.
+	#handles event MEInformAgentStatus meinformagentstatus_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data GUICurrentStep bel_GUICurrentStep_dat;
+
+	#uses data Semaphore mutex_accessGUI_dat;
+
+	#reads data BAgentNumbers bel_agentNumbers_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   context()
+   {
+		((GUIAgent)getAgent()).guiReady;
+	}
+
+   body()
+   {
+
+    	GUIAgent guiAgent = (GUIAgent)getAgent();
+
+		@waitFor(mutex_accessGUI_dat.planWait()); // Hold the mutex for updating the GUI
+
+      
+			// First, get the agent identification registration in the GUI
+			logical int $agentNo;
+	    	bel_agentNumbers_dat.getNo(meinformagentstatus_h.from, $agentNo);
+       
+		//       		guiAgent.initiateStep(agentNo, meinformagentstatus_h.stepNo, meinformagentstatus_h.agentLocation);
+       		//	guiAgent.setGoldCount(agentNo, meinformagentstatus_h.stepNo, meinformagentstatus_h.goldCount);
+
+			// Update step number of the agent
+       	//	bel_GUICurrentStep_dat.add(agentNo, meinformagentstatus_h.stepNo);
+       
+        	// Next tell the GUI our current location and number of gold pieces we have
+       		if(guiAgent.showGUI && (guiAgent.guiInterface.newTurn($agentNo.as_int()) != -1) ) {
+       			guiAgent.guiInterface.updateAgentLocation($agentNo.as_int(), meinformagentstatus_h.agentLocation);
+        	}
+        
+	   mutex_accessGUI_dat.signal(); // release mutex
+   }	// end @body
+}

@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Mon Jul 26 10:47:57 EST 2010
+builderNum=2
+outputDir=doc/system-manual/
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=doc/system-manual
+mainTexFile=jackagtv2-manual.tex
+outputFile=jackagtv2-manual.pdf
+langSpell=en
+markDer=true
+srcDir=doc/system-manual/

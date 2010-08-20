@@ -1,0 +1,36 @@
+package rmit.ai.clima.jackagt.data;
+
+public beliefset GUICurrentStep extends ClosedWorld /*or OpenWorld*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: GUICurrentStep
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+	#key field int agentNum;
+
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+	#value field int step;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+    
+    #indexed query check(int agentNum, int step);
+    #indexed query get(int agentNum, logical int step);
+    
+    #function query public int getStep(int agentNum) {
+        logical int step;
+        Cursor c = get(agentNum, step);
+        if(c.next())
+            return step.as_int();
+        else
+            return -1;
+    }
+}
+
+

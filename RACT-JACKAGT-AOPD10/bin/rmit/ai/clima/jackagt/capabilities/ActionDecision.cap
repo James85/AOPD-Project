@@ -1,0 +1,59 @@
+package rmit.ai.clima.jackagt.capabilities;
+import rmit.ai.clima.jackagt.plans.*;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import aos.jack.jak.event.PlanChoice;
+
+
+
+public capability ActionDecision extends Capability
+		 /*implements Interface*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+Capability Name: ActionDecision
+Description: Decide what to do next
+*/
+
+	//Knowledge bases used are declared here.
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CellEmpty bel_cellEmpty_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data GoldAt bel_goldAt_dat();
+
+
+	//Events handled, posted and sent are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event EAct ;
+
+
+	//Plans directly used are declared here.
+	#uses plan PickGold ;
+
+	#uses plan MoveRandomly ;
+
+
+	// Inner capabilities are declared here.
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   //other Data Member and Method definitions.
+}

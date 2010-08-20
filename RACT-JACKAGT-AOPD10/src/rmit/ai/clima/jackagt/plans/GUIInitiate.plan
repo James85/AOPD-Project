@@ -1,0 +1,101 @@
+package rmit.ai.clima.jackagt.plans;
+
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.agents.GUIAgent;
+import rmit.ai.clima.jackagt.events.ESimStart;
+
+import java.awt.Color;
+import rmit.ai.clima.utility.AgentUtils;	// several agent utilities
+
+import rmit.ai.clima.gui.*;
+import rmit.ai.clima.gui.grid.*;
+
+import java.util.Vector;
+import aos.jack.util.thread.Semaphore;
+
+public plan GUIInitiate extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: GUIInitiate
+Description: Start the GUI interface
+*/
+	//Events handled by the plan are declared here.
+	#handles event MESimStart mesimstart_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data GUICurrentStep bel_GUICurrentStep_dat;
+
+	#uses data Semaphore mutex_accessGUI_dat;
+
+	#modifies data BAgentNumbers bel_agentNumbers_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   context()
+   {
+      true;
+   }
+
+   body()
+   {
+	// Make gui THIS agent
+    GUIAgent gui = (GUIAgent)getAgent();
+
+	@waitFor(mutex_accessGUI_dat.planWait()); // Hold the mutex for updating the GUI
+		// Only one plan at a time can enter this block
+		// This will cause all data-structures (e.g., gui.steps, gui.Interface)
+		// to be created just once, regardless how many sim-start messages the
+		// GUIAgent receives from the players
+
+       
+        // If the guiInterface var of the agent hasn't already been initialised
+        // then initialize it and show it (done only once in 1st esimstart message)
+        // This is done only if the gui is displayable, that is, if gui.showGUI is true
+        if(gui.showGUI && !gui.guiReady) {
+            // Initialise the guiInterface
+		
+			// OBS: we used to wrap this in @action{} which would cause a thread to be forked
+			// However, we want the GUIAgent to *block* here so that later on, update messages
+			//	on the gui are digested with the gui interface already up and running fully
+				String title = "Sim Id: " + mesimstart_h.id + " - Opponent: " + mesimstart_h.opponent; 
+
+				// We pass the gui agent itself for call backs 				
+  				// constructor for new gui
+
+  				gui.guiInterface = 	new GuiInterface(
+  					title, "Gold", "Diggers ",
+            		mesimstart_h.gridSize.x, mesimstart_h.gridSize.y, gui.maxAgents,
+            		gui, GameGraphics.getEmptyGraphic(), GameGraphics.getEmptyGraphic());
+            		
+              	//gui.guiInterface.setVisible(true);
+            	gui.guiReady=true;	// now the GUI is ready to be used!
+				
+	            System.out.println("================> GUI interface initialized <=================");
+        }
+
+
+
+	// Next, add the agent who sent the simStart into the GUI
+    if(gui.showGUI){
+    	// register agent to GUI Interface passing how the agent is going to be drawn
+    	int agentNo = gui.guiInterface.newAgent(mesimstart_h.from, GameGraphics.getAgentGraphic()); 	
+    	
+    	// Register the agent for tracking
+    	bel_agentNumbers_dat.add(mesimstart_h.from, agentNo); 
+
+	    // Second, initialize the agent in the GUI
+	    bel_GUICurrentStep_dat.add(agentNo, 0);
+	    
+	    System.out.println("=================> Agent "+mesimstart_h.from+" registered in the GUI with number "+agentNo);
+    }
+
+    
+    mutex_accessGUI_dat.signal(); // release mutex
+
+
+   } // end @body
+}

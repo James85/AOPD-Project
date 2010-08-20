@@ -1,0 +1,97 @@
+========================================================================
+Changelog file for the JACK-PDT-CLIMA application
+
+* means major changes/fixes
+- means minor changes/fixes
+
++ Addition
+========================================================================
+
+
+
+#######################################################################
+Version 2.5 - June 2010
+#######################################################################
+
+* Moved PDT design into ECLIPSE plugin version.
+* Changed the GUI interface to the new one that Abhijeet Anand did.
+
+* Restructured the way the GUI is updated by using automatic events only.
+* Added a few plans for smarter movement.
+* Added a Map.view view to aggregate several beliefsets. 
+
+#######################################################################
+Version 2.0 - June 2009
+#######################################################################
+
+* Moved JACK source code to package rmit.ai.clima.jackagt
+* Added general agent static library class rmit.ai.clima.utility.AgentUtils
+
+* Updated documentation
+* Updated readme.txt
+ 
+
+
+#######################################################################
+Version 1.5 - July 2008
+#######################################################################
+
+- Extended GUIAgent and to display title in the GUI window.
+- Extended ESimStart to include id and opponent of simulation. 
+- Added debugging facilities to Player agent using JACK interfaces.
+- Added a non-event percept to model the arriving of sensing information
+	via the request-action XML messages from the game server.
+- Renamed many entities to more clear names
+- Collapsed the AdvanceClick and ReverseClick events in ReviewAgent 
+	into one event EMakeStep to signal that a step has to be done 
+	(forward or backwards)
+- Make the system such that all JACK sources (JACK/) are apart form the 
+	final executable system (bin/)
+- Separated out all the non-JACK code necessary for the GUI which
+	includes the Java code for the gui window and the data structures
+	to keep the information of a simulation. All this is now moved
+	into the "extras" subproject within rmit.clima and rmit.clima.gui
+- Added script to put all the GUI system into one JAR file called
+	guiagent.jar (to be put in lib/)
+- Serialized all events arriving to the GUIAgent so that the updates
+	on the Windows is correct wrt the time they were requested. This
+	was done by using a JACK Sempahore (called mutex_accessGUI)
+- Fixed issue with GUI being accessed before being fully created.
+- Fixed bug in climacomms.jar (ClimaTalking) so that the translation
+	with the grammar is synchronized among agents.
+
+
+#######################################################################
+Version 1.2 - October 12, 2007
+#######################################################################
+
++ Added beliefset CurrentPosition to player
++ Added beliefset GoldAt to player and coordinator
++ Added beliefset NumCarryingGold to player
+
+
+- Change read to write of CellEmpty beliefset in plan UpdateCellsAround
+- Improved all fail() reasoning methods in plan using getPlanName()
+
+
+#######################################################################
+Version 1.2 - October 12, 2007
+#######################################################################
+
+* Included all code necessary to perform the syncronization of actions:
+  	   - added beliefset CurrentRequestActionId
+	   - changed HandlePercept and SendActionAndWait plans 
+
+- Added script review-sim.sh for unix systems
+- Two ant scripts to compile the application within ECLIPSE:
+      - precompile_jack_win.ant: to use in Windows systems
+      - precompile_jack.ant: to use in unix/linux systems
+- Updated unix/linux scripts to use the GUI
+
+
+#######################################################################
+Version 1.1 - July 2007
+#######################################################################
+
+* Original PDT version of the dummy JACK agent for CLIMA07
+  [This is the version obtained from re-doing the JDE version into PDT]

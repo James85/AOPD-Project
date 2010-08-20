@@ -1,0 +1,49 @@
+<project name="JACKAGT-GOLD" default="jars" basedir=".">
+    <!--Initialization Target-->
+    <target name="init">
+        <property name="src.dir" value="${basedir}/src" />
+        <property name="compile.lib.dir" value="${basedir}/lib" />
+		<property name="output.dir" value="${basedir}/bin"/>
+        <property name="build.dir" value="${basedir}/bin" />
+        <path id="build.classpath">
+            <pathelement location="${compile.lib.dir}/jack.jar" />
+            <pathelement location="${compile.lib.dir}/gui.jar" />
+        	<pathelement location="${compile.lib.dir}/climacomms.jar" />
+        	<pathelement location="${build.dir}" />
+        </path>
+        <property name="agent.jar" value="${compile.lib.dir}/jackagt-gold.jar" />
+    </target>
+
+    <!--Prepare the build directory.-->
+    <target name="prepare" depends="init">
+        <mkdir dir="${build.dir}" />
+    </target>
+
+    <!--Prepare the source code.-->
+    <target name="prepare-src" depends="init, prepare">
+        <mkdir dir="${build.dir}" />
+    </target>
+
+    <!--Compile the source directory.-->
+    <target name="compile" depends="init, prepare-src">
+    	 <java classname="aos.main.JackBuild" failonerror="true" fork="true">
+    	    	<classpath refid="build.classpath"/>
+    	    	<arg value="${src.dir}"/>
+    	    	<arg value="-x"/>
+    	 		<arg value="-r"/>
+    	 		<arg value="-d"/>
+    	    	<arg value="${build.dir}"/>
+    	 		
+    	</java> 
+    </target>
+
+    <!--Create the jars.-->
+    <target name="jars" depends="init, compile">
+        <mkdir dir="${compile.lib.dir}" />
+        <jar jarfile="${agent.jar}">
+            <fileset dir="${build.dir}/" includes="*" />
+        </jar>
+    </target> 
+
+
+</project>

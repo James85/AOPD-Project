@@ -1,0 +1,5 @@
+	
+	3. CONFIRMED: The #import statements in beliefsets inside a capabilities are gone every now and then. When that happens, instead of
+	an #import, an #export is used and the beliefset is duplicated!
+	
+	

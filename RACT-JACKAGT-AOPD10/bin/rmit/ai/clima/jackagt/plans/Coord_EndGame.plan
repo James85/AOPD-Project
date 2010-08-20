@@ -1,0 +1,48 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.agents.*;
+
+import rmit.ai.clima.interfaces.*;
+
+import java.io.*;
+
+
+public plan Coord_EndGame extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: Coord_EndGame
+Description: Coordination plan to finish a whole game
+*/
+	//Events handled by the plan are declared here.
+	#handles event MEGameEnd megameend_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
+
+   //modify
+   static boolean relevant(MEGameEnd ev)
+    {
+        return true;
+    }
+    
+    context()
+    {
+        true;
+    }
+    
+    
+    #reasoning method
+    body()
+    {
+      	
+    	consoleIface.showConsoleDebug("Agent "+megameend_h.from+ " reported it is finishing...");
+		    
+    }
+}

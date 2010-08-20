@@ -1,0 +1,63 @@
+package rmit.ai.clima.jackagt.plans;
+
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.agents.*;
+
+import rmit.ai.clima.utility.AgentUtils;	// several agent utilities
+
+import aos.jack.util.thread.Semaphore;
+
+import java.util.Date;
+import java.util.Calendar;
+
+public plan GUIReportMessage extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: GUIReportMessage
+Description: Reports a text message in the GUI
+*/
+	//Events handled by the plan are declared here.
+	#handles event EGUIDebugMessage eguidebugmessage_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#uses data Semaphore mutex_accessGUI_dat;
+
+	#reads data BAgentNumbers bel_agentNumbers_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   context()
+   {
+      (eguidebugmessage_h.reporting && ((GUIAgent)getAgent()).guiReady);
+   }
+
+    #reasoning method
+    body()
+    {
+	   	GUIAgent guiAgent = (GUIAgent)getAgent();
+	
+
+		@waitFor(mutex_accessGUI_dat.planWait()); // Hold the mutex for updating the GUI
+    
+			// First, get the agent identification registration in the GUI
+			logical int $agentNo;
+			
+	    	bel_agentNumbers_dat.getNo(eguidebugmessage_h.from, $agentNo);
+			int agentNo = $agentNo.as_int();
+			
+			// Now, print the message in the gui window
+       		if(guiAgent.showGUI) {
+	        	guiAgent.guiInterface.reportMessage(agentNo, eguidebugmessage_h.entity, 
+	        			"[" + eguidebugmessage_h.timestamp.get(Calendar.MINUTE) + ":" +
+	        			eguidebugmessage_h.timestamp.get(Calendar.SECOND) + ":" +
+	        			eguidebugmessage_h.timestamp.get(Calendar.MILLISECOND) + "] " + eguidebugmessage_h.message);
+	        }
+
+	    mutex_accessGUI_dat.signal(); // release mutex
+    }
+   
+}

@@ -1,0 +1,46 @@
+package rmit.ai.clima.jackagt.data;
+
+
+public beliefset CurrentStatus extends ClosedWorld
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: CurrentStatus
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+	#value field boolean debugConsole;
+
+	#value field boolean debugGUI;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+
+   #linear query check(boolean debugConsole, boolean debugGUI); 
+   #linear query get(logical boolean debugConsole, logical boolean debugGUI); 
+
+   
+   #function query  public boolean debugConsole()   {
+       logical boolean $debugConsole, $debugGUI;
+
+       if (get($debugConsole, $debugGUI).next()) {
+    	   return $debugConsole.as_boolean();
+       } else
+    	   return false;
+   }
+	
+   #function query public boolean debugGUI()   {
+       logical boolean $debugConsole, $debugGUI;
+
+       if (get($debugConsole, $debugGUI).next()) {
+    	   return $debugGUI.as_boolean();
+       }	else 
+    	   return true;
+   }
+	
+}

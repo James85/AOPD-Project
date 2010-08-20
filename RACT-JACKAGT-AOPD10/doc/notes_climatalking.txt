@@ -1,0 +1,277 @@
+=============================================================================
+On XML Messages and the PerceiveClimaServer and TellClimarServer Events
+
+October 13, 2006 - Sebastian Sardina - Original version
+July 23, 2008 - Sebastian Sardina - Revised version
+
+NOTE: this is a quick note, it may contain some errors including several typos
+=============================================================================
+
+
+==============================================================
+1. XML Messages and Clima-Talking's PerceiveClimaServer Event
+==============================================================
+
+XML messages are exchanged between agents and the game server. However, you 
+should not care about the XML format of these  messages or how they are received 
+or sent: all that is done by the provided Clima-Talking capability.
+
+From the agent's perspective, these messages will appear as events. In
+concrete, when the server sends an XML message to the agent, the Clima-Talking
+capability reads it (from a TCP socket) and posts a corresponding event of type
+PerceiveClimaServer to the agent. Such event, whose type PerceiveClimaServer
+has also been defined in the Clima-Talking capability, will contain a property 
+called "data". This can be found in the definition of the event type
+in the Clima-Talking capability source:
+
+package rmit.ai.clima.iface;
+import rmit.ai.clima.comms.FromServerMessage;
+
+public event PerceiveClimaServer extends InferenceGoalEvent {
+    public FromServerMessage data;
+
+    #posted as
+    perceive(FromServerMessage m)
+    {
+        data = m;
+    }
+}
+
+
+Notice that the property data is of type FromServerMessage, a class type that 
+represents a message that came from the server. So, if ev is an event of type 
+PerceiveClimaServer that an agent has received, then ev.data is a 
+FromServerMessage object. Even more, it ev.data will be an object of a
+sub-class that specializes type FromServerMessage.  There are 6 sub-classes
+of class FromServerMessage:
+
+1. AuthResponse
+2. SimStart
+3. SimEnd
+4. Bye
+5. RequestAction
+6. Pong
+
+These classes, all extensions of class FromServerMessage, correspond 1 to 1
+to the XML messages that the game server can send to an agent, as explained in
+the CLIMA description of communication protocols (file c7c-protocol.txt). The
+available classes can be found in file msg.api in the Clima-Talking capability
+file (climacomms.zip) in directory rmit/ai/clima/comms/ and they belong
+to package rmit.ai.clima.comms.
+
+
+
+Thus, for example, if the server sends an XML request-action message, the agent 
+will eventually receive an event ev, whose data property (that is, ev.data) 
+is an object of class RequestAction.
+
+All this means that the agents should have plans to handle events of type
+PerceiveClimaServer. Plans could be designed to handle those events depending
+on the type of data they carry. This could be done nicely by using the
+relevant method of plans. For example, a plan that handles any type of 
+PerceiveClimaServer event as long as its data property is not empty would
+have the following relevent method:
+
+    static boolean relevant(PerceiveClimaServer ev)
+    {
+        return ev.data != null;
+    }
+
+
+Suppose next that we want to write a plan that *only* handles the event if
+the data it is carrying inside corresponds to a request-action message. The following
+code would achieve this:
+
+    static boolean relevant(PerceiveClimaServer ev)
+    {
+        return ev.data instanceof RequestAction;
+    }
+
+
+==============================================================
+2. XML Messages Classes
+==============================================================
+
+As we mentioned, the data property of a PerceiveClimaServer event carries
+the information contained in the message sent from the server. This means
+there are 6 classes, all extensions of class FromServerMessage.
+
+One could then access the information in the data of an event in the usual way. 
+For example, if ev.data is an object of class SimStart, one could access the 
+following information/properties:
+
+ev.data.id	  		:type :string 
+ev.data.opponent  	:type :string 
+ev.data.steps	  	:type :int 
+ev.data.gsizex	  	:type :int 
+ev.data.gsizey	  	:type :int 
+ev.data.depotx	  	:type :int 
+ev.data.depoty	  	:type :int 
+
+
+As easy to observe, this corresponds 1-1 to the information of a sim-start 
+message as described in the CLIMA description of communication protocols 
+(file c7c-protocol.txt). 
+
+Let us next go through the most important message class: RequestAction.
+Remember that the server will send, at every step, a request-action message to
+each agent in order to request the next action. Thus, each agent will receive
+an event ev of type PerceiveClimaServer such that ev.data is an object of
+class RequestAction. Such class is defined as follows:
+
+<Class :name "RequestAction"
+    :extends "FromServerMessage"
+    :fields (
+        <Field :name "step" :type :int >
+        <Field :name "posx" :type :int >
+        <Field :name "posy" :type :int >
+        <Field :name "items" :type :int >
+        <Field :name "deadline" :type :long >
+        <Field :name "id" :type :string >
+        <Field :name "cells" :type :aggregation :subtype "Cell" >
+    )
+
+which again corresponds to the protocol specification of request-action messages 
+(see file  c7c-protocol.txt).
+
+Now, the last property "cells" is basically an array of objects of class
+Cell: (see file RequestAction.java produced form the msg.api)
+
+  public Cell[] cells;
+
+
+Class Cell is defined as follows:
+
+<Class :name "Cell"
+    :fields (
+        <Field :name "id" :type :string >
+        <Field :name "marks" :type :aggregation :subtype "Mark" >
+    )
+    
+The id property will contain the identification of the cell (e.g., n, s, e, w,
+ne, nw, etc.). Once again, property "marks" is an array of objects of class Mark, 
+which is defined as follows:
+
+<Class :name "Mark"
+    :fields (
+        <Field :name "type" :type :string >
+        <Field :name "params" :type :other :subtype "Hashtable" >
+    )
+
+The types could be one of these strings (disregard property params):
+
+agent
+obstacle
+gold
+depot
+empty
+unknown
+
+corresponding to the information described c7c-protocol.txt.
+
+So, if ev is the event that has been received, and ev.data is an object of class
+RequestAction, we can then access the (j+1)-th mark of the (i+1)-th cell as follows:
+
+data.cells[i].marks[j]
+
+Then, if 
+data.cells[i].id = "n"
+and 
+data.cells[i].marks[0].type="obstacle"
+
+it means that the cell north to the agent has an obstacle. 
+Notice that there could be more than one mark for a cell. For instance:
+
+data.cells[i].id = "n"
+data.cells[i].marks[0].type="agent"
+data.cells[i].marks[1].type="gold"
+
+says that the cell north to the agent has gold and another agent.
+
+
+We list now the remaining classes extending class FromServerMessage:
+
+<Class :name "SimEnd"
+    :extends "FromServerMessage"
+    :fields (
+        <Field :name "score" :type :int >
+        <Field :name "result" :type :string >
+    )
+>
+
+
+<Class :name "Bye"
+    :extends "FromServerMessage"
+    :fields (
+    )
+    
+    
+<Class :name "Pong"
+    :extends "FromServerMessage"
+    :fields (
+        <Field :name "payload" :type :string >
+    )
+    
+Again, all these classes belong to package to package rmit.ai.clima.comms.
+
+==========================================================
+3. Sending XML messages by posting TellClimaServer events
+==========================================================
+
+When an agent wants to send some XML data to the game server, the agent posts 
+an event of type TellClimaServer. Again, TellClimaServer is an event
+type, provided by the Clima-Talking capability, that has a property "data"
+which will instantiate to an object of class ToServerMessage. In particular, 
+class ToServerMessage (defined in msg.api) has the following three sub-classes:
+
+1. AuthRequest	
+2. Action
+3. Ping
+
+corresponding to the different messages the agent can send to the game server 
+(see protocol specification in c7c-protocol.txt).  Class ToServerMessage and
+its three extensions belong to package to package rmit.ai.clima.comms.
+
+
+An event of type TellClimaServer is automatically handled by the Clima-Talking
+capability that is provided, so your agents would just have to *post* such
+event with its corresponding data property filled in.
+
+The three extensions of class ToServerMessage are as follows:
+
+
+<Class :name "AuthRequest"
+    :extends "ToServerMessage"
+    :fields (
+        <Field :name "username" :type :string >
+        <Field :name "password" :type :string >
+    )
+    
+<Class :name "Action"
+    :extends "ToServerMessage"
+    :fields (
+        <Field :name "type" :type :string >
+        <Field :name "param" :type :string >
+        <Field :name "id" :type :string >
+    )
+
+ <Class :name "Ping"
+    :extends "ToServerMessage"
+    :fields (
+        <Field :name "payload" :type :string >
+    )
+
+
+Finally, we point out that one can obtain the properties of each class 
+(RequestAction, SimStart, SimEnd, etc.)  by inspecting the file msg.api in 
+the Clima-Talking capability source. The file is located in rmit/ai/clima/comms/. 
+If you compile the Clima-Talking capability, you will notice that corresponding 
+.java and .class files are created for each of these messages. 
+For example, there will be a RequestAction.java file from where the 
+ RequestAction.class will be produced. However, this is not necessary to do 
+ as we have already provided the climacomms.jar file which has everything compiled 
+ and ready to use in your agents!
+
+=============================================================================
+EOF
+=============================================================================

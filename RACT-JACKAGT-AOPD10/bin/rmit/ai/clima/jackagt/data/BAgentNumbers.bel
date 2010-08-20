@@ -1,0 +1,25 @@
+package rmit.ai.clima.jackagt.data;
+import rmit.ai.clima.jackagt.events.*;
+
+public beliefset BAgentNumbers extends ClosedWorld /*or OpenWorld*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: BAgentNumbers
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+	#key field String agentName;
+
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+	#value field int agentNo;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	#indexed query get(logical String agentName, logical int agentNo);
+	#indexed query getNo(String agentName, logical int agentNo);
+}

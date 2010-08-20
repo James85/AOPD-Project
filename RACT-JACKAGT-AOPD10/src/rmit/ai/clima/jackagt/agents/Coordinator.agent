@@ -1,0 +1,102 @@
+package rmit.ai.clima.jackagt.agents;
+import rmit.ai.clima.jackagt.capabilities.*;
+import rmit.ai.clima.jackagt.plans.*;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+//modify
+import rmit.ai.clima.interfaces.*;
+
+import java.io.*;
+import java.util.StringTokenizer;
+
+
+public agent Coordinator extends Agent implements DebugInterface
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+Agent Name: Coordinator
+*/
+
+	//Knowledge bases used are declared here.
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data CellEmpty bel_cellEmpty_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data AgentPositions bel_agentPositions_dat(/*String agentName, int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
+
+
+	//Events handled, posted and sent are declared here.
+	#handles event ECellStatusChanged ;
+	#posts event ECellStatusChanged ecellstatuschanged_p;
+
+	#handles event MESimEnd ;
+
+	#handles event MESimStart ;
+
+	#handles event EUpdateBel ;
+
+	#handles event MEGameEnd ;
+
+	#handles event MEInformAgentStatus ;
+
+
+	//Plans directly used are declared here.
+	#uses plan Coord_ReportCellChanged ;
+
+	#uses plan Coord_InitSimulation ;
+
+	#uses plan Coord_EndSimulation ;
+
+	#uses plan UpdateCellsAround ;
+
+	#uses plan Coord_ReportAgentInformation ;
+
+	#uses plan Coord_EndGame ;
+
+
+	// Inner capabilities are declared here.
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   //other Data Member and Method definitions.
+
+
+   /* Constructor */
+   public Coordinator(String name /*Other Parameters */)
+   {
+      super(name /*Other Parameters*/);
+   }
+	// START OF DebugInterface INTERFACE IMPLEMENTATION   
+   public void showDebug(String Message) {
+	//		send("gui", eguidebugmessage_s.reportMessage(Message));
+		showConsoleDebug(Message);
+   }
+
+   public void showDebug(String Entity, String Message) {
+		showDebug(Entity + "::" + Message);
+   }
+
+   public void showConsoleDebug(String Entity, String Message) {
+		showConsoleDebug("(" + Entity + ")" + Message);
+   }
+
+   public void showConsoleDebug(String Message) {
+		System.out.println(this.name() + ":: " + Message);
+   }
+	// END OF DebugInterface INTERFACE IMPLEMENTATION   
+}
+	

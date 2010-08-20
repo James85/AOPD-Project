@@ -1,0 +1,56 @@
+package rmit.ai.clima.jackagt.plans;
+
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import agetns.*;
+
+import rmit.ai.clima.interfaces.*;
+
+
+public plan Coord_EndSimulation extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: Coord_EndSimulation
+Description: Coordination plan to finish a simulation
+*/
+	//Events handled by the plan are declared here.
+	#handles event MESimEnd mesimend_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data AgentPositions bel_agentPositions_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
+
+   static boolean relevant(MESimEnd ev)
+    {
+        return true;
+    }
+    
+    context()
+    {
+        true;
+    }
+    
+   
+    #reasoning method
+    body()
+    {
+        // Clear current simulation properties
+        logical int $gridX, $gridY, $depotX, $depotY, $noSteps;
+        bel_simulationProp_dat.get($gridX, $gridY, $depotX, $depotY, $noSteps).removeAll();
+        logical String $agentName;
+        logical int $xPos, $yPos;
+        bel_agentPositions_dat.get($agentName,$xPos,$yPos).removeAll();
+
+
+      	consoleIface.showConsoleDebug("Agent "+mesimend_h.from+ " reported the end of a simulation...");
+    }
+}

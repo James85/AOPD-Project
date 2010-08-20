@@ -1,0 +1,35 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+
+public event ECellStatusChanged extends BDIGoalEvent
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Message Name: ECellStatusChanged
+*/
+	#uses data CellEmpty bel_cellEmpty_dat;
+
+	#uses data AgentPositions bel_agentPositions_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	logical int $x,$y;
+	logical String $agentName;
+	public String msg;
+	//event initialisation
+	#posted when (!bel_cellEmpty_dat.get($x, $y)) 
+	{
+		this.msg = "A new obstacle has just been discovered at these coordinates: (" +$x.as_int() +","+$y.as_int()+")";
+	}
+	#posted as send()
+	{
+		
+	}
+	#posted when ( bel_agentPositions_dat.get($agentName,$x,$y))
+	{
+		this.msg = $agentName.as_string() +" just moved to a new cell at these coordinates: (" +$x.as_int() +","+$y.as_int()+")";
+	}
+	#posted as post(/*parameters*/)
+	{
+		//Method Body
+	}
+}

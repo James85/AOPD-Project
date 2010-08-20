@@ -1,0 +1,44 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File and Directory structure for the CLIMA JACK agent system
+%
+% Sebastian Sardina (ssardina@cs.rmit.edu.au)
+% July 2008
+% Revised June 2009
+% Revised June 2010
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+------ The content of this package is as follows:
+
+- readme.txt		Instructions on how to run the system (i.e., this file!)
+
+- design.pd		PDT file for the system
+
+- Makefile		Makefile for the application
+	make clean	clean-up binaries in bin/
+	make compile	generate binaries in bin/
+	make jar	build lib/jackagt.jar file
+	make all	do everything: clean, compile, and jar
+
+- compile.sh		Shell script to compile the JACK system (Unix)
+- compile. bat	Shell script to compile the JACK system (Windows)
+
+- bin/				System binary executables (and JACK .java generated files)
+- src/				source files, including JACK sources
+- doc/			System documentation
+- lib/				JAR files required (e.g., climacomms.jar, gui.jar, jack.jar, etc.)
+- extras/		Extra stuff
+
+
+- run-team.sh		Script to run the agent system (Unix)
+- run-team.bat		Script to run the agent system (Windows)
+
+
+OBS: Similar .bat file scripts are provided for Windows (may not be updated, please check)
+
+
+(Read README.TXT for instructions on how to run the JACK agent.)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EOF
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

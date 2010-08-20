@@ -1,0 +1,70 @@
+package rmit.ai.clima.jackagt.plans;
+
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.agents.*;
+
+import rmit.ai.clima.grid.content;
+import rmit.ai.clima.gui.grid.*;
+
+import aos.jack.util.thread.Semaphore;
+
+public plan GUIUpdateCell extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: GUIUpdateCell
+Description: Update the information of one cell in the GUI
+*/
+	//Events handled by the plan are declared here.
+	#handles event MEInformCellStatus meinformcellstatus_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#uses data Semaphore mutex_accessGUI_dat;
+
+	#reads data BAgentNumbers bel_agentNumbers_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   context()
+   {
+ 		((GUIAgent)getAgent()).guiReady;
+   }
+
+   body()
+   {
+
+	@waitFor(mutex_accessGUI_dat.planWait()); // Hold the mutex for updating the GUI
+
+	      	GUIAgent gui = (GUIAgent)getAgent();
+
+
+			// First, get the agent identification registration in the GUI
+			logical int $agentNo;
+	    	bel_agentNumbers_dat.getNo(meinformcellstatus_h.from, $agentNo);
+			int agentNo = $agentNo.as_int();
+			
+			GridObject gridobject = meinformcellstatus_h.gridObject;	        	
+	        String content = gridobject.getContent();
+	        //System.out.println("============================" + content);
+			
+			// Update the GUI (if showing) with the gridObject included in the message
+	        if(gui.showGUI) {
+	        	
+	        	if (content == null) {
+	        		System.out.println("============================ ERROR: content is null!");
+	        	}
+	        	else if(content.equals("nogold"))
+	        	{
+	        		gui.guiInterface.removeFromGridLocation(agentNo,meinformcellstatus_h.gridObject, GameGraphics.getGraphicObject(GameGraphics.getGoldString())); 
+	        	}
+	        	else       	{
+	        		gui.guiInterface.updateGridLocation(agentNo, meinformcellstatus_h.gridObject, GameGraphics.getGraphicObject(content));
+	        	}
+	        }
+  
+    mutex_accessGUI_dat.signal(); // release mutex
+   }
+}

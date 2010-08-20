@@ -1,0 +1,24 @@
+package rmit.ai.clima.jackagt.data;
+import rmit.ai.clima.jackagt.events.*;
+
+public beliefset NumCarryingGold extends ClosedWorld /*or OpenWorld*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: NumCarryingGold
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+	/*	Amount of gold this agent is carrying
+	*/
+	#key field int goldCount;
+
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
+	#indexed query getCarryingGold(logical int amount);
+}

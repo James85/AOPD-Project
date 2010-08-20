@@ -1,0 +1,17 @@
+package rmit.ai.clima.jackagt.events;
+
+public event EShowBeliefs extends InferenceGoalEvent
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Message Name: EShowBeliefs
+ * Covered: true
+ * Overlap: true
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   /*Posting Method Declarations*/
+   //modify
+   #posted as
+    show() {}
+
+}

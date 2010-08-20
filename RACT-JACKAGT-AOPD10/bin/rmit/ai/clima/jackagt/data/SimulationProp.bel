@@ -1,0 +1,53 @@
+package rmit.ai.clima.jackagt.data;
+
+//modify
+import rmit.ai.clima.gui.grid.GridPoint;
+
+public beliefset SimulationProp extends ClosedWorld /*or OpenWorld*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: SimulationProp
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+	#key field int gridX;
+
+	#key field int gridY;
+
+	#key field int depotX;
+
+	#key field int depotY;
+
+	#key field int noSteps;
+
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   // Zero or more #key field declarations.
+   // These describe the key attributes of each belief.
+   // Zero of more #value field declarations.
+   // These describe the data attributes of each belief.
+   
+    
+    #indexed query get(logical int gridX, logical int gridY, logical int depotX, logical int depotY, logical int noSteps);
+    #indexed query check(int gridX, int gridY, int depotX, int depotY, int noSteps);
+
+	#complex query getDepotLoc(logical int $depotX, logical int $depotY) {
+		logical int $gridX, $gridY, $noSteps;
+		
+		return get($gridX, $gridY, $depotX, $depotY, $noSteps); 
+	}
+
+	#complex query getGridSize(logical int $gridX, logical int $gridY) {
+		logical int $depotX, $depotY, $noSteps;
+		
+		return get($gridX, $gridY, $depotX, $depotY, $noSteps); 
+	}
+
+
+
+}

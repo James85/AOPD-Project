@@ -1,0 +1,67 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.iface.PerceiveClimaServer;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+//modify
+import rmit.ai.clima.comms.Bye;
+import rmit.ai.clima.comms.AuthResponse;
+import rmit.ai.clima.iface.PerceiveClimaServer;
+import rmit.ai.clima.interfaces.*;
+
+public plan FinishGame extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: FinishGame
+*/
+	//Events handled by the plan are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MEGameEnd megameend_s;
+
+	#handles event PerceiveClimaServer perceiveclimaserver_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
+
+   static boolean relevant(PerceiveClimaServer perceiveclimaserver_h)
+    {
+        return (perceiveclimaserver_h.data instanceof Bye ||
+        		    (perceiveclimaserver_h.data instanceof AuthResponse &&
+        		    		"fail".equals( ((AuthResponse) perceiveclimaserver_h.data).result ) )
+        		   );      		                        
+    }
+    
+    context()
+    {
+        true;
+    }
+    
+    
+    #reasoning method
+    body()
+    {
+
+        if (perceiveclimaserver_h.data instanceof Bye) {
+        	// Report the end of the current simulation for this agent
+			consoleIface.showConsoleDebug("I have been notified of the end of the tournament! I will finish...");
+			
+	        // Inform the coordinator that the full game has finished
+        	@send("boss", megameend_s.send());
+			
+		} else {
+			consoleIface.showConsoleDebug("Authentication was wrong; cannot continue anymore....");
+		}
+
+        // Finish agent
+        getAgent().finish();   
+    }
+
+
+}

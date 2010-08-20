@@ -1,0 +1,23 @@
+package rmit.ai.clima.jackagt.events;
+
+public event MEGameEnd extends MessageEvent
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Message Name: MEGameEnd
+ * Description: Inform that the game has fully finished
+ * Covered: true
+ * Overlap: true
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   /*Posting Method Declarations*/
+   //modify
+   public String result;
+    public int score;
+
+    #posted as
+    send() {}
+
+    #set transport java;
+
+}

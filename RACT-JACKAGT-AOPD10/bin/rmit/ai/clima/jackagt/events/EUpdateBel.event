@@ -1,0 +1,35 @@
+package rmit.ai.clima.jackagt.events;
+
+//modify
+import rmit.ai.clima.comms.Cell;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+public event EUpdateBel extends MessageEvent
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Message Name: EUpdateBel
+ * Covered: true
+ * Overlap: true
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   /*Posting Method Declarations*/
+   //modify
+    public int step;
+    public GridPoint currentPos;
+    public Cell[] cells;
+    public int noCarryingGold;
+
+    #posted as
+    post(int step, GridPoint currentPos, Cell[] cells, int noCarryingGold) {
+        this.step = step;
+        this.currentPos = currentPos;
+        this.cells = cells;
+        this.noCarryingGold = noCarryingGold;
+    }
+
+
+    #set transport java;
+
+}

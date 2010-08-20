@@ -1,0 +1,46 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.interfaces.*;
+
+public plan Coord_ReportAgentInformation extends Plan
+{
+	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+	/*
+Plan Name: Coord_ReportAgentInformation
+	 */
+	//Events handled by the plan are declared here.
+	#handles event MEInformAgentStatus meinformagentstatus_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data AgentPositions bel_agentPositions_dat;
+
+	/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	// The enclosing agent or capability has to implement these interfaces
+	#uses interface DebugInterface consoleIface;
+	context()
+	{
+		// Trigger: Event "MEAgentMoved"
+
+
+		true;
+	}
+
+	body()
+	{
+		bel_agentPositions_dat.add(meinformagentstatus_h.agentName,meinformagentstatus_h.agentLocation.x,meinformagentstatus_h.agentLocation.y);
+
+		//		consoleIface.showConsoleDebug("Coordinator Says: "+meinformagentstatus_h.agentName +" just moved, these are the agents I currently know about");
+		//		logical String $agentName;
+		//		logical int $xPos,$yPos;
+		//		Cursor agentInfo = bel_agentPositions_dat.get($agentName,$xPos,$yPos);
+		//		while(agentInfo.next())
+		//		{
+		//			consoleIface.showConsoleDebug("\t" + $agentName.as_string() + " : @ location ("+$xPos.as_int()+","+$yPos.as_int()+")");
+		//			
+		//		}
+
+	}
+}

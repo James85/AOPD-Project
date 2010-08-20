@@ -1,0 +1,150 @@
+package rmit.ai.clima.jackagt.agents;
+import rmit.ai.clima.iface.LastActionSentBel;
+import aos.jack.jak.event.PlanChoice;
+import rmit.ai.clima.iface;
+import aos.util.timer.Timer;
+import rmit.ai.clima.iface.PerceiveClimaServer;
+import rmit.ai.clima.jackagt.capabilities.*;
+import rmit.ai.clima.jackagt.plans.*;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+//modify
+import java.io.*;
+import java.util.StringTokenizer;
+import rmit.ai.clima.iface.ClimaTalking;
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.iface.PerceiveClimaServer;
+import rmit.ai.clima.iface.TellClimaServer;
+import rmit.ai.clima.interfaces.*;
+import rmit.ai.clima.utility.*;
+
+
+public agent Player extends Agent implements DebugInterface
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+Agent Name: Player
+*/
+
+	//Knowledge bases used are declared here.
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data NumCarryingGold bel_numCarryingGold_dat(/*int goldCount*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data CurrentRequestActionId bel_currentRequestActionId_dat(/*int id, int step*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data CurrentPosition bel_currentPosition_dat(/*int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data CellEmpty bel_cellEmpty_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	//#private data CurrentStatus bel_currentStatus_dat(/*boolean debugConsole, boolean debugGUI*/);
+
+
+	//Events handled, posted and sent are declared here.
+	#handles event PerceiveClimaServer ;
+	#posts event PerceiveClimaServer perceiveclimaserver_p;
+
+	#handles event ECellChange ;
+	#posts event ECellChange ecellchange_p;
+
+	#sends event MEInformAgentStatus meinformagentstatus_s;
+
+	#handles event EStart ;
+	#posts event EStart estart_p;
+
+	#sends event EUpdateBel eupdatebel_s;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MESimStart mesimstart_s;
+
+	#sends event MEGameEnd megameend_s;
+
+	#sends event MESimEnd mesimend_s;
+
+
+	#handles event EAgentMoved ;
+	#posts event EAgentMoved eagentmoved_p;
+
+	#handles event TellClimaServer ;
+	#posts event TellClimaServer tellclimaserver_p;
+
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+
+	//Plans directly used are declared here.
+
+	// Inner capabilities are declared here.
+	#has capability GameSyncing gamesyncing_cap;
+
+	#has capability ClimaTalking climatalking_cap;
+
+	#has capability GamePlaying gameplaying_cap;
+
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   //other Data Member and Method definitions.
+
+	   // I need to put this beliefset here in order to initialize it with a file
+	   #private data CurrentStatus bel_currentStatus_dat("CurrentStatus.dat");
+
+
+	
+	
+   /* Constructor */
+   public Player(String name) {
+      super(name);
+      climatalking_cap.setDebug(true);
+      //bel_currentStatus_dat.add(true, true);
+   }
+
+   public Player(String name, boolean debugOn) {
+      super(name);
+      climatalking_cap.setDebug(debugOn);
+     // bel_currentStatus_dat.add(true, true);
+   }
+
+   
+   // showDebug
+   public void showDebug(String Message) {
+		send("gui", eguidebugmessage_s.reportMessage(Message));
+   }
+
+   public void showDebug(String Entity, String Message) {
+		showConsoleDebug(Entity + ":: " + Message);
+   }
+
+   // showConsoleDebug
+   public void showConsoleDebug(String Entity, String Message) {
+		showConsoleDebug(Entity + ":: " + Message);
+   }
+
+   public void showConsoleDebug(String Message) {
+		AgentUtils.reportMessage("******************* [[" + this.name() + "]] " + Message);
+   } 
+
+}

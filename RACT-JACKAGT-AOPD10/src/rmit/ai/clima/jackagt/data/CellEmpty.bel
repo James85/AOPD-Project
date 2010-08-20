@@ -1,0 +1,71 @@
+package rmit.ai.clima.jackagt.data;
+
+import rmit.ai.clima.jackagt.events.*;
+
+
+
+
+public beliefset CellEmpty extends OpenWorld
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: CellEmpty
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+	#key field int xCoord;
+
+	#key field int yCoord;
+
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   // Zero or more #key field declarations.
+   // These describe the key attributes of each belief.
+   // Zero of more #value field declarations.
+   // These describe the data attributes of each belief.
+   
+   
+    #indexed query check(int xCoord, int yCoord);
+    #indexed query get(logical int xCoord, logical int yCoord);
+    
+    #function query public int getEmptyCount() {
+        logical int x, y;
+        int count;
+        
+        Cursor c = get(x,y);
+        while(c.next()) {
+                count++;
+        }
+        
+        return count;
+    }
+
+    #function query public int getBlockedCount() {
+        logical int x, y;
+        int count;
+        
+        Cursor c = get(x,y).negate();
+        while(c.next()) {
+                count++;
+        }
+        
+        return count;
+    }
+
+
+    #function query public boolean checkUnknown(int x, int y) {
+		if (check(x, y).next()) {
+				 return false;
+		} 
+		if ( (check(x, y).negate()).next()) {
+				 return false;
+		} 
+	 	return true;		// The cell (x,y) is UNKNOWN in beliefset
+	}
+
+
+}

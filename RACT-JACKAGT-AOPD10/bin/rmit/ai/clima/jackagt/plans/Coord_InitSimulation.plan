@@ -1,0 +1,57 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+import rmit.ai.clima.interfaces.*;
+
+public plan Coord_InitSimulation extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: Coord_InitSimulation
+Description: Coordination plan to start a simulation
+*/
+	//Events handled by the plan are declared here.
+	#handles event MESimStart mesimstart_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data SimulationProp bel_simulationProp_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
+
+   static boolean relevant(MESimStart ev)
+    {
+        return true;
+    }
+    
+    context()
+    {
+        true;
+    }
+    
+   
+    #reasoning method
+    body()
+    {
+        // Retrieve all the information in the event
+        int gridX = mesimstart_h.gridSize.x;
+        int gridY = mesimstart_h.gridSize.y;
+        int depotX = mesimstart_h.depotPosition.x;
+        int depotY = mesimstart_h.depotPosition.y;
+        int numSteps = mesimstart_h.numSteps;
+            
+
+		if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps)) {
+	      	consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation, but I already know about it...");
+	    } else {
+	        // Initalize parameters for the new simulation
+    	    bel_simulationProp_dat.add(gridX, gridY, depotX, depotY, numSteps);
+	      	consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation!");
+      	}
+    }
+}
