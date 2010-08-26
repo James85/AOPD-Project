@@ -55,7 +55,8 @@ Description: Update the beliefs about the cells around a location
 		 * central location (posX,posY)
 		 */
 		String locDir;
-		boolean setToNoGold;	//	should a cell be set to have no gold?
+		boolean bFoundGold;	//	should a cell be set to have no gold?
+                boolean bUnknown;
 		logical int $noGold; 	//  logical int to retrieve the amount of gold this agent is carrying
 		for(int i=0; i < cells.length; i++) {	// interate on each cell
 
@@ -63,7 +64,8 @@ Description: Update the beliefs about the cells around a location
 			locDir = cells[i].id;	// first, get its direction (e.g., n, nw, s, se, etc.)
 			GridPoint loc = GridPoint.getFromDir(posX, posY, locDir);
 
-			setToNoGold = true;	// Initially, assume the cell does not contain gold	            
+			bFoundGold = false;	// Initially, assume the cell does not contain gold
+	                bUnknown = false;
 			// Iterate on all the marks/labels for cells[i] (which is location loc)
 			for(int j = 0; j < cells[i].marks.length; j++) {
 
@@ -75,31 +77,30 @@ Description: Update the beliefs about the cells around a location
 					if( cells[i].marks[j].type.equalsIgnoreCase("obstacle") ) 
 					{
 						bel_cellEmpty_dat.add(loc.x, loc.y, Cursor.FALSE);
-						bel_goldAt_dat.add(loc.x, loc.y, Cursor.FALSE);
 					}
 					else
+                                        {
+                                           //if there is no obstacle then this will always be empty
+                                           bel_cellEmpty_dat.add(loc.x, loc.y, Cursor.TRUE);
 						if( cells[i].marks[j].type.equalsIgnoreCase("gold"))
 						{
-							//implicit Cursor.TRUE? #TODO
-							bel_goldAt_dat.add(loc.x, loc.y, Cursor.TRUE);
-							bel_cellEmpty_dat.add(loc.x, loc.y, Cursor.TRUE);
+                                                   bFoundGold = true;
+                                                   bel_goldAt_dat.add(loc.x, loc.y, Cursor.TRUE);
 
 						}
-						else
-						{	// The cell must be empty if there is no obstacle and no gold
-							bel_cellEmpty_dat.add(loc.x, loc.y, Cursor.TRUE);
-							if(bel_goldAt_dat.checkIfGold(loc.x, loc.y))
-							{
-								bel_goldAt_dat.add(loc.x,loc.y, Cursor.FALSE);
-							}
-						}
+                                        }
 
 				} 
 				else 
 				{
-					// sensor returned "unknown" for this cell (noise in sensor)
+				   // sensor returned "unknown" for this cell (noise in sensor)
+                                   bUnknown = true;
 				} // end if
 			} // end for j 
+                        if(!bFoundGold && !bUnknown )
+                        {
+                          bel_goldAt_dat.add(loc.x,loc.y, Cursor.FALSE);
+                        }
 
 
 		} // end for i 
