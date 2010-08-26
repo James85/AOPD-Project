@@ -99,6 +99,8 @@ Description: This plan assimilates each percept information received from the ga
 
 		logical int $locationX, $locationY;
 
+                //#TODO: change both the below belief sets to use value fields so they only contain a single value
+                //then we can get rid of this damn messy crap.
 		if(bel_currentPosition_dat.get($locationX,$locationY) && ($locationX.as_int() != posX || $locationY.as_int() != posY))
 		{	 
 			bel_currentPosition_dat.remove($locationX.as_int(),$locationY.as_int());
