@@ -7,15 +7,15 @@ public plan Coord_ReportCellChanged extends Plan
 {
 	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-	/*
+/*
 Plan Name: Coord_ReportCellChanged
-	 */
+*/
 	//Events handled by the plan are declared here.
 	#handles event ECellStatusChanged ecellstatuschanged_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	/******** End PDT Design Block *** DO NOT EDIT IT *********/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
 	// The enclosing agent or capability has to implement these interfaces
 	#uses interface DebugInterface consoleIface;
 

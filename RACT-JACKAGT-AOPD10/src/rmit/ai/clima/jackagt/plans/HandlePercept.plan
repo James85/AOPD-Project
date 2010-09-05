@@ -13,152 +13,150 @@ import rmit.ai.clima.comms.Cell;
 
 public plan HandlePercept extends Plan
 {
-	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-/*
+   /*
 Plan Name: HandlePercept
 Description: This plan assimilates each percept information received from the game server.
 
-*/
-	//Events handled by the plan are declared here.
-	#posts event EAct eact_p;
+    */
+   //Events handled by the plan are declared here.
+   #posts event EAct eact_p;
 
-	#posts event EShowBeliefs eshowbeliefs_p;
+   #sends event MEInformAgentStatus meinformagentstatus_s;
 
-	#sends event EUpdateBel eupdatebel_s;
+   #sends event EUpdateBel eupdatebel_s;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+   #sends event EGUIDebugMessage eguidebugmessage_s;
 
-	#sends event MEInformAgentStatus meinformagentstatus_s;
+   #posts event EShowBeliefs eshowbeliefs_p;
 
-	#handles event PerceiveClimaServer perceiveclimaserver_h;
-
-
-	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
-
-	#modifies data NumCarryingGold bel_numCarryingGold_dat;
-
-	#modifies data CurrentPosition bel_currentPosition_dat;
-
-/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   #handles event PerceiveClimaServer perceiveclimaserver_h;
 
 
-	// The enclosing agent or capability has to implement these interfaces
-	#uses interface DebugInterface consoleIface;
+   // Declarations of any beliefset/data that the plan accesses.
+   #modifies data NumCarryingGold bel_numCarryingGold_dat;
+
+   #modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+   #modifies data CurrentPosition bel_currentPosition_dat;
+
+   /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 
-	final static String ID = "HAND_PERC";	// The ID of the plan (for printing)	
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
 
 
-	static boolean relevant(PerceiveClimaServer ev)
-	{
-		// the PerceiveClimaServer event is a RequestAction            
-		return ev.data instanceof RequestAction;
-	}
-
-	context()
-	{
-		true;
-	}
-
-	#reasoning method
-	fail()
-	{
-		consoleIface.showConsoleDebug(getPlanName(), "Plan has failed!");
-	}
+   final static String ID = "HAND_PERC";	// The ID of the plan (for printing)	
 
 
-	#reasoning method
-	body()
-	{
-		// Extract all the data in the perceiveclimaserver_h into local variables
-		RequestAction reqAction = (RequestAction)perceiveclimaserver_h.data;
+   static boolean relevant(PerceiveClimaServer ev)
+   {
+      // the PerceiveClimaServer event is a RequestAction            
+      return ev.data instanceof RequestAction;
+   }
 
-		// ************* Extract the id, items, current position, and cells around
-		int id = Integer.parseInt(reqAction.id.trim());	// unique ID of the request-action package
-		int step = reqAction.step;	// step number within this simulation (id may be much larger)
-		int items = reqAction.items;    // if items<0 then no information on perceiveclimaserver_h message
-		int posX = reqAction.posx;
-		int posY = reqAction.posy;
-		GridPoint currentPos = new GridPoint(posX, posY);
-		Cell[] cells = reqAction.cells;	// the cells around
-		// *************
+   context()
+   {
+      true;
+   }
 
-		// id is the package number in the whole simulation, 
-		// whereas step contains the step number of the particular simulation
-		// However, step starts with 0, instead of 1. So if a simulation has
-		// n iterations, steps will go from 0 to n-1
-		// The ClimaTalking capability
+   #reasoning method
+   fail()
+   {
+      consoleIface.showConsoleDebug(getPlanName(), "Plan has failed!");
+   }
 
 
+   #reasoning method
+   body()
+   {
+      // Extract all the data in the perceiveclimaserver_h into local variables
+      RequestAction reqAction = (RequestAction)perceiveclimaserver_h.data;
 
-		// *******************************************
-		// START OF BELIEF UPDATES
-		// *******************************************
+      // ************* Extract the id, items, current position, and cells around
+      int id = Integer.parseInt(reqAction.id.trim());	// unique ID of the request-action package
+      int step = reqAction.step;	// step number within this simulation (id may be much larger)
+      int items = reqAction.items;    // if items<0 then no information on perceiveclimaserver_h message
+      int posX = reqAction.posx;
+      int posY = reqAction.posy;
+      GridPoint currentPos = new GridPoint(posX, posY);
+      Cell[] cells = reqAction.cells;	// the cells around
+      // *************
 
-		logical int $locationX, $locationY;
+      // id is the package number in the whole simulation, 
+      // whereas step contains the step number of the particular simulation
+      // However, step starts with 0, instead of 1. So if a simulation has
+      // n iterations, steps will go from 0 to n-1
+      // The ClimaTalking capability
 
-                //#TODO: change both the below belief sets to use value fields so they only contain a single value
-                //then we can get rid of this damn messy crap.
-		if(bel_currentPosition_dat.get($locationX,$locationY) && ($locationX.as_int() != posX || $locationY.as_int() != posY))
-		{	 
-			bel_currentPosition_dat.remove($locationX.as_int(),$locationY.as_int());
-			bel_currentPosition_dat.add(posX,posY);
-		}
 
-		//update the amount of gold we "believe" we are carrying to reflect what the server is telling us
-		logical int $noGold;
-		bel_numCarryingGold_dat.getCarryingGold($noGold);
-		if($noGold.as_int() != items)
-		{
-			bel_numCarryingGold_dat.remove($noGold.as_int());
-			bel_numCarryingGold_dat.add(items);
-		}
+
+      // *******************************************
+      // START OF BELIEF UPDATES
+      // *******************************************
+
+      logical int $locationX, $locationY;
+
+      //#TODO: change both the below belief sets to use value fields so they only contain a single value
+      //then we can get rid of this damn messy crap.
+      if(bel_currentPosition_dat.get($locationX,$locationY) && ($locationX.as_int() != posX || $locationY.as_int() != posY))
+      {
+         bel_currentPosition_dat.add(posX,posY);
+      }
+
+      //update the amount of gold we "believe" we are carrying to reflect what the server is telling us
+      logical int $noGold;
+      bel_numCarryingGold_dat.getCarryingGold($noGold);
+      if($noGold.as_int() != items)
+      {
+         bel_numCarryingGold_dat.add(items);
+      }
 
 
 
 
-		// Update the information on all the cells around (as a subtask)
-		@subtask( eupdatebel_s.post(id, currentPos, cells, items) );
+      // Update the information on all the cells around (as a subtask)
+      @subtask( eupdatebel_s.post(id, currentPos, cells, items) );
 
 
 
 
-		// *******************************************
-		// END OF BELIEF UPDATES
-		// *******************************************
+      // *******************************************
+      // END OF BELIEF UPDATES
+      // *******************************************
 
 
 
-		// Inform the GUIAgent of the current status, that is, location and no of gold pieces
-		@send("gui", meinformagentstatus_s.post(currentPos, items, id) );
+      // Inform the GUIAgent of the current status, that is, location and no of gold pieces
+      @send("gui", meinformagentstatus_s.post(currentPos, items, id) );
 
 
-		// Report current location, step number, and no of gold pieces carrying
-		consoleIface.showConsoleDebug("A request-action event for step-id " + step + "-" + id + " states that " + getAgent().name() + " is currently at location " + currentPos.toString() + " with " + items + " pieces of gold");
+      // Report current location, step number, and no of gold pieces carrying
+      consoleIface.showConsoleDebug("A request-action event for step-id " + step + "-" + id + " states that " + getAgent().name() + " is currently at location " + currentPos.toString() + " with " + items + " pieces of gold");
 
-		//#NEW
-		//      consoleIface.showConsoleDebug("A request-action event states that " + getAgent().name() + " is currently at loc. " + currentPos.toString());
+      //#NEW
+      //      consoleIface.showConsoleDebug("A request-action event states that " + getAgent().name() + " is currently at loc. " + currentPos.toString());
 
-		@send("gui", eguidebugmessage_s.reportMessage(ID, "Step: "+ id + " - Location: " + GridPoint.toString(currentPos) + " - Gold: " + items) );
-
-
-		// Also send this information to the coordinator agent
-		@send("boss", eupdatebel_s.post(id,currentPos,cells,items));
-
-		// Next, report on the agent's current beliefs 
-		@post( eshowbeliefs_p.show() );
-
-		// Finally, post an event to act next on the game server
-		@post( eact_p.act() );
+      @send("gui", eguidebugmessage_s.reportMessage(ID, "Step: "+ id + " - Location: " + GridPoint.toString(currentPos) + " - Gold: " + items) );
 
 
-		// Update beliefset with the request action id from the incoming percept
-		// (this needs to be updated last as it will trigger the next round of actions, see SendActionAndWait plan)
-		bel_currentRequestActionId_dat.add(id,step);
+      // Also send this information to the coordinator agent
+      @send("boss", eupdatebel_s.post(id,currentPos,cells,items));
+
+      // Next, report on the agent's current beliefs 
+      @post( eshowbeliefs_p.show() );
+
+      // Finally, post an event to act next on the game server
+      @post( eact_p.act() );
+
+
+      // Update beliefset with the request action id from the incoming percept
+      // (this needs to be updated last as it will trigger the next round of actions, see SendActionAndWait plan)
+      bel_currentRequestActionId_dat.add(id,step);
 
 
 
-	}
+   }
 }

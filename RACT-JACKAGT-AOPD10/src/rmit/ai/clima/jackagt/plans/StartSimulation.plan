@@ -20,11 +20,11 @@ Plan Name: StartSimulation
 Description: Initialize a simulation
 */
 	//Events handled by the plan are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
 	#sends event MESimStart mesimstart_s;
 
 	#sends event MEInformCellStatus meinformcellstatus_s;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 
@@ -34,9 +34,9 @@ Description: Initialize a simulation
 
 	#modifies data NumCarryingGold bel_numCarryingGold_dat;
 
-	#modifies data CurrentPosition bel_currentPosition_dat;
-
 	#modifies data GoldAt bel_goldAt_dat;
+
+	#modifies data CurrentPosition bel_currentPosition_dat;
 
 	#modifies data CellEmpty bel_cellEmpty_dat;
 

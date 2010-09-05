@@ -18,17 +18,17 @@ Plan Name: SendActionAndWait
 Description: Send an action to the game server and wait for the next request-action message
 */
 	//Events handled by the plan are declared here.
-	#posts event TellClimaServer tellclimaserver_p;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#posts event TellClimaServer tellclimaserver_p;
 
 	#handles event EExecuteCLIMAaction eexecuteclimaaction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data LastActionSentBel bel_lastActionSent_dat;
-
 	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#reads data LastActionSentBel bel_lastActionSent_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
