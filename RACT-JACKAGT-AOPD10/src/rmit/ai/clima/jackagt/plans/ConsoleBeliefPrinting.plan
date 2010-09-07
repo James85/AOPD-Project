@@ -91,21 +91,21 @@ Description: Reports believed information in the console
       bel_currentPosition_dat.get($xPos,$yPos);
       GridPoint currentPos = new GridPoint($xPos.as_int(), $yPos.as_int());
 
-      for(int i = 0; i < dir.length; i+=1)
-      {
-         GridPoint tempPos = currentPos.getFromDir(dir[i]);
-         if(bel_obstacleAt_dat.check(tempPos.x,tempPos.y))
-         {
-            //print that there is a obstacle in this direction
-            consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is an obstacle in the " + niceDirs[i]);
-
-         }
-         else
-            if(bel_goldAt_dat.check(tempPos.x,tempPos.y))
-            {
-               consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
-            }
-      }
+//      for(int i = 0; i < dir.length; i+=1)
+//      {
+//         GridPoint tempPos = currentPos.getFromDir(dir[i]);
+//         if(bel_obstacleAt_dat.check(tempPos.x,tempPos.y))
+//         {
+//            //print that there is a obstacle in this direction
+//            consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is an obstacle in the " + niceDirs[i]);
+//
+//         }
+//         else
+//            if(bel_goldAt_dat.check(tempPos.x,tempPos.y))
+//            {
+//               consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
+//            }
+//      }
 
 
    }
