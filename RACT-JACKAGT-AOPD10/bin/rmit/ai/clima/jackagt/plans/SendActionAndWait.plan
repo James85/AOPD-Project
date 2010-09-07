@@ -26,9 +26,9 @@ Description: Send an action to the game server and wait for the next request-act
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data LastActionSentBel bel_lastActionSent_dat;
-
 	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#reads data LastActionSentBel bel_lastActionSent_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

@@ -7,7 +7,7 @@ import rmit.ai.clima.gui.grid.GridPoint;
 
 public plan ReportAgentMovement extends Plan
 {
-	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 /*
 Plan Name: ReportAgentMovement
@@ -20,26 +20,23 @@ Plan Name: ReportAgentMovement
 
 	// Declarations of any beliefset/data that the plan accesses.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
-	// The enclosing agent or capability has to implement these interfaces
-	#uses interface DebugInterface consoleIface;
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
 
-	context()
-	{
-		// Trigger: Event "EAgentMoved"
+   context()
+   {
+      // Trigger: Event "EAgentMoved"
+      true;
+   }
+
+   body()
+   {
+
+      int posX = eagentmoved_h.xCoord;
+      int posY = eagentmoved_h.yCoord;
+
+      @send("boss", meinformagentstatus_s.post(getAgent().name(),new GridPoint(posX,posY)));
 
 
-		true;
-	}
-
-	body()
-	{
-
-		int posX = eagentmoved_h.xCoord;
-		int posY = eagentmoved_h.yCoord;
-
-		consoleIface.showConsoleDebug("Agent "+ getAgent().name()+" has just moved to location ("+posX+","+posY+")");
-		@send("boss", meinformagentstatus_s.post(getAgent().name(),new GridPoint(posX,posY)));
-		
-
-	}
+   }
 }

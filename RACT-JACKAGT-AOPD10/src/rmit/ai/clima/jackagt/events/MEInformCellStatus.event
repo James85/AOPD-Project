@@ -7,25 +7,25 @@ import rmit.ai.clima.gui.grid.*;
 
 public event MEInformCellStatus extends MessageEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
-/*
- * Message Name: MEInformCellStatus
- * Covered: true
- * Overlap: true
-*/
-/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /*
+    * Message Name: MEInformCellStatus
+    * Covered: true
+    * Overlap: true
+    */
+   /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
-	#set transport java;
-	
-	public GridObject gridObject;	
+   #set transport java;
+
+   public GridObject gridObject;	
 
 
 
    /*Posting Method Declarations*/
    #posted as send(GridObject gridObject)
    {
-	this.gridObject = gridObject;
+      this.gridObject = gridObject;
    }
 
-  
+
 }

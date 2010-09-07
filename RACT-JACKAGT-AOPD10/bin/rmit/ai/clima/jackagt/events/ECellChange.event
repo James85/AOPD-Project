@@ -12,9 +12,9 @@ public event ECellChange extends BDIGoalEvent
  * Covered: true
  * Overlap: true
 */
-	#uses data ObstacleAt bel_obstacleAt_dat;
-
 	#uses data GoldAt bel_goldAt_dat;
+
+	#uses data ObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

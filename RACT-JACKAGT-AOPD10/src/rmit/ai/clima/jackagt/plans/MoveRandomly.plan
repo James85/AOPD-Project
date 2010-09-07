@@ -12,58 +12,56 @@ import aos.jack.jak.plan.PlanInstanceInfo;
 
 public plan MoveRandomly extends Plan
 {
-	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-/*
+   /*
 Plan Name: MoveRandomly
 Description: Move to any cell arround that is known not to be obstructed
-*/
-	//Events handled by the plan are declared here.
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+    */
+   //Events handled by the plan are declared here.
+   #sends event EGUIDebugMessage eguidebugmessage_s;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+   #posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-	#handles event EAct eact_h;
+   #handles event EAct eact_h;
 
 
-	// Declarations of any beliefset/data that the plan accesses.
-	#reads data CurrentPosition bel_currentPosition_dat;
+   // Declarations of any beliefset/data that the plan accesses.
+   #reads data GoldAt bel_goldAt_dat;
 
-	#reads data GoldAt bel_goldAt_dat;
+   #reads data NumCarryingGold bel_numCarryingGold_dat;
 
-	#reads data NumCarryingGold bel_numCarryingGold_dat;
+   #reads data CurrentPosition bel_currentPosition_dat;
 
-	#reads data ObstacleAt bel_obstacleAt_dat;
+   #reads data ObstacleAt bel_obstacleAt_dat;
 
-/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
-	final static String [] actions = { "left", "right", "up", "down" };
-	Random random = new Random();
+   final static String [] actions = { "left", "right", "up", "down" };
+   Random random = new Random();
 
-	// The enclosing agent or capability has to implement these interfaces
-	#uses interface DebugInterface consoleIface;
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
 
-	logical int $posX, $posY, $noGold;
+   logical int $posX, $posY, $noGold;
 
-	static boolean relevant(EAct ev)
-	{
-		return true;
-	}
+   static boolean relevant(EAct ev)
+   {
+      return true;
+   }
 
-	context()
-	{
-	   true;
-	}
+   context()
+   {
+      true;
+   }
 
-	#reasoning method
-	body()
-	{
+   #reasoning method
+   body()
+   {
 
-		String dir = actions[ random.nextInt(4) ];	// pick a random direction
+      String dir = actions[ random.nextInt(4) ];	// pick a random direction
 
-		consoleIface.showConsoleDebug("I will move randomly to this dir: " + dir);
+      eexecuteclimaaction_p.post(dir);	// Post an ExecuteClimaAction event to execute the action in the server
 
-		eexecuteclimaaction_p.post(dir);	// Post an ExecuteClimaAction event to execute the action in the server
-
-	}
+   }
 }
