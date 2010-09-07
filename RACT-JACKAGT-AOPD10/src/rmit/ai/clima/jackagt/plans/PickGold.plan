@@ -27,9 +27,9 @@ Description: Attempt to pick up a piece of gold in the current square
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data CurrentPosition bel_currentPosition_dat;
-
 	#reads data NumCarryingGold bel_numCarryingGold_dat;
+
+	#reads data CurrentPosition bel_currentPosition_dat;
 
 	#reads data GoldAt bel_goldAt_dat;
 
