@@ -20,5 +20,5 @@ public beliefset NumCarryingGold extends ClosedWorld /*or OpenWorld*/
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
-	#indexed query getCarryingGold(logical int amount);
+	#indexed query get(logical int amount);
 }

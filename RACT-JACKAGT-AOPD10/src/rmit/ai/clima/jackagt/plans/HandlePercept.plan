@@ -15,33 +15,33 @@ public plan HandlePercept extends Plan
 {
    /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-   /*
+/*
 Plan Name: HandlePercept
 Description: This plan assimilates each percept information received from the game server.
 
-    */
-   //Events handled by the plan are declared here.
-   #posts event EAct eact_p;
+*/
+	//Events handled by the plan are declared here.
+	#sends event MEInformAgentStatus meinformagentstatus_s;
 
-   #sends event MEInformAgentStatus meinformagentstatus_s;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
-   #sends event EUpdateBel eupdatebel_s;
+	#posts event EShowBeliefs eshowbeliefs_p;
 
-   #sends event EGUIDebugMessage eguidebugmessage_s;
+	#posts event EAct eact_p;
 
-   #posts event EShowBeliefs eshowbeliefs_p;
+	#sends event EUpdateBel eupdatebel_s;
 
-   #handles event PerceiveClimaServer perceiveclimaserver_h;
+	#handles event PerceiveClimaServer perceiveclimaserver_h;
 
 
-   // Declarations of any beliefset/data that the plan accesses.
-   #modifies data NumCarryingGold bel_numCarryingGold_dat;
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
-   #modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+	#modifies data CurrentPosition bel_currentPosition_dat;
 
-   #modifies data CurrentPosition bel_currentPosition_dat;
+	#modifies data NumCarryingGold bel_numCarryingGold_dat;
 
-   /******** End PDT Design Block *** DO NOT EDIT IT *********/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 
    // The enclosing agent or capability has to implement these interfaces
@@ -108,7 +108,7 @@ Description: This plan assimilates each percept information received from the ga
 
       //update the amount of gold we "believe" we are carrying to reflect what the server is telling us
       logical int $noGold;
-      bel_numCarryingGold_dat.getCarryingGold($noGold);
+      bel_numCarryingGold_dat.get($noGold);
       if($noGold.as_int() != items)
       {
          bel_numCarryingGold_dat.add(items);

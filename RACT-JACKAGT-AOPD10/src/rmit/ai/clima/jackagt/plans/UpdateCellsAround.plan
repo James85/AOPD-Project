@@ -1,4 +1,5 @@
 package rmit.ai.clima.jackagt.plans;
+import aos.jack.jak.cursor.Cursor;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 
@@ -19,7 +20,7 @@ Description: Update the beliefs about the cells around a location
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data CellEmpty bel_cellEmpty_dat;
+	#modifies data ObstacleAt bel_obstacleAt_dat;
 
 	#modifies data GoldAt bel_goldAt_dat;
 
@@ -75,15 +76,15 @@ Description: Update the beliefs about the cells around a location
             if( !(cells[i].marks[j].type.equalsIgnoreCase("unknown")) )
             {
 
-               // First, update beliefset bel_cellEmpty
+               // First, update beliefset bel_obstacleAt
                if( cells[i].marks[j].type.equalsIgnoreCase("obstacle") ) 
                {
-                  bel_cellEmpty_dat.add(loc.x, loc.y, Cursor.FALSE);
+                  bel_obstacleAt_dat.add(loc.x, loc.y, Cursor.TRUE);
                }
                else
                {
                   //if there is no obstacle then this will always be empty
-                  bel_cellEmpty_dat.add(loc.x, loc.y, Cursor.TRUE);
+                  bel_obstacleAt_dat.add(loc.x, loc.y, Cursor.FALSE);
                   if( cells[i].marks[j].type.equalsIgnoreCase("gold"))
                   {
                      bFoundGold = true;

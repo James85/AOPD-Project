@@ -19,21 +19,21 @@ Plan Name: MoveRandomly
 Description: Move to any cell arround that is known not to be obstructed
 */
 	//Events handled by the plan are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event EAct eact_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data NumCarryingGold bel_numCarryingGold_dat;
+	#reads data CurrentPosition bel_currentPosition_dat;
 
 	#reads data GoldAt bel_goldAt_dat;
 
-	#reads data CurrentPosition bel_currentPosition_dat;
+	#reads data NumCarryingGold bel_numCarryingGold_dat;
 
-	#reads data CellEmpty bel_cellEmpty_dat;
+	#reads data ObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -44,7 +44,6 @@ Description: Move to any cell arround that is known not to be obstructed
 	#uses interface DebugInterface consoleIface;
 
 	logical int $posX, $posY, $noGold;
-	logical int x, y;
 
 	static boolean relevant(EAct ev)
 	{
@@ -53,12 +52,8 @@ Description: Move to any cell arround that is known not to be obstructed
 
 	context()
 	{
-		bel_numCarryingGold_dat.getCarryingGold($noGold) && $noGold.as_int() >=3 || ( bel_currentPosition_dat.get(x,y) && (!bel_goldAt_dat.checkIfGold(x.as_int(),y.as_int()) || bel_goldAt_dat.checkUnknown(x.as_int(),y.as_int())));
+	   true;
 	}
-
-
-
-
 
 	#reasoning method
 	body()

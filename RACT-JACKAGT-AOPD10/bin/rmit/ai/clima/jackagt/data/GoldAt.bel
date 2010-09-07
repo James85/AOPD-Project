@@ -24,8 +24,8 @@ public beliefset GoldAt extends OpenWorld /*or OpenWorld*/
 	// These describe the data attributes of each belief.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
-	#indexed query checkIfGold(int xCoord, int yCoord);
-	#indexed query getLocWithGold(logical int xCoord, logical int yCoord);
+	#indexed query check(int xCoord, int yCoord);
+	#indexed query get(logical int xCoord, logical int yCoord);
 	
 	
 	#function query public int countGold() 
@@ -33,7 +33,7 @@ public beliefset GoldAt extends OpenWorld /*or OpenWorld*/
         logical int x, y;
         int count;
         
-        Cursor c = getLocWithGold(x,y);
+        Cursor c = get(x,y);
         while(c.next()) 
         {
                 count++;
@@ -42,19 +42,16 @@ public beliefset GoldAt extends OpenWorld /*or OpenWorld*/
         return count;
     }
 	
-	#complex query checkIfGoldInRow(int yCoord)
+	
+	#function query public boolean checkUnknown(int x, int y) 
 	{
-		logical int x, y;
-		return getLocWithGold(x,y) && y.as_int() == yCoord && checkIfGold(x.as_int(),y.as_int());
+	   if (check(x, y).next()) {
+	      return false;
+	   } 
+	   if ( (check(x, y).negate()).next()) {
+	      return false;
+	   } 
+	   return true;		// The cell (x,y) is UNKNOWN in beliefset
 	}
-	 #function query public boolean checkUnknown(int x, int y) {
-			if (checkIfGold(x, y).next()) {
-					 return false;
-			} 
-			if ( (checkIfGold(x, y).negate()).next()) {
-					 return false;
-			} 
-		 	return true;		// The cell (x,y) is UNKNOWN in beliefset
-		}
 	
 }

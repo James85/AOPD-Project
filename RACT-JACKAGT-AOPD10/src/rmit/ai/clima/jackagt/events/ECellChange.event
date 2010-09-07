@@ -12,9 +12,9 @@ public event ECellChange extends BDIGoalEvent
  * Covered: true
  * Overlap: true
 */
-	#uses data GoldAt bel_goldAt_dat;
+	#uses data ObstacleAt bel_obstacleAt_dat;
 
-	#uses data CellEmpty bel_cellEmpty_dat;
+	#uses data GoldAt bel_goldAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -32,13 +32,13 @@ public event ECellChange extends BDIGoalEvent
 		   this.gridObject = new GridObject(x,y, "nogold");  
 	   }   
 	   
-	#posted when (bel_goldAt_dat.getLocWithGold($x, $y))
+	#posted when (bel_goldAt_dat.get($x, $y))
 	{
 		// Cell has a gold
 		gridObject = new GridObject($x.as_int(),$y.as_int(),GameGraphics.getGoldString());
 		message = "Just learned of gold at " +GridPoint.toString($x.as_int(),$y.as_int());
 	}
-	#posted when (!bel_goldAt_dat.getLocWithGold($x, $y))
+	#posted when (!bel_goldAt_dat.get($x, $y))
 	{
 		// Cell has no gold
 		
@@ -48,7 +48,7 @@ public event ECellChange extends BDIGoalEvent
 	   
 	
    // Cell does not have an obstacle
-   #posted when (bel_cellEmpty_dat.get($x,$y)) {
+   #posted when (!bel_obstacleAt_dat.get($x,$y)) {
 
 	  gridObject = new GridObject($x.as_int(),$y.as_int(), GameGraphics.getEmptyString());
 	  
@@ -57,7 +57,7 @@ public event ECellChange extends BDIGoalEvent
 
 
    // Cell has an obstacle
-   #posted when (!bel_cellEmpty_dat.get($x, $y)){
+   #posted when (bel_obstacleAt_dat.get($x, $y)){
 
 	  gridObject = new GridObject($x.as_int(),$y.as_int(), GameGraphics.getObstacleString());
 

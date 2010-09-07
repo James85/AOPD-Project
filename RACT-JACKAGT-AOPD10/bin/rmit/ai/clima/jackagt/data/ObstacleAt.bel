@@ -5,11 +5,11 @@ import rmit.ai.clima.jackagt.events.*;
 
 
 
-public beliefset CellEmpty extends OpenWorld
+public beliefset ObstacleAt extends OpenWorld
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
- * Beliefset Name: CellEmpty
+ * Beliefset Name: ObstacleAt
  */
 
 	// Zero or more #key field declarations.

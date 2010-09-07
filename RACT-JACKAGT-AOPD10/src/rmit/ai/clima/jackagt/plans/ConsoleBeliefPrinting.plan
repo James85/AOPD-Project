@@ -22,19 +22,19 @@ Description: Reports believed information in the console
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data LastActionSentBel bel_lastActionSent_dat;
+	#reads data NumCarryingGold bel_numCarryingGold_dat;
 
-	#reads data CurrentStatus bel_currentStatus_dat;
-
-	#reads data CellEmpty bel_cellEmpty_dat;
+	#reads data GoldAt bel_goldAt_dat;
 
 	#reads data CurrentPosition bel_currentPosition_dat;
 
-	#reads data NumCarryingGold bel_numCarryingGold_dat;
+	#reads data CurrentStatus bel_currentStatus_dat;
+
+	#reads data ObstacleAt bel_obstacleAt_dat;
 
 	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
 
-	#reads data GoldAt bel_goldAt_dat;
+	#reads data LastActionSentBel bel_lastActionSent_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -71,14 +71,14 @@ Description: Reports believed information in the console
         logical int $x,$y;
         int count=0;
         
-        for ( Cursor c = bel_cellEmpty_dat.get($x,$y) ; c.next() ; ) {
+        for ( Cursor c = bel_obstacleAt_dat.get($x,$y).negate() ; c.next() ; ) {
             count++;
         }
 	    consoleIface.showConsoleDebug("Number of cells believed empty of obstacles: "+count);
 
 		// Now print the cells that are known to be blocked
 		count = 0;
-        for ( Cursor c = bel_cellEmpty_dat.get($x,$y).negate() ; c.next() ; ) {
+        for ( Cursor c = bel_obstacleAt_dat.get($x,$y) ; c.next() ; ) {
             count++;
         }
 	    consoleIface.showConsoleDebug("Number of believed obstructed cells: "+count);
@@ -94,14 +94,14 @@ Description: Reports believed information in the console
 	    for(int i = 0; i < dir.length; i+=1)
 	    {
 	    	GridPoint tempPos = currentPos.getFromDir(dir[i]);
-	    	if(!bel_cellEmpty_dat.check(tempPos.x,tempPos.y))
+	    	if(bel_obstacleAt_dat.check(tempPos.x,tempPos.y))
 	    	{
 	    		//print that there is a obstacle in this direction
 	    		consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is an obstacle in the " + niceDirs[i]);
 	    	
 	    	}
 	    	else
-		    	if(bel_goldAt_dat.checkIfGold(tempPos.x,tempPos.y))
+		    	if(bel_goldAt_dat.check(tempPos.x,tempPos.y))
 		    	{
 		    		consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
 		    	}
@@ -109,7 +109,7 @@ Description: Reports believed information in the console
 	    
 	    //print how much gold the agent is carrying
 	    logical int $numGold;
-	    bel_numCarryingGold_dat.getCarryingGold($numGold);
+	    bel_numCarryingGold_dat.get($numGold);
 	    consoleIface.showConsoleDebug("Agent "+getAgent().name()+" is currently carrying "+$numGold.as_int() + " pieces of gold");
 	    
 	    

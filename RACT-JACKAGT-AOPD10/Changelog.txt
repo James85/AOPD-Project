@@ -70,7 +70,7 @@ Version 1.2 - October 12, 2007
 + Added beliefset NumCarryingGold to player
 
 
-- Change read to write of CellEmpty beliefset in plan UpdateCellsAround
+- Change read to write of ObstacleAt beliefset in plan UpdateCellsAround
 - Improved all fail() reasoning methods in plan using getPlanName()
 
 

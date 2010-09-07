@@ -27,16 +27,15 @@ Description: Attempt to pick up a piece of gold in the current square
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data GoldAt bel_goldAt_dat;
-
 	#reads data CurrentPosition bel_currentPosition_dat;
+
+	#reads data GoldAt bel_goldAt_dat;
 
 	#reads data NumCarryingGold bel_numCarryingGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	#uses interface DebugInterface consoleIface;
 	logical int $posX, $posY, $noGold;
-	logical int x, y;
 	static boolean relevant(EAct ev)
 	{
 
@@ -49,7 +48,8 @@ Description: Attempt to pick up a piece of gold in the current square
 	context()
 	{
 		//Trigger: Event "EAct"	
-		bel_numCarryingGold_dat.getCarryingGold($noGold) && $noGold.as_int() <3 && bel_currentPosition_dat.get(x,y) && bel_goldAt_dat.checkIfGold(x.as_int(),y.as_int());
+		bel_numCarryingGold_dat.get( $noGold ) && $noGold.as_int() <3
+		&& bel_currentPosition_dat.get( $posX, $posY ) && bel_goldAt_dat.check( $posX.as_int(), $posY.as_int() );
 		//true;
 	}
 

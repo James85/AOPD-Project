@@ -7,16 +7,16 @@ public event ECellStatusChanged extends BDIGoalEvent
 /*
  * Message Name: ECellStatusChanged
 */
-	#uses data CellEmpty bel_cellEmpty_dat;
-
 	#uses data AgentPositions bel_agentPositions_dat;
+
+	#uses data ObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	logical int $x,$y;
 	logical String $agentName;
 	public String msg;
 	//event initialisation
-	#posted when (!bel_cellEmpty_dat.get($x, $y)) 
+	#posted when (bel_obstacleAt_dat.get($x, $y)) 
 	{
 		this.msg = "A new obstacle has just been discovered at these coordinates: (" +$x.as_int() +","+$y.as_int()+")";
 	}

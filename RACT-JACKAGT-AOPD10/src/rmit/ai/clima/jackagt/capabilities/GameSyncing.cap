@@ -46,12 +46,12 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentPosition bel_currentPosition_dat();
+	#imports data SimulationProp bel_simulationProp_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+	#imports data CurrentPosition bel_currentPosition_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -61,41 +61,41 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CellEmpty bel_cellEmpty_dat();
+	#imports data ObstacleAt bel_obstacleAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#sends event MESimStart mesimstart_s;
+
+	#sends event MEInformCellStatus meinformcellstatus_s;
 
 	#posts external event TellClimaServer tellclimaserver_p;
 
-	#handles external event PerceiveClimaServer ;
+	#sends event MEGameEnd megameend_s;
 
-	#sends event MESimEnd mesimend_s;
-
-	#sends event MESimStart mesimstart_s;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event EAgentMoved ;
 	#posts event EAgentMoved eagentmoved_p;
 
 	#handles external event EStart ;
 
-	#sends event MEInformCellStatus meinformcellstatus_s;
+	#sends event MESimEnd mesimend_s;
 
-	#sends event MEGameEnd megameend_s;
+	#handles external event PerceiveClimaServer ;
 
 
 	//Plans directly used are declared here.
-	#uses plan StartSimulation ;
-
 	#uses plan FinishSimulation ;
 
 	#uses plan AuthenticateToServer ;
+
+	#uses plan StartSimulation ;
 
 	#uses plan FinishGame ;
 
