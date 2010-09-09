@@ -21,25 +21,25 @@ Description: This plan assimilates each percept information received from the ga
 
 */
 	//Events handled by the plan are declared here.
-	#posts event EAct eact_p;
+	#posts event EShowBeliefs eshowbeliefs_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#sends event MEInformAgentStatus meinformagentstatus_s;
 
-	#posts event EShowBeliefs eshowbeliefs_p;
-
 	#sends event EUpdateBel eupdatebel_s;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#posts event EAct eact_p;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data NumCarryingGold bel_numCarryingGold_dat;
+
 	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
 	#modifies data CurrentPosition bel_currentPosition_dat;
-
-	#modifies data NumCarryingGold bel_numCarryingGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

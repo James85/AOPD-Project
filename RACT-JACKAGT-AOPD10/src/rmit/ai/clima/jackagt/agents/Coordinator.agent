@@ -27,6 +27,11 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
+	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
 	#private data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -34,19 +39,8 @@ Agent Name: Coordinator
 	*/
 	#private data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
-
 
 	//Events handled, posted and sent are declared here.
-	#handles event MESimEnd ;
-
-	#handles event EUpdateBel ;
-
-	#handles event MEInformAgentStatus ;
-
 	#handles event MESimStart ;
 
 	#handles event ECellStatusChanged ;
@@ -54,15 +48,21 @@ Agent Name: Coordinator
 
 	#handles event MEGameEnd ;
 
+	#handles event MEInformAgentStatus ;
+
+	#handles event EUpdateBel ;
+
+	#handles event MESimEnd ;
+
 
 	//Plans directly used are declared here.
 	#uses plan UpdateCellsAround ;
 
-	#uses plan Coord_InitSimulation ;
-
 	#uses plan Coord_EndGame ;
 
 	#uses plan Coord_ReportCellChanged ;
+
+	#uses plan Coord_InitSimulation ;
 
 	#uses plan Coord_UpdateAgentStatus ;
 

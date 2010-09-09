@@ -23,19 +23,17 @@ Description: Reports believed information in the console
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data ObstacleAt bel_obstacleAt_dat;
-
-	#reads data NumCarryingGold bel_numCarryingGold_dat;
-
-	#reads data GoldAt bel_goldAt_dat;
+	#reads data CurrentStatus bel_currentStatus_dat;
 
 	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
 
+	#reads data GoldAt bel_goldAt_dat;
+
+	#reads data ObstacleAt bel_obstacleAt_dat;
+
 	#reads data CurrentPosition bel_currentPosition_dat;
 
-	#reads data LastActionSentBel bel_lastActionSent_dat;
-
-	#reads data CurrentStatus bel_currentStatus_dat;
+	#reads data NumCarryingGold bel_numCarryingGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -86,27 +84,31 @@ Description: Reports believed information in the console
       }
       consoleIface.showConsoleDebug("Number of believed obstructed cells: "+count);
 
+      // Print the number of gold believed to be carried
+      logical int $numGold;
+      bel_numCarryingGold_dat.get( $numGold );
+      consoleIface.showConsoleDebug( "Number of believed carried gold: "+$numGold.as_int() );
 
       // ************* BELOW HERE YOU MAY WANT TO REPORT MORE STUFF IN THE CONSOLE ....
       logical int $xPos,$yPos;
       bel_currentPosition_dat.get($xPos,$yPos);
       GridPoint currentPos = new GridPoint($xPos.as_int(), $yPos.as_int());
 
-//      for(int i = 0; i < dir.length; i+=1)
-//      {
-//         GridPoint tempPos = currentPos.getFromDir(dir[i]);
-//         if(bel_obstacleAt_dat.check(tempPos.x,tempPos.y))
-//         {
-//            //print that there is a obstacle in this direction
-//            consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is an obstacle in the " + niceDirs[i]);
-//
-//         }
-//         else
-//            if(bel_goldAt_dat.check(tempPos.x,tempPos.y))
-//            {
-//               consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
-//            }
-//      }
+      for(int i = 0; i < dir.length; i+=1)
+      {
+         GridPoint tempPos = currentPos.getFromDir(dir[i]);
+         if(bel_obstacleAt_dat.check(tempPos.x,tempPos.y))
+         {
+            //print that there is a obstacle in this direction
+            consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is an obstacle in the " + niceDirs[i]);
+
+         }
+         else
+            if(bel_goldAt_dat.check(tempPos.x,tempPos.y))
+            {
+               consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
+            }
+      }
       
 
    }

@@ -30,12 +30,12 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data LastActionSentBel bel_lastActionSent_dat();
+	#imports data GoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data ObstacleAt bel_obstacleAt_dat();
+	#imports data CurrentStatus bel_currentStatus_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -45,7 +45,7 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data GoldAt bel_goldAt_dat();
+	#imports data ObstacleAt bel_obstacleAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -57,16 +57,13 @@ Description: Tasks to report on information believed
 	*/
 	#imports data NumCarryingGold bel_numCarryingGold_dat();
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentStatus bel_currentStatus_dat();
-
 
 	//Events handled, posted and sent are declared here.
-	#sends event MEInformCellStatus meinformcellstatus_s;
-
 	#handles external event EAgentMoved ;
+
+	#sends event MEInformAgentStatus meinformagentstatus_s;
+
+	#sends event MEInformCellStatus meinformcellstatus_s;
 
 	#handles external event ECellChange ;
 
@@ -74,17 +71,15 @@ Description: Tasks to report on information believed
 
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
-	#sends event MEInformAgentStatus meinformagentstatus_s;
-
 
 	//Plans directly used are declared here.
-	#uses plan ReportCellChangeToGUI ;
-
-	#uses plan ConsoleBeliefPrinting ;
+	#uses plan BeliefReporting ;
 
 	#uses plan ReportAgentMovement ;
 
-	#uses plan BeliefReporting ;
+	#uses plan ReportCellChangeToGUI ;
+
+	#uses plan ConsoleBeliefPrinting ;
 
 
 	// Inner capabilities are declared here.
