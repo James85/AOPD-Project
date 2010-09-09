@@ -18,9 +18,9 @@ Plan Name: AuthenticateToServer
 Description: Authenticate to the game server with the agent login/password
 */
 	//Events handled by the plan are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#posts event TellClimaServer tellclimaserver_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event EStart estart_h;
 

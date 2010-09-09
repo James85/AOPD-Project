@@ -29,18 +29,18 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data GoldAt bel_goldAt_dat();
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data NumCarryingGold bel_numCarryingGold_dat();
+	#imports data GoldAt bel_goldAt_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event EAct ;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles external event EAct ;
 
 	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
 

@@ -41,32 +41,32 @@ Agent Name: Coordinator
 
 
 	//Events handled, posted and sent are declared here.
-	#handles event EUpdateBel ;
+	#handles event MEGameEnd ;
 
 	#handles event MEInformAgentStatus ;
-
-	#handles event MESimEnd ;
-
-	#handles event MESimStart ;
-
-	#handles event MEGameEnd ;
 
 	#handles event ECellStatusChanged ;
 	#posts event ECellStatusChanged ecellstatuschanged_p;
 
+	#handles event MESimStart ;
+
+	#handles event EUpdateBel ;
+
+	#handles event MESimEnd ;
+
 
 	//Plans directly used are declared here.
-	#uses plan Coord_UpdateAgentStatus ;
-
-	#uses plan UpdateCellsAround ;
-
 	#uses plan Coord_InitSimulation ;
 
 	#uses plan Coord_EndGame ;
 
-	#uses plan Coord_ReportCellChanged ;
+	#uses plan Coord_UpdateAgentStatus ;
 
 	#uses plan Coord_EndSimulation ;
+
+	#uses plan Coord_ReportCellChanged ;
+
+	#uses plan UpdateCellsAround ;
 
 
 	// Inner capabilities are declared here.
