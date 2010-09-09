@@ -38,17 +38,17 @@ Description: Decide what to do next
 
 
 	//Events handled, posted and sent are declared here.
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles external event EAct ;
 
-	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
-
 
 	//Plans directly used are declared here.
-	#uses plan PickGold ;
-
 	#uses plan MoveRandomly ;
+
+	#uses plan PickGold ;
 
 
 	// Inner capabilities are declared here.

@@ -30,7 +30,7 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data NumCarryingGold bel_numCarryingGold_dat();
+	#imports data ObstacleAt bel_obstacleAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -40,7 +40,12 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentStatus bel_currentStatus_dat();
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -50,39 +55,34 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data CurrentStatus bel_currentStatus_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data CurrentPosition bel_currentPosition_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data ObstacleAt bel_obstacleAt_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event EShowBeliefs ;
-
-	#handles external event EAgentMoved ;
+	#sends event MEInformAgentStatus meinformagentstatus_s;
 
 	#handles external event ECellChange ;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#sends event MEInformCellStatus meinformcellstatus_s;
 
-	#sends event MEInformAgentStatus meinformagentstatus_s;
+	#handles external event EShowBeliefs ;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles external event EAgentMoved ;
 
 
 	//Plans directly used are declared here.
+	#uses plan ReportAgentMovement ;
+
 	#uses plan ReportCellChangeToGUI ;
 
 	#uses plan ConsoleBeliefPrinting ;
-
-	#uses plan ReportAgentMovement ;
 
 	#uses plan BeliefReporting ;
 
