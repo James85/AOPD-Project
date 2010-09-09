@@ -26,6 +26,8 @@ Description: Authenticate to the game server with the agent login/password
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#reads data Timer clima_timer_dat;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 
