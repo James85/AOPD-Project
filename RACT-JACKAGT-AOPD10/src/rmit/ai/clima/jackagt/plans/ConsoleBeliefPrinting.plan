@@ -1,4 +1,5 @@
 package rmit.ai.clima.jackagt.plans;
+import aos.jack.jak.cursor.Cursor;
 import rmit.ai.clima.iface.LastActionSentBel;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
@@ -106,7 +107,7 @@ Description: Reports believed information in the console
 //               consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
 //            }
 //      }
-
+      
 
    }
 }

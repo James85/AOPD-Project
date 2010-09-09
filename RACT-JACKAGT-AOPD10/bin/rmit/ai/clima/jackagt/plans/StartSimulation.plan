@@ -84,6 +84,8 @@ Description: Initialize a simulation
         //agent believes he is poor and as 0 gold
         bel_numCarryingGold_dat.add(0);
         
+        //#TODO modify the bel_goldAt beliefset to say there is no gold at the depot
+        
         // Iterate on all grid positions 
         for(int x=0;x<simStart.gsizex; x++) {
             for(int y=0; y<simStart.gsizey;y++) {
