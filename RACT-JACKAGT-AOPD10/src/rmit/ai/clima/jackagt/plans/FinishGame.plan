@@ -17,9 +17,9 @@ public plan FinishGame extends Plan
 Plan Name: FinishGame
 */
 	//Events handled by the plan are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#sends event MEGameEnd megameend_s;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 

@@ -26,9 +26,9 @@ Description: Update the location of an agent in the GUI
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#uses data Semaphore mutex_accessGUI_dat;
-
 	#modifies data GUICurrentStep bel_GUICurrentStep_dat;
+
+	#uses data Semaphore mutex_accessGUI_dat;
 
 	#reads data BAgentNumbers bel_agentNumbers_dat;
 
