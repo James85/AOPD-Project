@@ -25,9 +25,9 @@ Description: Finalize a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
-
 	#modifies data NumCarryingGold bel_numCarryingGold_dat;
+
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
 	#modifies data GoldAt bel_goldAt_dat;
 

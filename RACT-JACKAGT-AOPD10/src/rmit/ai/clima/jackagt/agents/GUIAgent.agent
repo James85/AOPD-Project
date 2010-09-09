@@ -1,5 +1,5 @@
 package rmit.ai.clima.jackagt.agents;
-
+import aos.jack.util.thread.Semaphore;
 import rmit.ai.clima.jackagt.capabilities.*;
 import rmit.ai.clima.jackagt.plans.*;
 import rmit.ai.clima.jackagt.events.*;
@@ -31,13 +31,13 @@ Description: This is the agent responsible of showing the evolution of the simul
 	//Knowledge bases used are declared here.
 
 	//Events handled, posted and sent are declared here.
+	#handles event MEInformAgentStatus ;
+
 	#handles event MEInformCellStatus ;
 
 	#handles event MESimStart ;
 
 	#handles event EGUIDebugMessage ;
-
-	#handles event MEInformAgentStatus ;
 
 	#handles event MESimEnd ;
 

@@ -23,27 +23,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data NumCarryingGold bel_numCarryingGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data GoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentPosition bel_currentPosition_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data ObstacleAt bel_obstacleAt_dat();
+	#imports data LastActionSentBel bel_lastActionSent_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -53,42 +33,62 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data LastActionSentBel bel_lastActionSent_dat();
+	#imports data GoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
 	#imports data CurrentStatus bel_currentStatus_dat();
 
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data ObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
+
 
 	//Events handled, posted and sent are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#handles event EAct ;
+	#posts event EAct eact_p;
 
-	#sends event MEInformCellStatus meinformcellstatus_s;
-
-	#handles external event PerceiveClimaServer ;
+	#handles external event EAgentMoved ;
 
 	#handles event ECellStatusChanged ;
 	#posts event ECellStatusChanged ecellstatuschanged_p;
 
-	#handles event EAct ;
-	#posts event EAct eact_p;
-
-	#handles external event ECellChange ;
-
 	#sends event MEInformAgentStatus meinformagentstatus_s;
 
-	#handles event EShowBeliefs ;
-	#posts event EShowBeliefs eshowbeliefs_p;
-
-	#handles event EExecuteCLIMAaction ;
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
-
-	#handles external event EAgentMoved ;
+	#handles external event ECellChange ;
 
 	#posts external event TellClimaServer tellclimaserver_p;
 
 	#sends event EUpdateBel eupdatebel_s;
+
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+	#handles event EShowBeliefs ;
+	#posts event EShowBeliefs eshowbeliefs_p;
+
+	#handles external event PerceiveClimaServer ;
+
+	#handles event EExecuteCLIMAaction ;
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 
 	//Plans directly used are declared here.
@@ -100,9 +100,9 @@ Capability Name: GamePlaying
 
 
 	// Inner capabilities are declared here.
-	#has capability InfoReporting inforeporting_cap;
-
 	#has capability ActionDecision actiondecision_cap;
+
+	#has capability InfoReporting inforeporting_cap;
 
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
