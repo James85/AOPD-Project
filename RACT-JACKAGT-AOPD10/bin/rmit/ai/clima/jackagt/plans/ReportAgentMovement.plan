@@ -35,7 +35,7 @@ Plan Name: ReportAgentMovement
       int posX = eagentmoved_h.xCoord;
       int posY = eagentmoved_h.yCoord;
 
-      @send("boss", meinformagentstatus_s.post(getAgent().name(),new GridPoint(posX,posY)));
+      //@send("boss", meinformagentstatus_s.post(getAgent().name(),new GridPoint(posX,posY)));
 
 
    }

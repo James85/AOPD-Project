@@ -11,7 +11,7 @@ public plan Coord_UpdateAgentStatus extends Plan
 Plan Name: Coord_UpdateAgentStatus
 */
 	//Events handled by the plan are declared here.
-	#handles event MEInformAgentStatus meinformagentstatus_h;
+	#handles event EUpdateBel eupdatebel_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
@@ -30,8 +30,8 @@ Plan Name: Coord_UpdateAgentStatus
 
 	body()
 	{
-		bel_agentPositions_dat.add(meinformagentstatus_h.agentName,meinformagentstatus_h.agentLocation.x,meinformagentstatus_h.agentLocation.y);
-		bel_agentGold_dat.add(meinformagentstatus_h.agentName, meinformagentstatus_h.goldCount);
+		bel_agentPositions_dat.add(eupdatebel_h.name, eupdatebel_h.currentPos.x , eupdatebel_h.currentPos.y );
+		bel_agentGold_dat.add(eupdatebel_h.name, eupdatebel_h.noCarryingGold);
 		
 		
 		//		consoleIface.showConsoleDebug("Coordinator Says: "+meinformagentstatus_h.agentName +" just moved, these are the agents I currently know about");

@@ -20,6 +20,7 @@ public event EUpdateBel extends MessageEvent
     public GridPoint currentPos;
     public Cell[] cells;
     public int noCarryingGold;
+    public String name;
 
     #posted as
     post(int step, GridPoint currentPos, Cell[] cells, int noCarryingGold) {
@@ -28,6 +29,14 @@ public event EUpdateBel extends MessageEvent
         this.cells = cells;
         this.noCarryingGold = noCarryingGold;
     }
+    #posted as
+    post(int step, GridPoint currentPos, Cell[] cells, int noCarryingGold, String name) {
+       this.step = step;
+       this.currentPos = currentPos;
+       this.cells = cells;
+       this.noCarryingGold = noCarryingGold;
+       this.name = name;
+   }
 
 
     #set transport java;

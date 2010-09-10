@@ -31,7 +31,7 @@ Agent Name: Player
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data NumCarryingGold bel_numCarryingGold_dat(/*int goldCount*/);
+	#private data CurrentRequestActionId bel_currentRequestActionId_dat(/*int id, int step*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -41,17 +41,12 @@ Agent Name: Player
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
+	#private data NumCarryingGold bel_numCarryingGold_dat(/*int goldCount*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data CurrentRequestActionId bel_currentRequestActionId_dat(/*int id, int step*/);
+	#private data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -61,39 +56,41 @@ Agent Name: Player
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
 
 	//Events handled, posted and sent are declared here.
-	#handles event ECellChange ;
-	#posts event ECellChange ecellchange_p;
-
 	#handles event PerceiveClimaServer ;
 	#posts event PerceiveClimaServer perceiveclimaserver_p;
 
 	#handles event TellClimaServer ;
 	#posts event TellClimaServer tellclimaserver_p;
 
-	#handles event EAgentMoved ;
-	#posts event EAgentMoved eagentmoved_p;
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+	#handles event EStart ;
+	#posts event EStart estart_p;
+
+	#sends event MESimStart mesimstart_s;
 
 	#sends event MEInformAgentStatus meinformagentstatus_s;
 
 	#sends event MESimEnd mesimend_s;
 
-	#sends event EUpdateBel eupdatebel_s;
-
-	#sends event MESimStart mesimstart_s;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
-	#handles event EStart ;
-	#posts event EStart estart_p;
-
 	#sends event MEGameEnd megameend_s;
 
+	#handles event ECellChange ;
+	#posts event ECellChange ecellchange_p;
 
-	#sends event MEInformCellStatus meinformcellstatus_s;
+	#sends event EUpdateBel eupdatebel_s;
+
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 
 	//Plans directly used are declared here.

@@ -21,13 +21,11 @@ Description: This plan assimilates each percept information received from the ga
 
 */
 	//Events handled by the plan are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
 	#posts event EShowBeliefs eshowbeliefs_p;
 
-	#sends event MEInformAgentStatus meinformagentstatus_s;
-
 	#posts event EAct eact_p;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#sends event EUpdateBel eupdatebel_s;
 
@@ -35,11 +33,11 @@ Description: This plan assimilates each percept information received from the ga
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
 	#modifies data CurrentPosition bel_currentPosition_dat;
 
 	#modifies data NumCarryingGold bel_numCarryingGold_dat;
-
-	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -143,7 +141,7 @@ Description: This plan assimilates each percept information received from the ga
 
 
       // Also send this information to the coordinator agent
-      @send("boss", eupdatebel_s.post(id,currentPos,cells,items));
+      @send( "boss", eupdatebel_s.post( id, currentPos, cells, items, getAgent().name() ));
 
       // Next, report on the agent's current beliefs 
       @post( eshowbeliefs_p.show() );
