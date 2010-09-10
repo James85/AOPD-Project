@@ -20,6 +20,8 @@ Description: Coordination plan to finish a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data AgentPerceptReceived bel_agentPerceptReceived_dat;
+
 	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data AgentPositions bel_agentPositions_dat;

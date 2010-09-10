@@ -1,4 +1,5 @@
 package rmit.ai.clima.jackagt.plans;
+import aos.jack.jak.cursor.Cursor;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.interfaces.*;
@@ -15,9 +16,13 @@ Plan Name: Coord_UpdateAgentStatus
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data AgentGold bel_agentGold_dat;
+	#modifies data AgentPerceptReceived bel_agentPerceptReceived_dat;
 
 	#modifies data AgentPositions bel_agentPositions_dat;
+
+	#modifies data PlayerInfo bel_team_dat;
+
+	#modifies data AgentGold bel_agentGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	// The enclosing agent or capability has to implement these interfaces
@@ -33,7 +38,15 @@ Plan Name: Coord_UpdateAgentStatus
 		bel_agentPositions_dat.add(eupdatebel_h.name, eupdatebel_h.currentPos.x , eupdatebel_h.currentPos.y );
 		bel_agentGold_dat.add(eupdatebel_h.name, eupdatebel_h.noCarryingGold);
 		
+		bel_agentPerceptReceived_dat.add(eupdatebel_h.name);
 		
+		
+		logical String $name;
+		   
+		consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_agentPerceptReceived_dat.nFacts() );
+		if(bel_agentPerceptReceived_dat.nFacts()  == bel_team_dat.nFacts())
+		   bel_agentPerceptReceived_dat.get($name).removeAll();
+		   
 		//		consoleIface.showConsoleDebug("Coordinator Says: "+meinformagentstatus_h.agentName +" just moved, these are the agents I currently know about");
 				logical String $agentName;
 				logical int $numGold;

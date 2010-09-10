@@ -29,9 +29,9 @@ Description: Start the GUI interface
 	// Declarations of any beliefset/data that the plan accesses.
 	#uses data Semaphore mutex_accessGUI_dat;
 
-	#modifies data GUICurrentStep bel_GUICurrentStep_dat;
-
 	#modifies data BAgentNumbers bel_agentNumbers_dat;
+
+	#modifies data GUICurrentStep bel_GUICurrentStep_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
