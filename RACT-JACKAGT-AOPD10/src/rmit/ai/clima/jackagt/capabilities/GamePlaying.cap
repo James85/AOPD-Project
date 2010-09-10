@@ -23,7 +23,27 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data GoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data CurrentStatus bel_currentStatus_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data ObstacleAt bel_obstacleAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -35,55 +55,35 @@ Capability Name: GamePlaying
 	*/
 	#imports data SimulationProp bel_simulationProp_dat();
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data NumCarryingGold bel_numCarryingGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data GoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data ObstacleAt bel_obstacleAt_dat();
-
 
 	//Events handled, posted and sent are declared here.
 	#posts external event TellClimaServer tellclimaserver_p;
 
-	#handles event EExecuteCLIMAaction ;
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
-
-	#handles event ECellStatusChanged ;
-	#posts event ECellStatusChanged ecellstatuschanged_p;
-
-	#handles external event EAgentMoved ;
-
 	#handles external event PerceiveClimaServer ;
 
-	#sends event MEInformCellStatus meinformcellstatus_s;
+	#sends event EUpdateBel eupdatebel_s;
 
-	#handles external event ECellChange ;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#handles external event EAgentMoved ;
 
 	#handles event EShowBeliefs ;
 	#posts event EShowBeliefs eshowbeliefs_p;
 
+	#handles external event ECellChange ;
+
+	#handles event ECellStatusChanged ;
+	#posts event ECellStatusChanged ecellstatuschanged_p;
+
 	#sends event MEInformAgentStatus meinformagentstatus_s;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+	#handles event EExecuteCLIMAaction ;
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
 	#handles event EAct ;
 	#posts event EAct eact_p;
-
-	#sends event EUpdateBel eupdatebel_s;
 
 
 	//Plans directly used are declared here.

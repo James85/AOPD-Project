@@ -19,54 +19,59 @@ Agent Name: Coordinator
 */
 
 	//Knowledge bases used are declared here.
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
+	/*	Note that this data is external.
+	Maybe you want to modify the declaration as '#agent' manually.
 	*/
-	#private data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
+	#global data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
+	#private data AgentGold bel_agentGold_dat(/*String agentName, int goldAmount*/);
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
+	/*	Note that this data is external.
+	Maybe you want to modify the declaration as '#agent' manually.
 	*/
-	#private data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+	#global data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
 	#private data AgentPositions bel_agentPositions_dat(/*String agentName, int posX, int posY*/);
 
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
+
 
 	//Events handled, posted and sent are declared here.
-	#handles event MESimStart ;
-
 	#handles event ECellStatusChanged ;
 	#posts event ECellStatusChanged ecellstatuschanged_p;
 
 	#handles event EUpdateBel ;
 
-	#handles event MEInformAgentStatus ;
+	#handles event MESimStart ;
 
-	#handles event MESimEnd ;
+	#handles event MEInformAgentStatus ;
 
 	#handles event MEGameEnd ;
 
+	#handles event MESimEnd ;
+
 
 	//Plans directly used are declared here.
+	#uses plan Coord_InitSimulation ;
+
 	#uses plan Coord_UpdateAgentStatus ;
 
-	#uses plan Coord_InitSimulation ;
+	#uses plan Coord_EndSimulation ;
 
 	#uses plan UpdateCellsAround ;
 
-	#uses plan Coord_ReportCellChanged ;
-
 	#uses plan Coord_EndGame ;
 
-	#uses plan Coord_EndSimulation ;
+	#uses plan Coord_ReportCellChanged ;
 
 
 	// Inner capabilities are declared here.

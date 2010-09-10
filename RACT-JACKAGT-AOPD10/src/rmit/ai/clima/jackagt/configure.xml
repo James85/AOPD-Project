@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JACKCodeRoot>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/InfoReporting.cap" ID="72961" name="InfoReporting"/>
+<Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/AgentGold.bel" ID="427265" name="AgentGold"/>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/StartSimulation.plan" ID="36097" name="StartSimulation"/>
 <Entity CodeFileURI="file:/home/ssardina/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/CurrentStatus.bel" ID="243713" name="CurrentStatus"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="ObstacleAt" ID="23297" name="bel_obstacleAt" package=""/>
+<Entity DataFields="String agentName, int goldAmount" DataType="AgentGold" ID="426497" name="bel_agentGold"/>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GameSyncing.cap" ID="35329" name="GameSyncing"/>
 <Entity DataType="CurrentStatus" ID="242945" name="bel_tea"/>
 <Entity ID="10497" name="request-action XML"/>

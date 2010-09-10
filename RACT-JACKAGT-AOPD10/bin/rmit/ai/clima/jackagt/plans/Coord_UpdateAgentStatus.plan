@@ -17,6 +17,8 @@ Plan Name: Coord_UpdateAgentStatus
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data AgentPositions bel_agentPositions_dat;
 
+	#modifies data AgentGold bel_agentGold_dat;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	// The enclosing agent or capability has to implement these interfaces
 	#uses interface DebugInterface consoleIface;
@@ -29,16 +31,17 @@ Plan Name: Coord_UpdateAgentStatus
 	body()
 	{
 		bel_agentPositions_dat.add(meinformagentstatus_h.agentName,meinformagentstatus_h.agentLocation.x,meinformagentstatus_h.agentLocation.y);
-
+		bel_agentGold_dat.add(meinformagentstatus_h.agentName, meinformagentstatus_h.goldCount);
+		
+		
 		//		consoleIface.showConsoleDebug("Coordinator Says: "+meinformagentstatus_h.agentName +" just moved, these are the agents I currently know about");
-		//		logical String $agentName;
-		//		logical int $xPos,$yPos;
-		//		Cursor agentInfo = bel_agentPositions_dat.get($agentName,$xPos,$yPos);
-		//		while(agentInfo.next())
-		//		{
-		//			consoleIface.showConsoleDebug("\t" + $agentName.as_string() + " : @ location ("+$xPos.as_int()+","+$yPos.as_int()+")");
-		//			
-		//		}
+				logical String $agentName;
+				logical int $numGold;
+				Cursor agentInfo = bel_agentGold_dat.get($agentName,$numGold);
+				while(agentInfo.next())
+				{
+					consoleIface.showConsoleDebug("\t" + $agentName.as_string() + " : #NumGold ("+$numGold.as_int()+")");
+				}
 
 	}
 }

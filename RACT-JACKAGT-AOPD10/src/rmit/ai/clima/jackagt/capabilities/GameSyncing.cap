@@ -36,7 +36,12 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data GoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -61,39 +66,34 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data GoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data NumCarryingGold bel_numCarryingGold_dat();
+	#imports data SimulationProp bel_simulationProp_dat();
 
 
 	//Events handled, posted and sent are declared here.
+	#sends event MEGameEnd megameend_s;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MESimStart mesimstart_s;
+
 	#handles event EAgentMoved ;
 	#posts event EAgentMoved eagentmoved_p;
 
 	#handles external event EStart ;
 
-	#sends event MEInformCellStatus meinformcellstatus_s;
-
 	#sends event MESimEnd mesimend_s;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
-	#posts external event TellClimaServer tellclimaserver_p;
 
 	#handles external event PerceiveClimaServer ;
 
-	#sends event MESimStart mesimstart_s;
+	#posts external event TellClimaServer tellclimaserver_p;
 
-	#sends event MEGameEnd megameend_s;
+	#sends event MEInformCellStatus meinformcellstatus_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan FinishGame ;
-
 	#uses plan AuthenticateToServer ;
+
+	#uses plan FinishGame ;
 
 	#uses plan StartSimulation ;
 
