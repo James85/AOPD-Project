@@ -36,7 +36,12 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data NumCarryingGold bel_numCarryingGold_dat();
+	#imports data ObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -46,7 +51,7 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -63,20 +68,17 @@ Capability Name: GameSyncing
 	*/
 	#imports data SimulationProp bel_simulationProp_dat();
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data ObstacleAt bel_obstacleAt_dat();
-
 
 	//Events handled, posted and sent are declared here.
+	#posts external event TellClimaServer tellclimaserver_p;
+
+	#sends event MEGameEnd megameend_s;
+
 	#sends event MESimEnd mesimend_s;
 
 	#sends event MESimStart mesimstart_s;
 
-	#sends event MEGameEnd megameend_s;
-
-	#posts external event TellClimaServer tellclimaserver_p;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#sends event MEInformCellStatus meinformcellstatus_s;
 
@@ -84,15 +86,13 @@ Capability Name: GameSyncing
 
 	#handles external event EStart ;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 
 	//Plans directly used are declared here.
 	#uses plan FinishGame ;
 
-	#uses plan AuthenticateToServer ;
-
 	#uses plan FinishSimulation ;
+
+	#uses plan AuthenticateToServer ;
 
 	#uses plan StartSimulation ;
 
