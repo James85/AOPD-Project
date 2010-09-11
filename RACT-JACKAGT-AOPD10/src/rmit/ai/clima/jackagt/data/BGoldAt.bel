@@ -1,11 +1,11 @@
 package rmit.ai.clima.jackagt.data;
 import rmit.ai.clima.jackagt.events.*;
 
-public beliefset GoldAt extends OpenWorld /*or OpenWorld*/
+public beliefset BGoldAt extends OpenWorld /*or OpenWorld*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
- * Beliefset Name: GoldAt
+ * Beliefset Name: BGoldAt
  */
 
 	// Zero or more #key field declarations.

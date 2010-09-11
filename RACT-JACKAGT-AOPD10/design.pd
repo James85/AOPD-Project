@@ -1343,7 +1343,7 @@
 <Goal EntityName="PickupGold" IMemento.internal.id="408065"/>
 <Message Description="" EntityName="EShowBeliefs" IMemento.internal.id="40961" InfoCarried="" IsCovered="true" IsExternal="false" IsOverlapped="true" Package="" Purpose=""/>
 <Plan EntityName="Coord_ReportCellChanged" IMemento.internal.id="358401"/>
-<Beliefset EntityName="GoldAt" IMemento.internal.id="296705">
+<Beliefset EntityName="BGoldAt" IMemento.internal.id="296705">
 <DataField ID="296961" INDEX="0"/>
 <DataField ID="297217" INDEX="1"/>
 </Beliefset>
