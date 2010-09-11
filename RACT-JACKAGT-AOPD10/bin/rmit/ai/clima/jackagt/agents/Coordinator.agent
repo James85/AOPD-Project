@@ -22,27 +22,22 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data PlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data AgentGold bel_agentGold_dat(/*String agentName, int goldAmount*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data PlayerInfo bel_team_dat(/*String name*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
 	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
 
 	/*	Note that this data is external.
 	Maybe you want to modify the declaration as '#agent' manually.
 	*/
 	#global data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data PlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data PlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
 
 	/*	Note that this data is external.
 	Maybe you want to modify the declaration as '#agent' manually.
@@ -52,34 +47,39 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data AgentPositions bel_agentPositions_dat(/*String agentName, int posX, int posY*/);
+	#private data BPlayerGold bel_playerGold_dat(/*String agentName, int goldAmount*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayer bel_players_dat(/*String name*/);
 
 
 	//Events handled, posted and sent are declared here.
-	#handles event MESimEnd ;
-
 	#handles event ECellStatusChanged ;
 	#posts event ECellStatusChanged ecellstatuschanged_p;
 
-	#handles event MEGameEnd ;
-
 	#handles event MESimStart ;
+
+	#handles event MESimEnd ;
+
+	#handles event MEGameEnd ;
 
 	#handles event EUpdateBel ;
 
 
 	//Plans directly used are declared here.
-	#uses plan Coord_EndSimulation ;
-
-	#uses plan Coord_InitSimulation ;
+	#uses plan UpdateCellsAround ;
 
 	#uses plan Coord_ReportCellChanged ;
 
-	#uses plan UpdateCellsAround ;
-
 	#uses plan Coord_UpdateAgentStatus ;
 
+	#uses plan Coord_InitSimulation ;
+
 	#uses plan Coord_EndGame ;
+
+	#uses plan Coord_EndSimulation ;
 
 
 	// Inner capabilities are declared here.

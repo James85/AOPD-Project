@@ -15,10 +15,10 @@ import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.EUpdateBel;
-import rmit.ai.clima.jackagt.data.AgentGold;
-import rmit.ai.clima.jackagt.data.AgentPositions;
 import rmit.ai.clima.jackagt.data.PlayerPerceptReceived;
-import rmit.ai.clima.jackagt.data.PlayerInfo;
+import rmit.ai.clima.jackagt.data.PlayerPosition;
+import rmit.ai.clima.jackagt.data.BPlayerGold;
+import rmit.ai.clima.jackagt.data.BPlayer;
 import rmit.ai.clima.interfaces.DebugInterface;
 import aos.jack.jak.cursor.Cursor;
 import java.lang.Object;
@@ -27,10 +27,10 @@ import aos.jack.jak.core.Jak;
 
 public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EUpdateBel eupdatebel_h;
-    public rmit.ai.clima.jackagt.data.AgentGold bel_agentGold_dat;
-    public rmit.ai.clima.jackagt.data.AgentPositions bel_agentPositions_dat;
     public rmit.ai.clima.jackagt.data.PlayerPerceptReceived bel_playerPerceptReceived_dat;
-    public rmit.ai.clima.jackagt.data.PlayerInfo bel_team_dat;
+    public rmit.ai.clima.jackagt.data.PlayerPosition bel_playerPositions_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
+    public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -51,17 +51,17 @@ public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
             "36"};
     private final static java.lang.String[] __planVariableNames = {
             "eupdatebel_h",
-            "bel_agentGold_dat",
-            "bel_agentPositions_dat",
             "bel_playerPerceptReceived_dat",
-            "bel_team_dat",
+            "bel_playerPositions_dat",
+            "bel_playerGold_dat",
+            "bel_players_dat",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.EUpdateBel",
-            "rmit.ai.clima.jackagt.data.AgentGold",
-            "rmit.ai.clima.jackagt.data.AgentPositions",
             "rmit.ai.clima.jackagt.data.PlayerPerceptReceived",
-            "rmit.ai.clima.jackagt.data.PlayerInfo",
+            "rmit.ai.clima.jackagt.data.PlayerPosition",
+            "rmit.ai.clima.jackagt.data.BPlayerGold",
+            "rmit.ai.clima.jackagt.data.BPlayer",
             "rmit.ai.clima.interfaces.DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -91,10 +91,10 @@ public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
         __planTask = __t;
         __logic = __t.logic;
         eupdatebel_h = __env.eupdatebel_h;
-        bel_agentGold_dat = __env.bel_agentGold_dat;
-        bel_agentPositions_dat = __env.bel_agentPositions_dat;
         bel_playerPerceptReceived_dat = __env.bel_playerPerceptReceived_dat;
-        bel_team_dat = __env.bel_team_dat;
+        bel_playerPositions_dat = __env.bel_playerPositions_dat;
+        bel_playerGold_dat = __env.bel_playerGold_dat;
+        bel_players_dat = __env.bel_players_dat;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
     
@@ -105,24 +105,24 @@ public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
             warning("Failed to find EUpdateBel eupdatebel_h");
             return false;
         }
-        bel_agentGold_dat = (rmit.ai.clima.jackagt.data.AgentGold) lookupNamedObject("bel_agentGold_dat","rmit.ai.clima.jackagt.data.AgentGold",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_agentGold_dat == null) {
-            warning("Failed to find AgentGold bel_agentGold_dat");
-            return false;
-        }
-        bel_agentPositions_dat = (rmit.ai.clima.jackagt.data.AgentPositions) lookupNamedObject("bel_agentPositions_dat","rmit.ai.clima.jackagt.data.AgentPositions",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_agentPositions_dat == null) {
-            warning("Failed to find AgentPositions bel_agentPositions_dat");
-            return false;
-        }
         bel_playerPerceptReceived_dat = (rmit.ai.clima.jackagt.data.PlayerPerceptReceived) lookupNamedObject("bel_playerPerceptReceived_dat","rmit.ai.clima.jackagt.data.PlayerPerceptReceived",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_playerPerceptReceived_dat == null) {
             warning("Failed to find PlayerPerceptReceived bel_playerPerceptReceived_dat");
             return false;
         }
-        bel_team_dat = (rmit.ai.clima.jackagt.data.PlayerInfo) lookupNamedObject("bel_team_dat","rmit.ai.clima.jackagt.data.PlayerInfo",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_team_dat == null) {
-            warning("Failed to find PlayerInfo bel_team_dat");
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.PlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.PlayerPosition",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_playerPositions_dat == null) {
+            warning("Failed to find PlayerPosition bel_playerPositions_dat");
+            return false;
+        }
+        bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_playerGold_dat == null) {
+            warning("Failed to find BPlayerGold bel_playerGold_dat");
+            return false;
+        }
+        bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",0);
+        if (bel_players_dat == null) {
+            warning("Failed to find BPlayer bel_players_dat");
             return false;
         }
         return true;
@@ -226,19 +226,19 @@ public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
             }
             case 1: 
             {
-                return aos.util.ToObject.box(bel_agentGold_dat);
+                return aos.util.ToObject.box(bel_playerPerceptReceived_dat);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_agentPositions_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_playerPerceptReceived_dat);
+                return aos.util.ToObject.box(bel_playerGold_dat);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_team_dat);
+                return aos.util.ToObject.box(bel_players_dat);
             }
             case 5: 
             {
@@ -300,19 +300,19 @@ public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("Coord_UpdateAgentStatus.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (38) 		bel_agentPositions_dat.add(eupdatebel_h.name, eupdatebel_h.currentPos.x , eupdatebel_h.currentPos.y );
+                        //* (38) 		bel_playerPositions_dat.add(eupdatebel_h.name, eupdatebel_h.currentPos.x , eupdatebel_h.currentPos.y );
                         case 10: 
                         {
                             __breakLevel = 0;
                             __state = 11;
-                            bel_agentPositions_dat.add(eupdatebel_h.name,eupdatebel_h.currentPos.x,eupdatebel_h.currentPos.y);
+                            bel_playerPositions_dat.add(eupdatebel_h.name,eupdatebel_h.currentPos.x,eupdatebel_h.currentPos.y);
                             break;
                         }
-                        //* (39) 		bel_agentGold_dat.add(eupdatebel_h.name, eupdatebel_h.noCarryingGold);
+                        //* (39) 		bel_playerGold_dat.add(eupdatebel_h.name, eupdatebel_h.noCarryingGold);
                         case 11: 
                         {
                             __state = 12;
-                            bel_agentGold_dat.add(eupdatebel_h.name,eupdatebel_h.noCarryingGold);
+                            bel_playerGold_dat.add(eupdatebel_h.name,eupdatebel_h.noCarryingGold);
                             break;
                         }
                         //* (41) 		bel_playerPerceptReceived_dat.add(eupdatebel_h.name);
@@ -336,10 +336,10 @@ public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
                             consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts());
                             break;
                         }
-                        //* (47) 		if(bel_playerPerceptReceived_dat.nFacts()  == bel_team_dat.nFacts())
+                        //* (47) 		if(bel_playerPerceptReceived_dat.nFacts()  == bel_players_dat.nFacts())
                         case 15: 
                         {
-                            if (bel_playerPerceptReceived_dat.nFacts() == bel_team_dat.nFacts()) 
+                            if (bel_playerPerceptReceived_dat.nFacts() == bel_players_dat.nFacts()) 
                                 __state = 16;
                              else 
                                 __state = 17;
@@ -366,7 +366,7 @@ public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
                             __state = 19;
                             break;
                         }
-                        //* (53) 				Cursor agentInfo = bel_agentGold_dat.get($agentName,$numGold);
+                        //* (53) 				Cursor agentInfo = bel_playerGold_dat.get($agentName,$numGold);
                         case 19: 
                         {
                             __local__8_3 = (aos.jack.jak.cursor.Cursor) genCursor(0);
@@ -443,7 +443,7 @@ public class Coord_UpdateAgentStatus extends aos.jack.jak.plan.Plan {
             switch (__index) {
                 case 0: 
                 {
-                    return (bel_agentGold_dat.get(__local__8_1,__local__8_2));
+                    return (bel_playerGold_dat.get(__local__8_1,__local__8_2));
                 }
             }
             aos.jack.jak.core.Jak.error("illegal Cursor Construction");

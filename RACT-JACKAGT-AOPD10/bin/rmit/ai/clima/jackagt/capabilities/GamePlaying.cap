@@ -23,7 +23,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data GoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -33,7 +33,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data GoldAt bel_goldAt_dat();
+	#imports data SimulationProp bel_simulationProp_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -48,54 +48,54 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data NumCarryingGold bel_numCarryingGold_dat();
+	#imports data CurrentPosition bel_currentPosition_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentPosition bel_currentPosition_dat();
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
 
 
 	//Events handled, posted and sent are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles external event PerceiveClimaServer ;
+
+	#posts external event TellClimaServer tellclimaserver_p;
+
 	#handles event ECellStatusChanged ;
 	#posts event ECellStatusChanged ecellstatuschanged_p;
+
+	#handles event EExecuteCLIMAaction ;
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles event EAct ;
+	#posts event EAct eact_p;
 
 	#sends event EUpdateBel eupdatebel_s;
 
 	#sends event MEInformCellStatus meinformcellstatus_s;
 
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
-	#posts external event TellClimaServer tellclimaserver_p;
-
-	#handles external event PerceiveClimaServer ;
-
 	#handles event EShowBeliefs ;
 	#posts event EShowBeliefs eshowbeliefs_p;
 
-	#handles event EExecuteCLIMAaction ;
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#handles external event ECellChange ;
 
-	#handles event EAct ;
-	#posts event EAct eact_p;
-
 
 	//Plans directly used are declared here.
+	#uses plan HandlePercept ;
+
 	#uses plan UpdateCellsAround ;
 
 	#uses plan SendActionAndWait ;
 
-	#uses plan HandlePercept ;
-
 
 	// Inner capabilities are declared here.
-	#has capability InfoReporting inforeporting_cap;
-
 	#has capability ActionDecision actiondecision_cap;
+
+	#has capability InfoReporting inforeporting_cap;
 
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/

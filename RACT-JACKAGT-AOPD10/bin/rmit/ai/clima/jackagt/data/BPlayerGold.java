@@ -18,9 +18,9 @@ import aos.jack.jak.logic.Variable;
 import aos.jack.jak.cursor.BeliefState;
 import aos.jack.jak.cursor.Cursor;
 
-public class PlayerInfo extends aos.jack.jak.beliefset.ClosedWorld {
-    static public rmit.ai.clima.jackagt.data.PlayerInfo__Tuple __hole = new rmit.ai.clima.jackagt.data.PlayerInfo__Tuple(true);
-    public rmit.ai.clima.jackagt.data.PlayerInfo__Tuple[][] __tables;
+public class BPlayerGold extends aos.jack.jak.beliefset.ClosedWorld {
+    static public rmit.ai.clima.jackagt.data.BPlayerGold__Tuple __hole = new rmit.ai.clima.jackagt.data.BPlayerGold__Tuple(true);
+    public rmit.ai.clima.jackagt.data.BPlayerGold__Tuple[][] __tables;
     public boolean attach(aos.jack.jak.event.EventRecipient __h)
     {
         java.lang.Object __o = __h;
@@ -29,23 +29,35 @@ public class PlayerInfo extends aos.jack.jak.beliefset.ClosedWorld {
         return true;
     }
     
-    public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.StringVariable __v0)
+    public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.StringVariable __v0, aos.jack.jak.logic.IntegerVariable __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.PlayerInfo__Tuple __t = new rmit.ai.clima.jackagt.data.PlayerInfo__Tuple();
-        rmit.ai.clima.jackagt.data.PlayerInfo.__Cursor __c = new rmit.ai.clima.jackagt.data.PlayerInfo.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BPlayerGold__Tuple __t = new rmit.ai.clima.jackagt.data.BPlayerGold__Tuple();
+        rmit.ai.clima.jackagt.data.BPlayerGold.__Cursor __c = new rmit.ai.clima.jackagt.data.BPlayerGold.__Cursor(__t);
         if (!__v0.check_unifiable(StringType)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("PlayerInfo:get:O: arg 0 name Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerGold:get:OO: arg 0 agentName Incorrect Variable type");
         if (__v0.isGround()) {
             try {
-                __t.name = __v0.as_string();
+                __t.agentName = __v0.as_string();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("PlayerInfo:get:O: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerGold:get:OO: got " + e.toString());
             }
         }
          else 
-            __c.name = __v0;
+            __c.agentName = __v0;
+        if (!__v1.check_unifiable(java.lang.Integer.TYPE)) 
+            throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerGold:get:OO: arg 1 goldAmount Incorrect Variable type");
+        if (__v1.isGround()) {
+            try {
+                __t.goldAmount = __v1.as_int();
+            }
+            catch (java.lang.Exception e) {
+                throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerGold:get:OO: got " + e.toString());
+            }
+        }
+         else 
+            __c.goldAmount = __v1;
         __c.init(-1,this);
         return __c;
     }
@@ -67,7 +79,7 @@ public class PlayerInfo extends aos.jack.jak.beliefset.ClosedWorld {
     
     public aos.jack.jak.beliefset.Tuple newTuple()
     {
-        return new rmit.ai.clima.jackagt.data.PlayerInfo__Tuple();
+        return new rmit.ai.clima.jackagt.data.BPlayerGold__Tuple();
     }
     
     public aos.jack.jak.beliefset.Tuple getTuple(int t, int l)
@@ -77,12 +89,12 @@ public class PlayerInfo extends aos.jack.jak.beliefset.ClosedWorld {
     
     public aos.jack.jak.beliefset.Tuple[] newTable(int t)
     {
-        return new rmit.ai.clima.jackagt.data.PlayerInfo__Tuple[t];
+        return new rmit.ai.clima.jackagt.data.BPlayerGold__Tuple[t];
     }
     
     public aos.jack.jak.beliefset.Tuple[][] newTables(int t)
     {
-        return new rmit.ai.clima.jackagt.data.PlayerInfo__Tuple[t][];
+        return new rmit.ai.clima.jackagt.data.BPlayerGold__Tuple[t][];
     }
     
     public aos.jack.jak.beliefset.Tuple[] getTable(int t)
@@ -97,63 +109,66 @@ public class PlayerInfo extends aos.jack.jak.beliefset.ClosedWorld {
     
     public void setTables(aos.jack.jak.beliefset.Tuple[][] t)
     {
-        __tables = (rmit.ai.clima.jackagt.data.PlayerInfo__Tuple[][]) t;
+        __tables = (rmit.ai.clima.jackagt.data.BPlayerGold__Tuple[][]) t;
     }
     
     public aos.jack.jak.beliefset.BeliefSetCursor newCursor(aos.jack.jak.beliefset.Tuple __t)
     {
-        if (__t instanceof rmit.ai.clima.jackagt.data.PlayerInfo__Tuple) 
-            return new rmit.ai.clima.jackagt.data.PlayerInfo.__Cursor((rmit.ai.clima.jackagt.data.PlayerInfo__Tuple) __t);
+        if (__t instanceof rmit.ai.clima.jackagt.data.BPlayerGold__Tuple) 
+            return new rmit.ai.clima.jackagt.data.BPlayerGold.__Cursor((rmit.ai.clima.jackagt.data.BPlayerGold__Tuple) __t);
         return null;
     }
     
-    public void add(java.lang.String __v0)
+    public void add(java.lang.String __v0, int __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        add(__v0,aos.jack.jak.cursor.Cursor.TRUE);
+        add(__v0,__v1,aos.jack.jak.cursor.Cursor.TRUE);
     }
     
-    public void add(java.lang.String __v0, aos.jack.jak.cursor.BeliefState __d)
+    public void add(java.lang.String __v0, int __v1, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.PlayerInfo__Tuple __t = new rmit.ai.clima.jackagt.data.PlayerInfo__Tuple();
-        __t.name = __v0;
+        rmit.ai.clima.jackagt.data.BPlayerGold__Tuple __t = new rmit.ai.clima.jackagt.data.BPlayerGold__Tuple();
+        __t.agentName = __v0;
+        __t.goldAmount = __v1;
         super.assertTuple(__t,__d);
     }
     
-    public void remove(java.lang.String __v0)
+    public void remove(java.lang.String __v0, int __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        remove(__v0,aos.jack.jak.cursor.Cursor.TRUE);
+        remove(__v0,__v1,aos.jack.jak.cursor.Cursor.TRUE);
     }
     
-    public void remove(java.lang.String __v0, aos.jack.jak.cursor.BeliefState __d)
+    public void remove(java.lang.String __v0, int __v1, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.PlayerInfo__Tuple __t = new rmit.ai.clima.jackagt.data.PlayerInfo__Tuple();
-        __t.name = __v0;
+        rmit.ai.clima.jackagt.data.BPlayerGold__Tuple __t = new rmit.ai.clima.jackagt.data.BPlayerGold__Tuple();
+        __t.agentName = __v0;
+        __t.goldAmount = __v1;
         super.retractTuple(__t,__d);
     }
     
-    public PlayerInfo()
+    public BPlayerGold()
     {
     }
     
-    public PlayerInfo(java.lang.String n)
+    public BPlayerGold(java.lang.String n)
     {
         super();
         read(n);
     }
     
     class __Cursor extends aos.jack.jak.beliefset.ClosedWorldCursor {
-        public rmit.ai.clima.jackagt.data.PlayerInfo__Tuple __tuple = null;
-        public aos.jack.jak.logic.Variable name;
+        public rmit.ai.clima.jackagt.data.BPlayerGold__Tuple __tuple = null;
+        public aos.jack.jak.logic.Variable agentName;
+        public aos.jack.jak.logic.Variable goldAmount;
         public __Cursor()
         {
             __tuple = __hole;
         }
         
-        public __Cursor(rmit.ai.clima.jackagt.data.PlayerInfo__Tuple __t)
+        public __Cursor(rmit.ai.clima.jackagt.data.BPlayerGold__Tuple __t)
         {
             super();
             __tuple = __t;
@@ -161,15 +176,16 @@ public class PlayerInfo extends aos.jack.jak.beliefset.ClosedWorld {
         
         public int match(int __ti, int __st, int __c, boolean __k, int __ind)
         {
-            rmit.ai.clima.jackagt.data.PlayerInfo__Tuple[] __tab = __tables[__ti];
-            rmit.ai.clima.jackagt.data.PlayerInfo__Tuple __t;
+            rmit.ai.clima.jackagt.data.BPlayerGold__Tuple[] __tab = __tables[__ti];
+            rmit.ai.clima.jackagt.data.BPlayerGold__Tuple __t;
             int __sz = __tab.length;
             int __i;
             if ((aos.jack.jak.core.Jak.debugging & aos.jack.jak.core.Jak.LOG_DB) != 0) {
-                aos.jack.jak.core.Jak.log.log("PlayerInfo__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
+                aos.jack.jak.core.Jak.log.log("BPlayerGold__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
                 aos.jack.jak.core.Jak.log.log("Tuple=" + __tuple);
                 aos.jack.jak.core.Jak.log.log("Outputs are");
-                aos.jack.jak.core.Jak.log.log("  name:" + name);
+                aos.jack.jak.core.Jak.log.log("  agentName:" + agentName);
+                aos.jack.jak.core.Jak.log.log("  goldAmount:" + goldAmount);
             }
             for (__i = __st; __c > 0; __i = (__i + 1) % __sz, __c-- ) {
                 __t = __tab[__i];
@@ -189,16 +205,24 @@ public class PlayerInfo extends aos.jack.jak.beliefset.ClosedWorld {
                 try {
                     if (cp != null) 
                         cp.backtrack();
-                    if (name == null) {
-                        if (!__tuple.name.equals(__t.name)) 
+                    if (agentName == null) {
+                        if (!__tuple.agentName.equals(__t.agentName)) 
                             continue;
                     }
                      else {
-                        if (!name.unify(__t.name)) 
+                        if (!agentName.unify(__t.agentName)) 
                             continue;
                     }
                     if (__k) 
                         return __i;
+                    if (goldAmount == null) {
+                        if (__tuple.goldAmount != __t.goldAmount) 
+                            continue;
+                    }
+                     else {
+                        if (!goldAmount.unify(__t.goldAmount)) 
+                            continue;
+                    }
                 }
                 catch (java.lang.Exception e) {
                     continue;
@@ -215,14 +239,16 @@ public class PlayerInfo extends aos.jack.jak.beliefset.ClosedWorld {
         
         public aos.jack.jak.logic.ChoicePoint getChoicePoint()
         {
-            if (name != null) 
-                return name.getEnv().newChoicePoint();
+            if (agentName != null) 
+                return agentName.getEnv().newChoicePoint();
+            if (goldAmount != null) 
+                return goldAmount.getEnv().newChoicePoint();
             return null;
         }
         
         public boolean isKeyGround()
         {
-            if (name != null) 
+            if (agentName != null) 
                 return false;
             return true;
         }

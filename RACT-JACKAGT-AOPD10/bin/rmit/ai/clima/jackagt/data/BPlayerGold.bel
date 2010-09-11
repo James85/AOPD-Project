@@ -1,24 +1,28 @@
 package rmit.ai.clima.jackagt.data;
 import rmit.ai.clima.jackagt.events.*;
 
-public beliefset PlayerInfo extends ClosedWorld /*or OpenWorld*/
+public beliefset BPlayerGold extends ClosedWorld /*or OpenWorld*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
- * Beliefset Name: PlayerInfo
+ * Beliefset Name: BPlayerGold
  */
 
 	// Zero or more #key field declarations.
 	// These describe the key attributes of each belief.
-	/*	name of agent
+	/*	The name of the agent carrying this gold amount.
 	*/
-	#key field String name;
+	#key field String agentName;
 
 
 
 	// Zero of more #value field declarations.
 	// These describe the data attributes of each belief.
+	/*	The number of gold pieces this agent is carrying.
+	*/
+	#value field int goldAmount;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
-	#indexed query get(logical String name);
+	#indexed query get(logical String agentName, logical int goldAmount);
 }

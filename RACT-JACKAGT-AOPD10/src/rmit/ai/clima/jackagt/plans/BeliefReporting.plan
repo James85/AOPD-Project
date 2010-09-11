@@ -21,9 +21,9 @@ Plan Name: BeliefReporting
 Description: Report the beliefs of the agent somewhere (e.g., in the GUI)
 */
 	//Events handled by the plan are declared here.
-	#sends event MEInformAgentStatus meinformagentstatus_s;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MEInformAgentStatus meinformagentstatus_s;
 
 	#handles event EShowBeliefs eshowbeliefs_h;
 
@@ -31,9 +31,9 @@ Description: Report the beliefs of the agent somewhere (e.g., in the GUI)
 	// Declarations of any beliefset/data that the plan accesses.
 	#reads data CurrentStatus bel_currentStatus_dat;
 
-	#reads data ObstacleAt bel_obstacleAt_dat;
-
 	#reads data GoldAt bel_goldAt_dat;
+
+	#reads data ObstacleAt bel_obstacleAt_dat;
 
 	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
 

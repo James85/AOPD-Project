@@ -8,30 +8,30 @@ package rmit.ai.clima.jackagt.capabilities;
 import aos.jack.jak.agent.Capability;
 import aos.jack.jak.agent.NameSpace;
 import aos.jack.jak.agent.Agent;
-import rmit.ai.clima.jackagt.data.CurrentPosition;
-import rmit.ai.clima.jackagt.data.NumCarryingGold;
-import rmit.ai.clima.jackagt.data.ObstacleAt;
 import rmit.ai.clima.jackagt.data.GoldAt;
+import rmit.ai.clima.jackagt.data.NumCarryingGold;
+import rmit.ai.clima.jackagt.data.CurrentPosition;
+import rmit.ai.clima.jackagt.data.ObstacleAt;
 import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
 import rmit.ai.clima.jackagt.events.EAct;
 import rmit.ai.clima.jackagt.events.EExecuteCLIMAaction;
-import rmit.ai.clima.jackagt.plans.MoveRandomly;
 import rmit.ai.clima.jackagt.plans.PickGold;
+import rmit.ai.clima.jackagt.plans.MoveRandomly;
 import java.lang.Object;
 
 public class ActionDecision extends aos.jack.jak.agent.Capability {
-    public rmit.ai.clima.jackagt.data.CurrentPosition bel_currentPosition_dat;
-    public rmit.ai.clima.jackagt.data.NumCarryingGold bel_numCarryingGold_dat;
-    public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
     public rmit.ai.clima.jackagt.data.GoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.NumCarryingGold bel_numCarryingGold_dat;
+    public rmit.ai.clima.jackagt.data.CurrentPosition bel_currentPosition_dat;
+    public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
     public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
     public rmit.ai.clima.jackagt.events.EExecuteCLIMAaction eexecuteclimaaction_p;
     public void __init1()
     {
-        setNamedCreator("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.CurrentPosition",new aos.jack.jak.agent.DataCreator(false){
+        setNamedCreator("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt",new aos.jack.jak.agent.DataCreator(false){
             public java.lang.Object create()
             {
-                return __named_data_bel_currentPosition_dat();
+                return __named_data_bel_goldAt_dat();
             }
             
         },true);
@@ -42,6 +42,13 @@ public class ActionDecision extends aos.jack.jak.agent.Capability {
             }
             
         },true);
+        setNamedCreator("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.CurrentPosition",new aos.jack.jak.agent.DataCreator(false){
+            public java.lang.Object create()
+            {
+                return __named_data_bel_currentPosition_dat();
+            }
+            
+        },true);
         setNamedCreator("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",new aos.jack.jak.agent.DataCreator(true){
             public java.lang.Object create()
             {
@@ -49,21 +56,14 @@ public class ActionDecision extends aos.jack.jak.agent.Capability {
             }
             
         },true);
-        setNamedCreator("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt",new aos.jack.jak.agent.DataCreator(false){
-            public java.lang.Object create()
-            {
-                return __named_data_bel_goldAt_dat();
-            }
-            
-        },true);
     }
     
     public void __init2()
     {
-        bel_currentPosition_dat = (rmit.ai.clima.jackagt.data.CurrentPosition) getNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.CurrentPosition");
-        bel_numCarryingGold_dat = (rmit.ai.clima.jackagt.data.NumCarryingGold) getNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.NumCarryingGold");
-        getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt");
         bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) getNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt");
+        bel_numCarryingGold_dat = (rmit.ai.clima.jackagt.data.NumCarryingGold) getNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.NumCarryingGold");
+        bel_currentPosition_dat = (rmit.ai.clima.jackagt.data.CurrentPosition) getNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.CurrentPosition");
+        getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt");
         eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
         eexecuteclimaaction_p = (rmit.ai.clima.jackagt.events.EExecuteCLIMAaction) findEvent("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction");
         autorun();
@@ -73,15 +73,15 @@ public class ActionDecision extends aos.jack.jak.agent.Capability {
     {
         externals.put("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction","rmit.ai.clima.jackagt.events.EExecuteCLIMAaction");
         externals.put("rmit.ai.clima.jackagt.events.EAct","rmit.ai.clima.jackagt.events.EAct");
-        externals.put("bel_goldAt_dat","bel_goldAt_dat");
-        externals.put("bel_numCarryingGold_dat","bel_numCarryingGold_dat");
         externals.put("bel_currentPosition_dat","bel_currentPosition_dat");
+        externals.put("bel_numCarryingGold_dat","bel_numCarryingGold_dat");
+        externals.put("bel_goldAt_dat","bel_goldAt_dat");
         addNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",0);
         addEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage",aos.jack.jak.agent.Agent.SENT_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.EAct",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction",aos.jack.jak.agent.Agent.POSTED_EVENT);
-        addPlan("rmit.ai.clima.jackagt.plans.MoveRandomly",0);
         addPlan("rmit.ai.clima.jackagt.plans.PickGold",0);
+        addPlan("rmit.ai.clima.jackagt.plans.MoveRandomly",0);
     }
     
     public ActionDecision(aos.jack.jak.agent.NameSpace outer)
@@ -92,20 +92,26 @@ public class ActionDecision extends aos.jack.jak.agent.Capability {
     synchronized public void __bindNames()
     {
         super.__bindNames();
-        __bindToPlan("rmit.ai.clima.jackagt.plans.MoveRandomly");
         __bindToPlan("rmit.ai.clima.jackagt.plans.PickGold");
+        __bindToPlan("rmit.ai.clima.jackagt.plans.MoveRandomly");
     }
     
-    private rmit.ai.clima.jackagt.data.CurrentPosition __named_data_bel_currentPosition_dat()
+    private rmit.ai.clima.jackagt.data.GoldAt __named_data_bel_goldAt_dat()
     {
-        bel_currentPosition_dat = (rmit.ai.clima.jackagt.data.CurrentPosition) getNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.CurrentPosition");
-        return bel_currentPosition_dat;
+        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) getNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt");
+        return bel_goldAt_dat;
     }
     
     private rmit.ai.clima.jackagt.data.NumCarryingGold __named_data_bel_numCarryingGold_dat()
     {
         bel_numCarryingGold_dat = (rmit.ai.clima.jackagt.data.NumCarryingGold) getNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.NumCarryingGold");
         return bel_numCarryingGold_dat;
+    }
+    
+    private rmit.ai.clima.jackagt.data.CurrentPosition __named_data_bel_currentPosition_dat()
+    {
+        bel_currentPosition_dat = (rmit.ai.clima.jackagt.data.CurrentPosition) getNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.CurrentPosition");
+        return bel_currentPosition_dat;
     }
     
     private rmit.ai.clima.jackagt.data.ObstacleAt __named_data_bel_obstacleAt_dat()
@@ -123,12 +129,6 @@ public class ActionDecision extends aos.jack.jak.agent.Capability {
         addGlobal("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",bel_obstacleAt_dat);
         setNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",bel_obstacleAt_dat);
         return bel_obstacleAt_dat;
-    }
-    
-    private rmit.ai.clima.jackagt.data.GoldAt __named_data_bel_goldAt_dat()
-    {
-        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) getNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt");
-        return bel_goldAt_dat;
     }
     
 }

@@ -12,7 +12,7 @@ import aos.jack.jak.logic.Signature;
 import aos.jack.jak.logic.LogicEnv;
 import aos.extension.rule.RuleMonitor;
 import rmit.ai.clima.jackagt.data.ObstacleAt;
-import rmit.ai.clima.jackagt.data.AgentPositions;
+import rmit.ai.clima.jackagt.data.PlayerPosition;
 import java.lang.Object;
 import aos.jack.jak.core.Jak;
 
@@ -24,7 +24,7 @@ public class ECellStatusChanged extends aos.jack.jak.event.BDIGoalEvent implemen
     aos.jack.jak.logic.StringVariable $agentName;
     public java.lang.String msg;
     public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
-    public rmit.ai.clima.jackagt.data.AgentPositions bel_agentPositions_dat;
+    public rmit.ai.clima.jackagt.data.PlayerPosition bel_playerPositions_dat;
     public aos.jack.jak.logic.LogicEnv __logic = null;
     private final static java.lang.String[] __eventVariableNames = {
             "$x",
@@ -32,14 +32,14 @@ public class ECellStatusChanged extends aos.jack.jak.event.BDIGoalEvent implemen
             "$agentName",
             "msg",
             "bel_obstacleAt_dat",
-            "bel_agentPositions_dat"};
+            "bel_playerPositions_dat"};
     private final static java.lang.String[] __eventVariableTypes = {
             "logical int",
             "logical int",
             "logical String",
             "String",
             "ObstacleAt",
-            "AgentPositions"};
+            "PlayerPosition"};
     private boolean __rule_init = false;
     public java.lang.String getDocumentation()
     {
@@ -64,7 +64,7 @@ public class ECellStatusChanged extends aos.jack.jak.event.BDIGoalEvent implemen
             }
             case 1: 
             {
-                return (bel_agentPositions_dat.get($agentName,$x,$y));
+                return (bel_playerPositions_dat.get($agentName,$x,$y));
             }
         }
         aos.jack.jak.core.Jak.error("illegal Cursor Construction");
@@ -180,7 +180,7 @@ public class ECellStatusChanged extends aos.jack.jak.event.BDIGoalEvent implemen
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_agentPositions_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             default: 
             {
@@ -201,7 +201,7 @@ public class ECellStatusChanged extends aos.jack.jak.event.BDIGoalEvent implemen
         catch (aos.jack.jak.logic.LogicException e) {
         }
         bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.ObstacleAt) agent.getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt");
-        bel_agentPositions_dat = (rmit.ai.clima.jackagt.data.AgentPositions) agent.getNamedObject("bel_agentPositions_dat","rmit.ai.clima.jackagt.data.AgentPositions");
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.PlayerPosition) agent.getNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.PlayerPosition");
         new aos.extension.rule.RuleMonitor(this,0);
         new aos.extension.rule.RuleMonitor(this,1);
     }

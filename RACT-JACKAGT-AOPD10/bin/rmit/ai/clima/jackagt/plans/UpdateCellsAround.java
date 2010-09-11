@@ -15,8 +15,8 @@ import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.EUpdateBel;
-import rmit.ai.clima.jackagt.data.ObstacleAt;
 import rmit.ai.clima.jackagt.data.GoldAt;
+import rmit.ai.clima.jackagt.data.ObstacleAt;
 import rmit.ai.clima.interfaces.DebugInterface;
 import rmit.ai.clima.comms.Cell;
 import rmit.ai.clima.gui.grid.GridPoint;
@@ -27,8 +27,8 @@ import aos.jack.jak.core.Jak;
 
 public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EUpdateBel eupdatebel_h;
-    public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
     public rmit.ai.clima.jackagt.data.GoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -62,13 +62,13 @@ public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
             "44"};
     private final static java.lang.String[] __planVariableNames = {
             "eupdatebel_h",
-            "bel_obstacleAt_dat",
             "bel_goldAt_dat",
+            "bel_obstacleAt_dat",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.EUpdateBel",
-            "rmit.ai.clima.jackagt.data.ObstacleAt",
             "rmit.ai.clima.jackagt.data.GoldAt",
+            "rmit.ai.clima.jackagt.data.ObstacleAt",
             "DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -124,8 +124,8 @@ public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
         __planTask = __t;
         __logic = __t.logic;
         eupdatebel_h = __env.eupdatebel_h;
-        bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
         bel_goldAt_dat = __env.bel_goldAt_dat;
+        bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
     
@@ -136,14 +136,14 @@ public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
             warning("Failed to find EUpdateBel eupdatebel_h");
             return false;
         }
-        bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.ObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_obstacleAt_dat == null) {
-            warning("Failed to find ObstacleAt bel_obstacleAt_dat");
-            return false;
-        }
         bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_goldAt_dat == null) {
             warning("Failed to find GoldAt bel_goldAt_dat");
+            return false;
+        }
+        bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.ObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_obstacleAt_dat == null) {
+            warning("Failed to find ObstacleAt bel_obstacleAt_dat");
             return false;
         }
         return true;
@@ -247,11 +247,11 @@ public class UpdateCellsAround extends aos.jack.jak.plan.Plan {
             }
             case 1: 
             {
-                return aos.util.ToObject.box(bel_obstacleAt_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_obstacleAt_dat);
             }
             case 3: 
             {

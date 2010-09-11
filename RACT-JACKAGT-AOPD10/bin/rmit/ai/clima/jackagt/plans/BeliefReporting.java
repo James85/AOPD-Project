@@ -13,12 +13,12 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
-import rmit.ai.clima.jackagt.events.MEInformAgentStatus;
 import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
+import rmit.ai.clima.jackagt.events.MEInformAgentStatus;
 import rmit.ai.clima.jackagt.events.EShowBeliefs;
 import rmit.ai.clima.jackagt.data.CurrentStatus;
-import rmit.ai.clima.jackagt.data.ObstacleAt;
 import rmit.ai.clima.jackagt.data.GoldAt;
+import rmit.ai.clima.jackagt.data.ObstacleAt;
 import rmit.ai.clima.jackagt.data.CurrentRequestActionId;
 import java.lang.Object;
 import aos.jack.jak.cursor.Cursor;
@@ -37,12 +37,12 @@ public class BeliefReporting extends aos.jack.jak.plan.Plan {
             "w",
             "nw"};
     final static java.lang.String ID = "BEL_REPORT";
-    public rmit.ai.clima.jackagt.events.MEInformAgentStatus meinformagentstatus_s;
     public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
+    public rmit.ai.clima.jackagt.events.MEInformAgentStatus meinformagentstatus_s;
     public rmit.ai.clima.jackagt.events.EShowBeliefs eshowbeliefs_h;
     public rmit.ai.clima.jackagt.data.CurrentStatus bel_currentStatus_dat;
-    public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
     public rmit.ai.clima.jackagt.data.GoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
     public rmit.ai.clima.jackagt.data.CurrentRequestActionId bel_currentRequestActionId_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -61,22 +61,22 @@ public class BeliefReporting extends aos.jack.jak.plan.Plan {
     private final static java.lang.String[] __planVariableNames = {
             "dir",
             "ID",
-            "meinformagentstatus_s",
             "eguidebugmessage_s",
+            "meinformagentstatus_s",
             "eshowbeliefs_h",
             "bel_currentStatus_dat",
-            "bel_obstacleAt_dat",
             "bel_goldAt_dat",
+            "bel_obstacleAt_dat",
             "bel_currentRequestActionId_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "String[]",
             "String",
-            "MEInformAgentStatus",
             "EGUIDebugMessage",
+            "MEInformAgentStatus",
             "EShowBeliefs",
             "CurrentStatus",
-            "ObstacleAt",
             "GoldAt",
+            "ObstacleAt",
             "rmit.ai.clima.jackagt.data.CurrentRequestActionId"};
     private final static java.lang.String[] __reasoningMethods = {
             "body",
@@ -107,25 +107,25 @@ public class BeliefReporting extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        meinformagentstatus_s = __env.meinformagentstatus_s;
         eguidebugmessage_s = __env.eguidebugmessage_s;
+        meinformagentstatus_s = __env.meinformagentstatus_s;
         eshowbeliefs_h = __env.eshowbeliefs_h;
         bel_currentStatus_dat = __env.bel_currentStatus_dat;
-        bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
         bel_goldAt_dat = __env.bel_goldAt_dat;
+        bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
         bel_currentRequestActionId_dat = __env.bel_currentRequestActionId_dat;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        meinformagentstatus_s = (rmit.ai.clima.jackagt.events.MEInformAgentStatus) __a.findEvent("rmit.ai.clima.jackagt.events.MEInformAgentStatus");
-        if (meinformagentstatus_s == null) {
-            warning("Failed to find MEInformAgentStatus meinformagentstatus_s");
-            return false;
-        }
         eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) __a.findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
         if (eguidebugmessage_s == null) {
             warning("Failed to find EGUIDebugMessage eguidebugmessage_s");
+            return false;
+        }
+        meinformagentstatus_s = (rmit.ai.clima.jackagt.events.MEInformAgentStatus) __a.findEvent("rmit.ai.clima.jackagt.events.MEInformAgentStatus");
+        if (meinformagentstatus_s == null) {
+            warning("Failed to find MEInformAgentStatus meinformagentstatus_s");
             return false;
         }
         eshowbeliefs_h = (rmit.ai.clima.jackagt.events.EShowBeliefs) __a.findEvent("rmit.ai.clima.jackagt.events.EShowBeliefs");
@@ -138,14 +138,14 @@ public class BeliefReporting extends aos.jack.jak.plan.Plan {
             warning("Failed to find CurrentStatus bel_currentStatus_dat");
             return false;
         }
-        bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.ObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",0);
-        if (bel_obstacleAt_dat == null) {
-            warning("Failed to find ObstacleAt bel_obstacleAt_dat");
-            return false;
-        }
         bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt",0);
         if (bel_goldAt_dat == null) {
             warning("Failed to find GoldAt bel_goldAt_dat");
+            return false;
+        }
+        bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.ObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",0);
+        if (bel_obstacleAt_dat == null) {
+            warning("Failed to find ObstacleAt bel_obstacleAt_dat");
             return false;
         }
         bel_currentRequestActionId_dat = (rmit.ai.clima.jackagt.data.CurrentRequestActionId) lookupNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",0);
@@ -263,11 +263,11 @@ public class BeliefReporting extends aos.jack.jak.plan.Plan {
             }
             case 2: 
             {
-                return aos.util.ToObject.box(meinformagentstatus_s);
+                return aos.util.ToObject.box(eguidebugmessage_s);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(eguidebugmessage_s);
+                return aos.util.ToObject.box(meinformagentstatus_s);
             }
             case 4: 
             {
@@ -279,11 +279,11 @@ public class BeliefReporting extends aos.jack.jak.plan.Plan {
             }
             case 6: 
             {
-                return aos.util.ToObject.box(bel_obstacleAt_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 7: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_obstacleAt_dat);
             }
             case 8: 
             {

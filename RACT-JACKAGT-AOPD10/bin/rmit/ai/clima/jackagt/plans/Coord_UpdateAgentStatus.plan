@@ -16,13 +16,13 @@ Plan Name: Coord_UpdateAgentStatus
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data AgentGold bel_agentGold_dat;
-
-	#modifies data AgentPositions bel_agentPositions_dat;
-
 	#modifies data PlayerPerceptReceived bel_playerPerceptReceived_dat;
 
-	#modifies data PlayerInfo bel_team_dat;
+	#modifies data PlayerPosition bel_playerPositions_dat;
+
+	#modifies data BPlayerGold bel_playerGold_dat;
+
+	#reads data BPlayer bel_players_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	// The enclosing agent or capability has to implement these interfaces
@@ -35,8 +35,8 @@ Plan Name: Coord_UpdateAgentStatus
 
 	body()
 	{
-		bel_agentPositions_dat.add(eupdatebel_h.name, eupdatebel_h.currentPos.x , eupdatebel_h.currentPos.y );
-		bel_agentGold_dat.add(eupdatebel_h.name, eupdatebel_h.noCarryingGold);
+		bel_playerPositions_dat.add(eupdatebel_h.name, eupdatebel_h.currentPos.x , eupdatebel_h.currentPos.y );
+		bel_playerGold_dat.add(eupdatebel_h.name, eupdatebel_h.noCarryingGold);
 		
 		bel_playerPerceptReceived_dat.add(eupdatebel_h.name);
 		
@@ -44,13 +44,13 @@ Plan Name: Coord_UpdateAgentStatus
 		logical String $name;
 		   
 		consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts() );
-		if(bel_playerPerceptReceived_dat.nFacts()  == bel_team_dat.nFacts())
+		if(bel_playerPerceptReceived_dat.nFacts()  == bel_players_dat.nFacts())
 		   bel_playerPerceptReceived_dat.get($name).removeAll();
 		   
 		//		consoleIface.showConsoleDebug("Coordinator Says: "+meinformagentstatus_h.agentName +" just moved, these are the agents I currently know about");
 				logical String $agentName;
 				logical int $numGold;
-				Cursor agentInfo = bel_agentGold_dat.get($agentName,$numGold);
+				Cursor agentInfo = bel_playerGold_dat.get($agentName,$numGold);
 				while(agentInfo.next())
 				{
 					consoleIface.showConsoleDebug("\t" + $agentName.as_string() + " : #NumGold ("+$numGold.as_int()+")");

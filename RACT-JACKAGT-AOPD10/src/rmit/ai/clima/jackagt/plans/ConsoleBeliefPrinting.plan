@@ -23,13 +23,13 @@ Description: Reports believed information in the console
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data CurrentPosition bel_currentPosition_dat;
+	#reads data GoldAt bel_goldAt_dat;
 
-	#reads data NumCarryingGold bel_numCarryingGold_dat;
+	#reads data CurrentPosition bel_currentPosition_dat;
 
 	#reads data ObstacleAt bel_obstacleAt_dat;
 
-	#reads data GoldAt bel_goldAt_dat;
+	#reads data NumCarryingGold bel_numCarryingGold_dat;
 
 	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
 
