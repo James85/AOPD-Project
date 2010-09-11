@@ -1,0 +1,32 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PCoord_ChoosePlayerActions extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PCoord_ChoosePlayerActions
+*/
+	//Events handled by the plan are declared here.
+	#handles event EChoosePlayerActions echooseplayeractions_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	context()
+	{
+		// Trigger: Event "EChoosePlayerActions"
+
+
+		true;
+	}
+
+	body()
+	{
+		// The plan body. This describes the actual steps
+		// an agent performs when it executes this plan.
+	}
+}

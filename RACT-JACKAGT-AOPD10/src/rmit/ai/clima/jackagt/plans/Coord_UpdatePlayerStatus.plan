@@ -12,6 +12,8 @@ public plan Coord_UpdatePlayerStatus extends Plan
 Plan Name: Coord_UpdatePlayerStatus
 */
 	//Events handled by the plan are declared here.
+	#posts event EChoosePlayerActions echooseplayeractions_p;
+
 	#handles event EUpdateBel eupdatebel_h;
 
 
