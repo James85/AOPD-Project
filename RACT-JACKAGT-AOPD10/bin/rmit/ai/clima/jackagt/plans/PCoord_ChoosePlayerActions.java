@@ -52,23 +52,22 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
             "56",
             "60",
             "61",
-            "63",
-            "66",
-            "68",
+            "67",
             "69",
-            "72",
-            "74",
+            "70",
+            "73",
             "75",
-            "79",
-            "79",
-            "82",
-            "83",
-            "86",
-            "87",
+            "76",
+            "81",
+            "81",
+            "84",
+            "85",
             "88",
-            "79",
-            "92",
+            "89",
+            "90",
+            "81",
             "94",
+            "96",
             "41"};
     private final static java.lang.String[] __planVariableNames = {
             "lookUpDirs",
@@ -387,7 +386,7 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                             if (__local__18_2.next()) 
                                 __state = 14;
                              else 
-                                __state = 38;
+                                __state = 37;
                             break;
                         }
                         //* (51)          logical int $x, $y;
@@ -465,15 +464,32 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                                 throw planfailed;
                             break;
                         }
-                        //* (63)          System.out.println("POS, (" + $x.as_int()+","+ $y.as_int()+")" );
+                        //* (67)          if($numGold.as_int() >= 3)
                         case 21: 
                         {
-                            __state = 22;
-                            java.lang.System.out.println("POS, (" + __local__18_3.as_int() + "," + __local__18_4.as_int() + ")");
+                            if (__local__18_5.as_int() >= 3) 
+                                __state = 22;
+                             else 
+                                __state = 24;
                             break;
                         }
-                        //* (66)          if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
+                        //* (69)             @send( baseName, meplayeraction_s.send( "moveRand" ));
                         case 22: 
+                        {
+                            __breakLevel = 6;
+                            __state = 23;
+                            agent.send(__local__18_1,meplayeraction_s.send("moveRand"));
+                            break;
+                        }
+                        //* (70)             continue;  
+                        case 23: 
+                        {
+                            __breakLevel = 3;
+                            __state = 13;
+                            break;
+                        }
+                        //* (73)          if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
+                        case 24: 
                         {
                             boolean __b;
                             aos.jack.jak.cursor.Cursor __c = null;
@@ -486,76 +502,52 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                                     __c.finished();
                             }
                             if (__b) 
-                                __state = 23;
-                             else 
                                 __state = 25;
+                             else 
+                                __state = 27;
                             break;
                         }
-                        //* (68)             @send( baseName, meplayeraction_s.send( "pick" ));
-                        case 23: 
+                        //* (75)             @send( baseName, meplayeraction_s.send( "pick" ));
+                        case 25: 
                         {
                             __breakLevel = 6;
-                            __state = 24;
+                            __state = 26;
                             agent.send(__local__18_1,meplayeraction_s.send("pick"));
                             break;
                         }
-                        //* (69)             continue;
-                        case 24: 
-                        {
-                            __breakLevel = 3;
-                            __state = 13;
-                            break;
-                        }
-                        //* (72)          if($numGold.as_int() >= 3)
-                        case 25: 
-                        {
-                            if (__local__18_5.as_int() >= 3) 
-                                __state = 26;
-                             else 
-                                __state = 28;
-                            break;
-                        }
-                        //* (74)             @send( baseName, meplayeraction_s.send( "moveRand" ));
+                        //* (76)             continue;
                         case 26: 
                         {
-                            __breakLevel = 6;
-                            __state = 27;
-                            agent.send(__local__18_1,meplayeraction_s.send("moveRand"));
-                            break;
-                        }
-                        //* (75)             continue;  
-                        case 27: 
-                        {
                             __breakLevel = 3;
                             __state = 13;
                             break;
                         }
-                        //* (79)          for (int d=0; d<lookUpDirs.length; ++d)
-                        case 28: 
+                        //* (81)          for (int d=0; d<lookUpDirs.length; ++d)
+                        case 27: 
                         {
                             __local__18_7 = 0;
-                            __state = 29;
+                            __state = 28;
                             break;
                         }
-                        //* (79)          for (int d=0; d<lookUpDirs.length; ++d)
-                        case 29: 
+                        //* (81)          for (int d=0; d<lookUpDirs.length; ++d)
+                        case 28: 
                         {
                             if (__local__18_7 < lookUpDirs.length) 
-                                __state = 30;
+                                __state = 29;
                              else 
-                                __state = 36;
+                                __state = 35;
                             break;
                         }
-                        //* (82)             GridPoint lookUpLoc = GridPoint.getFromDir( $x.as_int(), $y.as_int(), lookUpDirs[d] );
-                        case 30: 
+                        //* (84)             GridPoint lookUpLoc = GridPoint.getFromDir( $x.as_int(), $y.as_int(), lookUpDirs[d] );
+                        case 29: 
                         {
                             __breakLevel = 8;
                             __local__18_8 = rmit.ai.clima.gui.grid.GridPoint.getFromDir(__local__18_3.as_int(),__local__18_4.as_int(),lookUpDirs[__local__18_7]);
-                            __state = 31;
+                            __state = 30;
                             break;
                         }
-                        //* (83)             if (bel_goldAt_dat.check( lookUpLoc.x, lookUpLoc.y ))
-                        case 31: 
+                        //* (85)             if (bel_goldAt_dat.check( lookUpLoc.x, lookUpLoc.y ))
+                        case 30: 
                         {
                             boolean __b;
                             aos.jack.jak.cursor.Cursor __c = null;
@@ -568,51 +560,51 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                                     __c.finished();
                             }
                             if (__b) 
-                                __state = 32;
+                                __state = 31;
                              else 
-                                __state = 35;
+                                __state = 34;
                             break;
                         }
-                        //* (86)                @send( baseName, meplayeraction_s.send( "moveTo", lookUpDirs[d] ));
-                        case 32: 
+                        //* (88)                @send( baseName, meplayeraction_s.send( "moveTo", lookUpDirs[d] ));
+                        case 31: 
                         {
                             __breakLevel = 10;
-                            __state = 33;
+                            __state = 32;
                             agent.send(__local__18_1,meplayeraction_s.send("moveTo",lookUpDirs[__local__18_7]));
                             break;
                         }
-                        //* (87)                goldFound = true;
-                        case 33: 
+                        //* (89)                goldFound = true;
+                        case 32: 
                         {
-                            __state = 34;
+                            __state = 33;
                             __local__18_6 = true;
                             break;
                         }
-                        //* (88)                break;
-                        case 34: 
+                        //* (90)                break;
+                        case 33: 
                         {
                             __breakLevel = 6;
-                            __state = 36;
+                            __state = 35;
                             break;
                         }
-                        //* (79)          for (int d=0; d<lookUpDirs.length; ++d)
-                        case 35: 
+                        //* (81)          for (int d=0; d<lookUpDirs.length; ++d)
+                        case 34: 
                         {
-                            __state = 29;
+                            __state = 28;
                             ++__local__18_7;
                             break;
                         }
-                        //* (92)          if (!goldFound)
-                        case 36: 
+                        //* (94)          if (!goldFound)
+                        case 35: 
                         {
                             if (!__local__18_6) 
-                                __state = 37;
+                                __state = 36;
                              else 
                                 __state = 13;
                             break;
                         }
-                        //* (94)             @send( baseName, meplayeraction_s.send( "moveRand" ));
-                        case 37: 
+                        //* (96)             @send( baseName, meplayeraction_s.send( "moveRand" ));
+                        case 36: 
                         {
                             __breakLevel = 6;
                             __state = 13;
@@ -620,7 +612,7 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                             break;
                         }
                         //* (41) 	#reasoning method
-                        case 38: 
+                        case 37: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

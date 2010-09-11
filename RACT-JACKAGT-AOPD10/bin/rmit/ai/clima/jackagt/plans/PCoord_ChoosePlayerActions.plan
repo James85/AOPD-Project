@@ -60,20 +60,22 @@ Plan Name: PCoord_ChoosePlayerActions
          bel_playerPositions_dat.getByName( $playerName.as_string(), $x, $y );
          bel_playerGold_dat.getByName( $playerName.as_string(), $numGold );
          
-         System.out.println("POS, (" + $x.as_int()+","+ $y.as_int()+")" );
          
-         //Check if gold at current location
-         if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
-         {
-            @send( baseName, meplayeraction_s.send( "pick" ));
-            continue;
-         }
+         
+         
          //dirty hack will change after #TODO
          if($numGold.as_int() >= 3)
          {
             @send( baseName, meplayeraction_s.send( "moveRand" ));
             continue;  
          }
+         //Check if gold at current location
+         if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
+         {
+            @send( baseName, meplayeraction_s.send( "pick" ));
+            continue;
+         }
+
          
          //Loop through the adjacent locations
          for (int d=0; d<lookUpDirs.length; ++d)
