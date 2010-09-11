@@ -16,15 +16,15 @@ import aos.jack.jak.core.Generator;
 import aos.jack.jak.cursor.Cursor;
 import aos.jack.jak.cursor.BinaryBoolOp;
 import aos.jack.jak.logic.Signature;
-import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
-import rmit.ai.clima.jackagt.events.EShowBeliefs;
+import rmit.ai.clima.jackagt.events.EUpdateBel;
 import rmit.ai.clima.jackagt.events.MEInformAgentStatus;
 import rmit.ai.clima.jackagt.events.EAct;
-import rmit.ai.clima.jackagt.events.EUpdateBel;
+import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
+import rmit.ai.clima.jackagt.events.EShowBeliefs;
 import rmit.ai.clima.iface.PerceiveClimaServer;
 import rmit.ai.clima.jackagt.data.CurrentRequestActionId;
-import rmit.ai.clima.jackagt.data.NumCarryingGold;
 import rmit.ai.clima.jackagt.data.CurrentPosition;
+import rmit.ai.clima.jackagt.data.NumCarryingGold;
 import rmit.ai.clima.interfaces.DebugInterface;
 import rmit.ai.clima.comms.RequestAction;
 import rmit.ai.clima.gui.grid.GridPoint;
@@ -35,15 +35,15 @@ import aos.jack.jak.core.Jak;
 
 public class HandlePercept extends aos.jack.jak.plan.Plan {
     final static java.lang.String ID = "HAND_PERC";
-    public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
-    public rmit.ai.clima.jackagt.events.EShowBeliefs eshowbeliefs_p;
+    public rmit.ai.clima.jackagt.events.EUpdateBel eupdatebel_s;
     public rmit.ai.clima.jackagt.events.MEInformAgentStatus meinformagentstatus_s;
     public rmit.ai.clima.jackagt.events.EAct eact_p;
-    public rmit.ai.clima.jackagt.events.EUpdateBel eupdatebel_s;
+    public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
+    public rmit.ai.clima.jackagt.events.EShowBeliefs eshowbeliefs_p;
     public rmit.ai.clima.iface.PerceiveClimaServer perceiveclimaserver_h;
     public rmit.ai.clima.jackagt.data.CurrentRequestActionId bel_currentRequestActionId_dat;
-    public rmit.ai.clima.jackagt.data.NumCarryingGold bel_numCarryingGold_dat;
     public rmit.ai.clima.jackagt.data.CurrentPosition bel_currentPosition_dat;
+    public rmit.ai.clima.jackagt.data.NumCarryingGold bel_numCarryingGold_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_fail;
     private static java.lang.String[] __tt__fail = {
@@ -80,27 +80,27 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
             "72"};
     private final static java.lang.String[] __planVariableNames = {
             "ID",
-            "eguidebugmessage_s",
-            "eshowbeliefs_p",
+            "eupdatebel_s",
             "meinformagentstatus_s",
             "eact_p",
-            "eupdatebel_s",
+            "eguidebugmessage_s",
+            "eshowbeliefs_p",
             "perceiveclimaserver_h",
             "bel_currentRequestActionId_dat",
-            "bel_numCarryingGold_dat",
             "bel_currentPosition_dat",
+            "bel_numCarryingGold_dat",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "String",
-            "EGUIDebugMessage",
-            "EShowBeliefs",
+            "rmit.ai.clima.jackagt.events.EUpdateBel",
             "MEInformAgentStatus",
             "EAct",
-            "rmit.ai.clima.jackagt.events.EUpdateBel",
+            "EGUIDebugMessage",
+            "EShowBeliefs",
             "rmit.ai.clima.iface.PerceiveClimaServer",
             "rmit.ai.clima.jackagt.data.CurrentRequestActionId",
-            "rmit.ai.clima.jackagt.data.NumCarryingGold",
             "rmit.ai.clima.jackagt.data.CurrentPosition",
+            "rmit.ai.clima.jackagt.data.NumCarryingGold",
             "rmit.ai.clima.interfaces.DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
             "body",
@@ -160,28 +160,23 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        eguidebugmessage_s = __env.eguidebugmessage_s;
-        eshowbeliefs_p = __env.eshowbeliefs_p;
+        eupdatebel_s = __env.eupdatebel_s;
         meinformagentstatus_s = __env.meinformagentstatus_s;
         eact_p = __env.eact_p;
-        eupdatebel_s = __env.eupdatebel_s;
+        eguidebugmessage_s = __env.eguidebugmessage_s;
+        eshowbeliefs_p = __env.eshowbeliefs_p;
         perceiveclimaserver_h = __env.perceiveclimaserver_h;
         bel_currentRequestActionId_dat = __env.bel_currentRequestActionId_dat;
-        bel_numCarryingGold_dat = __env.bel_numCarryingGold_dat;
         bel_currentPosition_dat = __env.bel_currentPosition_dat;
+        bel_numCarryingGold_dat = __env.bel_numCarryingGold_dat;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) __a.findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
-        if (eguidebugmessage_s == null) {
-            warning("Failed to find EGUIDebugMessage eguidebugmessage_s");
-            return false;
-        }
-        eshowbeliefs_p = (rmit.ai.clima.jackagt.events.EShowBeliefs) __a.findEvent("rmit.ai.clima.jackagt.events.EShowBeliefs");
-        if (eshowbeliefs_p == null) {
-            warning("Failed to find EShowBeliefs eshowbeliefs_p");
+        eupdatebel_s = (rmit.ai.clima.jackagt.events.EUpdateBel) __a.findEvent("rmit.ai.clima.jackagt.events.EUpdateBel");
+        if (eupdatebel_s == null) {
+            warning("Failed to find EUpdateBel eupdatebel_s");
             return false;
         }
         meinformagentstatus_s = (rmit.ai.clima.jackagt.events.MEInformAgentStatus) __a.findEvent("rmit.ai.clima.jackagt.events.MEInformAgentStatus");
@@ -194,9 +189,14 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
             warning("Failed to find EAct eact_p");
             return false;
         }
-        eupdatebel_s = (rmit.ai.clima.jackagt.events.EUpdateBel) __a.findEvent("rmit.ai.clima.jackagt.events.EUpdateBel");
-        if (eupdatebel_s == null) {
-            warning("Failed to find EUpdateBel eupdatebel_s");
+        eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) __a.findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
+        if (eguidebugmessage_s == null) {
+            warning("Failed to find EGUIDebugMessage eguidebugmessage_s");
+            return false;
+        }
+        eshowbeliefs_p = (rmit.ai.clima.jackagt.events.EShowBeliefs) __a.findEvent("rmit.ai.clima.jackagt.events.EShowBeliefs");
+        if (eshowbeliefs_p == null) {
+            warning("Failed to find EShowBeliefs eshowbeliefs_p");
             return false;
         }
         perceiveclimaserver_h = (rmit.ai.clima.iface.PerceiveClimaServer) __a.findEvent("rmit.ai.clima.iface.PerceiveClimaServer");
@@ -209,14 +209,14 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
             warning("Failed to find CurrentRequestActionId bel_currentRequestActionId_dat");
             return false;
         }
-        bel_numCarryingGold_dat = (rmit.ai.clima.jackagt.data.NumCarryingGold) lookupNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.NumCarryingGold",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_numCarryingGold_dat == null) {
-            warning("Failed to find NumCarryingGold bel_numCarryingGold_dat");
-            return false;
-        }
         bel_currentPosition_dat = (rmit.ai.clima.jackagt.data.CurrentPosition) lookupNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.CurrentPosition",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_currentPosition_dat == null) {
             warning("Failed to find CurrentPosition bel_currentPosition_dat");
+            return false;
+        }
+        bel_numCarryingGold_dat = (rmit.ai.clima.jackagt.data.NumCarryingGold) lookupNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.NumCarryingGold",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_numCarryingGold_dat == null) {
+            warning("Failed to find NumCarryingGold bel_numCarryingGold_dat");
             return false;
         }
         return true;
@@ -325,23 +325,23 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
             }
             case 1: 
             {
-                return aos.util.ToObject.box(eguidebugmessage_s);
+                return aos.util.ToObject.box(eupdatebel_s);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(eshowbeliefs_p);
+                return aos.util.ToObject.box(meinformagentstatus_s);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(meinformagentstatus_s);
+                return aos.util.ToObject.box(eact_p);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(eact_p);
+                return aos.util.ToObject.box(eguidebugmessage_s);
             }
             case 5: 
             {
-                return aos.util.ToObject.box(eupdatebel_s);
+                return aos.util.ToObject.box(eshowbeliefs_p);
             }
             case 6: 
             {
@@ -353,11 +353,11 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
             }
             case 8: 
             {
-                return aos.util.ToObject.box(bel_numCarryingGold_dat);
+                return aos.util.ToObject.box(bel_currentPosition_dat);
             }
             case 9: 
             {
-                return aos.util.ToObject.box(bel_currentPosition_dat);
+                return aos.util.ToObject.box(bel_numCarryingGold_dat);
             }
             case 10: 
             {

@@ -20,9 +20,9 @@ Plan Name: StartSimulation
 Description: Initialize a simulation
 */
 	//Events handled by the plan are declared here.
-	#sends event MEInformCellStatus meinformcellstatus_s;
-
 	#sends event MESimStart mesimstart_s;
+
+	#sends event MEInformCellStatus meinformcellstatus_s;
 
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
@@ -30,17 +30,17 @@ Description: Initialize a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data GoldAt bel_goldAt_dat;
-
-	#modifies data NumCarryingGold bel_numCarryingGold_dat;
-
-	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+	#modifies data CurrentPosition bel_currentPosition_dat;
 
 	#modifies data SimulationProp bel_simulationProp_dat;
 
-	#modifies data ObstacleAt bel_obstacleAt_dat;
+	#modifies data GoldAt bel_goldAt_dat;
 
-	#modifies data CurrentPosition bel_currentPosition_dat;
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#modifies data NumCarryingGold bel_numCarryingGold_dat;
+
+	#modifies data ObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
