@@ -22,22 +22,17 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data AgentPositions bel_agentPositions_dat(/*String agentName, int posX, int posY*/);
-
-	/*	Note that this data is external.
-	Maybe you want to modify the declaration as '#agent' manually.
-	*/
-	#global data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+	#private data AgentPerceptReceived bel_agentPerceptReceived_dat(/*String agentName*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
 	#private data AgentGold bel_agentGold_dat(/*String agentName, int goldAmount*/);
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
+	/*	Note that this data is external.
+	Maybe you want to modify the declaration as '#agent' manually.
 	*/
-	#private data AgentPerceptReceived bel_agentPerceptReceived_dat(/*String agentName*/);
+	#global data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -47,7 +42,12 @@ Agent Name: Coordinator
 	/*	Note that this data is external.
 	Maybe you want to modify the declaration as '#agent' manually.
 	*/
-	#global data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
+	#global data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data AgentPositions bel_agentPositions_dat(/*String agentName, int posX, int posY*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -60,12 +60,12 @@ Agent Name: Coordinator
 
 	#handles event EUpdateBel ;
 
-	#handles event MEGameEnd ;
-
 	#handles event MESimEnd ;
 
 	#handles event ECellStatusChanged ;
 	#posts event ECellStatusChanged ecellstatuschanged_p;
+
+	#handles event MEGameEnd ;
 
 
 	//Plans directly used are declared here.
@@ -75,11 +75,11 @@ Agent Name: Coordinator
 
 	#uses plan Coord_EndGame ;
 
-	#uses plan UpdateCellsAround ;
-
 	#uses plan Coord_ReportCellChanged ;
 
 	#uses plan Coord_EndSimulation ;
+
+	#uses plan UpdateCellsAround ;
 
 
 	// Inner capabilities are declared here.

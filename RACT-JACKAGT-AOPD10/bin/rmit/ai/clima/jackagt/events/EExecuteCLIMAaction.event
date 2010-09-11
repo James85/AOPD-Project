@@ -1,6 +1,5 @@
 package rmit.ai.clima.jackagt.events;
 
-public event EExecuteCLIMAaction extends Event
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event EExecuteCLIMAaction extends BDIGoalEvent

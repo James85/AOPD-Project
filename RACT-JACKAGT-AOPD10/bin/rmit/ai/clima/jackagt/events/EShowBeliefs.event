@@ -1,6 +1,6 @@
 package rmit.ai.clima.jackagt.events;
 
-public event EShowBeliefs extends InferenceGoalEvent
+
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event EShowBeliefs extends BDIGoalEvent

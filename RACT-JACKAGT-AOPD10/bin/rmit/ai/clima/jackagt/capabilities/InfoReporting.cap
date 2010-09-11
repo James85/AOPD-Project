@@ -30,12 +30,7 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data ObstacleAt bel_obstacleAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data GoldAt bel_goldAt_dat();
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -50,7 +45,12 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+	#imports data ObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data GoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -59,23 +59,23 @@ Description: Tasks to report on information believed
 
 
 	//Events handled, posted and sent are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
 	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#sends event MEInformCellStatus meinformcellstatus_s;
 
 	#handles external event EShowBeliefs ;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#handles external event ECellChange ;
 
 
 	//Plans directly used are declared here.
+	#uses plan ConsoleBeliefPrinting ;
+
 	#uses plan ReportCellChangeToGUI ;
 
 	#uses plan BeliefReporting ;
-
-	#uses plan ConsoleBeliefPrinting ;
 
 
 	// Inner capabilities are declared here.

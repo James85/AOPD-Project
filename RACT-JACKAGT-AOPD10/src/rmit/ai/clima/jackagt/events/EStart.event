@@ -4,7 +4,7 @@ package rmit.ai.clima.jackagt.events;
 import aos.jack.util.cursor.Change;
 import java.util.Observable;
 
-public event EStart extends Event
+
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event EStart extends BDIGoalEvent
