@@ -23,17 +23,15 @@ Description: Move to any cell arround that is known not to be obstructed
 
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-	#handles event EAct eact_h;
-
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BCurrentPosition bel_currentPosition_dat;
-
-	#reads data BGoldAt bel_goldAt_dat;
-
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
+
+	#reads data BCurrentPosition bel_currentPosition_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -50,10 +48,7 @@ Description: Move to any cell arround that is known not to be obstructed
       return true;
    }
 
-   context()
-   {
-      true;
-   }
+  
 
    #reasoning method
    body()

@@ -13,29 +13,49 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
+import rmit.ai.clima.jackagt.events.EExecuteCLIMAaction;
 import rmit.ai.clima.jackagt.events.MEPlayerAction;
+import java.util.Random;
 import java.lang.Object;
 import aos.jack.jak.cursor.Cursor;
 import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
 
 public class PMoveRand extends aos.jack.jak.plan.Plan {
+    final static java.lang.String[] actions = {
+            "left",
+            "right",
+            "up",
+            "down"};
+    java.util.Random random = new java.util.Random();
+    public rmit.ai.clima.jackagt.events.EExecuteCLIMAaction eexecuteclimaaction_p;
     public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_h;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PMoveRand.plan",
             "body",
-            "32",
-            "29"};
+            "37",
+            "38",
+            "39",
+            "33"};
     private final static java.lang.String[] __planVariableNames = {
+            "actions",
+            "random",
+            "eexecuteclimaaction_p",
             "meplayeraction_h"};
     private final static java.lang.String[] __planVariableTypes = {
+            "String[]",
+            "java.util.Random",
+            "rmit.ai.clima.jackagt.events.EExecuteCLIMAaction",
             "MEPlayerAction"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
-    // Declarations of any beliefset/data that the plan accesses.
-/******** End PDT Design Block *** DO NOT EDIT IT *********/
-
+    private final static java.lang.String[] __fsmVariableNames_body = {
+            "dir"};
+    private final static java.lang.String[] __fsmTypes_body = {
+            "String"};
+    private final static java.lang.String[] __fsmLocalNames_body = {
+            "__local__19_0"};
     static boolean relevant(rmit.ai.clima.jackagt.events.MEPlayerAction e)
     {
         return (e.action.equalsIgnoreCase("moveRand"));
@@ -51,11 +71,17 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
+        eexecuteclimaaction_p = __env.eexecuteclimaaction_p;
         meplayeraction_h = __env.meplayeraction_h;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
+        eexecuteclimaaction_p = (rmit.ai.clima.jackagt.events.EExecuteCLIMAaction) __a.findEvent("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction");
+        if (eexecuteclimaaction_p == null) {
+            warning("Failed to find EExecuteCLIMAaction eexecuteclimaaction_p");
+            return false;
+        }
         meplayeraction_h = (rmit.ai.clima.jackagt.events.MEPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.MEPlayerAction");
         if (meplayeraction_h == null) {
             warning("Failed to find MEPlayerAction meplayeraction_h");
@@ -158,6 +184,18 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
         switch (n) {
             case 0: 
             {
+                return aos.util.ToObject.box(actions);
+            }
+            case 1: 
+            {
+                return aos.util.ToObject.box(random);
+            }
+            case 2: 
+            {
+                return aos.util.ToObject.box(eexecuteclimaaction_p);
+            }
+            case 3: 
+            {
                 return aos.util.ToObject.box(meplayeraction_h);
             }
             default: 
@@ -184,6 +222,7 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
     }
     
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
+        java.lang.String __local__19_0;
         private int __breakLevel = 0;
         public int run(int __status)
             throws java.lang.Throwable
@@ -212,16 +251,34 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PMoveRand.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (32) 	   System.out.println( "MOVE RAND" );
+                        //* (37)       String dir = actions[ random.nextInt(4) ];  // pick a random direction
                         case 10: 
                         {
                             __breakLevel = 0;
+                            __local__19_0 = actions[random.nextInt(4)];
                             __state = 11;
-                            java.lang.System.out.println("MOVE RAND");
                             break;
                         }
-                        //* (29) 	#reasoning method
+                        //* (38)       System.out.println( "MOVING RANDOMLY TO: "+ dir );
                         case 11: 
+                        {
+                            __state = 12;
+                            // pick a random direction
+
+                            java.lang.System.out.println("MOVING RANDOMLY TO: " + __local__19_0);
+                            break;
+                        }
+                        //* (39)       eexecuteclimaaction_p.post(dir); // Post an ExecuteClimaAction event to execute the action in the server
+                        case 12: 
+                        {
+                            __task.push(eexecuteclimaaction_p.post(__local__19_0));
+                            __state = -__state;
+                            __subtask_pass = 13;
+                            __subtask_fail = 4;
+                            return SUBTASK;
+                        }
+                        //* (33) 	#reasoning method
+                        case 13: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;
@@ -312,6 +369,35 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
         public void enter()
         {
             __trace = agent.trace("rmit.ai.clima.jackagt.plans.PMoveRand.body");
+        }
+        
+        public java.lang.Object getVariable(int n)
+        {
+            switch (n) {
+                case 0: 
+                {
+                    return aos.util.ToObject.box(__local__19_0);
+                }
+                default: 
+                {
+                    throw new java.lang.IndexOutOfBoundsException("Reasoning Method " + methodName() + " does not have variable number " + n);
+                }
+            }
+        }
+        
+        public java.lang.String[] variableNames()
+        {
+            return __fsmVariableNames_body;
+        }
+        
+        public java.lang.String[] variableTypes()
+        {
+            return __fsmTypes_body;
+        }
+        
+        public java.lang.String[] variableLocalNames()
+        {
+            return __fsmLocalNames_body;
         }
         
     }

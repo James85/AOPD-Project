@@ -19,9 +19,9 @@ Plan Name: PCoord_ChoosePlayerActions
 	// Declarations of any beliefset/data that the plan accesses.
 	#reads data BPlayerPosition bel_playerPositions_dat;
 
-	#reads data BPlayerGold bel_playerGold_dat;
-
 	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
 
 	#reads data BPlayer bel_players_dat;
 
@@ -36,7 +36,7 @@ Plan Name: PCoord_ChoosePlayerActions
 		true;
 	}
 	
-   final static String[] lookUpDirs = { "n", "s", "e", "w" };
+   final static String[] lookUpDirs = { "up", "down", "right", "left" };
    
 	#reasoning method
 	body()
@@ -68,6 +68,12 @@ Plan Name: PCoord_ChoosePlayerActions
             @send( baseName, meplayeraction_s.send( "pick" ));
             continue;
          }
+         //dirty hack will change after #TODO
+         if($numGold.as_int() >= 3)
+         {
+            @send( baseName, meplayeraction_s.send( "moveRand" ));
+            continue;  
+         }
          
          //Loop through the adjacent locations
          for (int d=0; d<lookUpDirs.length; ++d)
@@ -76,6 +82,7 @@ Plan Name: PCoord_ChoosePlayerActions
             GridPoint lookUpLoc = GridPoint.getFromDir( $x.as_int(), $y.as_int(), lookUpDirs[d] );
             if (bel_goldAt_dat.check( lookUpLoc.x, lookUpLoc.y ))
             {
+               
                @send( baseName, meplayeraction_s.send( "moveTo", lookUpDirs[d] ));
                goldFound = true;
                break;

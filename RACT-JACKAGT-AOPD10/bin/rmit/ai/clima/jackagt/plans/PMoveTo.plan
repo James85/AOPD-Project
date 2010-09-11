@@ -10,6 +10,8 @@ public plan PMoveTo extends Plan
 Plan Name: PMoveTo
 */
 	//Events handled by the plan are declared here.
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
 	#handles event MEPlayerAction meplayeraction_h;
 
 
@@ -29,6 +31,8 @@ Plan Name: PMoveTo
    #reasoning method
 	body()
 	{
-      System.out.println( "MOVE TO " + meplayeraction_h.direction );
+      System.out.println( "MOVING TO " + meplayeraction_h.direction );
+      
+      eexecuteclimaaction_p.post(meplayeraction_h.direction); // Post an ExecuteClimaAction event to execute the action in the server
 	}
 }

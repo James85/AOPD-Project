@@ -13,6 +13,7 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
+import rmit.ai.clima.jackagt.events.EExecuteCLIMAaction;
 import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import java.lang.Object;
 import aos.jack.jak.cursor.Cursor;
@@ -20,16 +21,20 @@ import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
 
 public class PMoveTo extends aos.jack.jak.plan.Plan {
+    public rmit.ai.clima.jackagt.events.EExecuteCLIMAaction eexecuteclimaaction_p;
     public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_h;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PMoveTo.plan",
             "body",
-            "32",
-            "29"};
+            "34",
+            "36",
+            "31"};
     private final static java.lang.String[] __planVariableNames = {
+            "eexecuteclimaaction_p",
             "meplayeraction_h"};
     private final static java.lang.String[] __planVariableTypes = {
+            "rmit.ai.clima.jackagt.events.EExecuteCLIMAaction",
             "rmit.ai.clima.jackagt.events.MEPlayerAction"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -51,11 +56,17 @@ public class PMoveTo extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
+        eexecuteclimaaction_p = __env.eexecuteclimaaction_p;
         meplayeraction_h = __env.meplayeraction_h;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
+        eexecuteclimaaction_p = (rmit.ai.clima.jackagt.events.EExecuteCLIMAaction) __a.findEvent("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction");
+        if (eexecuteclimaaction_p == null) {
+            warning("Failed to find EExecuteCLIMAaction eexecuteclimaaction_p");
+            return false;
+        }
         meplayeraction_h = (rmit.ai.clima.jackagt.events.MEPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.MEPlayerAction");
         if (meplayeraction_h == null) {
             warning("Failed to find MEPlayerAction meplayeraction_h");
@@ -158,6 +169,10 @@ public class PMoveTo extends aos.jack.jak.plan.Plan {
         switch (n) {
             case 0: 
             {
+                return aos.util.ToObject.box(eexecuteclimaaction_p);
+            }
+            case 1: 
+            {
                 return aos.util.ToObject.box(meplayeraction_h);
             }
             default: 
@@ -212,16 +227,25 @@ public class PMoveTo extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PMoveTo.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (32)       System.out.println( "MOVE TO " + meplayeraction_h.direction );
+                        //* (34)       System.out.println( "MOVING TO " + meplayeraction_h.direction );
                         case 10: 
                         {
                             __breakLevel = 0;
                             __state = 11;
-                            java.lang.System.out.println("MOVE TO " + meplayeraction_h.direction);
+                            java.lang.System.out.println("MOVING TO " + meplayeraction_h.direction);
                             break;
                         }
-                        //* (29)    #reasoning method
+                        //* (36)       eexecuteclimaaction_p.post(meplayeraction_h.direction); // Post an ExecuteClimaAction event to execute the action in the server
                         case 11: 
+                        {
+                            __task.push(eexecuteclimaaction_p.post(meplayeraction_h.direction));
+                            __state = -__state;
+                            __subtask_pass = 12;
+                            __subtask_fail = 4;
+                            return SUBTASK;
+                        }
+                        //* (31)    #reasoning method
+                        case 12: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

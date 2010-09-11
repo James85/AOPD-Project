@@ -1,7 +1,7 @@
 package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
-
+import java.util.Random;
 public plan PMoveRand extends Plan
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
@@ -10,11 +10,15 @@ public plan PMoveRand extends Plan
 Plan Name: PMoveRand
 */
 	//Events handled by the plan are declared here.
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
 	#handles event MEPlayerAction meplayeraction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
+	final static String [] actions = { "left", "right", "up", "down" };
+   Random random = new Random();
 
 	static boolean relevant (MEPlayerAction e)
 	{
@@ -29,6 +33,9 @@ Plan Name: PMoveRand
 	#reasoning method
 	body()
 	{
-	   System.out.println( "MOVE RAND" );
+	   
+      String dir = actions[ random.nextInt(4) ];  // pick a random direction
+      System.out.println( "MOVING RANDOMLY TO: "+ dir );
+      eexecuteclimaaction_p.post(dir); // Post an ExecuteClimaAction event to execute the action in the server
 	}
 }

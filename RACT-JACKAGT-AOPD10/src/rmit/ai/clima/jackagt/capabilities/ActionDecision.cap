@@ -19,6 +19,11 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BCurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 	/*	Note that this data is external.
@@ -29,18 +34,11 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BGoldAt bel_goldAt_dat();
 
 
 	//Events handled, posted and sent are declared here.
 	#sends event EGUIDebugMessage eguidebugmessage_s;
-
-	#handles external event EAct ;
 
 	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
 
@@ -48,15 +46,11 @@ Description: Decide what to do next
 
 
 	//Plans directly used are declared here.
-	#uses plan PMoveRand ;
-
 	#uses plan PMoveTo ;
 
-	#uses plan MoveRandomly ;
+	#uses plan PMoveRand ;
 
 	#uses plan PPick ;
-
-	#uses plan PickGold ;
 
 
 	// Inner capabilities are declared here.

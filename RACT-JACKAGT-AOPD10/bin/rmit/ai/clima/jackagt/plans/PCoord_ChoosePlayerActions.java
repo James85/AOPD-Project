@@ -17,8 +17,8 @@ import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import rmit.ai.clima.jackagt.events.EChoosePlayerActions;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
-import rmit.ai.clima.jackagt.data.BPlayerGold;
 import rmit.ai.clima.jackagt.data.BGoldAt;
+import rmit.ai.clima.jackagt.data.BPlayerGold;
 import rmit.ai.clima.jackagt.data.BPlayer;
 import rmit.ai.clima.gui.grid.GridPoint;
 import java.lang.Object;
@@ -27,15 +27,15 @@ import aos.jack.jak.core.Jak;
 
 public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
     final static java.lang.String[] lookUpDirs = {
-            "n",
-            "s",
-            "e",
-            "w"};
+            "up",
+            "down",
+            "right",
+            "left"};
     public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_s;
     public rmit.ai.clima.jackagt.events.EChoosePlayerActions echooseplayeractions_h;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
     public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
     public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -56,32 +56,35 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
             "66",
             "68",
             "69",
-            "73",
-            "73",
-            "76",
-            "77",
+            "72",
+            "74",
+            "75",
             "79",
-            "80",
-            "81",
-            "73",
-            "85",
+            "79",
+            "82",
+            "83",
+            "86",
             "87",
+            "88",
+            "79",
+            "92",
+            "94",
             "41"};
     private final static java.lang.String[] __planVariableNames = {
             "lookUpDirs",
             "meplayeraction_s",
             "echooseplayeractions_h",
             "bel_playerPositions_dat",
-            "bel_playerGold_dat",
             "bel_goldAt_dat",
+            "bel_playerGold_dat",
             "bel_players_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "java.lang.String[]",
             "MEPlayerAction",
             "EChoosePlayerActions",
             "rmit.ai.clima.jackagt.data.BPlayerPosition",
-            "rmit.ai.clima.jackagt.data.BPlayerGold",
             "rmit.ai.clima.jackagt.data.BGoldAt",
+            "rmit.ai.clima.jackagt.data.BPlayerGold",
             "rmit.ai.clima.jackagt.data.BPlayer"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -106,15 +109,15 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
             "int",
             "GridPoint"};
     private final static java.lang.String[] __fsmLocalNames_body = {
-            "__local__19_0",
-            "__local__19_1",
-            "__local__19_2",
-            "__local__19_3",
-            "__local__19_4",
-            "__local__19_5",
-            "__local__19_6",
-            "__local__19_7",
-            "__local__19_8"};
+            "__local__18_0",
+            "__local__18_1",
+            "__local__18_2",
+            "__local__18_3",
+            "__local__18_4",
+            "__local__18_5",
+            "__local__18_6",
+            "__local__18_7",
+            "__local__18_8"};
     /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
     static boolean relevant(rmit.ai.clima.jackagt.events.EChoosePlayerActions e)
@@ -135,8 +138,8 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
         meplayeraction_s = __env.meplayeraction_s;
         echooseplayeractions_h = __env.echooseplayeractions_h;
         bel_playerPositions_dat = __env.bel_playerPositions_dat;
-        bel_playerGold_dat = __env.bel_playerGold_dat;
         bel_goldAt_dat = __env.bel_goldAt_dat;
+        bel_playerGold_dat = __env.bel_playerGold_dat;
         bel_players_dat = __env.bel_players_dat;
     }
     
@@ -157,14 +160,14 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerPosition bel_playerPositions_dat");
             return false;
         }
-        bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",0);
-        if (bel_playerGold_dat == null) {
-            warning("Failed to find BPlayerGold bel_playerGold_dat");
-            return false;
-        }
         bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
         if (bel_goldAt_dat == null) {
             warning("Failed to find BGoldAt bel_goldAt_dat");
+            return false;
+        }
+        bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",0);
+        if (bel_playerGold_dat == null) {
+            warning("Failed to find BPlayerGold bel_playerGold_dat");
             return false;
         }
         bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",0);
@@ -285,11 +288,11 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_playerGold_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_playerGold_dat);
             }
             case 6: 
             {
@@ -319,15 +322,15 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
     }
     
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
-        aos.jack.jak.logic.StringVariable __local__19_0;
-        java.lang.String __local__19_1;
-        aos.jack.jak.cursor.Cursor __local__19_2;
-        aos.jack.jak.logic.IntegerVariable __local__19_3;
-        aos.jack.jak.logic.IntegerVariable __local__19_4;
-        aos.jack.jak.logic.IntegerVariable __local__19_5;
-        boolean __local__19_6;
-        int __local__19_7;
-        rmit.ai.clima.gui.grid.GridPoint __local__19_8;
+        aos.jack.jak.logic.StringVariable __local__18_0;
+        java.lang.String __local__18_1;
+        aos.jack.jak.cursor.Cursor __local__18_2;
+        aos.jack.jak.logic.IntegerVariable __local__18_3;
+        aos.jack.jak.logic.IntegerVariable __local__18_4;
+        aos.jack.jak.logic.IntegerVariable __local__18_5;
+        boolean __local__18_6;
+        int __local__18_7;
+        rmit.ai.clima.gui.grid.GridPoint __local__18_8;
         private int __breakLevel = 0;
         public int run(int __status)
             throws java.lang.Throwable
@@ -360,14 +363,14 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __local__19_0 = (aos.jack.jak.logic.StringVariable) __logic.new_variable(java.lang.String.class);
+                            __local__18_0 = (aos.jack.jak.logic.StringVariable) __logic.new_variable(java.lang.String.class);
                             __state = 11;
                             break;
                         }
                         //* (47)       Cursor c_players = bel_players_dat.get( $playerName );
                         case 11: 
                         {
-                            __local__19_2 = (aos.jack.jak.cursor.Cursor) genCursor(0);
+                            __local__18_2 = (aos.jack.jak.cursor.Cursor) genCursor(0);
                             __state = 12;
                             break;
                         }
@@ -381,32 +384,32 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                         //* (49)       while (c_players.next())
                         case 13: 
                         {
-                            if (__local__19_2.next()) 
+                            if (__local__18_2.next()) 
                                 __state = 14;
                              else 
-                                __state = 35;
+                                __state = 38;
                             break;
                         }
                         //* (51)          logical int $x, $y;
                         case 14: 
                         {
                             __breakLevel = 4;
-                            __local__19_3 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
-                            __local__19_4 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
+                            __local__18_3 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
+                            __local__18_4 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
                             __state = 15;
                             break;
                         }
                         //* (52)          logical int $numGold;
                         case 15: 
                         {
-                            __local__19_5 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
+                            __local__18_5 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
                             __state = 16;
                             break;
                         }
                         //* (53)          boolean goldFound = false;
                         case 16: 
                         {
-                            __local__19_6 = false;
+                            __local__18_6 = false;
                             __state = 17;
                             break;
                         }
@@ -414,14 +417,14 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                         case 17: 
                         {
                             __state = 18;
-                            __local__19_1 = __local__19_0.as_string();
+                            __local__18_1 = __local__18_0.as_string();
                             break;
                         }
                         //* (56)          baseName = baseName.substring(0,baseName.indexOf("@"));
                         case 18: 
                         {
                             __state = 19;
-                            __local__19_1 = __local__19_1.substring(0,__local__19_1.indexOf("@"));
+                            __local__18_1 = __local__18_1.substring(0,__local__18_1.indexOf("@"));
                             break;
                         }
                         //* (60)          bel_playerPositions_dat.getByName( $playerName.as_string(), $x, $y );
@@ -466,7 +469,7 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                         case 21: 
                         {
                             __state = 22;
-                            java.lang.System.out.println("POS, (" + __local__19_3.as_int() + "," + __local__19_4.as_int() + ")");
+                            java.lang.System.out.println("POS, (" + __local__18_3.as_int() + "," + __local__18_4.as_int() + ")");
                             break;
                         }
                         //* (66)          if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
@@ -493,7 +496,7 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                         {
                             __breakLevel = 6;
                             __state = 24;
-                            agent.send(__local__19_1,meplayeraction_s.send("pick"));
+                            agent.send(__local__18_1,meplayeraction_s.send("pick"));
                             break;
                         }
                         //* (69)             continue;
@@ -503,32 +506,56 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                             __state = 13;
                             break;
                         }
-                        //* (73)          for (int d=0; d<lookUpDirs.length; ++d)
+                        //* (72)          if($numGold.as_int() >= 3)
                         case 25: 
                         {
-                            __local__19_7 = 0;
-                            __state = 26;
+                            if (__local__18_5.as_int() >= 3) 
+                                __state = 26;
+                             else 
+                                __state = 28;
                             break;
                         }
-                        //* (73)          for (int d=0; d<lookUpDirs.length; ++d)
+                        //* (74)             @send( baseName, meplayeraction_s.send( "moveRand" ));
                         case 26: 
                         {
-                            if (__local__19_7 < lookUpDirs.length) 
-                                __state = 27;
-                             else 
-                                __state = 33;
+                            __breakLevel = 6;
+                            __state = 27;
+                            agent.send(__local__18_1,meplayeraction_s.send("moveRand"));
                             break;
                         }
-                        //* (76)             GridPoint lookUpLoc = GridPoint.getFromDir( $x.as_int(), $y.as_int(), lookUpDirs[d] );
+                        //* (75)             continue;  
                         case 27: 
                         {
-                            __breakLevel = 8;
-                            __local__19_8 = rmit.ai.clima.gui.grid.GridPoint.getFromDir(__local__19_3.as_int(),__local__19_4.as_int(),lookUpDirs[__local__19_7]);
-                            __state = 28;
+                            __breakLevel = 3;
+                            __state = 13;
                             break;
                         }
-                        //* (77)             if (bel_goldAt_dat.check( lookUpLoc.x, lookUpLoc.y ))
+                        //* (79)          for (int d=0; d<lookUpDirs.length; ++d)
                         case 28: 
+                        {
+                            __local__18_7 = 0;
+                            __state = 29;
+                            break;
+                        }
+                        //* (79)          for (int d=0; d<lookUpDirs.length; ++d)
+                        case 29: 
+                        {
+                            if (__local__18_7 < lookUpDirs.length) 
+                                __state = 30;
+                             else 
+                                __state = 36;
+                            break;
+                        }
+                        //* (82)             GridPoint lookUpLoc = GridPoint.getFromDir( $x.as_int(), $y.as_int(), lookUpDirs[d] );
+                        case 30: 
+                        {
+                            __breakLevel = 8;
+                            __local__18_8 = rmit.ai.clima.gui.grid.GridPoint.getFromDir(__local__18_3.as_int(),__local__18_4.as_int(),lookUpDirs[__local__18_7]);
+                            __state = 31;
+                            break;
+                        }
+                        //* (83)             if (bel_goldAt_dat.check( lookUpLoc.x, lookUpLoc.y ))
+                        case 31: 
                         {
                             boolean __b;
                             aos.jack.jak.cursor.Cursor __c = null;
@@ -541,59 +568,59 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
                                     __c.finished();
                             }
                             if (__b) 
-                                __state = 29;
-                             else 
                                 __state = 32;
+                             else 
+                                __state = 35;
                             break;
                         }
-                        //* (79)                @send( baseName, meplayeraction_s.send( "moveTo", lookUpDirs[d] ));
-                        case 29: 
-                        {
-                            __breakLevel = 10;
-                            __state = 30;
-                            agent.send(__local__19_1,meplayeraction_s.send("moveTo",lookUpDirs[__local__19_7]));
-                            break;
-                        }
-                        //* (80)                goldFound = true;
-                        case 30: 
-                        {
-                            __state = 31;
-                            __local__19_6 = true;
-                            break;
-                        }
-                        //* (81)                break;
-                        case 31: 
-                        {
-                            __breakLevel = 6;
-                            __state = 33;
-                            break;
-                        }
-                        //* (73)          for (int d=0; d<lookUpDirs.length; ++d)
+                        //* (86)                @send( baseName, meplayeraction_s.send( "moveTo", lookUpDirs[d] ));
                         case 32: 
                         {
-                            __state = 26;
-                            ++__local__19_7;
+                            __breakLevel = 10;
+                            __state = 33;
+                            agent.send(__local__18_1,meplayeraction_s.send("moveTo",lookUpDirs[__local__18_7]));
                             break;
                         }
-                        //* (85)          if (!goldFound)
+                        //* (87)                goldFound = true;
                         case 33: 
                         {
-                            if (!__local__19_6) 
-                                __state = 34;
+                            __state = 34;
+                            __local__18_6 = true;
+                            break;
+                        }
+                        //* (88)                break;
+                        case 34: 
+                        {
+                            __breakLevel = 6;
+                            __state = 36;
+                            break;
+                        }
+                        //* (79)          for (int d=0; d<lookUpDirs.length; ++d)
+                        case 35: 
+                        {
+                            __state = 29;
+                            ++__local__18_7;
+                            break;
+                        }
+                        //* (92)          if (!goldFound)
+                        case 36: 
+                        {
+                            if (!__local__18_6) 
+                                __state = 37;
                              else 
                                 __state = 13;
                             break;
                         }
-                        //* (87)             @send( baseName, meplayeraction_s.send( "moveRand" ));
-                        case 34: 
+                        //* (94)             @send( baseName, meplayeraction_s.send( "moveRand" ));
+                        case 37: 
                         {
                             __breakLevel = 6;
                             __state = 13;
-                            agent.send(__local__19_1,meplayeraction_s.send("moveRand"));
+                            agent.send(__local__18_1,meplayeraction_s.send("moveRand"));
                             break;
                         }
                         //* (41) 	#reasoning method
-                        case 35: 
+                        case 38: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;
@@ -645,23 +672,23 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
             switch (__index) {
                 case 0: 
                 {
-                    return (bel_players_dat.get(__local__19_0));
+                    return (bel_players_dat.get(__local__18_0));
                 }
                 case 1: 
                 {
-                    return (bel_playerPositions_dat.getByName(__local__19_0.as_string(),__local__19_3,__local__19_4));
+                    return (bel_playerPositions_dat.getByName(__local__18_0.as_string(),__local__18_3,__local__18_4));
                 }
                 case 2: 
                 {
-                    return (bel_playerGold_dat.getByName(__local__19_0.as_string(),__local__19_5));
+                    return (bel_playerGold_dat.getByName(__local__18_0.as_string(),__local__18_5));
                 }
                 case 3: 
                 {
-                    return (bel_goldAt_dat.check(__local__19_3.as_int(),__local__19_4.as_int()));
+                    return (bel_goldAt_dat.check(__local__18_3.as_int(),__local__18_4.as_int()));
                 }
                 case 4: 
                 {
-                    return (bel_goldAt_dat.check(__local__19_8.x,__local__19_8.y));
+                    return (bel_goldAt_dat.check(__local__18_8.x,__local__18_8.y));
                 }
             }
             aos.jack.jak.core.Jak.error("illegal Cursor Construction");
@@ -711,39 +738,39 @@ public class PCoord_ChoosePlayerActions extends aos.jack.jak.plan.Plan {
             switch (n) {
                 case 0: 
                 {
-                    return aos.util.ToObject.box(__local__19_0);
+                    return aos.util.ToObject.box(__local__18_0);
                 }
                 case 1: 
                 {
-                    return aos.util.ToObject.box(__local__19_1);
+                    return aos.util.ToObject.box(__local__18_1);
                 }
                 case 2: 
                 {
-                    return aos.util.ToObject.box(__local__19_2);
+                    return aos.util.ToObject.box(__local__18_2);
                 }
                 case 3: 
                 {
-                    return aos.util.ToObject.box(__local__19_3);
+                    return aos.util.ToObject.box(__local__18_3);
                 }
                 case 4: 
                 {
-                    return aos.util.ToObject.box(__local__19_4);
+                    return aos.util.ToObject.box(__local__18_4);
                 }
                 case 5: 
                 {
-                    return aos.util.ToObject.box(__local__19_5);
+                    return aos.util.ToObject.box(__local__18_5);
                 }
                 case 6: 
                 {
-                    return aos.util.ToObject.box(__local__19_6);
+                    return aos.util.ToObject.box(__local__18_6);
                 }
                 case 7: 
                 {
-                    return aos.util.ToObject.box(__local__19_7);
+                    return aos.util.ToObject.box(__local__18_7);
                 }
                 case 8: 
                 {
-                    return aos.util.ToObject.box(__local__19_8);
+                    return aos.util.ToObject.box(__local__18_8);
                 }
                 default: 
                 {

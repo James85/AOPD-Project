@@ -10,6 +10,8 @@ public plan PPick extends Plan
 Plan Name: PPick
 */
 	//Events handled by the plan are declared here.
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
 	#handles event MEPlayerAction meplayeraction_h;
 
 
@@ -29,6 +31,7 @@ Plan Name: PPick
 	#reasoning method
 	body()
 	{
-	   System.out.println( "PICK" );
+	   System.out.println( "TRYING TO PICK THIS GOLD" );
+	   eexecuteclimaaction_p.post("pick");
 	}
 }

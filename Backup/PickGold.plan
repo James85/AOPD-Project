@@ -19,17 +19,15 @@ Plan Name: PickGold
 Description: Attempt to pick up a piece of gold in the current square
 */
 	//Events handled by the plan are declared here.
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
-	#handles event EAct eact_h;
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BCurrentPosition bel_currentPosition_dat;
-
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
+
+	#reads data BCurrentPosition bel_currentPosition_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
@@ -45,13 +43,7 @@ Description: Attempt to pick up a piece of gold in the current square
 
 	}
 
-	context()
-	{
-		//Trigger: Event "EAct"	
-		bel_numCarryingGold_dat.get( $noGold ) && $noGold.as_int() <3
-		&& bel_currentPosition_dat.get( $posX, $posY ) && bel_goldAt_dat.check( $posX.as_int(), $posY.as_int() );
-		//true;
-	}
+	
 
 	body()
 	{
