@@ -8,7 +8,7 @@ public event ECellStatusChanged extends BDIGoalEvent
 /*
  * Message Name: ECellStatusChanged
 */
-	#uses data PlayerPosition bel_playerPositions_dat;
+	#uses data BPlayerPosition bel_playerPositions_dat;
 
 	#uses data BObstacleAt bel_obstacleAt_dat;
 

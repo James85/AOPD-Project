@@ -35,11 +35,11 @@ Description: This plan assimilates each percept information received from the ga
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
 	#modifies data BCurrentPosition bel_currentPosition_dat;
 
 	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
-
-	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

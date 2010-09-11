@@ -1,16 +1,16 @@
 package rmit.ai.clima.jackagt.data;
 import rmit.ai.clima.jackagt.events.*;
 
-public beliefset PlayerPerceptReceived extends ClosedWorld /*or OpenWorld*/
+public beliefset BPlayerPosition extends ClosedWorld /*or OpenWorld*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
- * Beliefset Name: PlayerPerceptReceived
+ * Beliefset Name: BPlayerPosition
  */
 
 	// Zero or more #key field declarations.
 	// These describe the key attributes of each belief.
-	/*	Name of this agent
+	/*	name of the agent this belief pertains to
 	*/
 	#key field String agentName;
 
@@ -18,7 +18,15 @@ public beliefset PlayerPerceptReceived extends ClosedWorld /*or OpenWorld*/
 
 	// Zero of more #value field declarations.
 	// These describe the data attributes of each belief.
+	/*	x coordinate of this agent
+	*/
+	#value field int posX;
+
+	/*	y coordinate of this agent
+	*/
+	#value field int posY;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
-	#indexed query get(logical String name);
+	#indexed query get(logical String name, logical int xCoord, logical int yCoord);
 }

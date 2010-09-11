@@ -1324,7 +1324,7 @@
 <Agent CardinalityMaximum="0" CardinalityMinimum="0" Demise="" Description="" EntityName="Coordinator" IMemento.internal.id="19969" Initialization="" LifeTime=""/>
 <DataField Description="y coordinate of this agent" FieldName="posY" FieldType="int" IMemento.internal.id="337409" IsKey="false"/>
 <Goal EntityName="ReadPlayerPercepts" IMemento.internal.id="398337"/>
-<Beliefset EntityName="PlayerPosition" IMemento.internal.id="336641">
+<Beliefset EntityName="BPlayerPosition" IMemento.internal.id="336641">
 <DataField ID="336897" INDEX="0"/>
 <DataField ID="337153" INDEX="1"/>
 <DataField ID="337409" INDEX="2"/>
@@ -1378,7 +1378,7 @@
 <Data DataType="427265" EntityName="bel_playerGold" IMemento.internal.id="460545"/>
 <DataField FieldName="agentNo" FieldType="int" IMemento.internal.id="276993" IsKey="false"/>
 <Message Description="" EntityName="EStart" IMemento.internal.id="44545" InfoCarried="" IsCovered="true" IsExternal="false" IsOverlapped="true" Package="" Purpose=""/>
-<Beliefset EntityName="PlayerPerceptReceived" IMemento.internal.id="447745">
+<Beliefset EntityName="BPlayerPerceptReceived" IMemento.internal.id="447745">
 <DataField ID="448001" INDEX="0"/>
 </Beliefset>
 <Goal EntityName="ChooseBestAction" IMemento.internal.id="398849"/>
