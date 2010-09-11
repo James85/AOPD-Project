@@ -1,11 +1,11 @@
 package rmit.ai.clima.jackagt.data;
 import rmit.ai.clima.jackagt.events.*;
 
-public beliefset NumCarryingGold extends ClosedWorld /*or OpenWorld*/
+public beliefset BNumCarryingGold extends ClosedWorld /*or OpenWorld*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
- * Beliefset Name: NumCarryingGold
+ * Beliefset Name: BNumCarryingGold
  */
 
 	// Zero or more #key field declarations.

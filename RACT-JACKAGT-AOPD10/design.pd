@@ -1401,7 +1401,7 @@
 <Plan Context="" Description="This plan assimilates each percept information received from the game server.&#x0A;" EntityName="HandlePercept" Failure="" FailureRecovery="" IMemento.internal.id="76801" Procedure=""/>
 <DataField FieldName="debugGUI" FieldType="boolean" IMemento.internal.id="284417" IsKey="false"/>
 <Plan Context="" Description="Coordination plan to finish a simulation" EntityName="Coord_EndSimulation" Failure="" FailureRecovery="" IMemento.internal.id="51969" Procedure=""/>
-<Beliefset EntityName="NumCarryingGold" IMemento.internal.id="308481">
+<Beliefset EntityName="BNumCarryingGold" IMemento.internal.id="308481">
 <DataField ID="308737" INDEX="0"/>
 </Beliefset>
 <Plan Context="" Description="Move to any cell arround that is known not to be obstructed" EntityName="MoveRandomly" Failure="" FailureRecovery="" IMemento.internal.id="39169" Procedure=""/>
