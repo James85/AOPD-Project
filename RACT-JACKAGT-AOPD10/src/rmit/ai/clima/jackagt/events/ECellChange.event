@@ -4,17 +4,18 @@ import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.*;
 import rmit.ai.clima.gui.graphic.*;
 
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event ECellChange extends BDIGoalEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: ECellChange
  * Covered: true
  * Overlap: true
 */
-	#uses data GoldAt bel_goldAt_dat;
-
 	#uses data ObstacleAt bel_obstacleAt_dat;
+
+	#uses data GoldAt bel_goldAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

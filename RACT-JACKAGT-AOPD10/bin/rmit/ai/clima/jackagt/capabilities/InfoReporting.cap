@@ -35,17 +35,7 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentStatus bel_currentStatus_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data NumCarryingGold bel_numCarryingGold_dat();
+	#imports data GoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -55,27 +45,37 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data GoldAt bel_goldAt_dat();
+	#imports data NumCarryingGold bel_numCarryingGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentStatus bel_currentStatus_dat();
 
 
 	//Events handled, posted and sent are declared here.
 	#posts event MEInformAgentStatus meinformagentstatus_p;
 
-	#handles external event ECellChange ;
-
 	#sends event MEInformCellStatus meinformcellstatus_s;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles external event EShowBeliefs ;
 
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles external event ECellChange ;
+
 
 	//Plans directly used are declared here.
-	#uses plan ConsoleBeliefPrinting ;
-
 	#uses plan ReportCellChangeToGUI ;
 
 	#uses plan BeliefReporting ;
+
+	#uses plan ConsoleBeliefPrinting ;
 
 
 	// Inner capabilities are declared here.

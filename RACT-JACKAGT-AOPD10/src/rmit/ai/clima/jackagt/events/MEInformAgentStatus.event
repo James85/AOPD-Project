@@ -3,9 +3,10 @@ package rmit.ai.clima.jackagt.events;
 //import rmit.ai.clima.grid.GridPoint;
 import rmit.ai.clima.gui.grid.GridPoint;
 
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event MEInformAgentStatus extends MessageEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: MEInformAgentStatus
  * Description: Communicate the status of the agent (position, no of gold pieces, step no, etc)

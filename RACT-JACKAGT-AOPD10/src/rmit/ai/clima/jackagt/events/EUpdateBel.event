@@ -4,9 +4,10 @@ package rmit.ai.clima.jackagt.events;
 import rmit.ai.clima.comms.Cell;
 import rmit.ai.clima.gui.grid.GridPoint;
 
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event EUpdateBel extends MessageEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: EUpdateBel
  * Covered: true

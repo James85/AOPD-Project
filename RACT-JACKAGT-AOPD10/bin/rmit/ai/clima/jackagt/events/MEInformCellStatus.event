@@ -5,9 +5,10 @@ import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.*;
 
 
+
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event MEInformCellStatus extends MessageEvent
 {
-   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: MEInformCellStatus
  * Covered: true

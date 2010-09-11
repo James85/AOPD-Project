@@ -1,9 +1,10 @@
 package rmit.ai.clima.jackagt.events;
 import rmit.ai.clima.jackagt.data.*;
 
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event ECellStatusChanged extends BDIGoalEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: ECellStatusChanged
 */

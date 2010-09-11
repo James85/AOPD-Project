@@ -1,8 +1,9 @@
 package rmit.ai.clima.jackagt.events;
 
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event EAct extends BDIGoalEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: EAct
  * Covered: true

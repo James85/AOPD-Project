@@ -3,9 +3,10 @@ import rmit.ai.clima.jackagt.data.*;
 
 import rmit.ai.clima.gui.grid.GridPoint;
 
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event MESimStart extends MessageEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: MESimStart
  * Description: Inform that a simulation has just started

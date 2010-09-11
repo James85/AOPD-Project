@@ -1,8 +1,9 @@
 package rmit.ai.clima.jackagt.events;
 
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event MEGameEnd extends MessageEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: MEGameEnd
  * Description: Inform that the game has fully finished

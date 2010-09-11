@@ -19,9 +19,9 @@ Plan Name: PickGold
 Description: Attempt to pick up a piece of gold in the current square
 */
 	//Events handled by the plan are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event EAct eact_h;
 

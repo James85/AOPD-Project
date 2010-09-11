@@ -16,13 +16,13 @@ Plan Name: Coord_UpdateAgentStatus
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data AgentPositions bel_agentPositions_dat;
-
-	#modifies data PlayerInfo bel_team_dat;
-
 	#modifies data AgentGold bel_agentGold_dat;
 
 	#modifies data AgentPerceptReceived bel_agentPerceptReceived_dat;
+
+	#modifies data PlayerInfo bel_team_dat;
+
+	#modifies data AgentPositions bel_agentPositions_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	// The enclosing agent or capability has to implement these interfaces

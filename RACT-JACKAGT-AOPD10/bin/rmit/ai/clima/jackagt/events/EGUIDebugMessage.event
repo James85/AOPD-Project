@@ -5,9 +5,10 @@ import java.util.Date;
 import java.util.Calendar;
 
 
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event EGUIDebugMessage extends MessageEvent
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
  * Message Name: EGUIDebugMessage
  * Covered: true
