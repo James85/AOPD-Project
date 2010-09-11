@@ -15,7 +15,7 @@ import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MESimStart;
-import rmit.ai.clima.jackagt.data.PlayerPerceptReceived;
+import rmit.ai.clima.jackagt.data.BPlayerPerceptReceived;
 import rmit.ai.clima.jackagt.data.BPlayer;
 import rmit.ai.clima.jackagt.data.SimulationProp;
 import rmit.ai.clima.interfaces.DebugInterface;
@@ -26,7 +26,7 @@ import aos.jack.jak.core.Jak;
 
 public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.MESimStart mesimstart_h;
-    public rmit.ai.clima.jackagt.data.PlayerPerceptReceived bel_playerPerceptReceived_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPerceptReceived bel_playerPerceptReceived_dat;
     public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
@@ -40,10 +40,10 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
             "49",
             "50",
             "54",
-            "56",
             "57",
-            "60",
+            "58",
             "61",
+            "62",
             "42"};
     private final static java.lang.String[] __planVariableNames = {
             "mesimstart_h",
@@ -53,7 +53,7 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.MESimStart",
-            "PlayerPerceptReceived",
+            "BPlayerPerceptReceived",
             "rmit.ai.clima.jackagt.data.BPlayer",
             "rmit.ai.clima.jackagt.data.SimulationProp",
             "rmit.ai.clima.interfaces.DebugInterface"};
@@ -72,11 +72,11 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
             "int",
             "int"};
     private final static java.lang.String[] __fsmLocalNames_body = {
-            "__local__6_0",
-            "__local__6_1",
-            "__local__6_2",
-            "__local__6_3",
-            "__local__6_4"};
+            "__local__7_0",
+            "__local__7_1",
+            "__local__7_2",
+            "__local__7_3",
+            "__local__7_4"};
     static boolean relevant(rmit.ai.clima.jackagt.events.MESimStart ev)
     {
         return true;
@@ -106,9 +106,9 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
             warning("Failed to find MESimStart mesimstart_h");
             return false;
         }
-        bel_playerPerceptReceived_dat = (rmit.ai.clima.jackagt.data.PlayerPerceptReceived) lookupNamedObject("bel_playerPerceptReceived_dat","rmit.ai.clima.jackagt.data.PlayerPerceptReceived",aos.jack.jak.agent.Agent.WRITEABLE);
+        bel_playerPerceptReceived_dat = (rmit.ai.clima.jackagt.data.BPlayerPerceptReceived) lookupNamedObject("bel_playerPerceptReceived_dat","rmit.ai.clima.jackagt.data.BPlayerPerceptReceived",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_playerPerceptReceived_dat == null) {
-            warning("Failed to find PlayerPerceptReceived bel_playerPerceptReceived_dat");
+            warning("Failed to find BPlayerPerceptReceived bel_playerPerceptReceived_dat");
             return false;
         }
         bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",aos.jack.jak.agent.Agent.WRITEABLE);
@@ -260,11 +260,11 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
     }
     
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
-        int __local__6_0;
-        int __local__6_1;
-        int __local__6_2;
-        int __local__6_3;
-        int __local__6_4;
+        int __local__7_0;
+        int __local__7_1;
+        int __local__7_2;
+        int __local__7_3;
+        int __local__7_4;
         private int __breakLevel = 0;
         public int run(int __status)
             throws java.lang.Throwable
@@ -297,35 +297,35 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __local__6_0 = mesimstart_h.gridSize.x;
+                            __local__7_0 = mesimstart_h.gridSize.x;
                             __state = 11;
                             break;
                         }
                         //* (47)         int gridY = mesimstart_h.gridSize.y;
                         case 11: 
                         {
-                            __local__6_1 = mesimstart_h.gridSize.y;
+                            __local__7_1 = mesimstart_h.gridSize.y;
                             __state = 12;
                             break;
                         }
                         //* (48)         int depotX = mesimstart_h.depotPosition.x;
                         case 12: 
                         {
-                            __local__6_2 = mesimstart_h.depotPosition.x;
+                            __local__7_2 = mesimstart_h.depotPosition.x;
                             __state = 13;
                             break;
                         }
                         //* (49)         int depotY = mesimstart_h.depotPosition.y;
                         case 13: 
                         {
-                            __local__6_3 = mesimstart_h.depotPosition.y;
+                            __local__7_3 = mesimstart_h.depotPosition.y;
                             __state = 14;
                             break;
                         }
                         //* (50)         int numSteps = mesimstart_h.numSteps;
                         case 14: 
                         {
-                            __local__6_4 = mesimstart_h.numSteps;
+                            __local__7_4 = mesimstart_h.numSteps;
                             __state = 15;
                             break;
                         }
@@ -338,7 +338,7 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
                             bel_players_dat.add(mesimstart_h.from);
                             break;
                         }
-                        //* (56) 		if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps)) {
+                        //* (57) 		if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps)) {
                         case 16: 
                         {
                             boolean __b;
@@ -357,7 +357,7 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
                                 __state = 18;
                             break;
                         }
-                        //* (57) 	      	consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation, but I already know about it...");
+                        //* (58) 	      	consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation, but I already know about it...");
                         case 17: 
                         {
                             __breakLevel = 2;
@@ -365,17 +365,17 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
                             consoleIface.showConsoleDebug("Agent " + mesimstart_h.from + " reported the start of a new simulation, but I already know about it...");
                             break;
                         }
-                        //* (60)     	    bel_simulationProp_dat.add(gridX, gridY, depotX, depotY, numSteps);
+                        //* (61)     	    bel_simulationProp_dat.add(gridX, gridY, depotX, depotY, numSteps);
                         case 18: 
                         {
                             __breakLevel = 2;
                             __state = 19;
                             // Initalize parameters for the new simulation
 
-                            bel_simulationProp_dat.add(__local__6_0,__local__6_1,__local__6_2,__local__6_3,__local__6_4);
+                            bel_simulationProp_dat.add(__local__7_0,__local__7_1,__local__7_2,__local__7_3,__local__7_4);
                             break;
                         }
-                        //* (61) 	      	consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation!");
+                        //* (62) 	      	consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation!");
                         case 19: 
                         {
                             __state = 20;
@@ -435,7 +435,7 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
             switch (__index) {
                 case 0: 
                 {
-                    return (bel_simulationProp_dat.check(__local__6_0,__local__6_1,__local__6_2,__local__6_3,__local__6_4));
+                    return (bel_simulationProp_dat.check(__local__7_0,__local__7_1,__local__7_2,__local__7_3,__local__7_4));
                 }
             }
             aos.jack.jak.core.Jak.error("illegal Cursor Construction");
@@ -485,23 +485,23 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
             switch (n) {
                 case 0: 
                 {
-                    return aos.util.ToObject.box(__local__6_0);
+                    return aos.util.ToObject.box(__local__7_0);
                 }
                 case 1: 
                 {
-                    return aos.util.ToObject.box(__local__6_1);
+                    return aos.util.ToObject.box(__local__7_1);
                 }
                 case 2: 
                 {
-                    return aos.util.ToObject.box(__local__6_2);
+                    return aos.util.ToObject.box(__local__7_2);
                 }
                 case 3: 
                 {
-                    return aos.util.ToObject.box(__local__6_3);
+                    return aos.util.ToObject.box(__local__7_3);
                 }
                 case 4: 
                 {
-                    return aos.util.ToObject.box(__local__6_4);
+                    return aos.util.ToObject.box(__local__7_4);
                 }
                 default: 
                 {

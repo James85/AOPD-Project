@@ -78,9 +78,9 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
     public boolean debugConsole()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentStatus.__complex_7 __c = new rmit.ai.clima.jackagt.data.CurrentStatus.__complex_7();
+        rmit.ai.clima.jackagt.data.CurrentStatus.__complex_12 __c = new rmit.ai.clima.jackagt.data.CurrentStatus.__complex_12();
         try {
-            return __c.__complex_7_debugConsole();
+            return __c.__complex_12_debugConsole();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("debugConsole got exception " + __e);
@@ -90,9 +90,9 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
     public boolean debugGUI()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentStatus.__complex_8 __c = new rmit.ai.clima.jackagt.data.CurrentStatus.__complex_8();
+        rmit.ai.clima.jackagt.data.CurrentStatus.__complex_13 __c = new rmit.ai.clima.jackagt.data.CurrentStatus.__complex_13();
         try {
-            return __c.__complex_8_debugGUI();
+            return __c.__complex_13_debugGUI();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("debugGUI got exception " + __e);
@@ -289,7 +289,7 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_7 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_12 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.BooleanVariable __local_2;
         aos.jack.jak.logic.BooleanVariable __local_3;
         public java.lang.Object genObject(int __index)
@@ -331,12 +331,12 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_7()
+        public __complex_12()
         {
             super();
         }
         
-        public boolean __complex_7_debugConsole()
+        public boolean __complex_12_debugConsole()
             throws java.lang.Exception
         {
             {
@@ -351,7 +351,7 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_8 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_13 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.BooleanVariable __local_2;
         aos.jack.jak.logic.BooleanVariable __local_3;
         public java.lang.Object genObject(int __index)
@@ -393,12 +393,12 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_8()
+        public __complex_13()
         {
             super();
         }
         
-        public boolean __complex_8_debugGUI()
+        public boolean __complex_13_debugGUI()
             throws java.lang.Exception
         {
             {

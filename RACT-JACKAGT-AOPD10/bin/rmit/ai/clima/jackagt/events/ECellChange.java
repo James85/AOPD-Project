@@ -11,8 +11,8 @@ import aos.jack.jak.logic.LogicException;
 import aos.jack.jak.logic.Signature;
 import aos.jack.jak.logic.LogicEnv;
 import aos.extension.rule.RuleMonitor;
-import rmit.ai.clima.jackagt.data.GoldAt;
-import rmit.ai.clima.jackagt.data.ObstacleAt;
+import rmit.ai.clima.jackagt.data.BGoldAt;
+import rmit.ai.clima.jackagt.data.BObstacleAt;
 import java.lang.Object;
 import rmit.ai.clima.gui.grid.GridObject;
 import aos.jack.jak.core.Jak;
@@ -27,8 +27,8 @@ public class ECellChange extends aos.jack.jak.event.BDIGoalEvent implements aos.
     aos.jack.jak.logic.IntegerVariable $x;
     aos.jack.jak.logic.IntegerVariable $y;
     aos.jack.jak.logic.IntegerVariable $id;
-    public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
-    public rmit.ai.clima.jackagt.data.GoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
     public aos.jack.jak.logic.LogicEnv __logic = null;
     private final static java.lang.String[] __eventVariableNames = {
             "message",
@@ -36,16 +36,16 @@ public class ECellChange extends aos.jack.jak.event.BDIGoalEvent implements aos.
             "$x",
             "$y",
             "$id",
-            "bel_obstacleAt_dat",
-            "bel_goldAt_dat"};
+            "bel_goldAt_dat",
+            "bel_obstacleAt_dat"};
     private final static java.lang.String[] __eventVariableTypes = {
             "String",
             "GridObject",
             "logical int",
             "logical int",
             "logical int",
-            "ObstacleAt",
-            "GoldAt"};
+            "BGoldAt",
+            "BObstacleAt"};
     private boolean __rule_init = false;
     public java.lang.String getDocumentation()
     {
@@ -183,11 +183,11 @@ public class ECellChange extends aos.jack.jak.event.BDIGoalEvent implements aos.
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_obstacleAt_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 6: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_obstacleAt_dat);
             }
             default: 
             {
@@ -207,8 +207,8 @@ public class ECellChange extends aos.jack.jak.event.BDIGoalEvent implements aos.
         }
         catch (aos.jack.jak.logic.LogicException e) {
         }
-        bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.ObstacleAt) agent.getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt");
-        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) agent.getNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt");
+        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) agent.getNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt");
+        bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) agent.getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt");
         new aos.extension.rule.RuleMonitor(this,0);
         new aos.extension.rule.RuleMonitor(this,1);
         new aos.extension.rule.RuleMonitor(this,2);

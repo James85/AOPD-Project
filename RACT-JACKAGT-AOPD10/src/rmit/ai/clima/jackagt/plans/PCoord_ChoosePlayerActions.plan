@@ -1,6 +1,7 @@
 package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.*;
 
 public plan PCoord_ChoosePlayerActions extends Plan
 {
@@ -10,23 +11,81 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
+	#sends event MEPlayerAction meplayeraction_s;
+
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BPlayer bel_players_dat;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
+	static boolean relevant(EChoosePlayerActions e)
+	{
+	   return true;
+	}
 	context()
 	{
-		// Trigger: Event "EChoosePlayerActions"
-
-
 		true;
 	}
-
+	
+   final static String[] lookUpDirs = { "n", "s", "e", "w" };
+   
+	#reasoning method
 	body()
-	{
-		// The plan body. This describes the actual steps
-		// an agent performs when it executes this plan.
+	{      
+      //Loop through all players on the team
+      logical String $playerName;
+      String baseName;
+      Cursor c_players = bel_players_dat.get( $playerName );
+      System.out.println(bel_goldAt_dat.nFacts());
+      while (c_players.next())
+      {
+         logical int $x, $y;
+         logical int $numGold;
+         boolean goldFound = false;
+         
+         baseName = $playerName.as_string();
+         baseName = baseName.substring(0,baseName.indexOf("@"));
+         
+         
+         //Get player info
+         bel_playerPositions_dat.getByName( $playerName.as_string(), $x, $y );
+         bel_playerGold_dat.getByName( $playerName.as_string(), $numGold );
+         
+         System.out.println("POS, (" + $x.as_int()+","+ $y.as_int()+")" );
+         
+         //Check if gold at current location
+         if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
+         {
+            @send( baseName, meplayeraction_s.send( "pick" ));
+            continue;
+         }
+         
+         //Loop through the adjacent locations
+         for (int d=0; d<lookUpDirs.length; ++d)
+         {
+            //Check if gold at an adjacent location
+            GridPoint lookUpLoc = GridPoint.getFromDir( $x.as_int(), $y.as_int(), lookUpDirs[d] );
+            if (bel_goldAt_dat.check( lookUpLoc.x, lookUpLoc.y ))
+            {
+               @send( baseName, meplayeraction_s.send( "moveTo", lookUpDirs[d] ));
+               goldFound = true;
+               break;
+            }
+         }
+         
+         if (!goldFound)
+         {
+            @send( baseName, meplayeraction_s.send( "moveRand" ));
+         }
+      }
 	}
 }

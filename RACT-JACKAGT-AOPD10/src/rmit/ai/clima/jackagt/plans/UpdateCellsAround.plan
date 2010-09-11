@@ -61,6 +61,7 @@ Description: Update the beliefs about the cells around a location
       boolean bUnknown;
       logical int $noGold; 	//  logical int to retrieve the amount of gold this agent is carrying
       
+      System.out.println(getAgent().name() + "*&(#U&*(#$)#*$()#*$)(*#$&#)*$#)*$()#*(#)$" );
       for(int i=0; i < cells.length; i++) 
       {	// interate on each cell
 

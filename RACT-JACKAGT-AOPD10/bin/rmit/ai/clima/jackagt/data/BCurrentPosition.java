@@ -18,9 +18,9 @@ import aos.jack.jak.logic.Variable;
 import aos.jack.jak.cursor.BeliefState;
 import aos.jack.jak.cursor.Cursor;
 
-public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
-    static public rmit.ai.clima.jackagt.data.CurrentPosition__Tuple __hole = new rmit.ai.clima.jackagt.data.CurrentPosition__Tuple(true);
-    public rmit.ai.clima.jackagt.data.CurrentPosition__Tuple[][] __tables;
+public class BCurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
+    static public rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple __hole = new rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple(true);
+    public rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple[][] __tables;
     public boolean attach(aos.jack.jak.event.EventRecipient __h)
     {
         java.lang.Object __o = __h;
@@ -32,8 +32,8 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.beliefset.BeliefSetCursor check(int __v0, int __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentPosition__Tuple __t = new rmit.ai.clima.jackagt.data.CurrentPosition__Tuple();
-        rmit.ai.clima.jackagt.data.CurrentPosition.__Cursor __c = new rmit.ai.clima.jackagt.data.CurrentPosition.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple __t = new rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple();
+        rmit.ai.clima.jackagt.data.BCurrentPosition.__Cursor __c = new rmit.ai.clima.jackagt.data.BCurrentPosition.__Cursor(__t);
         __t.posX = __v0;
         __t.posY = __v1;
         __c.init(1,this);
@@ -43,28 +43,28 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.IntegerVariable __v0, aos.jack.jak.logic.IntegerVariable __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentPosition__Tuple __t = new rmit.ai.clima.jackagt.data.CurrentPosition__Tuple();
-        rmit.ai.clima.jackagt.data.CurrentPosition.__Cursor __c = new rmit.ai.clima.jackagt.data.CurrentPosition.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple __t = new rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple();
+        rmit.ai.clima.jackagt.data.BCurrentPosition.__Cursor __c = new rmit.ai.clima.jackagt.data.BCurrentPosition.__Cursor(__t);
         if (!__v0.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("CurrentPosition:get:OO: arg 0 posX Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BCurrentPosition:get:OO: arg 0 posX Incorrect Variable type");
         if (__v0.isGround()) {
             try {
                 __t.posX = __v0.as_int();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("CurrentPosition:get:OO: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BCurrentPosition:get:OO: got " + e.toString());
             }
         }
          else 
             __c.posX = __v0;
         if (!__v1.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("CurrentPosition:get:OO: arg 1 posY Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BCurrentPosition:get:OO: arg 1 posY Incorrect Variable type");
         if (__v1.isGround()) {
             try {
                 __t.posY = __v1.as_int();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("CurrentPosition:get:OO: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BCurrentPosition:get:OO: got " + e.toString());
             }
         }
          else 
@@ -90,7 +90,7 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
     
     public aos.jack.jak.beliefset.Tuple newTuple()
     {
-        return new rmit.ai.clima.jackagt.data.CurrentPosition__Tuple();
+        return new rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple();
     }
     
     public aos.jack.jak.beliefset.Tuple getTuple(int t, int l)
@@ -100,12 +100,12 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
     
     public aos.jack.jak.beliefset.Tuple[] newTable(int t)
     {
-        return new rmit.ai.clima.jackagt.data.CurrentPosition__Tuple[t];
+        return new rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple[t];
     }
     
     public aos.jack.jak.beliefset.Tuple[][] newTables(int t)
     {
-        return new rmit.ai.clima.jackagt.data.CurrentPosition__Tuple[t][];
+        return new rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple[t][];
     }
     
     public aos.jack.jak.beliefset.Tuple[] getTable(int t)
@@ -120,13 +120,13 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
     
     public void setTables(aos.jack.jak.beliefset.Tuple[][] t)
     {
-        __tables = (rmit.ai.clima.jackagt.data.CurrentPosition__Tuple[][]) t;
+        __tables = (rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple[][]) t;
     }
     
     public aos.jack.jak.beliefset.BeliefSetCursor newCursor(aos.jack.jak.beliefset.Tuple __t)
     {
-        if (__t instanceof rmit.ai.clima.jackagt.data.CurrentPosition__Tuple) 
-            return new rmit.ai.clima.jackagt.data.CurrentPosition.__Cursor((rmit.ai.clima.jackagt.data.CurrentPosition__Tuple) __t);
+        if (__t instanceof rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple) 
+            return new rmit.ai.clima.jackagt.data.BCurrentPosition.__Cursor((rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple) __t);
         return null;
     }
     
@@ -139,7 +139,7 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
     public void add(int __v0, int __v1, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentPosition__Tuple __t = new rmit.ai.clima.jackagt.data.CurrentPosition__Tuple();
+        rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple __t = new rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple();
         __t.posX = __v0;
         __t.posY = __v1;
         super.assertTuple(__t,__d);
@@ -154,24 +154,24 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
     public void remove(int __v0, int __v1, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentPosition__Tuple __t = new rmit.ai.clima.jackagt.data.CurrentPosition__Tuple();
+        rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple __t = new rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple();
         __t.posX = __v0;
         __t.posY = __v1;
         super.retractTuple(__t,__d);
     }
     
-    public CurrentPosition()
+    public BCurrentPosition()
     {
     }
     
-    public CurrentPosition(java.lang.String n)
+    public BCurrentPosition(java.lang.String n)
     {
         super();
         read(n);
     }
     
     class __Cursor extends aos.jack.jak.beliefset.ClosedWorldCursor {
-        public rmit.ai.clima.jackagt.data.CurrentPosition__Tuple __tuple = null;
+        public rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple __tuple = null;
         public aos.jack.jak.logic.Variable posX;
         public aos.jack.jak.logic.Variable posY;
         public __Cursor()
@@ -179,7 +179,7 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
             __tuple = __hole;
         }
         
-        public __Cursor(rmit.ai.clima.jackagt.data.CurrentPosition__Tuple __t)
+        public __Cursor(rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple __t)
         {
             super();
             __tuple = __t;
@@ -187,12 +187,12 @@ public class CurrentPosition extends aos.jack.jak.beliefset.ClosedWorld {
         
         public int match(int __ti, int __st, int __c, boolean __k, int __ind)
         {
-            rmit.ai.clima.jackagt.data.CurrentPosition__Tuple[] __tab = __tables[__ti];
-            rmit.ai.clima.jackagt.data.CurrentPosition__Tuple __t;
+            rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple[] __tab = __tables[__ti];
+            rmit.ai.clima.jackagt.data.BCurrentPosition__Tuple __t;
             int __sz = __tab.length;
             int __i;
             if ((aos.jack.jak.core.Jak.debugging & aos.jack.jak.core.Jak.LOG_DB) != 0) {
-                aos.jack.jak.core.Jak.log.log("CurrentPosition__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
+                aos.jack.jak.core.Jak.log.log("BCurrentPosition__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
                 aos.jack.jak.core.Jak.log.log("Tuple=" + __tuple);
                 aos.jack.jak.core.Jak.log.log("Outputs are");
                 aos.jack.jak.core.Jak.log.log("  posX:" + posX);

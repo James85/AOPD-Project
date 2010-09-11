@@ -18,9 +18,9 @@ import aos.jack.jak.logic.Variable;
 import aos.jack.jak.cursor.BeliefState;
 import aos.jack.jak.cursor.Cursor;
 
-public class NumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
-    static public rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple __hole = new rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple(true);
-    public rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple[][] __tables;
+public class BNumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
+    static public rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple __hole = new rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple(true);
+    public rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple[][] __tables;
     public boolean attach(aos.jack.jak.event.EventRecipient __h)
     {
         java.lang.Object __o = __h;
@@ -32,16 +32,16 @@ public class NumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.IntegerVariable __v0)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple __t = new rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple();
-        rmit.ai.clima.jackagt.data.NumCarryingGold.__Cursor __c = new rmit.ai.clima.jackagt.data.NumCarryingGold.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple __t = new rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple();
+        rmit.ai.clima.jackagt.data.BNumCarryingGold.__Cursor __c = new rmit.ai.clima.jackagt.data.BNumCarryingGold.__Cursor(__t);
         if (!__v0.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("NumCarryingGold:get:O: arg 0 goldCount Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BNumCarryingGold:get:O: arg 0 goldCount Incorrect Variable type");
         if (__v0.isGround()) {
             try {
                 __t.goldCount = __v0.as_int();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("NumCarryingGold:get:O: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BNumCarryingGold:get:O: got " + e.toString());
             }
         }
          else 
@@ -67,7 +67,7 @@ public class NumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
     
     public aos.jack.jak.beliefset.Tuple newTuple()
     {
-        return new rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple();
+        return new rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple();
     }
     
     public aos.jack.jak.beliefset.Tuple getTuple(int t, int l)
@@ -77,12 +77,12 @@ public class NumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
     
     public aos.jack.jak.beliefset.Tuple[] newTable(int t)
     {
-        return new rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple[t];
+        return new rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple[t];
     }
     
     public aos.jack.jak.beliefset.Tuple[][] newTables(int t)
     {
-        return new rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple[t][];
+        return new rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple[t][];
     }
     
     public aos.jack.jak.beliefset.Tuple[] getTable(int t)
@@ -97,13 +97,13 @@ public class NumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
     
     public void setTables(aos.jack.jak.beliefset.Tuple[][] t)
     {
-        __tables = (rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple[][]) t;
+        __tables = (rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple[][]) t;
     }
     
     public aos.jack.jak.beliefset.BeliefSetCursor newCursor(aos.jack.jak.beliefset.Tuple __t)
     {
-        if (__t instanceof rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple) 
-            return new rmit.ai.clima.jackagt.data.NumCarryingGold.__Cursor((rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple) __t);
+        if (__t instanceof rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple) 
+            return new rmit.ai.clima.jackagt.data.BNumCarryingGold.__Cursor((rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple) __t);
         return null;
     }
     
@@ -116,7 +116,7 @@ public class NumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
     public void add(int __v0, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple __t = new rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple();
+        rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple __t = new rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple();
         __t.goldCount = __v0;
         super.assertTuple(__t,__d);
     }
@@ -130,30 +130,30 @@ public class NumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
     public void remove(int __v0, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple __t = new rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple();
+        rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple __t = new rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple();
         __t.goldCount = __v0;
         super.retractTuple(__t,__d);
     }
     
-    public NumCarryingGold()
+    public BNumCarryingGold()
     {
     }
     
-    public NumCarryingGold(java.lang.String n)
+    public BNumCarryingGold(java.lang.String n)
     {
         super();
         read(n);
     }
     
     class __Cursor extends aos.jack.jak.beliefset.ClosedWorldCursor {
-        public rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple __tuple = null;
+        public rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple __tuple = null;
         public aos.jack.jak.logic.Variable goldCount;
         public __Cursor()
         {
             __tuple = __hole;
         }
         
-        public __Cursor(rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple __t)
+        public __Cursor(rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple __t)
         {
             super();
             __tuple = __t;
@@ -161,12 +161,12 @@ public class NumCarryingGold extends aos.jack.jak.beliefset.ClosedWorld {
         
         public int match(int __ti, int __st, int __c, boolean __k, int __ind)
         {
-            rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple[] __tab = __tables[__ti];
-            rmit.ai.clima.jackagt.data.NumCarryingGold__Tuple __t;
+            rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple[] __tab = __tables[__ti];
+            rmit.ai.clima.jackagt.data.BNumCarryingGold__Tuple __t;
             int __sz = __tab.length;
             int __i;
             if ((aos.jack.jak.core.Jak.debugging & aos.jack.jak.core.Jak.LOG_DB) != 0) {
-                aos.jack.jak.core.Jak.log.log("NumCarryingGold__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
+                aos.jack.jak.core.Jak.log.log("BNumCarryingGold__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
                 aos.jack.jak.core.Jak.log.log("Tuple=" + __tuple);
                 aos.jack.jak.core.Jak.log.log("Outputs are");
                 aos.jack.jak.core.Jak.log.log("  goldCount:" + goldCount);

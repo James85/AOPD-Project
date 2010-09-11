@@ -20,9 +20,9 @@ import aos.jack.jak.cursor.BeliefState;
 import aos.jack.plugin.view.rt.CleanupCursor;
 import java.lang.Object;
 
-public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
-    static public rmit.ai.clima.jackagt.data.GoldAt__Tuple __hole = new rmit.ai.clima.jackagt.data.GoldAt__Tuple(true);
-    public rmit.ai.clima.jackagt.data.GoldAt__Tuple[][] __tables;
+public class BGoldAt extends aos.jack.jak.beliefset.OpenWorld {
+    static public rmit.ai.clima.jackagt.data.BGoldAt__Tuple __hole = new rmit.ai.clima.jackagt.data.BGoldAt__Tuple(true);
+    public rmit.ai.clima.jackagt.data.BGoldAt__Tuple[][] __tables;
     public boolean attach(aos.jack.jak.event.EventRecipient __h)
     {
         java.lang.Object __o = __h;
@@ -34,8 +34,8 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     public aos.jack.jak.beliefset.BeliefSetCursor check(int __v0, int __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.GoldAt__Tuple __t = new rmit.ai.clima.jackagt.data.GoldAt__Tuple();
-        rmit.ai.clima.jackagt.data.GoldAt.__Cursor __c = new rmit.ai.clima.jackagt.data.GoldAt.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BGoldAt__Tuple __t = new rmit.ai.clima.jackagt.data.BGoldAt__Tuple();
+        rmit.ai.clima.jackagt.data.BGoldAt.__Cursor __c = new rmit.ai.clima.jackagt.data.BGoldAt.__Cursor(__t);
         __t.xCoord = __v0;
         __t.yCoord = __v1;
         __c.init(0,this);
@@ -45,28 +45,28 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.IntegerVariable __v0, aos.jack.jak.logic.IntegerVariable __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.GoldAt__Tuple __t = new rmit.ai.clima.jackagt.data.GoldAt__Tuple();
-        rmit.ai.clima.jackagt.data.GoldAt.__Cursor __c = new rmit.ai.clima.jackagt.data.GoldAt.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BGoldAt__Tuple __t = new rmit.ai.clima.jackagt.data.BGoldAt__Tuple();
+        rmit.ai.clima.jackagt.data.BGoldAt.__Cursor __c = new rmit.ai.clima.jackagt.data.BGoldAt.__Cursor(__t);
         if (!__v0.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("GoldAt:get:OO: arg 0 xCoord Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BGoldAt:get:OO: arg 0 xCoord Incorrect Variable type");
         if (__v0.isGround()) {
             try {
                 __t.xCoord = __v0.as_int();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("GoldAt:get:OO: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BGoldAt:get:OO: got " + e.toString());
             }
         }
          else 
             __c.xCoord = __v0;
         if (!__v1.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("GoldAt:get:OO: arg 1 yCoord Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BGoldAt:get:OO: arg 1 yCoord Incorrect Variable type");
         if (__v1.isGround()) {
             try {
                 __t.yCoord = __v1.as_int();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("GoldAt:get:OO: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BGoldAt:get:OO: got " + e.toString());
             }
         }
          else 
@@ -78,9 +78,9 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     public int countGold()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.GoldAt.__complex_10 __c = new rmit.ai.clima.jackagt.data.GoldAt.__complex_10();
+        rmit.ai.clima.jackagt.data.BGoldAt.__complex_1 __c = new rmit.ai.clima.jackagt.data.BGoldAt.__complex_1();
         try {
-            return __c.__complex_10_countGold();
+            return __c.__complex_1_countGold();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("countGold got exception " + __e);
@@ -90,9 +90,9 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     public boolean checkUnknown(int x, int y)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.GoldAt.__complex_11 __c = new rmit.ai.clima.jackagt.data.GoldAt.__complex_11(x,y);
+        rmit.ai.clima.jackagt.data.BGoldAt.__complex_2 __c = new rmit.ai.clima.jackagt.data.BGoldAt.__complex_2(x,y);
         try {
-            return __c.__complex_11_checkUnknown();
+            return __c.__complex_2_checkUnknown();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("checkUnknown got exception " + __e);
@@ -116,7 +116,7 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     
     public aos.jack.jak.beliefset.Tuple newTuple()
     {
-        return new rmit.ai.clima.jackagt.data.GoldAt__Tuple();
+        return new rmit.ai.clima.jackagt.data.BGoldAt__Tuple();
     }
     
     public aos.jack.jak.beliefset.Tuple getTuple(int t, int l)
@@ -126,12 +126,12 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     
     public aos.jack.jak.beliefset.Tuple[] newTable(int t)
     {
-        return new rmit.ai.clima.jackagt.data.GoldAt__Tuple[t];
+        return new rmit.ai.clima.jackagt.data.BGoldAt__Tuple[t];
     }
     
     public aos.jack.jak.beliefset.Tuple[][] newTables(int t)
     {
-        return new rmit.ai.clima.jackagt.data.GoldAt__Tuple[t][];
+        return new rmit.ai.clima.jackagt.data.BGoldAt__Tuple[t][];
     }
     
     public aos.jack.jak.beliefset.Tuple[] getTable(int t)
@@ -146,13 +146,13 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     
     public void setTables(aos.jack.jak.beliefset.Tuple[][] t)
     {
-        __tables = (rmit.ai.clima.jackagt.data.GoldAt__Tuple[][]) t;
+        __tables = (rmit.ai.clima.jackagt.data.BGoldAt__Tuple[][]) t;
     }
     
     public aos.jack.jak.beliefset.BeliefSetCursor newCursor(aos.jack.jak.beliefset.Tuple __t)
     {
-        if (__t instanceof rmit.ai.clima.jackagt.data.GoldAt__Tuple) 
-            return new rmit.ai.clima.jackagt.data.GoldAt.__Cursor((rmit.ai.clima.jackagt.data.GoldAt__Tuple) __t);
+        if (__t instanceof rmit.ai.clima.jackagt.data.BGoldAt__Tuple) 
+            return new rmit.ai.clima.jackagt.data.BGoldAt.__Cursor((rmit.ai.clima.jackagt.data.BGoldAt__Tuple) __t);
         return null;
     }
     
@@ -165,7 +165,7 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     public void add(int __v0, int __v1, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.GoldAt__Tuple __t = new rmit.ai.clima.jackagt.data.GoldAt__Tuple();
+        rmit.ai.clima.jackagt.data.BGoldAt__Tuple __t = new rmit.ai.clima.jackagt.data.BGoldAt__Tuple();
         __t.xCoord = __v0;
         __t.yCoord = __v1;
         super.assertTuple(__t,__d);
@@ -180,24 +180,24 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
     public void remove(int __v0, int __v1, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.GoldAt__Tuple __t = new rmit.ai.clima.jackagt.data.GoldAt__Tuple();
+        rmit.ai.clima.jackagt.data.BGoldAt__Tuple __t = new rmit.ai.clima.jackagt.data.BGoldAt__Tuple();
         __t.xCoord = __v0;
         __t.yCoord = __v1;
         super.retractTuple(__t,__d);
     }
     
-    public GoldAt()
+    public BGoldAt()
     {
     }
     
-    public GoldAt(java.lang.String n)
+    public BGoldAt(java.lang.String n)
     {
         super();
         read(n);
     }
     
     class __Cursor extends aos.jack.jak.beliefset.OpenWorldCursor {
-        public rmit.ai.clima.jackagt.data.GoldAt__Tuple __tuple = null;
+        public rmit.ai.clima.jackagt.data.BGoldAt__Tuple __tuple = null;
         public aos.jack.jak.logic.Variable xCoord;
         public aos.jack.jak.logic.Variable yCoord;
         public __Cursor()
@@ -205,7 +205,7 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
             __tuple = __hole;
         }
         
-        public __Cursor(rmit.ai.clima.jackagt.data.GoldAt__Tuple __t)
+        public __Cursor(rmit.ai.clima.jackagt.data.BGoldAt__Tuple __t)
         {
             super();
             __tuple = __t;
@@ -213,12 +213,12 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
         
         public int match(int __ti, int __st, int __c, boolean __k, int __ind)
         {
-            rmit.ai.clima.jackagt.data.GoldAt__Tuple[] __tab = __tables[__ti];
-            rmit.ai.clima.jackagt.data.GoldAt__Tuple __t;
+            rmit.ai.clima.jackagt.data.BGoldAt__Tuple[] __tab = __tables[__ti];
+            rmit.ai.clima.jackagt.data.BGoldAt__Tuple __t;
             int __sz = __tab.length;
             int __i;
             if ((aos.jack.jak.core.Jak.debugging & aos.jack.jak.core.Jak.LOG_DB) != 0) {
-                aos.jack.jak.core.Jak.log.log("GoldAt__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
+                aos.jack.jak.core.Jak.log.log("BGoldAt__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
                 aos.jack.jak.core.Jak.log.log("Tuple=" + __tuple);
                 aos.jack.jak.core.Jak.log.log("Outputs are");
                 aos.jack.jak.core.Jak.log.log("  xCoord:" + xCoord);
@@ -293,7 +293,7 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
         }
         
     }
-    class __complex_10 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_1 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable __local_2;
         aos.jack.jak.logic.IntegerVariable __local_3;
         int __local_4;
@@ -341,12 +341,12 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
             return false;
         }
         
-        public __complex_10()
+        public __complex_1()
         {
             super();
         }
         
-        public int __complex_10_countGold()
+        public int __complex_1_countGold()
             throws java.lang.Exception
         {
             {
@@ -363,7 +363,7 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
         }
         
     }
-    class __complex_11 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_2 extends aos.jack.plugin.view.rt.CleanupCursor {
         int x;
         int y;
         public java.lang.Object genObject(int __index)
@@ -409,14 +409,14 @@ public class GoldAt extends aos.jack.jak.beliefset.OpenWorld {
             return false;
         }
         
-        public __complex_11(int x, int y)
+        public __complex_2(int x, int y)
         {
             super();
             this.x = x;
             this.y = y;
         }
         
-        public boolean __complex_11_checkUnknown()
+        public boolean __complex_2_checkUnknown()
             throws java.lang.Exception
         {
             if (genCursor(0).next()) {

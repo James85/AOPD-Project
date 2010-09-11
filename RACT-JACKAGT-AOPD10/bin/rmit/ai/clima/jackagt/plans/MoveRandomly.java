@@ -13,13 +13,13 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
-import rmit.ai.clima.jackagt.events.EExecuteCLIMAaction;
 import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
+import rmit.ai.clima.jackagt.events.EExecuteCLIMAaction;
 import rmit.ai.clima.jackagt.events.EAct;
-import rmit.ai.clima.jackagt.data.CurrentPosition;
-import rmit.ai.clima.jackagt.data.NumCarryingGold;
-import rmit.ai.clima.jackagt.data.ObstacleAt;
-import rmit.ai.clima.jackagt.data.GoldAt;
+import rmit.ai.clima.jackagt.data.BObstacleAt;
+import rmit.ai.clima.jackagt.data.BGoldAt;
+import rmit.ai.clima.jackagt.data.BCurrentPosition;
+import rmit.ai.clima.jackagt.data.BNumCarryingGold;
 import rmit.ai.clima.interfaces.DebugInterface;
 import java.util.Random;
 import java.lang.Object;
@@ -37,13 +37,13 @@ public class MoveRandomly extends aos.jack.jak.plan.Plan {
     aos.jack.jak.logic.IntegerVariable $posX;
     aos.jack.jak.logic.IntegerVariable $posY;
     aos.jack.jak.logic.IntegerVariable $noGold;
-    public rmit.ai.clima.jackagt.events.EExecuteCLIMAaction eexecuteclimaaction_p;
     public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
+    public rmit.ai.clima.jackagt.events.EExecuteCLIMAaction eexecuteclimaaction_p;
     public rmit.ai.clima.jackagt.events.EAct eact_h;
-    public rmit.ai.clima.jackagt.data.CurrentPosition bel_currentPosition_dat;
-    public rmit.ai.clima.jackagt.data.NumCarryingGold bel_numCarryingGold_dat;
-    public rmit.ai.clima.jackagt.data.ObstacleAt bel_obstacleAt_dat;
-    public rmit.ai.clima.jackagt.data.GoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
+    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BCurrentPosition bel_currentPosition_dat;
+    public rmit.ai.clima.jackagt.data.BNumCarryingGold bel_numCarryingGold_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -58,13 +58,13 @@ public class MoveRandomly extends aos.jack.jak.plan.Plan {
             "$posX",
             "$posY",
             "$noGold",
-            "eexecuteclimaaction_p",
             "eguidebugmessage_s",
+            "eexecuteclimaaction_p",
             "eact_h",
-            "bel_currentPosition_dat",
-            "bel_numCarryingGold_dat",
             "bel_obstacleAt_dat",
             "bel_goldAt_dat",
+            "bel_currentPosition_dat",
+            "bel_numCarryingGold_dat",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "String[]",
@@ -72,13 +72,13 @@ public class MoveRandomly extends aos.jack.jak.plan.Plan {
             "logical int",
             "logical int",
             "logical int",
-            "rmit.ai.clima.jackagt.events.EExecuteCLIMAaction",
             "EGUIDebugMessage",
+            "rmit.ai.clima.jackagt.events.EExecuteCLIMAaction",
             "EAct",
-            "CurrentPosition",
-            "NumCarryingGold",
-            "ObstacleAt",
-            "GoldAt",
+            "BObstacleAt",
+            "BGoldAt",
+            "BCurrentPosition",
+            "BNumCarryingGold",
             "DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -111,13 +111,13 @@ public class MoveRandomly extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        eexecuteclimaaction_p = __env.eexecuteclimaaction_p;
         eguidebugmessage_s = __env.eguidebugmessage_s;
+        eexecuteclimaaction_p = __env.eexecuteclimaaction_p;
         eact_h = __env.eact_h;
-        bel_currentPosition_dat = __env.bel_currentPosition_dat;
-        bel_numCarryingGold_dat = __env.bel_numCarryingGold_dat;
         bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
         bel_goldAt_dat = __env.bel_goldAt_dat;
+        bel_currentPosition_dat = __env.bel_currentPosition_dat;
+        bel_numCarryingGold_dat = __env.bel_numCarryingGold_dat;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
         $posX = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $posY = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
@@ -126,14 +126,14 @@ public class MoveRandomly extends aos.jack.jak.plan.Plan {
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        eexecuteclimaaction_p = (rmit.ai.clima.jackagt.events.EExecuteCLIMAaction) __a.findEvent("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction");
-        if (eexecuteclimaaction_p == null) {
-            warning("Failed to find EExecuteCLIMAaction eexecuteclimaaction_p");
-            return false;
-        }
         eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) __a.findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
         if (eguidebugmessage_s == null) {
             warning("Failed to find EGUIDebugMessage eguidebugmessage_s");
+            return false;
+        }
+        eexecuteclimaaction_p = (rmit.ai.clima.jackagt.events.EExecuteCLIMAaction) __a.findEvent("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction");
+        if (eexecuteclimaaction_p == null) {
+            warning("Failed to find EExecuteCLIMAaction eexecuteclimaaction_p");
             return false;
         }
         eact_h = (rmit.ai.clima.jackagt.events.EAct) __a.findEvent("rmit.ai.clima.jackagt.events.EAct");
@@ -141,24 +141,24 @@ public class MoveRandomly extends aos.jack.jak.plan.Plan {
             warning("Failed to find EAct eact_h");
             return false;
         }
-        bel_currentPosition_dat = (rmit.ai.clima.jackagt.data.CurrentPosition) lookupNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.CurrentPosition",0);
-        if (bel_currentPosition_dat == null) {
-            warning("Failed to find CurrentPosition bel_currentPosition_dat");
-            return false;
-        }
-        bel_numCarryingGold_dat = (rmit.ai.clima.jackagt.data.NumCarryingGold) lookupNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.NumCarryingGold",0);
-        if (bel_numCarryingGold_dat == null) {
-            warning("Failed to find NumCarryingGold bel_numCarryingGold_dat");
-            return false;
-        }
-        bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.ObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.ObstacleAt",0);
+        bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",0);
         if (bel_obstacleAt_dat == null) {
-            warning("Failed to find ObstacleAt bel_obstacleAt_dat");
+            warning("Failed to find BObstacleAt bel_obstacleAt_dat");
             return false;
         }
-        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.GoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.GoldAt",0);
+        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
         if (bel_goldAt_dat == null) {
-            warning("Failed to find GoldAt bel_goldAt_dat");
+            warning("Failed to find BGoldAt bel_goldAt_dat");
+            return false;
+        }
+        bel_currentPosition_dat = (rmit.ai.clima.jackagt.data.BCurrentPosition) lookupNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.BCurrentPosition",0);
+        if (bel_currentPosition_dat == null) {
+            warning("Failed to find BCurrentPosition bel_currentPosition_dat");
+            return false;
+        }
+        bel_numCarryingGold_dat = (rmit.ai.clima.jackagt.data.BNumCarryingGold) lookupNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold",0);
+        if (bel_numCarryingGold_dat == null) {
+            warning("Failed to find BNumCarryingGold bel_numCarryingGold_dat");
             return false;
         }
         return true;
@@ -295,11 +295,11 @@ public class MoveRandomly extends aos.jack.jak.plan.Plan {
             }
             case 5: 
             {
-                return aos.util.ToObject.box(eexecuteclimaaction_p);
+                return aos.util.ToObject.box(eguidebugmessage_s);
             }
             case 6: 
             {
-                return aos.util.ToObject.box(eguidebugmessage_s);
+                return aos.util.ToObject.box(eexecuteclimaaction_p);
             }
             case 7: 
             {
@@ -307,19 +307,19 @@ public class MoveRandomly extends aos.jack.jak.plan.Plan {
             }
             case 8: 
             {
-                return aos.util.ToObject.box(bel_currentPosition_dat);
+                return aos.util.ToObject.box(bel_obstacleAt_dat);
             }
             case 9: 
             {
-                return aos.util.ToObject.box(bel_numCarryingGold_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 10: 
             {
-                return aos.util.ToObject.box(bel_obstacleAt_dat);
+                return aos.util.ToObject.box(bel_currentPosition_dat);
             }
             case 11: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_numCarryingGold_dat);
             }
             case 12: 
             {

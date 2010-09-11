@@ -63,7 +63,7 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
     private final static java.lang.String[] __fsmTypes_body = {
             "logical int"};
     private final static java.lang.String[] __fsmLocalNames_body = {
-            "__local__21_0"};
+            "__local__25_0"};
     // The ID of the plan (for printing)	
 
     static boolean relevant(rmit.ai.clima.jackagt.events.EExecuteCLIMAaction ev)
@@ -253,7 +253,7 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
     }
     
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
-        aos.jack.jak.logic.IntegerVariable __local__21_0;
+        aos.jack.jak.logic.IntegerVariable __local__25_0;
         private int __breakLevel = 0;
         public int run(int __status)
             throws java.lang.Throwable
@@ -286,7 +286,7 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __local__21_0 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
+                            __local__25_0 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
                             __state = 11;
                             break;
                         }
@@ -313,7 +313,7 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
                         case 12: 
                         {
                             __state = 13;
-                            agent.postEvent(tellclimaserver_p.tell(new rmit.ai.clima.comms.Action(eexecuteclimaaction_h.message,getAgent().name(),"" + __local__21_0.as_int())));
+                            agent.postEvent(tellclimaserver_p.tell(new rmit.ai.clima.comms.Action(eexecuteclimaaction_h.message,getAgent().name(),"" + __local__25_0.as_int())));
                             break;
                         }
                         //* (63)       debugIface.showConsoleDebug("I sent CLIMA action *" + eexecuteclimaaction_h.message +"* for execution with id " + $id.as_int());
@@ -322,7 +322,7 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
                             __state = 14;
                             // Report that the action was sent for execution
 
-                            debugIface.showConsoleDebug("I sent CLIMA action *" + eexecuteclimaaction_h.message + "* for execution with id " + __local__21_0.as_int());
+                            debugIface.showConsoleDebug("I sent CLIMA action *" + eexecuteclimaaction_h.message + "* for execution with id " + __local__25_0.as_int());
                             break;
                         }
                         //* (64) 		@send("gui", eguidebugmessage_s.reportMessage(ID, "I have decided to move towards: " + "*"+eexecuteclimaaction_h.message+"*"));
@@ -394,11 +394,11 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
             switch (__index) {
                 case 0: 
                 {
-                    return (bel_currentRequestActionId_dat.query_id(__local__21_0));
+                    return (bel_currentRequestActionId_dat.query_id(__local__25_0));
                 }
                 case 1: 
                 {
-                    return (bel_currentRequestActionId_dat.check_id(__local__21_0.as_int() + 1));
+                    return (bel_currentRequestActionId_dat.check_id(__local__25_0.as_int() + 1));
                 }
             }
             aos.jack.jak.core.Jak.error("illegal Cursor Construction");
@@ -448,7 +448,7 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
             switch (n) {
                 case 0: 
                 {
-                    return aos.util.ToObject.box(__local__21_0);
+                    return aos.util.ToObject.box(__local__25_0);
                 }
                 default: 
                 {

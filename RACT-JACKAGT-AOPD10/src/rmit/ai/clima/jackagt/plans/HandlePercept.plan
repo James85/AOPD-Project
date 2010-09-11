@@ -25,11 +25,13 @@ Description: This plan assimilates each percept information received from the ga
 
 	#posts event EShowBeliefs eshowbeliefs_p;
 
-	#sends event MEInformAgentStatus meinformagentstatus_s;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#posts event EAct eact_p;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#sends event MEReportPlayerPercept mereportplayerpercept_s;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 
@@ -37,9 +39,9 @@ Description: This plan assimilates each percept information received from the ga
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
 
-	#modifies data BCurrentPosition bel_currentPosition_dat;
-
 	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#modifies data BCurrentPosition bel_currentPosition_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -130,7 +132,7 @@ Description: This plan assimilates each percept information received from the ga
 
 
       // Inform the GUIAgent of the current status, that is, location and no of gold pieces
-      @send("gui", meinformagentstatus_s.post(currentPos, items, id) );
+      @send("gui", meinformagentstatus_p.post(currentPos, items, id) );
 
 
       // Report current location, step number, and no of gold pieces carrying
@@ -143,7 +145,7 @@ Description: This plan assimilates each percept information received from the ga
 
 
       // Also send this information to the coordinator agent
-      @send( "boss", eupdatebel_s.post( id, currentPos, cells, items, getAgent().name() ));
+      @send( "boss", mereportplayerpercept_s.send( id, currentPos, cells, items, getAgent().name() ));
 
       // Next, report on the agent's current beliefs 
       @post( eshowbeliefs_p.show() );

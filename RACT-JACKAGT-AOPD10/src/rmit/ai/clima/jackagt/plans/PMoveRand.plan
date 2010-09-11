@@ -1,0 +1,34 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PMoveRand extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PMoveRand
+*/
+	//Events handled by the plan are declared here.
+	#handles event MEPlayerAction meplayeraction_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	static boolean relevant (MEPlayerAction e)
+	{
+	   
+	   return (e.action.equalsIgnoreCase( "moveRand" ));
+	}
+	
+	context()
+	{	      
+		true;
+	}
+	#reasoning method
+	body()
+	{
+	   System.out.println( "MOVE RAND" );
+	}
+}

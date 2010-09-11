@@ -18,9 +18,9 @@ import aos.jack.jak.logic.Variable;
 import aos.jack.jak.cursor.BeliefState;
 import aos.jack.jak.cursor.Cursor;
 
-public class PlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
-    static public rmit.ai.clima.jackagt.data.PlayerPosition__Tuple __hole = new rmit.ai.clima.jackagt.data.PlayerPosition__Tuple(true);
-    public rmit.ai.clima.jackagt.data.PlayerPosition__Tuple[][] __tables;
+public class BPlayerPerceptReceived extends aos.jack.jak.beliefset.ClosedWorld {
+    static public rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple __hole = new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple(true);
+    public rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple[][] __tables;
     public boolean attach(aos.jack.jak.event.EventRecipient __h)
     {
         java.lang.Object __o = __h;
@@ -29,47 +29,23 @@ public class PlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
         return true;
     }
     
-    public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.StringVariable __v0, aos.jack.jak.logic.IntegerVariable __v1, aos.jack.jak.logic.IntegerVariable __v2)
+    public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.StringVariable __v0)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.PlayerPosition__Tuple __t = new rmit.ai.clima.jackagt.data.PlayerPosition__Tuple();
-        rmit.ai.clima.jackagt.data.PlayerPosition.__Cursor __c = new rmit.ai.clima.jackagt.data.PlayerPosition.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple __t = new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple();
+        rmit.ai.clima.jackagt.data.BPlayerPerceptReceived.__Cursor __c = new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived.__Cursor(__t);
         if (!__v0.check_unifiable(StringType)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("PlayerPosition:get:OOO: arg 0 agentName Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerPerceptReceived:get:O: arg 0 agentName Incorrect Variable type");
         if (__v0.isGround()) {
             try {
                 __t.agentName = __v0.as_string();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("PlayerPosition:get:OOO: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerPerceptReceived:get:O: got " + e.toString());
             }
         }
          else 
             __c.agentName = __v0;
-        if (!__v1.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("PlayerPosition:get:OOO: arg 1 posX Incorrect Variable type");
-        if (__v1.isGround()) {
-            try {
-                __t.posX = __v1.as_int();
-            }
-            catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("PlayerPosition:get:OOO: got " + e.toString());
-            }
-        }
-         else 
-            __c.posX = __v1;
-        if (!__v2.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("PlayerPosition:get:OOO: arg 2 posY Incorrect Variable type");
-        if (__v2.isGround()) {
-            try {
-                __t.posY = __v2.as_int();
-            }
-            catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("PlayerPosition:get:OOO: got " + e.toString());
-            }
-        }
-         else 
-            __c.posY = __v2;
         __c.init(-1,this);
         return __c;
     }
@@ -91,7 +67,7 @@ public class PlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
     
     public aos.jack.jak.beliefset.Tuple newTuple()
     {
-        return new rmit.ai.clima.jackagt.data.PlayerPosition__Tuple();
+        return new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple();
     }
     
     public aos.jack.jak.beliefset.Tuple getTuple(int t, int l)
@@ -101,12 +77,12 @@ public class PlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
     
     public aos.jack.jak.beliefset.Tuple[] newTable(int t)
     {
-        return new rmit.ai.clima.jackagt.data.PlayerPosition__Tuple[t];
+        return new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple[t];
     }
     
     public aos.jack.jak.beliefset.Tuple[][] newTables(int t)
     {
-        return new rmit.ai.clima.jackagt.data.PlayerPosition__Tuple[t][];
+        return new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple[t][];
     }
     
     public aos.jack.jak.beliefset.Tuple[] getTable(int t)
@@ -121,69 +97,63 @@ public class PlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
     
     public void setTables(aos.jack.jak.beliefset.Tuple[][] t)
     {
-        __tables = (rmit.ai.clima.jackagt.data.PlayerPosition__Tuple[][]) t;
+        __tables = (rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple[][]) t;
     }
     
     public aos.jack.jak.beliefset.BeliefSetCursor newCursor(aos.jack.jak.beliefset.Tuple __t)
     {
-        if (__t instanceof rmit.ai.clima.jackagt.data.PlayerPosition__Tuple) 
-            return new rmit.ai.clima.jackagt.data.PlayerPosition.__Cursor((rmit.ai.clima.jackagt.data.PlayerPosition__Tuple) __t);
+        if (__t instanceof rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple) 
+            return new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived.__Cursor((rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple) __t);
         return null;
     }
     
-    public void add(java.lang.String __v0, int __v1, int __v2)
+    public void add(java.lang.String __v0)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        add(__v0,__v1,__v2,aos.jack.jak.cursor.Cursor.TRUE);
+        add(__v0,aos.jack.jak.cursor.Cursor.TRUE);
     }
     
-    public void add(java.lang.String __v0, int __v1, int __v2, aos.jack.jak.cursor.BeliefState __d)
+    public void add(java.lang.String __v0, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.PlayerPosition__Tuple __t = new rmit.ai.clima.jackagt.data.PlayerPosition__Tuple();
+        rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple __t = new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple();
         __t.agentName = __v0;
-        __t.posX = __v1;
-        __t.posY = __v2;
         super.assertTuple(__t,__d);
     }
     
-    public void remove(java.lang.String __v0, int __v1, int __v2)
+    public void remove(java.lang.String __v0)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        remove(__v0,__v1,__v2,aos.jack.jak.cursor.Cursor.TRUE);
+        remove(__v0,aos.jack.jak.cursor.Cursor.TRUE);
     }
     
-    public void remove(java.lang.String __v0, int __v1, int __v2, aos.jack.jak.cursor.BeliefState __d)
+    public void remove(java.lang.String __v0, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.PlayerPosition__Tuple __t = new rmit.ai.clima.jackagt.data.PlayerPosition__Tuple();
+        rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple __t = new rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple();
         __t.agentName = __v0;
-        __t.posX = __v1;
-        __t.posY = __v2;
         super.retractTuple(__t,__d);
     }
     
-    public PlayerPosition()
+    public BPlayerPerceptReceived()
     {
     }
     
-    public PlayerPosition(java.lang.String n)
+    public BPlayerPerceptReceived(java.lang.String n)
     {
         super();
         read(n);
     }
     
     class __Cursor extends aos.jack.jak.beliefset.ClosedWorldCursor {
-        public rmit.ai.clima.jackagt.data.PlayerPosition__Tuple __tuple = null;
+        public rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple __tuple = null;
         public aos.jack.jak.logic.Variable agentName;
-        public aos.jack.jak.logic.Variable posX;
-        public aos.jack.jak.logic.Variable posY;
         public __Cursor()
         {
             __tuple = __hole;
         }
         
-        public __Cursor(rmit.ai.clima.jackagt.data.PlayerPosition__Tuple __t)
+        public __Cursor(rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple __t)
         {
             super();
             __tuple = __t;
@@ -191,17 +161,15 @@ public class PlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
         
         public int match(int __ti, int __st, int __c, boolean __k, int __ind)
         {
-            rmit.ai.clima.jackagt.data.PlayerPosition__Tuple[] __tab = __tables[__ti];
-            rmit.ai.clima.jackagt.data.PlayerPosition__Tuple __t;
+            rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple[] __tab = __tables[__ti];
+            rmit.ai.clima.jackagt.data.BPlayerPerceptReceived__Tuple __t;
             int __sz = __tab.length;
             int __i;
             if ((aos.jack.jak.core.Jak.debugging & aos.jack.jak.core.Jak.LOG_DB) != 0) {
-                aos.jack.jak.core.Jak.log.log("PlayerPosition__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
+                aos.jack.jak.core.Jak.log.log("BPlayerPerceptReceived__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
                 aos.jack.jak.core.Jak.log.log("Tuple=" + __tuple);
                 aos.jack.jak.core.Jak.log.log("Outputs are");
                 aos.jack.jak.core.Jak.log.log("  agentName:" + agentName);
-                aos.jack.jak.core.Jak.log.log("  posX:" + posX);
-                aos.jack.jak.core.Jak.log.log("  posY:" + posY);
             }
             for (__i = __st; __c > 0; __i = (__i + 1) % __sz, __c-- ) {
                 __t = __tab[__i];
@@ -231,22 +199,6 @@ public class PlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
                     }
                     if (__k) 
                         return __i;
-                    if (posX == null) {
-                        if (__tuple.posX != __t.posX) 
-                            continue;
-                    }
-                     else {
-                        if (!posX.unify(__t.posX)) 
-                            continue;
-                    }
-                    if (posY == null) {
-                        if (__tuple.posY != __t.posY) 
-                            continue;
-                    }
-                     else {
-                        if (!posY.unify(__t.posY)) 
-                            continue;
-                    }
                 }
                 catch (java.lang.Exception e) {
                     continue;
@@ -265,10 +217,6 @@ public class PlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
         {
             if (agentName != null) 
                 return agentName.getEnv().newChoicePoint();
-            if (posX != null) 
-                return posX.getEnv().newChoicePoint();
-            if (posY != null) 
-                return posY.getEnv().newChoicePoint();
             return null;
         }
         

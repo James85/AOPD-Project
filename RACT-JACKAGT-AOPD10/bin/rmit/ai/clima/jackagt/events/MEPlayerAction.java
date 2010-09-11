@@ -6,12 +6,11 @@
 
     DO NOT ALTER THIS CODE AND DO NOT REMOVE THIS COMMENT
  *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*/
-package rmit.ai.clima.jackagt.data;
-import aos.jack.jak.beliefset.ClosedWorld;
-import aos.jack.jak.beliefset.Tuple;
+package rmit.ai.clima.jackagt.events;
+import aos.jack.jak.event.MessageEvent;
 
 /** Automatically generated class from 'null'. */
-public class CurrentPosition__Tuple extends aos.jack.jak.beliefset.Tuple implements aos.apib.Base, java.io.Serializable {
+public class MEPlayerAction extends aos.jack.jak.event.MessageEvent implements aos.apib.Base, java.io.Serializable {
 
   public static final __SS streamer = new __SS();
 
@@ -31,88 +30,136 @@ public class CurrentPosition__Tuple extends aos.jack.jak.beliefset.Tuple impleme
      return aos.apib.Util.equals(this, (aos.apib.Base)o);
   }
 
-  public int	posX;
-  public int	posY;
+  public String	action;
+  public String	direction;
+  final static java.lang.String[]	__eventVariableNames = {
+    "action",
+    "direction"};
+  final static java.lang.String[]	__eventVariableTypes = {
+    "String",
+    "String"};
 
 
-public CurrentPosition__Tuple(boolean v)
+public java.lang.String getDocumentation()
 {
-    super();
-    isFree = v;
+    return "/******** Start PDT Design Block *** DO NOT EDIT IT *********/\n";
 }
 
 
 
-public java.lang.String name()
+public rmit.ai.clima.jackagt.events.MEPlayerAction send(java.lang.String action, java.lang.String direction)
 {
-    return "CurrentPosition__Tuple";
+    rmit.ai.clima.jackagt.events.MEPlayerAction tmp = new rmit.ai.clima.jackagt.events.MEPlayerAction();
+    tmp.init(this);
+    return tmp.send_body(action,direction);
 }
 
 
 
-public java.lang.String toString()
+private rmit.ai.clima.jackagt.events.MEPlayerAction send_body(java.lang.String action, java.lang.String direction)
 {
-    java.lang.StringBuffer __s = new java.lang.StringBuffer();
-    __s.append(posX);
-    __s.append(":");
-    __s.append(posY);
-    return __s.toString();
+    this.action = action;
+    this.direction = direction;
+    return this;
 }
 
 
 
-public int hash(int __i)
+public rmit.ai.clima.jackagt.events.MEPlayerAction send(java.lang.String action)
 {
-    int __r = 0;
-    switch (__i) {
+    rmit.ai.clima.jackagt.events.MEPlayerAction tmp = new rmit.ai.clima.jackagt.events.MEPlayerAction();
+    tmp.init(this);
+    return tmp.send_body(action);
+}
+
+
+
+private rmit.ai.clima.jackagt.events.MEPlayerAction send_body(java.lang.String action)
+{
+    this.action = action;
+    this.direction = "";
+    return this;
+}
+
+
+
+public java.lang.String stateInfo()
+{
+    return "rmit/ai/clima/jackagt/events/MEPlayerAction.event [" + super.stateInfo() + "]";
+}
+
+
+
+public java.lang.String[] variableNames()
+{
+    return __eventVariableNames;
+}
+
+
+
+public java.lang.String[] variableTypes()
+{
+    return __eventVariableTypes;
+}
+
+
+
+public java.lang.Object getVariable(int n)
+{
+    switch (n) {
         case 0: 
         {
-            return __r;
+            return aos.util.ToObject.box(action);
         }
         case 1: 
         {
-            __r ^= (((int) (posY ^ (posY << 13))) & (~(1 << 31)));
-            __r ^= (((int) (posX ^ (posX << 13))) & (~(1 << 31)));
-            return __r;
+            return aos.util.ToObject.box(direction);
+        }
+        default: 
+        {
+            throw new java.lang.IndexOutOfBoundsException("Event " + this + " does not have variable number " + n);
         }
     }
-    return 0;
 }
 
 
   /** Automatically generated constructor. */
-  public CurrentPosition__Tuple() {
+  public MEPlayerAction() {
     streamer.setup();
     if (!getStreamer().initialized) return;
-    __init__CurrentPosition__Tuple();
+    __init__MEPlayerAction();
   }
 
   /** Automatically generated method. */
-  void __init__CurrentPosition__Tuple() {
-	posX = 0;
-	posY = 0;
+  void __init__MEPlayerAction() {
 
   }
 
   /** Automatically generated JACOB streamer class */
   static class __SS extends aos.apib.StreamerSupport {
-    CurrentPosition__Tuple __def = null;
+    MEPlayerAction __def = null;
 
     /** Return a static instance. */
 
     public aos.apib.Base getDefaultInstance() { return __def; }
 
     private String[] fn = {
-    ":posX",
-    ":posY",
+    ":action",
+    ":direction",
+    ":__eventVariableNames",
+    ":__eventVariableTypes",
     };
 
     private String[] dn = {
-    ":posX",
-    ":posY",
+    ":action",
+    ":direction",
+    ":__eventVariableNames",
+    ":__eventVariableTypes",
     };
 
     private boolean[] ftr = {
+    false,
+    false,
     false,
     false,
     };
@@ -120,24 +167,34 @@ public int hash(int __i)
     private boolean[] fst = {
     false,
     false,
+    true,
+    true,
     };
 
     private boolean[] fhd = {
     false,
     false,
+    false,
+    false,
     };
 
     private int[] ft = {
-    3,
-    3,
+    11,
+    11,
+    14,
+    14,
     };
 
     private aos.apib.EnumInfo[] fe = {
 	null,
 	null,
+	null,
+	null,
     };
 
     private String[] cm = {
+    null,
+    null,
     null,
     null,
     };
@@ -146,16 +203,20 @@ public int hash(int __i)
     private aos.apib.StreamerSupport[][] al = {
 	null,
 	null,
+	null,
+	null,
     };
 
     private String[] fsubt = {
     null, 
     null, 
+    "java.lang.String[]",
+    "java.lang.String[]",
     };
 
     /** Construct the streamer. */
     public __SS() {
-      __type = "CurrentPosition__Tuple";
+      __type = "MEPlayerAction";
       __icon = null;
       __comment = "Auto generated by the JACK Agents Compiler";
       __field_names = fn;
@@ -179,7 +240,7 @@ public int hash(int __i)
 
       setup_done = true; 
 
-      __def = (CurrentPosition__Tuple)newInstance();
+      __def = (MEPlayerAction)newInstance();
       setStreamedType(__def.getClass());
       baseclasses = findBaseStreamer(__def.getClass());
     }
@@ -187,7 +248,7 @@ public int hash(int __i)
     /** Initialization. */
     protected void init() {
       setup();
-      __def.__init__CurrentPosition__Tuple();
+      __def.__init__MEPlayerAction();
     }
 
     /** JACOB method. */
@@ -195,12 +256,12 @@ public int hash(int __i)
 
     /** JACOB method. */
     public aos.apib.Base new_instance() {
-      return new CurrentPosition__Tuple();
+      return new MEPlayerAction();
     }
 
     /** JACOB method. */
     public aos.apib.Base[] new_array(int n) {
-      return new CurrentPosition__Tuple[n];
+      return new MEPlayerAction[n];
     }
 
     /** JACOB class reading method. */
@@ -218,20 +279,20 @@ public int hash(int __i)
     public boolean readField(aos.apib.InStream in, aos.apib.Base o,int i) {
       if ( i > __field_names.length )
         return getBaseClassStreamer().readField( in, o, i - __field_names.length - 1 );
-      CurrentPosition__Tuple v = (CurrentPosition__Tuple)o;
+      MEPlayerAction v = (MEPlayerAction)o;
       switch (i) {
       case 0:
-	v.posX = in.getInt();
+	v.action = in.getString(true);
 	break;
    case 1:
-	v.posY = in.getInt();
+	v.direction = in.getString(true);
 	break;
-      case 2:
+      case 4:
         in.readBaseClasses(o, this, 0);
         break;
       default:
-        if (i >= 0 && i <= 2) break;
-        in.error("Reader for CurrentPosition__Tuple: illegal field number:"+i);
+        if (i >= 0 && i <= 4) break;
+        in.error("Reader for MEPlayerAction: illegal field number:"+i);
         return false;
       }
       return true;
@@ -239,22 +300,22 @@ public int hash(int __i)
 
     /** JACOB class writing method. */
     public boolean write(aos.apib.OutStream out, aos.apib.Base o) {
-      CurrentPosition__Tuple v = (CurrentPosition__Tuple)o;
+      MEPlayerAction v = (MEPlayerAction)o;
       int i = -1;
       while ((i = out.nextField(i, this)) >= 0) {
         switch (i) {
       case 0:
-	out.putInt(v.posX, i, __def.posX, this);
+	out.putString(v.action, i, __def.action, this);
 	break;
    case 1:
-	out.putInt(v.posY, i, __def.posY, this);
+	out.putString(v.direction, i, __def.direction, this);
 	break;
-        case 2:
+        case 4:
           out.writeBaseClasses(o, this);
           break;
         default:
-          if (i >= 0 && i <= 2) break;
-          out.error("Writer for CurrentPosition__Tuple: illegal field number:"+i);
+          if (i >= 0 && i <= 4) break;
+          out.error("Writer for MEPlayerAction: illegal field number:"+i);
           return false;
         }
       }
@@ -263,10 +324,18 @@ public int hash(int __i)
 
     /** JACOB method. */
     public boolean isDefault(aos.apib.Base o) {
-      CurrentPosition__Tuple v = (CurrentPosition__Tuple)o;
+      MEPlayerAction v = (MEPlayerAction)o;
 
-	if (v.posX != __def.posX) return false;
-	if (v.posY != __def.posY) return false;
+	if (v.action != __def.action) {
+	   if (v.action == null) return false;
+	   if (__def.action == null) return false;
+	   if (!v.action.equals(__def.action)) return false;
+	}
+	if (v.direction != __def.direction) {
+	   if (v.direction == null) return false;
+	   if (__def.direction == null) return false;
+	   if (!v.direction.equals(__def.direction)) return false;
+	}
       if (baseclasses != null && baseclasses.length == 1)
         return baseclasses[0].isDefault(o);
       return true;
@@ -274,7 +343,7 @@ public int hash(int __i)
 
     /** JACOB method. */
     public void findNonApib(aos.apib.OutStream out, aos.apib.Base o) {
-     CurrentPosition__Tuple v = (CurrentPosition__Tuple)o;
+     MEPlayerAction v = (MEPlayerAction)o;
 
       if (baseclasses != null && baseclasses.length == 1)
         baseclasses[0].findNonApib(out, o);

@@ -25,4 +25,5 @@ public beliefset BPlayerGold extends ClosedWorld /*or OpenWorld*/
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
 	#indexed query get(logical String agentName, logical int goldAmount);
+	#indexed query getByName (String agentName, logical int goldAmount);
 }

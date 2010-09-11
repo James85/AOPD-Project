@@ -29,4 +29,5 @@ public beliefset BPlayerPosition extends ClosedWorld /*or OpenWorld*/
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
 	#indexed query get(logical String name, logical int xCoord, logical int yCoord);
+	#indexed query getByName (String name, logical int xCoord, logical int yCoord);
 }

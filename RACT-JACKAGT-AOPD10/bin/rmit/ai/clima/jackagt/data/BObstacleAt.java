@@ -20,9 +20,9 @@ import aos.jack.jak.cursor.BeliefState;
 import aos.jack.plugin.view.rt.CleanupCursor;
 import java.lang.Object;
 
-public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
-    static public rmit.ai.clima.jackagt.data.ObstacleAt__Tuple __hole = new rmit.ai.clima.jackagt.data.ObstacleAt__Tuple(true);
-    public rmit.ai.clima.jackagt.data.ObstacleAt__Tuple[][] __tables;
+public class BObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
+    static public rmit.ai.clima.jackagt.data.BObstacleAt__Tuple __hole = new rmit.ai.clima.jackagt.data.BObstacleAt__Tuple(true);
+    public rmit.ai.clima.jackagt.data.BObstacleAt__Tuple[][] __tables;
     public boolean attach(aos.jack.jak.event.EventRecipient __h)
     {
         java.lang.Object __o = __h;
@@ -34,8 +34,8 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     public aos.jack.jak.beliefset.BeliefSetCursor check(int __v0, int __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.ObstacleAt__Tuple __t = new rmit.ai.clima.jackagt.data.ObstacleAt__Tuple();
-        rmit.ai.clima.jackagt.data.ObstacleAt.__Cursor __c = new rmit.ai.clima.jackagt.data.ObstacleAt.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BObstacleAt__Tuple __t = new rmit.ai.clima.jackagt.data.BObstacleAt__Tuple();
+        rmit.ai.clima.jackagt.data.BObstacleAt.__Cursor __c = new rmit.ai.clima.jackagt.data.BObstacleAt.__Cursor(__t);
         __t.xCoord = __v0;
         __t.yCoord = __v1;
         __c.init(0,this);
@@ -45,28 +45,28 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.IntegerVariable __v0, aos.jack.jak.logic.IntegerVariable __v1)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.ObstacleAt__Tuple __t = new rmit.ai.clima.jackagt.data.ObstacleAt__Tuple();
-        rmit.ai.clima.jackagt.data.ObstacleAt.__Cursor __c = new rmit.ai.clima.jackagt.data.ObstacleAt.__Cursor(__t);
+        rmit.ai.clima.jackagt.data.BObstacleAt__Tuple __t = new rmit.ai.clima.jackagt.data.BObstacleAt__Tuple();
+        rmit.ai.clima.jackagt.data.BObstacleAt.__Cursor __c = new rmit.ai.clima.jackagt.data.BObstacleAt.__Cursor(__t);
         if (!__v0.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("ObstacleAt:get:OO: arg 0 xCoord Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BObstacleAt:get:OO: arg 0 xCoord Incorrect Variable type");
         if (__v0.isGround()) {
             try {
                 __t.xCoord = __v0.as_int();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("ObstacleAt:get:OO: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BObstacleAt:get:OO: got " + e.toString());
             }
         }
          else 
             __c.xCoord = __v0;
         if (!__v1.check_unifiable(java.lang.Integer.TYPE)) 
-            throw new aos.jack.jak.beliefset.BeliefSetException("ObstacleAt:get:OO: arg 1 yCoord Incorrect Variable type");
+            throw new aos.jack.jak.beliefset.BeliefSetException("BObstacleAt:get:OO: arg 1 yCoord Incorrect Variable type");
         if (__v1.isGround()) {
             try {
                 __t.yCoord = __v1.as_int();
             }
             catch (java.lang.Exception e) {
-                throw new aos.jack.jak.beliefset.BeliefSetException("ObstacleAt:get:OO: got " + e.toString());
+                throw new aos.jack.jak.beliefset.BeliefSetException("BObstacleAt:get:OO: got " + e.toString());
             }
         }
          else 
@@ -78,9 +78,9 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     public int getEmptyCount()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.ObstacleAt.__complex_12 __c = new rmit.ai.clima.jackagt.data.ObstacleAt.__complex_12();
+        rmit.ai.clima.jackagt.data.BObstacleAt.__complex_3 __c = new rmit.ai.clima.jackagt.data.BObstacleAt.__complex_3();
         try {
-            return __c.__complex_12_getEmptyCount();
+            return __c.__complex_3_getEmptyCount();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("getEmptyCount got exception " + __e);
@@ -90,9 +90,9 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     public int getBlockedCount()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.ObstacleAt.__complex_13 __c = new rmit.ai.clima.jackagt.data.ObstacleAt.__complex_13();
+        rmit.ai.clima.jackagt.data.BObstacleAt.__complex_4 __c = new rmit.ai.clima.jackagt.data.BObstacleAt.__complex_4();
         try {
-            return __c.__complex_13_getBlockedCount();
+            return __c.__complex_4_getBlockedCount();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("getBlockedCount got exception " + __e);
@@ -102,9 +102,9 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     public boolean checkUnknown(int x, int y)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.ObstacleAt.__complex_14 __c = new rmit.ai.clima.jackagt.data.ObstacleAt.__complex_14(x,y);
+        rmit.ai.clima.jackagt.data.BObstacleAt.__complex_5 __c = new rmit.ai.clima.jackagt.data.BObstacleAt.__complex_5(x,y);
         try {
-            return __c.__complex_14_checkUnknown();
+            return __c.__complex_5_checkUnknown();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("checkUnknown got exception " + __e);
@@ -128,7 +128,7 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     
     public aos.jack.jak.beliefset.Tuple newTuple()
     {
-        return new rmit.ai.clima.jackagt.data.ObstacleAt__Tuple();
+        return new rmit.ai.clima.jackagt.data.BObstacleAt__Tuple();
     }
     
     public aos.jack.jak.beliefset.Tuple getTuple(int t, int l)
@@ -138,12 +138,12 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     
     public aos.jack.jak.beliefset.Tuple[] newTable(int t)
     {
-        return new rmit.ai.clima.jackagt.data.ObstacleAt__Tuple[t];
+        return new rmit.ai.clima.jackagt.data.BObstacleAt__Tuple[t];
     }
     
     public aos.jack.jak.beliefset.Tuple[][] newTables(int t)
     {
-        return new rmit.ai.clima.jackagt.data.ObstacleAt__Tuple[t][];
+        return new rmit.ai.clima.jackagt.data.BObstacleAt__Tuple[t][];
     }
     
     public aos.jack.jak.beliefset.Tuple[] getTable(int t)
@@ -158,13 +158,13 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     
     public void setTables(aos.jack.jak.beliefset.Tuple[][] t)
     {
-        __tables = (rmit.ai.clima.jackagt.data.ObstacleAt__Tuple[][]) t;
+        __tables = (rmit.ai.clima.jackagt.data.BObstacleAt__Tuple[][]) t;
     }
     
     public aos.jack.jak.beliefset.BeliefSetCursor newCursor(aos.jack.jak.beliefset.Tuple __t)
     {
-        if (__t instanceof rmit.ai.clima.jackagt.data.ObstacleAt__Tuple) 
-            return new rmit.ai.clima.jackagt.data.ObstacleAt.__Cursor((rmit.ai.clima.jackagt.data.ObstacleAt__Tuple) __t);
+        if (__t instanceof rmit.ai.clima.jackagt.data.BObstacleAt__Tuple) 
+            return new rmit.ai.clima.jackagt.data.BObstacleAt.__Cursor((rmit.ai.clima.jackagt.data.BObstacleAt__Tuple) __t);
         return null;
     }
     
@@ -177,7 +177,7 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     public void add(int __v0, int __v1, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.ObstacleAt__Tuple __t = new rmit.ai.clima.jackagt.data.ObstacleAt__Tuple();
+        rmit.ai.clima.jackagt.data.BObstacleAt__Tuple __t = new rmit.ai.clima.jackagt.data.BObstacleAt__Tuple();
         __t.xCoord = __v0;
         __t.yCoord = __v1;
         super.assertTuple(__t,__d);
@@ -192,24 +192,24 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
     public void remove(int __v0, int __v1, aos.jack.jak.cursor.BeliefState __d)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.ObstacleAt__Tuple __t = new rmit.ai.clima.jackagt.data.ObstacleAt__Tuple();
+        rmit.ai.clima.jackagt.data.BObstacleAt__Tuple __t = new rmit.ai.clima.jackagt.data.BObstacleAt__Tuple();
         __t.xCoord = __v0;
         __t.yCoord = __v1;
         super.retractTuple(__t,__d);
     }
     
-    public ObstacleAt()
+    public BObstacleAt()
     {
     }
     
-    public ObstacleAt(java.lang.String n)
+    public BObstacleAt(java.lang.String n)
     {
         super();
         read(n);
     }
     
     class __Cursor extends aos.jack.jak.beliefset.OpenWorldCursor {
-        public rmit.ai.clima.jackagt.data.ObstacleAt__Tuple __tuple = null;
+        public rmit.ai.clima.jackagt.data.BObstacleAt__Tuple __tuple = null;
         public aos.jack.jak.logic.Variable xCoord;
         public aos.jack.jak.logic.Variable yCoord;
         public __Cursor()
@@ -217,7 +217,7 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
             __tuple = __hole;
         }
         
-        public __Cursor(rmit.ai.clima.jackagt.data.ObstacleAt__Tuple __t)
+        public __Cursor(rmit.ai.clima.jackagt.data.BObstacleAt__Tuple __t)
         {
             super();
             __tuple = __t;
@@ -225,12 +225,12 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
         
         public int match(int __ti, int __st, int __c, boolean __k, int __ind)
         {
-            rmit.ai.clima.jackagt.data.ObstacleAt__Tuple[] __tab = __tables[__ti];
-            rmit.ai.clima.jackagt.data.ObstacleAt__Tuple __t;
+            rmit.ai.clima.jackagt.data.BObstacleAt__Tuple[] __tab = __tables[__ti];
+            rmit.ai.clima.jackagt.data.BObstacleAt__Tuple __t;
             int __sz = __tab.length;
             int __i;
             if ((aos.jack.jak.core.Jak.debugging & aos.jack.jak.core.Jak.LOG_DB) != 0) {
-                aos.jack.jak.core.Jak.log.log("ObstacleAt__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
+                aos.jack.jak.core.Jak.log.log("BObstacleAt__Tuple:match:" + __ti + ":" + __st + ":" + __c + ":" + __k + ":" + __ind);
                 aos.jack.jak.core.Jak.log.log("Tuple=" + __tuple);
                 aos.jack.jak.core.Jak.log.log("Outputs are");
                 aos.jack.jak.core.Jak.log.log("  xCoord:" + xCoord);
@@ -305,7 +305,7 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
         }
         
     }
-    class __complex_12 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_3 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable __local_2;
         aos.jack.jak.logic.IntegerVariable __local_3;
         int __local_4;
@@ -353,12 +353,12 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
             return false;
         }
         
-        public __complex_12()
+        public __complex_3()
         {
             super();
         }
         
-        public int __complex_12_getEmptyCount()
+        public int __complex_3_getEmptyCount()
             throws java.lang.Exception
         {
             {
@@ -375,7 +375,7 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
         }
         
     }
-    class __complex_13 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_4 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable __local_2;
         aos.jack.jak.logic.IntegerVariable __local_3;
         int __local_4;
@@ -423,12 +423,12 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
             return false;
         }
         
-        public __complex_13()
+        public __complex_4()
         {
             super();
         }
         
-        public int __complex_13_getBlockedCount()
+        public int __complex_4_getBlockedCount()
             throws java.lang.Exception
         {
             {
@@ -445,7 +445,7 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
         }
         
     }
-    class __complex_14 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_5 extends aos.jack.plugin.view.rt.CleanupCursor {
         int x;
         int y;
         public java.lang.Object genObject(int __index)
@@ -491,14 +491,14 @@ public class ObstacleAt extends aos.jack.jak.beliefset.OpenWorld {
             return false;
         }
         
-        public __complex_14(int x, int y)
+        public __complex_5(int x, int y)
         {
             super();
             this.x = x;
             this.y = y;
         }
         
-        public boolean __complex_14_checkUnknown()
+        public boolean __complex_5_checkUnknown()
             throws java.lang.Exception
         {
             if (genCursor(0).next()) {

@@ -5,7 +5,7 @@ import rmit.ai.clima.gui.grid.GridPoint;
 
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
-public event MESimStart extends MessageEvent
+public event MESimStart extends BDIGoalEvent
 {
 /*
  * Message Name: MESimStart

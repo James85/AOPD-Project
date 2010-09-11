@@ -19,21 +19,21 @@ Plan Name: MoveRandomly
 Description: Move to any cell arround that is known not to be obstructed
 */
 	//Events handled by the plan are declared here.
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
 	#handles event EAct eact_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data CurrentPosition bel_currentPosition_dat;
+	#reads data BCurrentPosition bel_currentPosition_dat;
 
-	#reads data NumCarryingGold bel_numCarryingGold_dat;
+	#reads data BGoldAt bel_goldAt_dat;
 
-	#reads data ObstacleAt bel_obstacleAt_dat;
+	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
-	#reads data GoldAt bel_goldAt_dat;
+	#reads data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

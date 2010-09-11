@@ -3,22 +3,27 @@ import aos.jack.jak.cursor.Cursor;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.interfaces.*;
-
-public plan Coord_UpdatePlayerStatus extends Plan
+import rmit.ai.clima.gui.grid.*;
+import rmit.ai.clima.comms.Cell;
+public plan Coord_AssimilatePlayerPercept extends Plan
 {
 	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 /*
-Plan Name: Coord_UpdatePlayerStatus
+Plan Name: Coord_AssimilatePlayerPercept
 */
 	//Events handled by the plan are declared here.
-	#handles event EUpdateBel eupdatebel_h;
+	#posts event EChoosePlayerActions echooseplayeractions_p;
+
+	#posts event EUpdateBel eupdatebel_p;
+
+	#handles event MEReportPlayerPercept mereportplayerpercept_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data PlayerPosition bel_playerPositions_dat;
+	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
-	#modifies data PlayerPerceptReceived bel_playerPerceptReceived_dat;
+	#modifies data BPlayerPosition bel_playerPositions_dat;
 
 	#modifies data BPlayerGold bel_playerGold_dat;
 
@@ -35,17 +40,23 @@ Plan Name: Coord_UpdatePlayerStatus
 
 	body()
 	{
-		bel_playerPositions_dat.add(eupdatebel_h.name, eupdatebel_h.currentPos.x , eupdatebel_h.currentPos.y );
-		bel_playerGold_dat.add(eupdatebel_h.name, eupdatebel_h.noCarryingGold);
+	   // Update the information on all the cells around (as a subtask)
+      @subtask( eupdatebel_p.post(mereportplayerpercept_h.step, mereportplayerpercept_h.currentPos, mereportplayerpercept_h.cells, mereportplayerpercept_h.noCarryingGold) );
+	   
+		bel_playerPositions_dat.add(mereportplayerpercept_h.name, mereportplayerpercept_h.currentPos.x , mereportplayerpercept_h.currentPos.y );
+		bel_playerGold_dat.add(mereportplayerpercept_h.name, mereportplayerpercept_h.noCarryingGold);
 		
-		bel_playerPerceptReceived_dat.add(eupdatebel_h.name);
+		bel_playerPerceptReceived_dat.add(mereportplayerpercept_h.name);
 		
 		
 		logical String $name;
 		   
 		consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts() );
 		if(bel_playerPerceptReceived_dat.nFacts()  == bel_players_dat.nFacts())
+		{
 		   bel_playerPerceptReceived_dat.get($name).removeAll();
+		   @post( echooseplayeractions_p.post() );
+		}
 		   
 		//		consoleIface.showConsoleDebug("Coordinator Says: "+meinformagentstatus_h.agentName +" just moved, these are the agents I currently know about");
 				logical String $agentName;

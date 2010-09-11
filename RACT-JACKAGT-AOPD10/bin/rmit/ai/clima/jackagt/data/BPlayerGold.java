@@ -62,6 +62,28 @@ public class BPlayerGold extends aos.jack.jak.beliefset.ClosedWorld {
         return __c;
     }
     
+    public aos.jack.jak.beliefset.BeliefSetCursor getByName(java.lang.String __v0, aos.jack.jak.logic.IntegerVariable __v1)
+        throws aos.jack.jak.beliefset.BeliefSetException
+    {
+        rmit.ai.clima.jackagt.data.BPlayerGold__Tuple __t = new rmit.ai.clima.jackagt.data.BPlayerGold__Tuple();
+        rmit.ai.clima.jackagt.data.BPlayerGold.__Cursor __c = new rmit.ai.clima.jackagt.data.BPlayerGold.__Cursor(__t);
+        __t.agentName = __v0;
+        if (!__v1.check_unifiable(java.lang.Integer.TYPE)) 
+            throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerGold:getByName:IO: arg 1 goldAmount Incorrect Variable type");
+        if (__v1.isGround()) {
+            try {
+                __t.goldAmount = __v1.as_int();
+            }
+            catch (java.lang.Exception e) {
+                throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerGold:getByName:IO: got " + e.toString());
+            }
+        }
+         else 
+            __c.goldAmount = __v1;
+        __c.init(0,this);
+        return __c;
+    }
+    
     public int keyIndex()
     {
         return 0;

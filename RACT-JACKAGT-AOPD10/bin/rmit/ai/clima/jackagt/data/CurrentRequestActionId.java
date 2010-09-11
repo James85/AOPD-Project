@@ -122,9 +122,9 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.cursor.Cursor query_id(aos.jack.jak.logic.IntegerVariable $id)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_1 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_1($id);
+        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_6 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_6($id);
         try {
-            return __c.setCursor(__c.__complex_1_query_id());
+            return __c.setCursor(__c.__complex_6_query_id());
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("query_id got exception " + __e);
@@ -134,9 +134,9 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.cursor.Cursor query_step(aos.jack.jak.logic.IntegerVariable $step)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_2 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_2($step);
+        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_7 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_7($step);
         try {
-            return __c.setCursor(__c.__complex_2_query_step());
+            return __c.setCursor(__c.__complex_7_query_step());
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("query_step got exception " + __e);
@@ -146,9 +146,9 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.cursor.Cursor check_id(int id)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_3 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_3(id);
+        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_8 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_8(id);
         try {
-            return __c.setCursor(__c.__complex_3_check_id());
+            return __c.setCursor(__c.__complex_8_check_id());
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("check_id got exception " + __e);
@@ -158,9 +158,9 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.cursor.Cursor check_step(int step)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_4 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_4(step);
+        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_9 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_9(step);
         try {
-            return __c.setCursor(__c.__complex_4_check_step());
+            return __c.setCursor(__c.__complex_9_check_step());
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("check_step got exception " + __e);
@@ -170,9 +170,9 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
     public int id()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_5 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_5();
+        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_10 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_10();
         try {
-            return __c.__complex_5_id();
+            return __c.__complex_10_id();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("id got exception " + __e);
@@ -182,9 +182,9 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
     public int step()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_6 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_6();
+        rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_11 __c = new rmit.ai.clima.jackagt.data.CurrentRequestActionId.__complex_11();
         try {
-            return __c.__complex_6_step();
+            return __c.__complex_11_step();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("step got exception " + __e);
@@ -381,7 +381,7 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_1 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_6 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable $id;
         aos.jack.jak.logic.IntegerVariable __local_2;
         public java.lang.Object genObject(int __index)
@@ -423,13 +423,13 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_1(aos.jack.jak.logic.IntegerVariable $id)
+        public __complex_6(aos.jack.jak.logic.IntegerVariable $id)
         {
             super($id);
             this.$id = $id;
         }
         
-        aos.jack.jak.cursor.Cursor __complex_1_query_id()
+        aos.jack.jak.cursor.Cursor __complex_6_query_id()
             throws java.lang.Exception
         {
             __local_2 = (aos.jack.jak.logic.IntegerVariable) new_variable(java.lang.Integer.TYPE);
@@ -437,7 +437,7 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_2 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_7 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable $step;
         aos.jack.jak.logic.IntegerVariable __local_2;
         public java.lang.Object genObject(int __index)
@@ -479,13 +479,13 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_2(aos.jack.jak.logic.IntegerVariable $step)
+        public __complex_7(aos.jack.jak.logic.IntegerVariable $step)
         {
             super($step);
             this.$step = $step;
         }
         
-        aos.jack.jak.cursor.Cursor __complex_2_query_step()
+        aos.jack.jak.cursor.Cursor __complex_7_query_step()
             throws java.lang.Exception
         {
             __local_2 = (aos.jack.jak.logic.IntegerVariable) new_variable(java.lang.Integer.TYPE);
@@ -493,7 +493,7 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_3 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_8 extends aos.jack.plugin.view.rt.CleanupCursor {
         int id;
         aos.jack.jak.logic.IntegerVariable __local_2;
         public java.lang.Object genObject(int __index)
@@ -535,13 +535,13 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_3(int id)
+        public __complex_8(int id)
         {
             super();
             this.id = id;
         }
         
-        aos.jack.jak.cursor.Cursor __complex_3_check_id()
+        aos.jack.jak.cursor.Cursor __complex_8_check_id()
             throws java.lang.Exception
         {
             __local_2 = (aos.jack.jak.logic.IntegerVariable) new_variable(java.lang.Integer.TYPE);
@@ -549,7 +549,7 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_4 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_9 extends aos.jack.plugin.view.rt.CleanupCursor {
         int step;
         aos.jack.jak.logic.IntegerVariable __local_2;
         public java.lang.Object genObject(int __index)
@@ -591,13 +591,13 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_4(int step)
+        public __complex_9(int step)
         {
             super();
             this.step = step;
         }
         
-        aos.jack.jak.cursor.Cursor __complex_4_check_step()
+        aos.jack.jak.cursor.Cursor __complex_9_check_step()
             throws java.lang.Exception
         {
             __local_2 = (aos.jack.jak.logic.IntegerVariable) new_variable(java.lang.Integer.TYPE);
@@ -605,7 +605,7 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_5 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_10 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable __local_2;
         aos.jack.jak.logic.IntegerVariable __local_3;
         public java.lang.Object genObject(int __index)
@@ -647,12 +647,12 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_5()
+        public __complex_10()
         {
             super();
         }
         
-        public int __complex_5_id()
+        public int __complex_10_id()
             throws java.lang.Exception
         {
             {
@@ -664,7 +664,7 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_6 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_11 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable __local_2;
         aos.jack.jak.logic.IntegerVariable __local_3;
         public java.lang.Object genObject(int __index)
@@ -706,12 +706,12 @@ public class CurrentRequestActionId extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_6()
+        public __complex_11()
         {
             super();
         }
         
-        public int __complex_6_step()
+        public int __complex_11_step()
             throws java.lang.Exception
         {
             {
