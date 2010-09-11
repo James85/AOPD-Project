@@ -8,9 +8,9 @@ public event ECellStatusChanged extends BDIGoalEvent
 /*
  * Message Name: ECellStatusChanged
 */
-	#uses data ObstacleAt bel_obstacleAt_dat;
-
 	#uses data PlayerPosition bel_playerPositions_dat;
+
+	#uses data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	logical int $x,$y;

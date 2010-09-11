@@ -13,7 +13,7 @@ public event ECellChange extends BDIGoalEvent
  * Covered: true
  * Overlap: true
 */
-	#uses data ObstacleAt bel_obstacleAt_dat;
+	#uses data BObstacleAt bel_obstacleAt_dat;
 
 	#uses data BGoldAt bel_goldAt_dat;
 

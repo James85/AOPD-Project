@@ -4,7 +4,7 @@
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerGold.bel" ID="427265" name="BPlayerGold"/>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/StartSimulation.plan" ID="36097" name="StartSimulation"/>
 <Entity CodeFileURI="file:/home/ssardina/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/CurrentStatus.bel" ID="243713" name="CurrentStatus"/>
-<Entity DataFields="int xCoord, int yCoord" DataType="ObstacleAt" ID="23297" name="bel_obstacleAt" package=""/>
+<Entity DataFields="int xCoord, int yCoord" DataType="BObstacleAt" ID="23297" name="bel_obstacleAt" package=""/>
 <Entity DataFields="String agentName, int goldAmount" DataType="BPlayerGold" ID="426497" name="bel_playerGold"/>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GameSyncing.cap" ID="35329" name="GameSyncing"/>
 <Entity DataType="CurrentStatus" ID="242945" name="bel_tea"/>
@@ -77,7 +77,7 @@
 <Entity DataFields="String agentName, int goldAmount" DataType="BPlayerGold" ID="460545" name="bel_playerGold"/>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EStart.event" ID="44545" name="EStart"/>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/PlayerPerceptReceived.bel" ID="447745" name="PlayerPerceptReceived"/>
-<Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/ObstacleAt.bel" ID="153601" name="ObstacleAt"/>
+<Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BObstacleAt.bel" ID="153601" name="BObstacleAt"/>
 <Entity DataFields="String agentName" DataType="PlayerPerceptReceived" ID="446977" name="bel_playerPerceptReceived"/>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/GUIAgent.agent" ID="18945" name="GUIAgent"/>
 <Entity CodeFileURI="file:/home/james/workspace/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/eage.event" ID="434177" name="eage"/>

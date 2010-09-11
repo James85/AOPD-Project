@@ -1384,7 +1384,7 @@
 <Goal EntityName="ChooseBestAction" IMemento.internal.id="398849"/>
 <DataField Description="x coordinate of this agent" FieldName="posX" FieldType="int" IMemento.internal.id="337153" IsKey="false"/>
 <Actor EntityName="Game Server" IMemento.internal.id="6913"/>
-<Beliefset EntityName="ObstacleAt" IMemento.internal.id="153601">
+<Beliefset EntityName="BObstacleAt" IMemento.internal.id="153601">
 <DataField ID="155393" INDEX="0"/>
 <DataField ID="155649" INDEX="1"/>
 </Beliefset>
