@@ -1,11 +1,11 @@
 package rmit.ai.clima.jackagt.data;
 import rmit.ai.clima.jackagt.events.*;
 
-public beliefset CurrentPosition extends ClosedWorld /*or OpenWorld*/
+public beliefset BCurrentPosition extends ClosedWorld /*or OpenWorld*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
- * Beliefset Name: CurrentPosition
+ * Beliefset Name: BCurrentPosition
  */
 
 	// Zero or more #key field declarations.

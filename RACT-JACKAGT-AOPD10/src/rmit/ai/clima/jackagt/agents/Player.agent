@@ -36,22 +36,12 @@ Agent Name: Player
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
+	//#private data CurrentStatus bel_currentStatus_dat(/*boolean debugConsole, boolean debugGUI*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
 	#private data CurrentRequestActionId bel_currentRequestActionId_dat(/*int id, int step*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data CurrentPosition bel_currentPosition_dat(/*int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -61,28 +51,25 @@ Agent Name: Player
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	//#private data CurrentStatus bel_currentStatus_dat(/*boolean debugConsole, boolean debugGUI*/);
+	#private data BCurrentPosition bel_currentPosition_dat(/*int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data ObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data GoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
 
 
 	//Events handled, posted and sent are declared here.
-
-	#handles event ECellChange ;
-	#posts event ECellChange ecellchange_p;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#sends event MEInformAgentStatus meinformagentstatus_s;
 
 	#sends event EUpdateBel eupdatebel_s;
-
-	#sends event MEGameEnd megameend_s;
-
-	#sends event MESimEnd mesimend_s;
-
-	#sends event MEInformCellStatus meinformcellstatus_s;
-
-	#handles event TellClimaServer ;
-	#posts event TellClimaServer tellclimaserver_p;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event PerceiveClimaServer ;
 	#posts event PerceiveClimaServer perceiveclimaserver_p;
@@ -90,17 +77,30 @@ Agent Name: Player
 	#handles event EStart ;
 	#posts event EStart estart_p;
 
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+	#sends event MEGameEnd megameend_s;
+
+	#handles event ECellChange ;
+	#posts event ECellChange ecellchange_p;
+
+	#sends event MESimEnd mesimend_s;
+
 	#sends event MESimStart mesimstart_s;
+
+
+	#handles event TellClimaServer ;
+	#posts event TellClimaServer tellclimaserver_p;
 
 
 	//Plans directly used are declared here.
 
 	// Inner capabilities are declared here.
-	#has capability GameSyncing gamesyncing_cap;
+	#has capability ClimaTalking climatalking_cap;
 
 	#has capability GamePlaying gameplaying_cap;
 
-	#has capability ClimaTalking climatalking_cap;
+	#has capability GameSyncing gamesyncing_cap;
 
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
