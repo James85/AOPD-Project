@@ -1,0 +1,61 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.*;
+import java.util.*;
+
+public plan PIdentifyExploreTarget extends Plan
+{
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PIdentifyExploreTarget
+*/
+	//Events handled by the plan are declared here.
+	#handles event EIdentifyTarget eidentifytarget_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BPlayerPosition bel_playerTarget_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   context()
+   {
+      true;
+   }
+
+   body()
+   {
+      logical int $width, $height;
+      bel_simulationProp_dat.getGridSize( $width, $height );
+     
+      Random rand = new Random();
+      int r = rand.nextInt( $width.as_int() * $height.as_int() );
+      System.out.println("RANDOM NUMBER WAS: "+ r);
+      
+      //Loop until back to start point
+      int i = r+1;
+      while(i != r)
+      {
+         int x = i % $width.as_int();
+         int y = (i - x) / $width.as_int();
+
+         //if we find an unknown cell we should move to it
+         if(bel_obstacleAt_dat.checkUnknown(x,y))
+         {
+            //Store the player target
+            System.out.println("I AM GOING TO EXPLORE " + x + ", " + y);
+            bel_playerTarget_dat.add( eidentifytarget_h.playerName, x, y);
+            break;
+         }
+
+         //Loop we end of array reached 
+         if (++i == $width.as_int() * $height.as_int() ) i = 0;
+      }
+   }
+}

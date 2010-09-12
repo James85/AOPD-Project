@@ -21,6 +21,11 @@ Description: Decide what to do next
 	*/
 	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
+	/*	Note that this data is external.
+	Maybe you want to modify the declaration as '#agent' manually.
+	*/
+	#global data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
+
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
@@ -31,28 +36,23 @@ Description: Decide what to do next
 	*/
 	#imports data BCurrentPosition bel_currentPosition_dat();
 
-	/*	Note that this data is external.
-	Maybe you want to modify the declaration as '#agent' manually.
-	*/
-	#global data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
-
 
 	//Events handled, posted and sent are declared here.
 	#handles external event MEPlayerAction ;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan PDropGold ;
-
 	#uses plan PPick ;
 
 	#uses plan PMoveTo ;
 
 	#uses plan PMoveRand ;
+
+	#uses plan PDropGold ;
 
 
 	// Inner capabilities are declared here.

@@ -55,7 +55,7 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
     private final static java.lang.String[] __fsmTypes_body = {
             "String"};
     private final static java.lang.String[] __fsmLocalNames_body = {
-            "__local__21_0"};
+            "__local__22_0"};
     static boolean relevant(rmit.ai.clima.jackagt.events.MEPlayerAction e)
     {
         return (e.action.equalsIgnoreCase("moveRand"));
@@ -222,7 +222,7 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
     }
     
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
-        java.lang.String __local__21_0;
+        java.lang.String __local__22_0;
         private int __breakLevel = 0;
         public int run(int __status)
             throws java.lang.Throwable
@@ -255,7 +255,7 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __local__21_0 = actions[random.nextInt(4)];
+                            __local__22_0 = actions[random.nextInt(4)];
                             __state = 11;
                             break;
                         }
@@ -265,13 +265,13 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
                             __state = 12;
                             // pick a random direction
 
-                            java.lang.System.out.println("MOVING RANDOMLY TO: " + __local__21_0);
+                            java.lang.System.out.println("MOVING RANDOMLY TO: " + __local__22_0);
                             break;
                         }
                         //* (39)       eexecuteclimaaction_p.post(dir); // Post an ExecuteClimaAction event to execute the action in the server
                         case 12: 
                         {
-                            __task.push(eexecuteclimaaction_p.post(__local__21_0));
+                            __task.push(eexecuteclimaaction_p.post(__local__22_0));
                             __state = -__state;
                             __subtask_pass = 13;
                             __subtask_fail = 4;
@@ -376,7 +376,7 @@ public class PMoveRand extends aos.jack.jak.plan.Plan {
             switch (n) {
                 case 0: 
                 {
-                    return aos.util.ToObject.box(__local__21_0);
+                    return aos.util.ToObject.box(__local__22_0);
                 }
                 default: 
                 {

@@ -18,9 +18,9 @@ Plan Name: PFindPath
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BMoveHint bel_moveHint_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
-
 	#reads data BObstacleAt bel_obstacleAt_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -38,6 +38,10 @@ Plan Name: PFindPath
 	   Vector adjacentDir = new Vector();
 	   logical int $width, $height;
 	   bel_simulationProp_dat.getGridSize( $width, $height );
+	   
+	   logical int $depotX, $depotY;
+	   bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
+	   GridPoint depotPoint = new GridPoint( $depotX.as_int(), $depotY.as_int() );
 	   
 	   int width = $width.as_int();
 	   int height = $height.as_int();
@@ -60,15 +64,19 @@ Plan Name: PFindPath
 //     System.out.println("Dst " + dst.x + ", "+ dst.y);
 	   //Init obstacles
 	   PathGrid grid = new PathGrid( width,  height );
+	   
 	   for (int x=0; x<width; ++x) {
 	      for (int y=0; y<height; ++y) {
 
+	         PathNode node = grid.getNode( x, y ); 
+	         
             //Check if obstacle at this location
 	         if(bel_obstacleAt_dat.check( x, y ))
-	         {
-	            PathNode node = grid.getNode( x, y ); 
 	            node.obstacle = true;
-	         }
+	         
+	         //Check if depot at this location (and not start or end point)
+	         if(node.pos.equals(depotPoint) && !node.pos.equals(src) && !node.pos.equals(dst))
+	            node.obstacle = true;
 	      }
 	   }
 	   

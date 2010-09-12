@@ -13,8 +13,8 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
-import rmit.ai.clima.jackagt.events.MEGameEnd;
 import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
+import rmit.ai.clima.jackagt.events.MEGameEnd;
 import rmit.ai.clima.iface.PerceiveClimaServer;
 import rmit.ai.clima.interfaces.DebugInterface;
 import rmit.ai.clima.comms.Bye;
@@ -25,8 +25,8 @@ import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
 
 public class FinishGame extends aos.jack.jak.plan.Plan {
-    public rmit.ai.clima.jackagt.events.MEGameEnd megameend_s;
     public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
+    public rmit.ai.clima.jackagt.events.MEGameEnd megameend_s;
     public rmit.ai.clima.iface.PerceiveClimaServer perceiveclimaserver_h;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
@@ -40,13 +40,13 @@ public class FinishGame extends aos.jack.jak.plan.Plan {
             "63",
             "47"};
     private final static java.lang.String[] __planVariableNames = {
-            "megameend_s",
             "eguidebugmessage_s",
+            "megameend_s",
             "perceiveclimaserver_h",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
-            "MEGameEnd",
             "EGUIDebugMessage",
+            "MEGameEnd",
             "rmit.ai.clima.iface.PerceiveClimaServer",
             "rmit.ai.clima.interfaces.DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
@@ -66,22 +66,22 @@ public class FinishGame extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        megameend_s = __env.megameend_s;
         eguidebugmessage_s = __env.eguidebugmessage_s;
+        megameend_s = __env.megameend_s;
         perceiveclimaserver_h = __env.perceiveclimaserver_h;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        megameend_s = (rmit.ai.clima.jackagt.events.MEGameEnd) __a.findEvent("rmit.ai.clima.jackagt.events.MEGameEnd");
-        if (megameend_s == null) {
-            warning("Failed to find MEGameEnd megameend_s");
-            return false;
-        }
         eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) __a.findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
         if (eguidebugmessage_s == null) {
             warning("Failed to find EGUIDebugMessage eguidebugmessage_s");
+            return false;
+        }
+        megameend_s = (rmit.ai.clima.jackagt.events.MEGameEnd) __a.findEvent("rmit.ai.clima.jackagt.events.MEGameEnd");
+        if (megameend_s == null) {
+            warning("Failed to find MEGameEnd megameend_s");
             return false;
         }
         perceiveclimaserver_h = (rmit.ai.clima.iface.PerceiveClimaServer) __a.findEvent("rmit.ai.clima.iface.PerceiveClimaServer");
@@ -186,11 +186,11 @@ public class FinishGame extends aos.jack.jak.plan.Plan {
         switch (n) {
             case 0: 
             {
-                return aos.util.ToObject.box(megameend_s);
+                return aos.util.ToObject.box(eguidebugmessage_s);
             }
             case 1: 
             {
-                return aos.util.ToObject.box(eguidebugmessage_s);
+                return aos.util.ToObject.box(megameend_s);
             }
             case 2: 
             {

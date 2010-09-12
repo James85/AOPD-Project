@@ -23,11 +23,6 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -38,7 +33,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -53,33 +48,38 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data SimulationProp bel_simulationProp_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data CurrentStatus bel_currentStatus_dat();
 
 
 	//Events handled, posted and sent are declared here.
 	#posts external event TellClimaServer tellclimaserver_p;
 
-	#handles event EShowBeliefs ;
-	#posts event EShowBeliefs eshowbeliefs_p;
-
-	#sends event EUpdateBel eupdatebel_s;
-
-	#handles external event PerceiveClimaServer ;
-
-	#handles external event MEPlayerAction ;
-
-	#handles external event ECellChange ;
-
 	#posts event MEReportPlayerPercept mereportplayerpercept_p;
 
 	#handles event EExecuteCLIMAaction ;
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event ECellChange ;
 
 	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#sends event MEInformCellStatus meinformcellstatus_s;
 
 	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles event EShowBeliefs ;
+	#posts event EShowBeliefs eshowbeliefs_p;
+
+	#handles external event PerceiveClimaServer ;
+
+	#handles external event MEPlayerAction ;
+
+	#sends event EUpdateBel eupdatebel_s;
 
 	#posts event EAct eact_p;
 

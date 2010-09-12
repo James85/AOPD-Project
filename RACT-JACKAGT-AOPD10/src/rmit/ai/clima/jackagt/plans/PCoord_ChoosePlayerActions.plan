@@ -12,9 +12,11 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
     */
    //Events handled by the plan are declared here.
-   #sends event MEPlayerAction meplayeraction_s;
-
    #posts event EFindPath efindpath_p;
+
+   #posts event EIdentifyTarget eidentifytarget_p;
+
+   #sends event MEPlayerAction meplayeraction_s;
 
    #posts event EFindClosestGold efindclosestgold_p;
 
@@ -24,17 +26,17 @@ Plan Name: PCoord_ChoosePlayerActions
    // Declarations of any beliefset/data that the plan accesses.
    #modifies data BPlayerPosition bel_playerTarget_dat;
 
-   #reads data BPlayerGold bel_playerGold_dat;
-
-   #reads data BPlayerPosition bel_playerPositions_dat;
+   #reads data BObstacleAt bel_obstacleAt_dat;
 
    #reads data SimulationProp bel_simulationProp_dat;
 
+   #reads data BPlayer bel_players_dat;
+
+   #reads data BPlayerGold bel_playerGold_dat;
+
    #reads data BPlayerClosestGold bel_playerClosestGold_dat;
 
-   #reads data BObstacleAt bel_obstacleAt_dat;
-
-   #reads data BPlayer bel_players_dat;
+   #reads data BPlayerPosition bel_playerPositions_dat;
 
    #reads data BMoveHint bel_moveHint_dat;
 
@@ -73,6 +75,11 @@ Plan Name: PCoord_ChoosePlayerActions
          logical int $numGold;
          boolean goldFound = false;
 
+         Cursor c_target;
+         logical String $targetMove;
+         logical int $targetX, $targetY;
+         boolean haveTarget = false;
+
          baseName = $playerName.as_string();
          baseName = baseName.substring(0,baseName.indexOf("@"));
 
@@ -82,59 +89,69 @@ Plan Name: PCoord_ChoosePlayerActions
 
          System.out.println($playerName.as_string() + " has : "+ $numGold.as_int());
 
-         //if we have a target to move to
-         logical int $targetX, $targetY;
-         if(bel_playerTarget_dat.getByName($playerName.as_string(), $targetX, $targetY ))
+         //Get player target if any
+         if (bel_playerTarget_dat.getByName($playerName.as_string(), $targetX, $targetY ))
          {
-            //we have arrived then remove this from our playerTarget beliefset
-            if($targetX.as_int() == $x.as_int() && $targetY.as_int() == $y.as_int())
-            {
-               System.out.println("I have finished exploring");
+            //Find path to current target
+            System.out.println($playerName.as_string() + " has target "+ $targetX.as_int() + ", " + $targetY.as_int());
+            @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
+            c_target = bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int(), $targetMove );
+
+            //Remove this target if unreachable
+            if (!c_target.next()) {
                bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
-            }
-            else
-            {
-               //find the path and head towards to it
-               System.out.println("I am exploring");
-               @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
-               logical String $move;
-               
-               if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int(), $move ))
-                  @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
-               continue;  
+               System.out.println( "Dropping target - unreachable" );
+
+            //Remove this target if as explored
+            }else if( !bel_obstacleAt_dat.checkUnknown($targetX.as_int(), $targetY.as_int() )) {
+               bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
+               System.out.println( "Dropping target - explored" );
+
+            //Remove this target if reached
+            }else if ($targetX.as_int() == $x.as_int() && $targetY.as_int() == $y.as_int()) {
+               bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
+               System.out.println( "Dropping target - reached" );
+
+            //Target is still valid
+            }else {
+               haveTarget = true;
+               System.out.println($targetMove.as_string() + "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd");
             }
          }
 
-
-
+         //Check if we reached the depot
          if( $x.as_int() == $depotX.as_int() && $y.as_int() == $depotY.as_int() )
          {
+            //Check if we got any gold
             if($numGold.as_int() > 0)
             {
+               //Drop the gold
                @send( baseName, meplayeraction_s.send( "drop" ));
+               if (haveTarget) bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
                continue;
             }
-            else continue;
          }
+
          // return to depot if we have our max carrying gold
-         if($numGold.as_int() >= 3)
+         if($numGold.as_int() >= 1)
          {
-            //@send( baseName, meplayeraction_s.send( "moveRand" ));
             @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $depotX.as_int(), $depotY.as_int() ));
             logical String $move;
-            
-            if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $depotX.as_int(), $depotY.as_int(), $move ))
-               @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
-            else
-               @send( baseName, meplayeraction_s.send( "moveRand" ));
 
+            if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $depotX.as_int(), $depotY.as_int(), $move ))
+            {
+               @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+               if (haveTarget) bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
+            }
             continue;  
          }
 
          //Check if gold at current location
          if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
          {
+
             @send( baseName, meplayeraction_s.send( "pick" ));
+            if (haveTarget) bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
             continue;
          }
 
@@ -142,70 +159,66 @@ Plan Name: PCoord_ChoosePlayerActions
          logical int $goldX, $goldY;
          if (bel_playerClosestGold_dat.getByName( $playerName.as_string(), $goldX, $goldY ))
          {
+            System.out.println($playerName.as_string() + ": my closest gold is ( " + $goldX.as_int() + ", " + $goldY.as_int() + ")");
             //Find path to that gold
             @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int() ));
             //Move to path hinted direction
             logical String $move;
-           
+
             if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int(), $move ))
-               @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
-            else
             {
-               @send( baseName, meplayeraction_s.send( "moveRand" ));
+               @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+               if (haveTarget) bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
+            }
+            continue;
+         }
+
+         //Check if target dropped
+         if (!haveTarget)
+         {
+            //Try to find a new target
+            while(true)
+            {
+               //choose a random unexplored point to move to and store it in a new beliefset
+               logical int $tX, $tY;
+               @subtask(eidentifytarget_p.post($playerName.as_string() ));
+               bel_playerTarget_dat.getByName($playerName.as_string(), $tX, $tY);
+               //if (!bel_playerTarget_dat.getByName($playerName.as_string(), $tX, $tY)) {
+               //   System.out.println( "FAILED TO FIND UNEXPLORED" );
+               //   break;
+               //}
+
+               System.out.println( "I AM EXPLORING " + $tX.as_int() + ", " + $tY.as_int() );
+               @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int() ));
+
+               //Check if target reachable and find direction to move
+               logical String $tMove;
+               if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
+               {
+                  @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
+                  break;
+               }
             }
          }
          else
          {
-            //we are doing this because we have no gold for uz
-
-            //choose a random unexplored point to move to and store it in a new beliefset
-
-            if(!bel_playerTarget_dat.checkByName($playerName.as_string()))
-            {
-               logical int $width, $height;
-               bel_simulationProp_dat.getGridSize( $width, $height );
-               Random rand = new Random();
-               int r = rand.nextInt( $width.as_int() * $height.as_int() );
-               System.out.println("RANDOM NUMBER WAS: "+ r);
-               int i = r+1;
-               //Stop when looped back to start point
-               while(i != r)
-               {
-                  int x = i % $width.as_int();
-                  int y = (i - x) / $width.as_int();
-
-                  //if we find an unknown cell we should move to it
-                  if(bel_obstacleAt_dat.checkUnknown(x,y))
-                  {
-                     System.out.println("I have picked an unexplored location " + x + ", " + y);
-                     bel_playerTarget_dat.add($playerName.as_string(), x, y);
-                     break;
-                  }
-
-                  //Loop we end of array reached 
-                  if (++i == $width.as_int() * $height.as_int() ) i = 0;
-
-
-               }
-
-            }
-            //find the path and head towards to it
-            logical int $tX, $tY;
-            bel_playerTarget_dat.getByName($playerName.as_string(), $tX, $tY);
-            @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int() ));
-            logical String $move;
-            
-            if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $move ))
-               @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
-            else continue;  
+            //Keep moving towards current target
+            @send( baseName, meplayeraction_s.send( "moveTo", $targetMove.as_string() ));
          }
 
-
       }//players loop
+
+
+      //Clear the pathfinding results
       logical int $srcX, $srcY,  $dstX,  $dstY;
       logical String $dir;
-
       bel_moveHint_dat.get($srcX, $srcY, $dstX, $dstY, $dir).removeAll();
+
+      logical String $profit;
+      logical int $profitX, $profitY;
+      System.out.println("REMOVING THIS MUCH GOLD: " + bel_playerClosestGold_dat.nFacts());
+      bel_playerClosestGold_dat.get( $profit, $profitX, $profitY ).removeAll();
+      System.out.println("THERE IS THIS MUCH GOLD LEFT: " + bel_playerClosestGold_dat.nFacts());
 
 
    }

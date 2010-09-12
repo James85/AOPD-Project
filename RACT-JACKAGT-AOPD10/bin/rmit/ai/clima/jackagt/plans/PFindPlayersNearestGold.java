@@ -18,9 +18,9 @@ import aos.jack.jak.logic.Signature;
 import java.lang.Object;
 import rmit.ai.clima.jackagt.events.EFindClosestGold;
 import rmit.ai.clima.jackagt.data.BPlayerClosestGold;
+import rmit.ai.clima.jackagt.data.BGoldAt;
 import rmit.ai.clima.jackagt.data.BPlayer;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
-import rmit.ai.clima.jackagt.data.BGoldAt;
 import java.util.Vector;
 import rmit.ai.clima.gui.grid.GridPoint;
 import java.util.Collections;
@@ -30,9 +30,9 @@ import aos.jack.jak.core.Jak;
 public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EFindClosestGold efindclosestgold_h;
     public rmit.ai.clima.jackagt.data.BPlayerClosestGold bel_playerClosestGold_dat;
+    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
     public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
-    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PFindPlayersNearestGold.plan",
@@ -47,46 +47,47 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
             "53",
             "54",
             "55",
-            "57",
             "58",
-            "60",
-            "62",
+            "59",
+            "61",
             "63",
             "64",
             "65",
             "66",
+            "67",
             "68",
-            "71",
-            "72",
-            "76",
-            "79",
-            "79",
-            "82",
-            "83",
+            "70",
+            "73",
+            "74",
+            "78",
+            "81",
+            "81",
             "84",
-            "84",
+            "85",
             "86",
-            "87",
+            "86",
             "88",
-            "84",
+            "89",
             "90",
-            "91",
+            "86",
+            "92",
             "93",
-            "94",
-            "79",
+            "95",
+            "96",
+            "81",
             "36"};
     private final static java.lang.String[] __planVariableNames = {
             "efindclosestgold_h",
             "bel_playerClosestGold_dat",
+            "bel_goldAt_dat",
             "bel_players_dat",
-            "bel_playerPositions_dat",
-            "bel_goldAt_dat"};
+            "bel_playerPositions_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "EFindClosestGold",
             "rmit.ai.clima.jackagt.data.BPlayerClosestGold",
+            "rmit.ai.clima.jackagt.data.BGoldAt",
             "rmit.ai.clima.jackagt.data.BPlayer",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition",
-            "rmit.ai.clima.jackagt.data.BGoldAt"};
+            "rmit.ai.clima.jackagt.data.BPlayerPosition"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __fsmVariableNames_body = {
@@ -158,9 +159,9 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
         __logic = __t.logic;
         efindclosestgold_h = __env.efindclosestgold_h;
         bel_playerClosestGold_dat = __env.bel_playerClosestGold_dat;
+        bel_goldAt_dat = __env.bel_goldAt_dat;
         bel_players_dat = __env.bel_players_dat;
         bel_playerPositions_dat = __env.bel_playerPositions_dat;
-        bel_goldAt_dat = __env.bel_goldAt_dat;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
@@ -175,6 +176,11 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerClosestGold bel_playerClosestGold_dat");
             return false;
         }
+        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
+        if (bel_goldAt_dat == null) {
+            warning("Failed to find BGoldAt bel_goldAt_dat");
+            return false;
+        }
         bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",0);
         if (bel_players_dat == null) {
             warning("Failed to find BPlayer bel_players_dat");
@@ -183,11 +189,6 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
         bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
         if (bel_playerPositions_dat == null) {
             warning("Failed to find BPlayerPosition bel_playerPositions_dat");
-            return false;
-        }
-        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
-        if (bel_goldAt_dat == null) {
-            warning("Failed to find BGoldAt bel_goldAt_dat");
             return false;
         }
         return true;
@@ -295,15 +296,15 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_players_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_players_dat);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             default: 
             {
@@ -442,7 +443,7 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
                             if (__local__20_4.next()) 
                                 __state = 17;
                              else 
-                                __state = 31;
+                                __state = 32;
                             break;
                         }
                         //* (53) 	      logical int $playerX, $playerY;
@@ -480,7 +481,7 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
                             __state = 20;
                             break;
                         }
-                        //* (57) 	      logical int $goldX, $goldY;
+                        //* (58) 	      logical int $goldX, $goldY;
                         case 20: 
                         {
                             __local__20_9 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
@@ -488,60 +489,67 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
                             __state = 21;
                             break;
                         }
-                        //* (58) 	      Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
+                        //* (59) 	      Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
                         case 21: 
                         {
                             __local__20_11 = (aos.jack.jak.cursor.Cursor) genCursor(2);
                             __state = 22;
                             break;
                         }
-                        //* (60) 	      while ( c_gold.next() )
+                        //* (61) 	      while ( c_gold.next() )
                         case 22: 
                         {
                             if (__local__20_11.next()) 
                                 __state = 23;
                              else 
-                                __state = 29;
+                                __state = 30;
                             break;
                         }
-                        //* (62) 	         PlayerGold pg = new PlayerGold();
+                        //* (63) 	         System.out.println("checking distance between " + $name.as_string() + " and gold at : ( " + $goldX.as_int() + ", " + $goldY.as_int() + ")" );
                         case 23: 
                         {
                             __breakLevel = 8;
-                            __local__20_12 = new rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold.PlayerGold();
                             __state = 24;
+                            java.lang.System.out.println("checking distance between " + __local__20_3.as_string() + " and gold at : ( " + __local__20_9.as_int() + ", " + __local__20_10.as_int() + ")");
                             break;
                         }
-                        //* (63) 	         pg.pos = new GridPoint( $goldX.as_int(), $goldY.as_int() );
+                        //* (64) 	         PlayerGold pg = new PlayerGold();
                         case 24: 
                         {
+                            __local__20_12 = new rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold.PlayerGold();
                             __state = 25;
-                            __local__20_12.pos = new rmit.ai.clima.gui.grid.GridPoint(__local__20_9.as_int(),__local__20_10.as_int());
                             break;
                         }
-                        //* (64) 	         pg.playerId = playerId;
+                        //* (65) 	         pg.pos = new GridPoint( $goldX.as_int(), $goldY.as_int() );
                         case 25: 
                         {
                             __state = 26;
-                            __local__20_12.playerId = __local__20_5;
+                            __local__20_12.pos = new rmit.ai.clima.gui.grid.GridPoint(__local__20_9.as_int(),__local__20_10.as_int());
                             break;
                         }
-                        //* (65) 	         pg.name = $name.as_string();
+                        //* (66) 	         pg.playerId = playerId;
                         case 26: 
                         {
                             __state = 27;
-                            __local__20_12.name = __local__20_3.as_string();
+                            __local__20_12.playerId = __local__20_5;
                             break;
                         }
-                        //* (66) 	         pg.dist = pg.pos.getManhattanDist(playerPos);
+                        //* (67) 	         pg.name = $name.as_string();
                         case 27: 
                         {
                             __state = 28;
+                            __local__20_12.name = __local__20_3.as_string();
+                            break;
+                        }
+                        //* (68) 	         pg.dist = pg.pos.getManhattanDist(playerPos);
+                        case 28: 
+                        {
+                            __state = 29;
                             __local__20_12.dist = __local__20_12.pos.getManhattanDist(__local__20_8);
                             break;
                         }
-                        //* (68) 	         distances.add(pg);
-                        case 28: 
+                        //* (70) 	         distances.add(pg);
+                        case 29: 
                         {
                             if (__local__20_0.add(__local__20_12)) 
                                 __state = 22;
@@ -549,146 +557,146 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
                                 throw planfailed;
                             break;
                         }
-                        //* (71) 	      playerAssigned[playerId] = false;
-                        case 29: 
+                        //* (73) 	      playerAssigned[playerId] = false;
+                        case 30: 
                         {
-                            __state = 30;
+                            __state = 31;
                             __local__20_1[__local__20_5] = false;
                             break;
                         }
-                        //* (72) 	      playerId++;
-                        case 30: 
+                        //* (74) 	      playerId++;
+                        case 31: 
                         {
                             __state = 16;
                             __local__20_5++ ;
                             break;
                         }
-                        //* (76) 	   Collections.sort(distances);
-                        case 31: 
+                        //* (78) 	   Collections.sort(distances);
+                        case 32: 
                         {
-                            __state = 32;
+                            __state = 33;
                             java.util.Collections.sort(__local__20_0);
                             break;
                         }
-                        //* (79) 	   for ( int i = 0; i < distances.size(); ++i )
-                        case 32: 
-                        {
-                            __local__20_13 = 0;
-                            __state = 33;
-                            break;
-                        }
-                        //* (79) 	   for ( int i = 0; i < distances.size(); ++i )
+                        //* (81) 	   for ( int i = 0; i < distances.size(); ++i )
                         case 33: 
                         {
-                            if (__local__20_13 < __local__20_0.size()) 
-                                __state = 34;
-                             else 
-                                __state = 47;
+                            __local__20_13 = 0;
+                            __state = 34;
                             break;
                         }
-                        //* (82) 	      boolean b_discard = false;
+                        //* (81) 	   for ( int i = 0; i < distances.size(); ++i )
                         case 34: 
+                        {
+                            if (__local__20_13 < __local__20_0.size()) 
+                                __state = 35;
+                             else 
+                                __state = 48;
+                            break;
+                        }
+                        //* (84) 	      boolean b_discard = false;
+                        case 35: 
                         {
                             __breakLevel = 4;
                             __local__20_14 = false;
-                            __state = 35;
-                            break;
-                        }
-                        //* (83) 	      PlayerGold pg = (PlayerGold)distances.get(i);
-                        case 35: 
-                        {
-                            __local__20_15 = (rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold.PlayerGold) __local__20_0.get(__local__20_13);
                             __state = 36;
                             break;
                         }
-                        //* (84) 	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
+                        //* (85) 	      PlayerGold pg = (PlayerGold)distances.get(i);
                         case 36: 
                         {
-                            __local__20_16 = 0;
+                            __local__20_15 = (rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold.PlayerGold) __local__20_0.get(__local__20_13);
                             __state = 37;
                             break;
                         }
-                        //* (84) 	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
+                        //* (86) 	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
                         case 37: 
                         {
+                            __local__20_16 = 0;
+                            __state = 38;
+                            break;
+                        }
+                        //* (86) 	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
+                        case 38: 
+                        {
                             if (__local__20_16 < __local__20_2.size()) 
-                                __state = 38;
+                                __state = 39;
+                             else 
+                                __state = 43;
+                            break;
+                        }
+                        //* (88) 	         PlayerGold pg2 = (PlayerGold)usedDistances.get(j);
+                        case 39: 
+                        {
+                            __breakLevel = 8;
+                            __local__20_17 = (rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold.PlayerGold) __local__20_2.get(__local__20_16);
+                            __state = 40;
+                            break;
+                        }
+                        //* (89) 	         if(pg.name == pg2.name || pg.pos.x == pg2.pos.x && pg.pos.y == pg2.pos.y)
+                        case 40: 
+                        {
+                            if (__local__20_15.name == __local__20_17.name || __local__20_15.pos.x == __local__20_17.pos.x && __local__20_15.pos.y == __local__20_17.pos.y) 
+                                __state = 41;
                              else 
                                 __state = 42;
                             break;
                         }
-                        //* (86) 	         PlayerGold pg2 = (PlayerGold)usedDistances.get(j);
-                        case 38: 
+                        //* (90) 	            b_discard = true;
+                        case 41: 
                         {
-                            __breakLevel = 8;
-                            __local__20_17 = (rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold.PlayerGold) __local__20_2.get(__local__20_16);
-                            __state = 39;
-                            break;
-                        }
-                        //* (87) 	         if(pg.name == pg2.name || pg.pos.x == pg2.pos.x && pg.pos.y == pg2.pos.y)
-                        case 39: 
-                        {
-                            if (__local__20_15.name == __local__20_17.name || __local__20_15.pos.x == __local__20_17.pos.x && __local__20_15.pos.y == __local__20_17.pos.y) 
-                                __state = 40;
-                             else 
-                                __state = 41;
-                            break;
-                        }
-                        //* (88) 	            b_discard = true;
-                        case 40: 
-                        {
-                            __state = 41;
+                            __state = 42;
                             __local__20_14 = true;
                             break;
                         }
-                        //* (84) 	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
-                        case 41: 
+                        //* (86) 	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
+                        case 42: 
                         {
-                            __state = 37;
+                            __state = 38;
                             ++__local__20_16;
                             break;
                         }
-                        //* (90) 	      if(b_discard)
-                        case 42: 
-                        {
-                            if (__local__20_14) 
-                                __state = 43;
-                             else 
-                                __state = 44;
-                            break;
-                        }
-                        //* (91) 	         continue;
+                        //* (92) 	      if(b_discard)
                         case 43: 
                         {
-                            __breakLevel = 3;
-                            __state = 46;
+                            if (__local__20_14) 
+                                __state = 44;
+                             else 
+                                __state = 45;
                             break;
                         }
-                        //* (93) 	      usedDistances.add(pg);
+                        //* (93) 	         continue;
                         case 44: 
                         {
+                            __breakLevel = 3;
+                            __state = 47;
+                            break;
+                        }
+                        //* (95) 	      usedDistances.add(pg);
+                        case 45: 
+                        {
                             if (__local__20_2.add(__local__20_15)) 
-                                __state = 45;
+                                __state = 46;
                              else 
                                 throw planfailed;
                             break;
                         }
-                        //* (94) 	      bel_playerClosestGold_dat.add( pg.name, pg.pos.x, pg.pos.y );
-                        case 45: 
+                        //* (96) 	      bel_playerClosestGold_dat.add( pg.name, pg.pos.x, pg.pos.y );
+                        case 46: 
                         {
-                            __state = 46;
+                            __state = 47;
                             bel_playerClosestGold_dat.add(__local__20_15.name,__local__20_15.pos.x,__local__20_15.pos.y);
                             break;
                         }
-                        //* (79) 	   for ( int i = 0; i < distances.size(); ++i )
-                        case 46: 
+                        //* (81) 	   for ( int i = 0; i < distances.size(); ++i )
+                        case 47: 
                         {
-                            __state = 33;
+                            __state = 34;
                             ++__local__20_13;
                             break;
                         }
                         //* (36) 	body()
-                        case 47: 
+                        case 48: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

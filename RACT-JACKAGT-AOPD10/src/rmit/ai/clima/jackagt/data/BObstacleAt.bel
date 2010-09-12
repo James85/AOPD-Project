@@ -61,7 +61,7 @@ public beliefset BObstacleAt extends OpenWorld
 		if (check(x, y).next()) {
 				 return false;
 		} 
-		if ( (check(x, y).negate()).next()) {
+		if  ((check(x, y).negate()).next()) {
 				 return false;
 		} 
 	 	return true;		// The cell (x,y) is UNKNOWN in beliefset
