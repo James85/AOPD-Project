@@ -21,11 +21,11 @@ Plan Name: Coord_AssimilatePlayerPercept
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerPosition bel_playerPositions_dat;
+	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
-	#modifies data BPlayerGold bel_playerGold_dat;
+	#modifies data BPlayerPosition bel_playerPositions_dat;
 
 	#reads data BPlayer bel_players_dat;
 
@@ -51,21 +51,13 @@ Plan Name: Coord_AssimilatePlayerPercept
 		
 		logical String $name;
 		   
-		consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts() );
+		//consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts() );
 		if(bel_playerPerceptReceived_dat.nFacts()  == bel_players_dat.nFacts())
 		{
 		   bel_playerPerceptReceived_dat.get($name).removeAll();
 		   @post( echooseplayeractions_p.post() );
 		}
 		   
-		//		consoleIface.showConsoleDebug("Coordinator Says: "+meinformagentstatus_h.agentName +" just moved, these are the agents I currently know about");
-				logical String $agentName;
-				logical int $numGold;
-				Cursor agentInfo = bel_playerGold_dat.get($agentName,$numGold);
-				while(agentInfo.next())
-				{
-					consoleIface.showConsoleDebug("\t" + $agentName.as_string() + " : #NumGold ("+$numGold.as_int()+")");
-				}
 
 	}
 }

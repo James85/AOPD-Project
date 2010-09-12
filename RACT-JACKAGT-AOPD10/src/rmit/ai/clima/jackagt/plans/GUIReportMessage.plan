@@ -49,7 +49,7 @@ Description: Reports a text message in the GUI
 	    	bel_agentNumbers_dat.getNo(eguidebugmessage_h.from, $agentNo);
 			int agentNo = $agentNo.as_int();
 			
-			// Now, print the message in the gui window
+			 //Now, print the message in the gui window
        		if(guiAgent.showGUI) {
 	        	guiAgent.guiInterface.reportMessage(agentNo, eguidebugmessage_h.entity, 
 	        			"[" + eguidebugmessage_h.timestamp.get(Calendar.MINUTE) + ":" +

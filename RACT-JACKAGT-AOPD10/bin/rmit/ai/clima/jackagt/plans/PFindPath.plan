@@ -1,6 +1,8 @@
 package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.*;
+import java.util.*;
 
 public plan PFindPath extends Plan
 {
@@ -10,8 +12,12 @@ public plan PFindPath extends Plan
 Plan Name: PFindPath
 */
 	//Events handled by the plan are declared here.
+	#handles event EFindPath efindpath_h;
+
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BMoveHint bel_moveHint_dat;
+
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
@@ -23,7 +29,7 @@ Plan Name: PFindPath
 		true;
 	}
 
-	final static adjacentDir = { "left", "right", "up", "down" };
+	final static String[] adjacentDir = { "left", "right", "up", "down" };
 	
 	body()
 	{
@@ -31,67 +37,87 @@ Plan Name: PFindPath
 	   int height = 51;
 	   GridPoint src;
 	   GridPoint dst;
+	
 	   
-	   //Init entire grid
-	   PathNode[] grid = new PathNode[ width * height ];
+	   src = new GridPoint(efindpath_h.srcX, efindpath_h.srcY);
+	   dst = new GridPoint(efindpath_h.dstX, efindpath_h.dstY);
+	   
+	   //Check for silly input
+      if (src.equals(dst)) {
+         bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, "cur" );
+         return true;
+      }
+      
+	  System.out.println("STARTING PATHFINDING");
+     System.out.println("Src " + src.x + ", "+ src.y);
+     System.out.println("Dst " + dst.x + ", "+ dst.y);
+	   //Init obstacles
+	   PathGrid grid = new PathGrid( width,  height );
 	   for (int x=0; x<width; ++x) {
 	      for (int y=0; y<height; ++y) {
-            
-	         int gridIndex = y * width + x;
-	         PathNode node = grid[ gridIndex ]; 
-	         node.pos.x = x;
-	         node.pos.y = y;
-	         
+
             //Check if obstacle at this location
-            node.obstacle = bel_obstacleAt_dat.check( x, y ));
+	         if(bel_obstacleAt_dat.check( x, y ))
+	         {
+	            PathNode node = grid.getNode( x, y ); 
+	            node.obstacle = true;
+	         }
 	      }
 	   }
 	   
 	   //Init root node
-	   int rootIndex = src.y * width + src.x;
-	   PathNode root = grid[ rootIndex ];
+	   PathNode root = grid.getNode( src );
 	   root.dir = "";
+	   root.visited = true;
 	   
 	   Vector open = new Vector();
 	   open.add( root );
+      System.out.println("Root " + root.pos.x + ", "+ root.pos.y);
+
 	   
 	   boolean dstReached = false; 
 	   while (!open.isEmpty())
 	   {
+	    
 	      //Get next node with shortest path estimate
-	      PathNode cur = open.lastElement();
+	      PathNode cur = (PathNode)open.lastElement();
 	      open.remove( open.size() -1 );
 	      
 	      //Check if destination reached
-	      if (cur.x == dst.x && cur.y == dst.y) {
+	      if (cur.pos.x == dst.x && cur.pos.y == dst.y) {
 	         dstReached = true;
+	         
 	         break;
 	      }
-	      
+	     
 	      //Loop through adjacent nodes
    	   for (int a=0; a<adjacentDir.length; ++a)
    	   {
    	      //Get adjacent node
-   	      GridCoord adjPos = open.pos.getFromDir( adjacentDir[a] );
-   	      int adjIndex = adjPos.y * width + adjPos.x;
-   	      PathNode adj = grid[ adjIndex ];
+   	      GridPoint adjPos = cur.pos.getFromDir( adjacentDir[a] );
+   	      
+   	      if(adjPos.x < 0 || adjPos.x >= grid.width || adjPos.y < 0 || adjPos.y >= grid.height)
+   	         continue;
+   	      
+   	      PathNode adj = grid.getNode( adjPos );
    	      
    	      //Skip nodes with obstacles
    	      if (adj.obstacle) continue;
    	      
    	      //Calculate path status
    	      int g = cur.g + 1;
-   	      int h = cur.pos.getManhattanDist( dst );
+   	      int h = adj.pos.getManhattanDist( dst );
    	      int f = g + h;
    	      
    	      //Check we've been here before
-   	      if (adj.visitied)
+   	      if (adj.visited)
    	      {
+   	         
                //Check if the current path is shorter
                if (f < adj.f)
                {
                   //It is so  route from adjacent back to current
-                  adj.dir = GridPoint.getRelativeDirections( adj, cur )[0];
+                  adj.dir = (String) (GridPoint.getRelativeDirections( adj.pos, cur.pos )[0]);
                   adj.g = g;
                   adj.h = h;
                   adj.f = f;
@@ -100,7 +126,7 @@ Plan Name: PFindPath
    	      else
    	      {
                //Haven't so route from adjacent back to current
-               adj.dir = GridPoint.getRelativeDirections( adj, cur )[0];
+               adj.dir = (String) ( GridPoint.getRelativeDirections( adj.pos, cur.pos )[0] );
                adj.g = g;
                adj.h = h;
                adj.f = f;
@@ -114,38 +140,95 @@ Plan Name: PFindPath
    	   
 	   }//open
 	   
+      if(dstReached)
+      {
+         PathNode dstNode = grid.getNode( dst );
+         PathNode srcNode = grid.getNode( src );
+         PathNode prevNode = dstNode;
+         PathNode curNode = dstNode;
+         
+         while (true)
+         {
+            System.out.println( "Backtrack " + curNode.pos.x + "," + curNode.pos.y );
+            GridPoint prevPoint = curNode.pos.getFromDir(curNode.dir);
+            prevNode = grid.getNode( prevPoint );
+            if (prevNode == srcNode) break;
+            curNode = prevNode;
+         }
+         
+         System.out.println( "Cur " + curNode.pos.x + "," + curNode.pos.y );
+         System.out.println( "Prev " + prevNode.pos.x + "," + prevNode.pos.y );
+         String moveDir = (String) ( prevNode.pos.getRelativeDirections( prevNode.pos, curNode.pos )[0] );
+         bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, moveDir );
+      }
 	   
+	}
+	
+	class PathGrid
+	{
+	   public int width;
+	   public int height;
+	   PathNode [] grid;
 	   
+	   public PathGrid (int width, int height)
+	   {
+	      this.width = width;
+	      this.height = height;
+	      grid = new PathNode[ width * height ];
+	      
+	      for (int x=0; x<width; ++x) {
+	         for (int y=0; y<height; ++y) {
+	            
+	            PathNode node = new PathNode(); 
+	            node.pos.x = x;
+	            node.pos.y = y;
+	            grid[y * width + x] = node;
+	         }
+	      }
+	   }
+	   
+	   public PathNode getNode (int x, int y)
+	   {
+	      return grid[ y * width + x ];
+	   }
+	   
+	   public PathNode getNode (GridPoint pt)
+	   {
+	      return getNode( pt.x, pt.y );
+	   }
 	}
 	
 	class PathNode implements Comparable
 	{
-	   GridPoint pos;
-	   String dir;
-	   boolean obstacle;
-      boolean visited;
-	   int g;
-	   int h;
-	   int f;
+      public boolean obstacle;
+      public boolean visited;
+	   public GridPoint pos;
+	   public String dir;
+	   public int g;
+	   public int h;
+	   public int f;
 	   
-	   PathNode ()
+	   public PathNode ()
 	   {
-         node.visited = false;
-         node.g = 0;
-         node.h = 0;
-         node.f = 0;
+         visited = false;
+         obstacle = false;
+	      pos = new GridPoint();
+	      dir = "";
+         g = 0;
+         h = 0;
+         f = 0;
 	   }
 	   
-	   boolean equals (Object o)
+	   public boolean equals (Object o)
 	   {
 	      PathNode other = (PathNode)o;
 	      return (f == other.f);
 	   }
 	   
-	   int compareTo (Object o)
+	   public int compareTo (Object o)
 	   {
 	      PathNode other = (PathNode)o;
-	      return f - other.f;
+	      return other.f - f;
 	   }
 	}
 }

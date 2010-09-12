@@ -16,12 +16,12 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BGoldAt bel_goldAt_dat();
+	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
+	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -31,7 +31,12 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BMoveHint bel_moveHint_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -40,13 +45,15 @@ Capability Name: CPathFinding
 
 
 	//Events handled, posted and sent are declared here.
+	#handles external event EFindPath ;
+
 	#handles external event EFindClosestGold ;
 
 
 	//Plans directly used are declared here.
-	#uses plan PFindPlayersNearestGold ;
-
 	#uses plan PFindPath ;
+
+	#uses plan PFindPlayersNearestGold ;
 
 
 	// Inner capabilities are declared here.

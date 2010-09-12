@@ -23,8 +23,6 @@ Description: Reports believed information in the console
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data CurrentStatus bel_currentStatus_dat;
-
 	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
 
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
@@ -34,6 +32,8 @@ Description: Reports believed information in the console
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
+
+	#reads data CurrentStatus bel_currentStatus_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -64,7 +64,7 @@ Description: Reports believed information in the console
       logical int $id, $step;
 
       bel_currentRequestActionId_dat.get($id,$step);
-      consoleIface.showConsoleDebug("Current ID step: "+$id);
+      //consoleIface.showConsoleDebug("Current ID step: "+$id);
 
       // ************* Print out number of cells that are believed empty
       logical int $x,$y;
@@ -74,7 +74,7 @@ Description: Reports believed information in the console
       {
          count++;
       }
-      consoleIface.showConsoleDebug("Number of cells believed empty of obstacles: "+count);
+//      consoleIface.showConsoleDebug("Number of cells believed empty of obstacles: "+count);
 
       // Now print the cells that are known to be blocked
       count = 0;
@@ -82,12 +82,12 @@ Description: Reports believed information in the console
       {
          count++;
       }
-      consoleIface.showConsoleDebug("Number of believed obstructed cells: "+count);
+//      consoleIface.showConsoleDebug("Number of believed obstructed cells: "+count);
 
       // Print the number of gold believed to be carried
       logical int $numGold;
       bel_numCarryingGold_dat.get( $numGold );
-      consoleIface.showConsoleDebug( "Number of believed carried gold: "+$numGold.as_int() );
+//      consoleIface.showConsoleDebug( "Number of believed carried gold: "+$numGold.as_int() );
 
       // ************* BELOW HERE YOU MAY WANT TO REPORT MORE STUFF IN THE CONSOLE ....
       logical int $xPos,$yPos;
@@ -100,13 +100,13 @@ Description: Reports believed information in the console
          if(bel_obstacleAt_dat.check(tempPos.x,tempPos.y))
          {
             //print that there is a obstacle in this direction
-            consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is an obstacle in the " + niceDirs[i]);
+//            consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is an obstacle in the " + niceDirs[i]);
 
          }
          else
             if(bel_goldAt_dat.check(tempPos.x,tempPos.y))
             {
-               consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
+//               consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
             }
       }
       

@@ -60,7 +60,7 @@ Description: Send an action to the game server and wait for the next request-act
 		@post(tellclimaserver_p.tell(new Action(eexecuteclimaaction_h.message, getAgent().name(), "" + 	$id.as_int())));
 		
 		// Report that the action was sent for execution
-      debugIface.showConsoleDebug("I sent CLIMA action *" + eexecuteclimaaction_h.message +"* for execution with id " + $id.as_int());
+      //debugIface.showConsoleDebug("I sent CLIMA action *" + eexecuteclimaaction_h.message +"* for execution with id " + $id.as_int());
 		@send("gui", eguidebugmessage_s.reportMessage(ID, "I have decided to move towards: " + "*"+eexecuteclimaaction_h.message+"*"));
 
 

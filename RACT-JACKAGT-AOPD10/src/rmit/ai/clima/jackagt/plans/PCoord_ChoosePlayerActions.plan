@@ -11,27 +11,27 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
-	#sends event MEPlayerAction meplayeraction_s;
-
 	#posts event EFindPath efindpath_p;
 
 	#posts event EFindClosestGold efindclosestgold_p;
+
+	#sends event MEPlayerAction meplayeraction_s;
 
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BMoveHint bel_moveHint_dat;
-
-	#reads data BPlayerGold bel_playerGold_dat;
-
 	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
 
-	#reads data BPlayer bel_players_dat;
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BMoveHint bel_moveHint_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
+	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BPlayer bel_players_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -48,7 +48,10 @@ Plan Name: PCoord_ChoosePlayerActions
    
 	#reasoning method
 	body()
-	{      
+	{
+	   //Find the closest player-gold pairs
+      @subtask(efindclosestgold_p.post());
+      
       //Loop through all players on the team
       logical String $playerName;
       String baseName;
@@ -63,52 +66,41 @@ Plan Name: PCoord_ChoosePlayerActions
          baseName = $playerName.as_string();
          baseName = baseName.substring(0,baseName.indexOf("@"));
          
-         
          //Get player info
          bel_playerPositions_dat.getByName( $playerName.as_string(), $x, $y );
          bel_playerGold_dat.getByName( $playerName.as_string(), $numGold );
          
-         
-         
-         
+         System.out.println($playerName.as_string() + " has : "+ $numGold.as_int());
          //dirty hack will change after #TODO
          if($numGold.as_int() >= 3)
          {
             @send( baseName, meplayeraction_s.send( "moveRand" ));
             continue;  
          }
+         
          //Check if gold at current location
          if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
          {
             @send( baseName, meplayeraction_s.send( "pick" ));
             continue;
          }
-
          
-         //Loop through the adjacent locations
-         for (int d=0; d<lookUpDirs.length; ++d)
+         //Check if theres a gold nearby
+         logical int $goldX, $goldY;
+         if (bel_playerClosestGold_dat.getByName( $playerName.as_string(), $goldX, $goldY ))
          {
-            //Check if gold at an adjacent location
-            GridPoint lookUpLoc = GridPoint.getFromDir( $x.as_int(), $y.as_int(), lookUpDirs[d] );
-            if (bel_goldAt_dat.check( lookUpLoc.x, lookUpLoc.y ))
-            {
-               
-               @send( baseName, meplayeraction_s.send( "moveTo", lookUpDirs[d] ));
-               goldFound = true;
-               break;
-            }
+            //Find path to that gold
+            @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int() ));
          }
          
-         if (!goldFound)
-         {
+         //Move to path hinted direction
+         logical String $move;
+         System.out.println("There are this many move hints: " + bel_moveHint_dat.nFacts());
+         if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int(), $move ))
+            @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+         else
             @send( baseName, meplayeraction_s.send( "moveRand" ));
-         }
       }
-      @subtask(efindclosestgold_p.post());
-      logical String $nameZ;
-      logical int $xZ, $yZ;
-      Cursor c_closeGoldZ = bel_playerClosestGold_dat.get( $nameZ, $xZ, $yZ );
-      while ( c_closeGoldZ.next() )
-         System.out.println( $nameZ.as_string() + ": (" + $xZ.as_int() + ", " + $yZ.as_int() + ")" );
+
 	}
 }

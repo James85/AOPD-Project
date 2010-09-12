@@ -21,9 +21,9 @@ Description: Update the beliefs about the cells around a location
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BGoldAt bel_goldAt_dat;
-
 	#modifies data BObstacleAt bel_obstacleAt_dat;
+
+	#modifies data BGoldAt bel_goldAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -61,7 +61,7 @@ Description: Update the beliefs about the cells around a location
       boolean bUnknown;
       logical int $noGold; 	//  logical int to retrieve the amount of gold this agent is carrying
       
-      System.out.println(getAgent().name() + "*&(#U&*(#$)#*$()#*$)(*#$&#)*$#)*$()#*(#)$" );
+      
       for(int i=0; i < cells.length; i++) 
       {	// interate on each cell
 

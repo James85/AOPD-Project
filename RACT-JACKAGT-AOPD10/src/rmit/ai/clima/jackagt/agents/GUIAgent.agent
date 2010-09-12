@@ -31,10 +31,6 @@ Description: This is the agent responsible of showing the evolution of the simul
 	//Knowledge bases used are declared here.
 
 	//Events handled, posted and sent are declared here.
-	#handles event MEInformAgentStatus ;
-
-	#handles event EGUIDebugMessage ;
-
 	#handles event MEInformCellStatus ;
 
 	#handles event MESimStart ;
@@ -42,6 +38,10 @@ Description: This is the agent responsible of showing the evolution of the simul
 
 	#handles event MESimEnd ;
 	#posts event MESimEnd mesimend_p;
+
+	#handles event MEInformAgentStatus ;
+
+	#handles event EGUIDebugMessage ;
 
 
 	//Plans directly used are declared here.
