@@ -18,8 +18,8 @@ import aos.jack.jak.logic.Signature;
 import java.lang.Object;
 import rmit.ai.clima.jackagt.events.EFindClosestGold;
 import rmit.ai.clima.jackagt.data.BPlayerClosestGold;
-import rmit.ai.clima.jackagt.data.BGoldAt;
 import rmit.ai.clima.jackagt.data.BPlayer;
+import rmit.ai.clima.jackagt.data.BGoldAt;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import java.util.Vector;
 import rmit.ai.clima.gui.grid.GridPoint;
@@ -30,8 +30,8 @@ import aos.jack.jak.core.Jak;
 public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EFindClosestGold efindclosestgold_h;
     public rmit.ai.clima.jackagt.data.BPlayerClosestGold bel_playerClosestGold_dat;
-    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
     public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
+    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -79,14 +79,14 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
     private final static java.lang.String[] __planVariableNames = {
             "efindclosestgold_h",
             "bel_playerClosestGold_dat",
-            "bel_goldAt_dat",
             "bel_players_dat",
+            "bel_goldAt_dat",
             "bel_playerPositions_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "EFindClosestGold",
             "rmit.ai.clima.jackagt.data.BPlayerClosestGold",
-            "rmit.ai.clima.jackagt.data.BGoldAt",
             "rmit.ai.clima.jackagt.data.BPlayer",
+            "rmit.ai.clima.jackagt.data.BGoldAt",
             "rmit.ai.clima.jackagt.data.BPlayerPosition"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -159,8 +159,8 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
         __logic = __t.logic;
         efindclosestgold_h = __env.efindclosestgold_h;
         bel_playerClosestGold_dat = __env.bel_playerClosestGold_dat;
-        bel_goldAt_dat = __env.bel_goldAt_dat;
         bel_players_dat = __env.bel_players_dat;
+        bel_goldAt_dat = __env.bel_goldAt_dat;
         bel_playerPositions_dat = __env.bel_playerPositions_dat;
     }
     
@@ -176,14 +176,14 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerClosestGold bel_playerClosestGold_dat");
             return false;
         }
-        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
-        if (bel_goldAt_dat == null) {
-            warning("Failed to find BGoldAt bel_goldAt_dat");
-            return false;
-        }
         bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",0);
         if (bel_players_dat == null) {
             warning("Failed to find BPlayer bel_players_dat");
+            return false;
+        }
+        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
+        if (bel_goldAt_dat == null) {
+            warning("Failed to find BGoldAt bel_goldAt_dat");
             return false;
         }
         bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
@@ -296,11 +296,11 @@ public class PFindPlayersNearestGold extends aos.jack.jak.plan.Plan {
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_players_dat);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_players_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 4: 
             {

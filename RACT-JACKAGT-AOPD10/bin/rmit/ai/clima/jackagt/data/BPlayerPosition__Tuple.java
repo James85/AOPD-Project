@@ -77,6 +77,12 @@ public int hash(int __i)
         {
             return __r;
         }
+        case 2: 
+        {
+            __r ^= (((int) (posY ^ (posY << 13))) & (~(1 << 31)));
+            __r ^= (((int) (posX ^ (posX << 13))) & (~(1 << 31)));
+            return __r;
+        }
     }
     return 0;
 }

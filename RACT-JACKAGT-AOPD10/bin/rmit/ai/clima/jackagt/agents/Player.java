@@ -7,53 +7,53 @@
 package rmit.ai.clima.jackagt.agents;
 import aos.jack.jak.agent.Agent;
 import rmit.ai.clima.interfaces.DebugInterface;
-import rmit.ai.clima.jackagt.data.BNumCarryingGold;
-import rmit.ai.clima.jackagt.data.CurrentRequestActionId;
+import rmit.ai.clima.jackagt.data.BObstacleAt;
 import rmit.ai.clima.jackagt.data.BGoldAt;
 import rmit.ai.clima.jackagt.data.SimulationProp;
+import rmit.ai.clima.jackagt.data.CurrentRequestActionId;
 import rmit.ai.clima.jackagt.data.BCurrentPosition;
-import rmit.ai.clima.jackagt.data.BObstacleAt;
-import rmit.ai.clima.jackagt.events.MEInformCellStatus;
-import rmit.ai.clima.jackagt.events.EUpdateBel;
-import rmit.ai.clima.iface.TellClimaServer;
-import rmit.ai.clima.jackagt.events.MEGameEnd;
-import rmit.ai.clima.jackagt.events.MESimEnd;
-import rmit.ai.clima.jackagt.events.EStart;
+import rmit.ai.clima.jackagt.data.BNumCarryingGold;
+import rmit.ai.clima.jackagt.events.MEReportPlayerPercept;
 import rmit.ai.clima.jackagt.events.MESimStart;
 import rmit.ai.clima.jackagt.events.MEInformAgentStatus;
-import rmit.ai.clima.jackagt.events.MEReportPlayerPercept;
+import rmit.ai.clima.jackagt.events.MESimEnd;
+import rmit.ai.clima.jackagt.events.EStart;
+import rmit.ai.clima.jackagt.events.MEGameEnd;
 import rmit.ai.clima.jackagt.events.ECellChange;
-import rmit.ai.clima.jackagt.events.MEPlayerAction;
+import rmit.ai.clima.iface.TellClimaServer;
 import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
+import rmit.ai.clima.jackagt.events.MEPlayerAction;
+import rmit.ai.clima.jackagt.events.MEInformCellStatus;
+import rmit.ai.clima.jackagt.events.EUpdateBel;
 import rmit.ai.clima.iface.PerceiveClimaServer;
 import rmit.ai.clima.iface.ClimaTalking;
-import rmit.ai.clima.jackagt.capabilities.GamePlaying;
 import rmit.ai.clima.jackagt.capabilities.GameSyncing;
+import rmit.ai.clima.jackagt.capabilities.GamePlaying;
 import rmit.ai.clima.jackagt.data.CurrentStatus;
 import rmit.ai.clima.utility.AgentUtils;
 import java.lang.Object;
 
 public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.interfaces.DebugInterface {
-    public rmit.ai.clima.jackagt.data.BNumCarryingGold bel_numCarryingGold_dat;
-    public rmit.ai.clima.jackagt.data.CurrentRequestActionId bel_currentRequestActionId_dat;
+    public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
     public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
+    public rmit.ai.clima.jackagt.data.CurrentRequestActionId bel_currentRequestActionId_dat;
     public rmit.ai.clima.jackagt.data.BCurrentPosition bel_currentPosition_dat;
-    public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
+    public rmit.ai.clima.jackagt.data.BNumCarryingGold bel_numCarryingGold_dat;
     public rmit.ai.clima.iface.ClimaTalking climatalking_cap;
-    public rmit.ai.clima.jackagt.capabilities.GamePlaying gameplaying_cap;
     public rmit.ai.clima.jackagt.capabilities.GameSyncing gamesyncing_cap;
+    public rmit.ai.clima.jackagt.capabilities.GamePlaying gameplaying_cap;
     public rmit.ai.clima.jackagt.data.CurrentStatus bel_currentStatus_dat;
-    private rmit.ai.clima.jackagt.events.MEInformCellStatus meinformcellstatus_s;
-    private rmit.ai.clima.iface.TellClimaServer tellclimaserver_p;
-    private rmit.ai.clima.jackagt.events.MEGameEnd megameend_s;
-    private rmit.ai.clima.jackagt.events.MESimEnd mesimend_s;
-    private rmit.ai.clima.jackagt.events.EStart estart_p;
+    private rmit.ai.clima.jackagt.events.MEReportPlayerPercept mereportplayerpercept_s;
     private rmit.ai.clima.jackagt.events.MESimStart mesimstart_s;
     private rmit.ai.clima.jackagt.events.MEInformAgentStatus meinformagentstatus_p;
-    private rmit.ai.clima.jackagt.events.MEReportPlayerPercept mereportplayerpercept_s;
+    private rmit.ai.clima.jackagt.events.MESimEnd mesimend_s;
+    private rmit.ai.clima.jackagt.events.EStart estart_p;
+    private rmit.ai.clima.jackagt.events.MEGameEnd megameend_s;
     private rmit.ai.clima.jackagt.events.ECellChange ecellchange_p;
+    private rmit.ai.clima.iface.TellClimaServer tellclimaserver_p;
     private rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
+    private rmit.ai.clima.jackagt.events.MEInformCellStatus meinformcellstatus_s;
     private rmit.ai.clima.iface.PerceiveClimaServer perceiveclimaserver_p;
     /* Constructor */
 
@@ -115,17 +115,10 @@ public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.in
     public void __init1()
     {
         super.__init1();
-        setNamedCreator("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold",new aos.jack.jak.agent.DataCreator(true){
+        setNamedCreator("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",new aos.jack.jak.agent.DataCreator(true){
             public java.lang.Object create()
             {
-                return __named_data_bel_numCarryingGold_dat();
-            }
-            
-        },true);
-        setNamedCreator("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",new aos.jack.jak.agent.DataCreator(true){
-            public java.lang.Object create()
-            {
-                return __named_data_bel_currentRequestActionId_dat();
+                return __named_data_bel_obstacleAt_dat();
             }
             
         },true);
@@ -143,6 +136,13 @@ public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.in
             }
             
         },true);
+        setNamedCreator("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",new aos.jack.jak.agent.DataCreator(true){
+            public java.lang.Object create()
+            {
+                return __named_data_bel_currentRequestActionId_dat();
+            }
+            
+        },true);
         setNamedCreator("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.BCurrentPosition",new aos.jack.jak.agent.DataCreator(true){
             public java.lang.Object create()
             {
@@ -150,10 +150,10 @@ public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.in
             }
             
         },true);
-        setNamedCreator("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",new aos.jack.jak.agent.DataCreator(true){
+        setNamedCreator("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold",new aos.jack.jak.agent.DataCreator(true){
             public java.lang.Object create()
             {
-                return __named_data_bel_obstacleAt_dat();
+                return __named_data_bel_numCarryingGold_dat();
             }
             
         },true);
@@ -162,16 +162,16 @@ public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.in
             climatalking_cap.__initCapability(this,"climatalking_cap");
         }
         climatalking_cap.__init1();
-        if (gameplaying_cap == null) {
-            gameplaying_cap = new rmit.ai.clima.jackagt.capabilities.GamePlaying(this);
-            gameplaying_cap.__initCapability(this,"gameplaying_cap");
-        }
-        gameplaying_cap.__init1();
         if (gamesyncing_cap == null) {
             gamesyncing_cap = new rmit.ai.clima.jackagt.capabilities.GameSyncing(this);
             gamesyncing_cap.__initCapability(this,"gamesyncing_cap");
         }
         gamesyncing_cap.__init1();
+        if (gameplaying_cap == null) {
+            gameplaying_cap = new rmit.ai.clima.jackagt.capabilities.GamePlaying(this);
+            gameplaying_cap.__initCapability(this,"gameplaying_cap");
+        }
+        gameplaying_cap.__init1();
         setNamedCreator("bel_currentStatus_dat","rmit.ai.clima.jackagt.data.CurrentStatus",new aos.jack.jak.agent.DataCreator(true){
             public java.lang.Object create()
             {
@@ -184,62 +184,62 @@ public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.in
     public void __init2()
     {
         super.__init2();
-        getNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold");
-        getNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId");
+        getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt");
         getNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt");
         getNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp");
+        getNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId");
         getNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.BCurrentPosition");
-        getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt");
-        meinformcellstatus_s = (rmit.ai.clima.jackagt.events.MEInformCellStatus) findEvent("rmit.ai.clima.jackagt.events.MEInformCellStatus");
-        tellclimaserver_p = (rmit.ai.clima.iface.TellClimaServer) findEvent("rmit.ai.clima.iface.TellClimaServer");
-        megameend_s = (rmit.ai.clima.jackagt.events.MEGameEnd) findEvent("rmit.ai.clima.jackagt.events.MEGameEnd");
-        mesimend_s = (rmit.ai.clima.jackagt.events.MESimEnd) findEvent("rmit.ai.clima.jackagt.events.MESimEnd");
-        estart_p = (rmit.ai.clima.jackagt.events.EStart) findEvent("rmit.ai.clima.jackagt.events.EStart");
+        getNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold");
+        mereportplayerpercept_s = (rmit.ai.clima.jackagt.events.MEReportPlayerPercept) findEvent("rmit.ai.clima.jackagt.events.MEReportPlayerPercept");
         mesimstart_s = (rmit.ai.clima.jackagt.events.MESimStart) findEvent("rmit.ai.clima.jackagt.events.MESimStart");
         meinformagentstatus_p = (rmit.ai.clima.jackagt.events.MEInformAgentStatus) findEvent("rmit.ai.clima.jackagt.events.MEInformAgentStatus");
-        mereportplayerpercept_s = (rmit.ai.clima.jackagt.events.MEReportPlayerPercept) findEvent("rmit.ai.clima.jackagt.events.MEReportPlayerPercept");
+        mesimend_s = (rmit.ai.clima.jackagt.events.MESimEnd) findEvent("rmit.ai.clima.jackagt.events.MESimEnd");
+        estart_p = (rmit.ai.clima.jackagt.events.EStart) findEvent("rmit.ai.clima.jackagt.events.EStart");
+        megameend_s = (rmit.ai.clima.jackagt.events.MEGameEnd) findEvent("rmit.ai.clima.jackagt.events.MEGameEnd");
         ecellchange_p = (rmit.ai.clima.jackagt.events.ECellChange) findEvent("rmit.ai.clima.jackagt.events.ECellChange");
+        tellclimaserver_p = (rmit.ai.clima.iface.TellClimaServer) findEvent("rmit.ai.clima.iface.TellClimaServer");
         eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
+        meinformcellstatus_s = (rmit.ai.clima.jackagt.events.MEInformCellStatus) findEvent("rmit.ai.clima.jackagt.events.MEInformCellStatus");
         perceiveclimaserver_p = (rmit.ai.clima.iface.PerceiveClimaServer) findEvent("rmit.ai.clima.iface.PerceiveClimaServer");
         climatalking_cap.__init2();
-        gameplaying_cap.__init2();
         gamesyncing_cap.__init2();
+        gameplaying_cap.__init2();
         getNamedObject("bel_currentStatus_dat","rmit.ai.clima.jackagt.data.CurrentStatus");
     }
     
     synchronized private void __init_desc()
     {
-        addNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold",aos.jack.jak.agent.Agent.WRITEABLE);
-        addNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",aos.jack.jak.agent.Agent.WRITEABLE);
+        addNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",aos.jack.jak.agent.Agent.WRITEABLE);
         addNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",aos.jack.jak.agent.Agent.WRITEABLE);
         addNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",aos.jack.jak.agent.Agent.WRITEABLE);
+        addNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",aos.jack.jak.agent.Agent.WRITEABLE);
         addNamedObject("bel_currentPosition_dat","rmit.ai.clima.jackagt.data.BCurrentPosition",aos.jack.jak.agent.Agent.WRITEABLE);
-        addNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",aos.jack.jak.agent.Agent.WRITEABLE);
+        addNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold",aos.jack.jak.agent.Agent.WRITEABLE);
         climatalking_cap = new rmit.ai.clima.iface.ClimaTalking(this);
         climatalking_cap.__initCapability(this,"climatalking_cap");
         climatalking_cap.init_desc();
-        gameplaying_cap = new rmit.ai.clima.jackagt.capabilities.GamePlaying(this);
-        gameplaying_cap.__initCapability(this,"gameplaying_cap");
-        gameplaying_cap.init_desc();
         gamesyncing_cap = new rmit.ai.clima.jackagt.capabilities.GameSyncing(this);
         gamesyncing_cap.__initCapability(this,"gamesyncing_cap");
         gamesyncing_cap.init_desc();
+        gameplaying_cap = new rmit.ai.clima.jackagt.capabilities.GamePlaying(this);
+        gameplaying_cap.__initCapability(this,"gameplaying_cap");
+        gameplaying_cap.init_desc();
         addNamedObject("bel_currentStatus_dat","rmit.ai.clima.jackagt.data.CurrentStatus",aos.jack.jak.agent.Agent.WRITEABLE);
-        addEvent("rmit.ai.clima.jackagt.events.MEInformCellStatus",aos.jack.jak.agent.Agent.SENT_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.EUpdateBel",aos.jack.jak.agent.Agent.HANDLED_EVENT);
-        addEvent("rmit.ai.clima.iface.TellClimaServer",aos.jack.jak.agent.Agent.HANDLED_EVENT);
-        addEvent("rmit.ai.clima.iface.TellClimaServer",aos.jack.jak.agent.Agent.POSTED_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.MEGameEnd",aos.jack.jak.agent.Agent.SENT_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MEReportPlayerPercept",aos.jack.jak.agent.Agent.SENT_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MESimStart",aos.jack.jak.agent.Agent.SENT_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MEInformAgentStatus",aos.jack.jak.agent.Agent.POSTED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.MESimEnd",aos.jack.jak.agent.Agent.SENT_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.EStart",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.EStart",aos.jack.jak.agent.Agent.POSTED_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.MESimStart",aos.jack.jak.agent.Agent.SENT_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.MEInformAgentStatus",aos.jack.jak.agent.Agent.POSTED_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.MEReportPlayerPercept",aos.jack.jak.agent.Agent.SENT_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MEGameEnd",aos.jack.jak.agent.Agent.SENT_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.ECellChange",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.ECellChange",aos.jack.jak.agent.Agent.POSTED_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.MEPlayerAction",aos.jack.jak.agent.Agent.HANDLED_EVENT);
+        addEvent("rmit.ai.clima.iface.TellClimaServer",aos.jack.jak.agent.Agent.HANDLED_EVENT);
+        addEvent("rmit.ai.clima.iface.TellClimaServer",aos.jack.jak.agent.Agent.POSTED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage",aos.jack.jak.agent.Agent.SENT_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MEPlayerAction",aos.jack.jak.agent.Agent.HANDLED_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MEInformCellStatus",aos.jack.jak.agent.Agent.SENT_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.EUpdateBel",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.iface.PerceiveClimaServer",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.iface.PerceiveClimaServer",aos.jack.jak.agent.Agent.POSTED_EVENT);
     }
@@ -255,30 +255,19 @@ public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.in
     {
         super.__bindNames();
         climatalking_cap.__bindNames();
-        gameplaying_cap.__bindNames();
         gamesyncing_cap.__bindNames();
+        gameplaying_cap.__bindNames();
     }
     
-    private rmit.ai.clima.jackagt.data.BNumCarryingGold __named_data_bel_numCarryingGold_dat()
+    private rmit.ai.clima.jackagt.data.BObstacleAt __named_data_bel_obstacleAt_dat()
     {
-        if (bel_numCarryingGold_dat != null) 
-            return bel_numCarryingGold_dat;
-        bel_numCarryingGold_dat = new rmit.ai.clima.jackagt.data.BNumCarryingGold();
-        if (!bel_numCarryingGold_dat.attach(this)) 
-            bel_numCarryingGold_dat = null;
-        setNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold",bel_numCarryingGold_dat);
-        return bel_numCarryingGold_dat;
-    }
-    
-    private rmit.ai.clima.jackagt.data.CurrentRequestActionId __named_data_bel_currentRequestActionId_dat()
-    {
-        if (bel_currentRequestActionId_dat != null) 
-            return bel_currentRequestActionId_dat;
-        bel_currentRequestActionId_dat = new rmit.ai.clima.jackagt.data.CurrentRequestActionId();
-        if (!bel_currentRequestActionId_dat.attach(this)) 
-            bel_currentRequestActionId_dat = null;
-        setNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",bel_currentRequestActionId_dat);
-        return bel_currentRequestActionId_dat;
+        if (bel_obstacleAt_dat != null) 
+            return bel_obstacleAt_dat;
+        bel_obstacleAt_dat = new rmit.ai.clima.jackagt.data.BObstacleAt();
+        if (!bel_obstacleAt_dat.attach(this)) 
+            bel_obstacleAt_dat = null;
+        setNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",bel_obstacleAt_dat);
+        return bel_obstacleAt_dat;
     }
     
     private rmit.ai.clima.jackagt.data.BGoldAt __named_data_bel_goldAt_dat()
@@ -303,6 +292,17 @@ public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.in
         return bel_simulationProp_dat;
     }
     
+    private rmit.ai.clima.jackagt.data.CurrentRequestActionId __named_data_bel_currentRequestActionId_dat()
+    {
+        if (bel_currentRequestActionId_dat != null) 
+            return bel_currentRequestActionId_dat;
+        bel_currentRequestActionId_dat = new rmit.ai.clima.jackagt.data.CurrentRequestActionId();
+        if (!bel_currentRequestActionId_dat.attach(this)) 
+            bel_currentRequestActionId_dat = null;
+        setNamedObject("bel_currentRequestActionId_dat","rmit.ai.clima.jackagt.data.CurrentRequestActionId",bel_currentRequestActionId_dat);
+        return bel_currentRequestActionId_dat;
+    }
+    
     private rmit.ai.clima.jackagt.data.BCurrentPosition __named_data_bel_currentPosition_dat()
     {
         if (bel_currentPosition_dat != null) 
@@ -314,23 +314,23 @@ public class Player extends aos.jack.jak.agent.Agent implements rmit.ai.clima.in
         return bel_currentPosition_dat;
     }
     
-    private rmit.ai.clima.jackagt.data.BObstacleAt __named_data_bel_obstacleAt_dat()
+    private rmit.ai.clima.jackagt.data.BNumCarryingGold __named_data_bel_numCarryingGold_dat()
     {
-        if (bel_obstacleAt_dat != null) 
-            return bel_obstacleAt_dat;
-        bel_obstacleAt_dat = new rmit.ai.clima.jackagt.data.BObstacleAt();
-        if (!bel_obstacleAt_dat.attach(this)) 
-            bel_obstacleAt_dat = null;
-        setNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",bel_obstacleAt_dat);
-        return bel_obstacleAt_dat;
+        if (bel_numCarryingGold_dat != null) 
+            return bel_numCarryingGold_dat;
+        bel_numCarryingGold_dat = new rmit.ai.clima.jackagt.data.BNumCarryingGold();
+        if (!bel_numCarryingGold_dat.attach(this)) 
+            bel_numCarryingGold_dat = null;
+        setNamedObject("bel_numCarryingGold_dat","rmit.ai.clima.jackagt.data.BNumCarryingGold",bel_numCarryingGold_dat);
+        return bel_numCarryingGold_dat;
     }
     
     public void setEnabled(boolean t)
     {
         super.setEnabled(t);
         climatalking_cap.setEnabled(t);
-        gameplaying_cap.setEnabled(t);
         gamesyncing_cap.setEnabled(t);
+        gameplaying_cap.setEnabled(t);
     }
     
     private rmit.ai.clima.jackagt.data.CurrentStatus __named_data_bel_currentStatus_dat()

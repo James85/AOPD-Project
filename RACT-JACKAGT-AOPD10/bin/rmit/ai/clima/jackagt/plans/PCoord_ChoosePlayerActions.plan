@@ -8,41 +8,41 @@ public plan PCoord_ChoosePlayerActions extends Plan
 {
    /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-   /*
+/*
 Plan Name: PCoord_ChoosePlayerActions
-    */
-   //Events handled by the plan are declared here.
-   #posts event EFindPath efindpath_p;
+*/
+	//Events handled by the plan are declared here.
+	#posts event EIdentifyTarget eidentifytarget_p;
 
-   #posts event EIdentifyTarget eidentifytarget_p;
+	#posts event EFindPath efindpath_p;
 
-   #sends event MEPlayerAction meplayeraction_s;
+	#posts event EFindClosestGold efindclosestgold_p;
 
-   #posts event EFindClosestGold efindclosestgold_p;
+	#sends event MEPlayerAction meplayeraction_s;
 
-   #handles event EChoosePlayerActions echooseplayeractions_h;
+	#handles event EChoosePlayerActions echooseplayeractions_h;
 
 
-   // Declarations of any beliefset/data that the plan accesses.
-   #modifies data BPlayerPosition bel_playerTarget_dat;
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BPlayerPosition bel_playerTarget_dat;
 
-   #reads data BObstacleAt bel_obstacleAt_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
 
-   #reads data SimulationProp bel_simulationProp_dat;
+	#reads data BPlayerGold bel_playerGold_dat;
 
-   #reads data BPlayer bel_players_dat;
+	#reads data BObstacleAt bel_obstacleAt_dat;
 
-   #reads data BPlayerGold bel_playerGold_dat;
+	#reads data BMoveHint bel_moveHint_dat;
 
-   #reads data BPlayerClosestGold bel_playerClosestGold_dat;
+	#reads data BGoldAt bel_goldAt_dat;
 
-   #reads data BPlayerPosition bel_playerPositions_dat;
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
-   #reads data BMoveHint bel_moveHint_dat;
+	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
 
-   #reads data BGoldAt bel_goldAt_dat;
+	#reads data BPlayer bel_players_dat;
 
-   /******** End PDT Design Block *** DO NOT EDIT IT *********/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
 
    static boolean relevant(EChoosePlayerActions e)
    {
@@ -94,7 +94,7 @@ Plan Name: PCoord_ChoosePlayerActions
          {
             //Find path to current target
             System.out.println($playerName.as_string() + " has target "+ $targetX.as_int() + ", " + $targetY.as_int());
-            @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
+            @subtask(efindpath_p.post( $playerName.as_string(), $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
             c_target = bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int(), $targetMove );
 
             //Remove this target if unreachable
@@ -133,9 +133,9 @@ Plan Name: PCoord_ChoosePlayerActions
          }
 
          // return to depot if we have our max carrying gold
-         if($numGold.as_int() >= 1)
+         if($numGold.as_int() >= 2)
          {
-            @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $depotX.as_int(), $depotY.as_int() ));
+            @subtask(efindpath_p.post( $playerName.as_string(), $x.as_int(), $y.as_int(), $depotX.as_int(), $depotY.as_int() ));
             logical String $move;
 
             if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $depotX.as_int(), $depotY.as_int(), $move ))
@@ -161,7 +161,7 @@ Plan Name: PCoord_ChoosePlayerActions
          {
             System.out.println($playerName.as_string() + ": my closest gold is ( " + $goldX.as_int() + ", " + $goldY.as_int() + ")");
             //Find path to that gold
-            @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int() ));
+            @subtask(efindpath_p.post( $playerName.as_string(), $x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int() ));
             //Move to path hinted direction
             logical String $move;
 
@@ -176,28 +176,22 @@ Plan Name: PCoord_ChoosePlayerActions
          //Check if target dropped
          if (!haveTarget)
          {
-            //Try to find a new target
-            while(true)
+            //Choose a random unexplored point to move
+            logical int $tX, $tY;
+            @subtask(eidentifytarget_p.post($playerName.as_string() ));
+            bel_playerTarget_dat.getByName($playerName.as_string(), $tX, $tY);
+            if (!bel_playerTarget_dat.getByName($playerName.as_string(), $tX, $tY)) {
+               System.out.println( "FAILED TO FIND UNEXPLORED" );
+               break;
+            }
+
+            //Check direction of new target
+            logical String $tMove;
+            if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
             {
-               //choose a random unexplored point to move to and store it in a new beliefset
-               logical int $tX, $tY;
-               @subtask(eidentifytarget_p.post($playerName.as_string() ));
-               bel_playerTarget_dat.getByName($playerName.as_string(), $tX, $tY);
-               //if (!bel_playerTarget_dat.getByName($playerName.as_string(), $tX, $tY)) {
-               //   System.out.println( "FAILED TO FIND UNEXPLORED" );
-               //   break;
-               //}
-
-               System.out.println( "I AM EXPLORING " + $tX.as_int() + ", " + $tY.as_int() );
-               @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int() ));
-
-               //Check if target reachable and find direction to move
-               logical String $tMove;
-               if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
-               {
-                  @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
-                  break;
-               }
+               //Move towards the new target
+               @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
+               break;
             }
          }
          else

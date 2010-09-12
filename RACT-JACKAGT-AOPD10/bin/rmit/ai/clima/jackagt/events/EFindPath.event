@@ -10,14 +10,17 @@ public event EFindPath extends BDIGoalEvent
 */
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
    
+   public String playerName;
    public int srcX;
    public int srcY;
    public int dstX;
    public int dstY;
    
 	/*Posting Method Declarations*/
-	#posted as post( int srcX, int srcY, int dstX, int dstY )
+	#posted as post( String playerName, int srcX, int srcY, int dstX, int dstY )
 	{
+	   this.playerName = playerName;
+	   
 		this.srcX = srcX;
 		this.srcY = srcY;
 		

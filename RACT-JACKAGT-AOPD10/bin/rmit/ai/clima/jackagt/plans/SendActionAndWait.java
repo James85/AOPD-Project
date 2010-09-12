@@ -13,8 +13,8 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
-import rmit.ai.clima.iface.TellClimaServer;
 import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
+import rmit.ai.clima.iface.TellClimaServer;
 import rmit.ai.clima.jackagt.events.EExecuteCLIMAaction;
 import rmit.ai.clima.jackagt.data.CurrentRequestActionId;
 import rmit.ai.clima.interfaces.DebugInterface;
@@ -26,8 +26,8 @@ import rmit.ai.clima.comms.Action;
 
 public class SendActionAndWait extends aos.jack.jak.plan.Plan {
     final static java.lang.String ID = "SEND_ACT";
-    public rmit.ai.clima.iface.TellClimaServer tellclimaserver_p;
     public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
+    public rmit.ai.clima.iface.TellClimaServer tellclimaserver_p;
     public rmit.ai.clima.jackagt.events.EExecuteCLIMAaction eexecuteclimaaction_h;
     public rmit.ai.clima.jackagt.data.CurrentRequestActionId bel_currentRequestActionId_dat;
     public rmit.ai.clima.interfaces.DebugInterface debugIface;
@@ -43,15 +43,15 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
             "49"};
     private final static java.lang.String[] __planVariableNames = {
             "ID",
-            "tellclimaserver_p",
             "eguidebugmessage_s",
+            "tellclimaserver_p",
             "eexecuteclimaaction_h",
             "bel_currentRequestActionId_dat",
             "debugIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "String",
-            "TellClimaServer",
             "EGUIDebugMessage",
+            "TellClimaServer",
             "EExecuteCLIMAaction",
             "rmit.ai.clima.jackagt.data.CurrentRequestActionId",
             "DebugInterface"};
@@ -80,8 +80,8 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        tellclimaserver_p = __env.tellclimaserver_p;
         eguidebugmessage_s = __env.eguidebugmessage_s;
+        tellclimaserver_p = __env.tellclimaserver_p;
         eexecuteclimaaction_h = __env.eexecuteclimaaction_h;
         bel_currentRequestActionId_dat = __env.bel_currentRequestActionId_dat;
         debugIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
@@ -89,14 +89,14 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        tellclimaserver_p = (rmit.ai.clima.iface.TellClimaServer) __a.findEvent("rmit.ai.clima.iface.TellClimaServer");
-        if (tellclimaserver_p == null) {
-            warning("Failed to find TellClimaServer tellclimaserver_p");
-            return false;
-        }
         eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) __a.findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
         if (eguidebugmessage_s == null) {
             warning("Failed to find EGUIDebugMessage eguidebugmessage_s");
+            return false;
+        }
+        tellclimaserver_p = (rmit.ai.clima.iface.TellClimaServer) __a.findEvent("rmit.ai.clima.iface.TellClimaServer");
+        if (tellclimaserver_p == null) {
+            warning("Failed to find TellClimaServer tellclimaserver_p");
             return false;
         }
         eexecuteclimaaction_h = (rmit.ai.clima.jackagt.events.EExecuteCLIMAaction) __a.findEvent("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction");
@@ -210,11 +210,11 @@ public class SendActionAndWait extends aos.jack.jak.plan.Plan {
             }
             case 1: 
             {
-                return aos.util.ToObject.box(tellclimaserver_p);
+                return aos.util.ToObject.box(eguidebugmessage_s);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(eguidebugmessage_s);
+                return aos.util.ToObject.box(tellclimaserver_p);
             }
             case 3: 
             {

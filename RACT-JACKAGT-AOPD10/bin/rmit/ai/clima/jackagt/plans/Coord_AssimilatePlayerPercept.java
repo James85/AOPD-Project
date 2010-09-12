@@ -14,12 +14,12 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
-import rmit.ai.clima.jackagt.events.EUpdateBel;
 import rmit.ai.clima.jackagt.events.EChoosePlayerActions;
+import rmit.ai.clima.jackagt.events.EUpdateBel;
 import rmit.ai.clima.jackagt.events.MEReportPlayerPercept;
+import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.data.BPlayerGold;
 import rmit.ai.clima.jackagt.data.BPlayerPerceptReceived;
-import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.data.BPlayer;
 import rmit.ai.clima.interfaces.DebugInterface;
 import java.lang.Object;
@@ -27,12 +27,12 @@ import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
 
 public class Coord_AssimilatePlayerPercept extends aos.jack.jak.plan.Plan {
-    public rmit.ai.clima.jackagt.events.EUpdateBel eupdatebel_p;
     public rmit.ai.clima.jackagt.events.EChoosePlayerActions echooseplayeractions_p;
+    public rmit.ai.clima.jackagt.events.EUpdateBel eupdatebel_p;
     public rmit.ai.clima.jackagt.events.MEReportPlayerPercept mereportplayerpercept_h;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPerceptReceived bel_playerPerceptReceived_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
@@ -49,21 +49,21 @@ public class Coord_AssimilatePlayerPercept extends aos.jack.jak.plan.Plan {
             "58",
             "41"};
     private final static java.lang.String[] __planVariableNames = {
-            "eupdatebel_p",
             "echooseplayeractions_p",
+            "eupdatebel_p",
             "mereportplayerpercept_h",
+            "bel_playerPositions_dat",
             "bel_playerGold_dat",
             "bel_playerPerceptReceived_dat",
-            "bel_playerPositions_dat",
             "bel_players_dat",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
-            "rmit.ai.clima.jackagt.events.EUpdateBel",
             "EChoosePlayerActions",
+            "rmit.ai.clima.jackagt.events.EUpdateBel",
             "rmit.ai.clima.jackagt.events.MEReportPlayerPercept",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition",
             "rmit.ai.clima.jackagt.data.BPlayerGold",
             "rmit.ai.clima.jackagt.data.BPlayerPerceptReceived",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition",
             "rmit.ai.clima.jackagt.data.BPlayer",
             "DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
@@ -84,31 +84,36 @@ public class Coord_AssimilatePlayerPercept extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        eupdatebel_p = __env.eupdatebel_p;
         echooseplayeractions_p = __env.echooseplayeractions_p;
+        eupdatebel_p = __env.eupdatebel_p;
         mereportplayerpercept_h = __env.mereportplayerpercept_h;
+        bel_playerPositions_dat = __env.bel_playerPositions_dat;
         bel_playerGold_dat = __env.bel_playerGold_dat;
         bel_playerPerceptReceived_dat = __env.bel_playerPerceptReceived_dat;
-        bel_playerPositions_dat = __env.bel_playerPositions_dat;
         bel_players_dat = __env.bel_players_dat;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        eupdatebel_p = (rmit.ai.clima.jackagt.events.EUpdateBel) __a.findEvent("rmit.ai.clima.jackagt.events.EUpdateBel");
-        if (eupdatebel_p == null) {
-            warning("Failed to find EUpdateBel eupdatebel_p");
-            return false;
-        }
         echooseplayeractions_p = (rmit.ai.clima.jackagt.events.EChoosePlayerActions) __a.findEvent("rmit.ai.clima.jackagt.events.EChoosePlayerActions");
         if (echooseplayeractions_p == null) {
             warning("Failed to find EChoosePlayerActions echooseplayeractions_p");
             return false;
         }
+        eupdatebel_p = (rmit.ai.clima.jackagt.events.EUpdateBel) __a.findEvent("rmit.ai.clima.jackagt.events.EUpdateBel");
+        if (eupdatebel_p == null) {
+            warning("Failed to find EUpdateBel eupdatebel_p");
+            return false;
+        }
         mereportplayerpercept_h = (rmit.ai.clima.jackagt.events.MEReportPlayerPercept) __a.findEvent("rmit.ai.clima.jackagt.events.MEReportPlayerPercept");
         if (mereportplayerpercept_h == null) {
             warning("Failed to find MEReportPlayerPercept mereportplayerpercept_h");
+            return false;
+        }
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_playerPositions_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
             return false;
         }
         bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",aos.jack.jak.agent.Agent.WRITEABLE);
@@ -119,11 +124,6 @@ public class Coord_AssimilatePlayerPercept extends aos.jack.jak.plan.Plan {
         bel_playerPerceptReceived_dat = (rmit.ai.clima.jackagt.data.BPlayerPerceptReceived) lookupNamedObject("bel_playerPerceptReceived_dat","rmit.ai.clima.jackagt.data.BPlayerPerceptReceived",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_playerPerceptReceived_dat == null) {
             warning("Failed to find BPlayerPerceptReceived bel_playerPerceptReceived_dat");
-            return false;
-        }
-        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_playerPositions_dat == null) {
-            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
             return false;
         }
         bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",0);
@@ -228,11 +228,11 @@ public class Coord_AssimilatePlayerPercept extends aos.jack.jak.plan.Plan {
         switch (n) {
             case 0: 
             {
-                return aos.util.ToObject.box(eupdatebel_p);
+                return aos.util.ToObject.box(echooseplayeractions_p);
             }
             case 1: 
             {
-                return aos.util.ToObject.box(echooseplayeractions_p);
+                return aos.util.ToObject.box(eupdatebel_p);
             }
             case 2: 
             {
@@ -240,15 +240,15 @@ public class Coord_AssimilatePlayerPercept extends aos.jack.jak.plan.Plan {
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_playerGold_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_playerPerceptReceived_dat);
+                return aos.util.ToObject.box(bel_playerGold_dat);
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_playerPerceptReceived_dat);
             }
             case 6: 
             {

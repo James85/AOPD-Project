@@ -14,10 +14,12 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
+import rmit.ai.clima.jackagt.events.EFindPath;
 import rmit.ai.clima.jackagt.events.EIdentifyTarget;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
-import rmit.ai.clima.jackagt.data.SimulationProp;
+import rmit.ai.clima.jackagt.data.BMoveHint;
 import rmit.ai.clima.jackagt.data.BObstacleAt;
+import rmit.ai.clima.jackagt.data.SimulationProp;
 import java.util.Random;
 import java.lang.Object;
 import aos.jack.jak.cursor.Cursor;
@@ -25,58 +27,99 @@ import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
 
 public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
+    public rmit.ai.clima.jackagt.events.EFindPath efindpath_p;
     public rmit.ai.clima.jackagt.events.EIdentifyTarget eidentifytarget_h;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
-    public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
+    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
     public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
+    public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PIdentifyExploreTarget.plan",
             "body",
-            "34",
-            "35",
-            "37",
-            "38",
-            "39",
+            "41",
             "42",
-            "43",
             "45",
             "46",
+            "48",
             "49",
-            "52",
+            "49",
+            "50",
+            "49",
             "53",
             "54",
+            "55",
             "58",
-            "58",
-            "32"};
+            "59",
+            "60",
+            "61",
+            "64",
+            "65",
+            "67",
+            "68",
+            "71",
+            "74",
+            "75",
+            "76",
+            "79",
+            "80",
+            "81",
+            "82",
+            "86",
+            "87",
+            "88",
+            "92",
+            "92",
+            "38"};
     private final static java.lang.String[] __planVariableNames = {
+            "efindpath_p",
             "eidentifytarget_h",
             "bel_playerTarget_dat",
+            "bel_moveHint_dat",
+            "bel_obstacleAt_dat",
             "bel_simulationProp_dat",
-            "bel_obstacleAt_dat"};
+            "bel_playerPositions_dat"};
     private final static java.lang.String[] __planVariableTypes = {
+            "rmit.ai.clima.jackagt.events.EFindPath",
             "rmit.ai.clima.jackagt.events.EIdentifyTarget",
             "rmit.ai.clima.jackagt.data.BPlayerPosition",
+            "rmit.ai.clima.jackagt.data.BMoveHint",
+            "rmit.ai.clima.jackagt.data.BObstacleAt",
             "rmit.ai.clima.jackagt.data.SimulationProp",
-            "rmit.ai.clima.jackagt.data.BObstacleAt"};
+            "rmit.ai.clima.jackagt.data.BPlayerPosition"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __fsmVariableNames_body = {
             "$width",
             "$height",
+            "$playerX",
+            "$playerY",
+            "visited",
+            "i",
+            "targetFound",
+            "targetUnreachable",
             "rand",
             "r",
             "i",
             "x",
-            "y"};
+            "y",
+            "$move"};
     private final static java.lang.String[] __fsmTypes_body = {
             "logical int",
             "logical int",
+            "logical int",
+            "logical int",
+            "boolean[]",
+            "int",
+            "boolean",
+            "boolean",
             "Random",
             "int",
             "int",
             "int",
-            "int"};
+            "int",
+            "logical String"};
     private final static java.lang.String[] __fsmLocalNames_body = {
             "__local__21_0",
             "__local__21_1",
@@ -84,7 +127,14 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             "__local__21_3",
             "__local__21_4",
             "__local__21_5",
-            "__local__21_6"};
+            "__local__21_6",
+            "__local__21_7",
+            "__local__21_8",
+            "__local__21_9",
+            "__local__21_10",
+            "__local__21_11",
+            "__local__21_12",
+            "__local__21_13"};
     public PIdentifyExploreTarget()
     {
     }
@@ -95,14 +145,22 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
+        efindpath_p = __env.efindpath_p;
         eidentifytarget_h = __env.eidentifytarget_h;
         bel_playerTarget_dat = __env.bel_playerTarget_dat;
-        bel_simulationProp_dat = __env.bel_simulationProp_dat;
+        bel_moveHint_dat = __env.bel_moveHint_dat;
         bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
+        bel_simulationProp_dat = __env.bel_simulationProp_dat;
+        bel_playerPositions_dat = __env.bel_playerPositions_dat;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
+        efindpath_p = (rmit.ai.clima.jackagt.events.EFindPath) __a.findEvent("rmit.ai.clima.jackagt.events.EFindPath");
+        if (efindpath_p == null) {
+            warning("Failed to find EFindPath efindpath_p");
+            return false;
+        }
         eidentifytarget_h = (rmit.ai.clima.jackagt.events.EIdentifyTarget) __a.findEvent("rmit.ai.clima.jackagt.events.EIdentifyTarget");
         if (eidentifytarget_h == null) {
             warning("Failed to find EIdentifyTarget eidentifytarget_h");
@@ -113,14 +171,24 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerPosition bel_playerTarget_dat");
             return false;
         }
-        bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",0);
-        if (bel_simulationProp_dat == null) {
-            warning("Failed to find SimulationProp bel_simulationProp_dat");
+        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
+        if (bel_moveHint_dat == null) {
+            warning("Failed to find BMoveHint bel_moveHint_dat");
             return false;
         }
         bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",0);
         if (bel_obstacleAt_dat == null) {
             warning("Failed to find BObstacleAt bel_obstacleAt_dat");
+            return false;
+        }
+        bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",0);
+        if (bel_simulationProp_dat == null) {
+            warning("Failed to find SimulationProp bel_simulationProp_dat");
+            return false;
+        }
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
+        if (bel_playerPositions_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
             return false;
         }
         return true;
@@ -220,19 +288,31 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
         switch (n) {
             case 0: 
             {
-                return aos.util.ToObject.box(eidentifytarget_h);
+                return aos.util.ToObject.box(efindpath_p);
             }
             case 1: 
             {
-                return aos.util.ToObject.box(bel_playerTarget_dat);
+                return aos.util.ToObject.box(eidentifytarget_h);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_simulationProp_dat);
+                return aos.util.ToObject.box(bel_playerTarget_dat);
             }
             case 3: 
             {
+                return aos.util.ToObject.box(bel_moveHint_dat);
+            }
+            case 4: 
+            {
                 return aos.util.ToObject.box(bel_obstacleAt_dat);
+            }
+            case 5: 
+            {
+                return aos.util.ToObject.box(bel_simulationProp_dat);
+            }
+            case 6: 
+            {
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             default: 
             {
@@ -260,11 +340,18 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
         aos.jack.jak.logic.IntegerVariable __local__21_0;
         aos.jack.jak.logic.IntegerVariable __local__21_1;
-        java.util.Random __local__21_2;
-        int __local__21_3;
-        int __local__21_4;
+        aos.jack.jak.logic.IntegerVariable __local__21_2;
+        aos.jack.jak.logic.IntegerVariable __local__21_3;
+        boolean[] __local__21_4;
         int __local__21_5;
-        int __local__21_6;
+        boolean __local__21_6;
+        boolean __local__21_7;
+        java.util.Random __local__21_8;
+        int __local__21_9;
+        int __local__21_10;
+        int __local__21_11;
+        int __local__21_12;
+        aos.jack.jak.logic.StringVariable __local__21_13;
         private int __breakLevel = 0;
         public int run(int __status)
             throws java.lang.Throwable
@@ -293,7 +380,7 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PIdentifyExploreTarget.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (34)       logical int $width, $height;
+                        //* (41)       logical int $width, $height;
                         case 10: 
                         {
                             __breakLevel = 0;
@@ -302,7 +389,7 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             __state = 11;
                             break;
                         }
-                        //* (35)       bel_simulationProp_dat.getGridSize( $width, $height );
+                        //* (42)       bel_simulationProp_dat.getGridSize( $width, $height );
                         case 11: 
                         {
                             boolean __b;
@@ -321,109 +408,271 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                                 throw planfailed;
                             break;
                         }
-                        //* (37)       Random rand = new Random();
+                        //* (45)       logical int $playerX, $playerY;
                         case 12: 
                         {
-                            __local__21_2 = new java.util.Random();
+                            __local__21_2 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
+                            __local__21_3 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
                             __state = 13;
                             break;
                         }
-                        //* (38)       int r = rand.nextInt( $width.as_int() * $height.as_int() );
+                        //* (46)       bel_playerPositions_dat.getByName( eidentifytarget_h.playerName, $playerX, $playerY );
                         case 13: 
                         {
-                            __local__21_3 = __local__21_2.nextInt(__local__21_0.as_int() * __local__21_1.as_int());
-                            __state = 14;
+                            boolean __b;
+                            aos.jack.jak.cursor.Cursor __c = null;
+                            try {
+                                __c = genCursor(1);
+                                __b = __c.next();
+                            }
+                            finally {
+                                if (__c != null) 
+                                    __c.finished();
+                            }
+                            if (__b) 
+                                __state = 14;
+                             else 
+                                throw planfailed;
                             break;
                         }
-                        //* (39)       System.out.println("RANDOM NUMBER WAS: "+ r);
+                        //* (48)       boolean[] visited = new boolean[ $width.as_int() * $height.as_int() ];
                         case 14: 
                         {
+                            __local__21_4 = new boolean[__local__21_0.as_int() * __local__21_1.as_int()];
                             __state = 15;
-                            java.lang.System.out.println("RANDOM NUMBER WAS: " + __local__21_3);
                             break;
                         }
-                        //* (42)       int i = r+1;
+                        //* (49)       for (int i=0; i < $width.as_int() * $height.as_int(); ++i)
                         case 15: 
                         {
-                            __local__21_4 = __local__21_3 + 1;
+                            __local__21_5 = 0;
                             __state = 16;
                             break;
                         }
-                        //* (43)       while(i != r)
+                        //* (49)       for (int i=0; i < $width.as_int() * $height.as_int(); ++i)
                         case 16: 
                         {
-                            if (__local__21_4 != __local__21_3) 
+                            if (__local__21_5 < __local__21_0.as_int() * __local__21_1.as_int()) 
                                 __state = 17;
                              else 
-                                __state = 25;
+                                __state = 19;
                             break;
                         }
-                        //* (45)          int x = i % $width.as_int();
+                        //* (50)          visited[i] = false;
                         case 17: 
                         {
-                            __breakLevel = 4;
-                            __local__21_5 = __local__21_4 % __local__21_0.as_int();
+                            __breakLevel = 2;
                             __state = 18;
+                            __local__21_4[__local__21_5] = false;
                             break;
                         }
-                        //* (46)          int y = (i - x) / $width.as_int();
+                        //* (49)       for (int i=0; i < $width.as_int() * $height.as_int(); ++i)
                         case 18: 
                         {
-                            __local__21_6 = (__local__21_4 - __local__21_5) / __local__21_0.as_int();
-                            __state = 19;
+                            __state = 16;
+                            ++__local__21_5;
                             break;
                         }
-                        //* (49)          if(bel_obstacleAt_dat.checkUnknown(x,y))
+                        //* (53)       boolean targetFound = false;
                         case 19: 
                         {
-                            if (bel_obstacleAt_dat.checkUnknown(__local__21_5,__local__21_6)) 
-                                __state = 20;
-                             else 
-                                __state = 23;
+                            __local__21_6 = false;
+                            __state = 20;
                             break;
                         }
-                        //* (52)             System.out.println("I AM GOING TO EXPLORE " + x + ", " + y);
+                        //* (54)       boolean targetUnreachable = false;
                         case 20: 
+                        {
+                            __local__21_7 = false;
+                            __state = 21;
+                            break;
+                        }
+                        //* (55)       while(!targetFound && !targetUnreachable)
+                        case 21: 
+                        {
+                            if (!__local__21_6 && !__local__21_7) 
+                                __state = 22;
+                             else 
+                                __state = 43;
+                            break;
+                        }
+                        //* (58)          Random rand = new Random();
+                        case 22: 
+                        {
+                            __breakLevel = 4;
+                            __local__21_8 = new java.util.Random();
+                            __state = 23;
+                            break;
+                        }
+                        //* (59)          int r = rand.nextInt( $width.as_int() * $height.as_int() );
+                        case 23: 
+                        {
+                            __local__21_9 = __local__21_8.nextInt(__local__21_0.as_int() * __local__21_1.as_int());
+                            __state = 24;
+                            break;
+                        }
+                        //* (60)          System.out.println("RANDOM NUMBER WAS: "+ r);
+                        case 24: 
+                        {
+                            __state = 25;
+                            java.lang.System.out.println("RANDOM NUMBER WAS: " + __local__21_9);
+                            break;
+                        }
+                        //* (61)          targetUnreachable = false;
+                        case 25: 
+                        {
+                            __state = 26;
+                            __local__21_7 = false;
+                            break;
+                        }
+                        //* (64)          int i = r+1;
+                        case 26: 
+                        {
+                            __local__21_10 = __local__21_9 + 1;
+                            __state = 27;
+                            break;
+                        }
+                        //* (65)          while(i != r)
+                        case 27: 
+                        {
+                            if (__local__21_10 != __local__21_9) 
+                                __state = 28;
+                             else 
+                                __state = 21;
+                            break;
+                        }
+                        //* (67)             int x = i % $width.as_int();
+                        case 28: 
+                        {
+                            __breakLevel = 8;
+                            __local__21_11 = __local__21_10 % __local__21_0.as_int();
+                            __state = 29;
+                            break;
+                        }
+                        //* (68)             int y = (i - x) / $width.as_int();
+                        case 29: 
+                        {
+                            __local__21_12 = (__local__21_10 - __local__21_11) / __local__21_0.as_int();
+                            __state = 30;
+                            break;
+                        }
+                        //* (71)             if(bel_obstacleAt_dat.checkUnknown(x,y) && visited[i] == false)
+                        case 30: 
+                        {
+                            if (bel_obstacleAt_dat.checkUnknown(__local__21_11,__local__21_12) && __local__21_4[__local__21_10] == false) 
+                                __state = 31;
+                             else 
+                                __state = 41;
+                            break;
+                        }
+                        //* (74)                logical String $move;
+                        case 31: 
+                        {
+                            __breakLevel = 10;
+                            __local__21_13 = (aos.jack.jak.logic.StringVariable) __logic.new_variable(java.lang.String.class);
+                            __state = 32;
+                            break;
+                        }
+                        //* (75)                @subtask(efindpath_p.post( eidentifytarget_h.playerName, $playerX.as_int(), $playerY.as_int(), x, y ));
+                        case 32: 
+                        {
+                            __task.push(efindpath_p.post(eidentifytarget_h.playerName,__local__21_2.as_int(),__local__21_3.as_int(),__local__21_11,__local__21_12));
+                            __state = -__state;
+                            __subtask_pass = 33;
+                            __subtask_fail = 4;
+                            return SUBTASK;
+                        }
+                        //* (76)                if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), x, y, $move ))
+                        case 33: 
+                        {
+                            boolean __b;
+                            aos.jack.jak.cursor.Cursor __c = null;
+                            try {
+                                __c = genCursor(2);
+                                __b = __c.next();
+                            }
+                            finally {
+                                if (__c != null) 
+                                    __c.finished();
+                            }
+                            if (__b) 
+                                __state = 34;
+                             else 
+                                __state = 38;
+                            break;
+                        }
+                        //* (79)                   System.out.println("I AM GOING TO EXPLORE " + x + ", " + y);
+                        case 34: 
+                        {
+                            __breakLevel = 12;
+                            __state = 35;
+                            //Store the player target
+
+                            java.lang.System.out.println("I AM GOING TO EXPLORE " + __local__21_11 + ", " + __local__21_12);
+                            break;
+                        }
+                        //* (80)                   bel_playerTarget_dat.add( eidentifytarget_h.playerName, x, y);
+                        case 35: 
+                        {
+                            __state = 36;
+                            bel_playerTarget_dat.add(eidentifytarget_h.playerName,__local__21_11,__local__21_12);
+                            break;
+                        }
+                        //* (81)                   targetFound = true;
+                        case 36: 
+                        {
+                            __state = 37;
+                            __local__21_6 = true;
+                            break;
+                        }
+                        //* (82)                   break;
+                        case 37: 
                         {
                             __breakLevel = 6;
                             __state = 21;
-                            //Store the player target
+                            break;
+                        }
+                        //* (86)                visited[i] = true;
+                        case 38: 
+                        {
+                            __state = 39;
+                            //Mark as visited
 
-                            java.lang.System.out.println("I AM GOING TO EXPLORE " + __local__21_5 + ", " + __local__21_6);
+                            __local__21_4[__local__21_10] = true;
                             break;
                         }
-                        //* (53)             bel_playerTarget_dat.add( eidentifytarget_h.playerName, x, y);
-                        case 21: 
+                        //* (87)                targetUnreachable = true;
+                        case 39: 
                         {
-                            __state = 22;
-                            bel_playerTarget_dat.add(eidentifytarget_h.playerName,__local__21_5,__local__21_6);
+                            __state = 40;
+                            __local__21_7 = true;
                             break;
                         }
-                        //* (54)             break;
-                        case 22: 
+                        //* (88)                break;
+                        case 40: 
                         {
-                            __breakLevel = 2;
-                            __state = 25;
+                            __breakLevel = 6;
+                            __state = 21;
                             break;
                         }
-                        //* (58)          if (++i == $width.as_int() * $height.as_int() ) i = 0;
-                        case 23: 
+                        //* (92)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
+                        case 41: 
                         {
-                            if (++__local__21_4 == __local__21_0.as_int() * __local__21_1.as_int()) 
-                                __state = 24;
+                            if (++__local__21_10 == __local__21_0.as_int() * __local__21_1.as_int()) 
+                                __state = 42;
                              else 
-                                __state = 16;
+                                __state = 27;
                             break;
                         }
-                        //* (58)          if (++i == $width.as_int() * $height.as_int() ) i = 0;
-                        case 24: 
+                        //* (92)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
+                        case 42: 
                         {
-                            __state = 16;
-                            __local__21_4 = 0;
+                            __state = 27;
+                            __local__21_10 = 0;
                             break;
                         }
-                        //* (32)    body()
-                        case 25: 
+                        //* (38)    body()
+                        case 43: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;
@@ -476,6 +725,14 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                 case 0: 
                 {
                     return (bel_simulationProp_dat.getGridSize(__local__21_0,__local__21_1));
+                }
+                case 1: 
+                {
+                    return (bel_playerPositions_dat.getByName(eidentifytarget_h.playerName,__local__21_2,__local__21_3));
+                }
+                case 2: 
+                {
+                    return (bel_moveHint_dat.getByEndPoints(__local__21_2.as_int(),__local__21_3.as_int(),__local__21_11,__local__21_12,__local__21_13));
                 }
             }
             aos.jack.jak.core.Jak.error("illegal Cursor Construction");
@@ -550,6 +807,34 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                 case 6: 
                 {
                     return aos.util.ToObject.box(__local__21_6);
+                }
+                case 7: 
+                {
+                    return aos.util.ToObject.box(__local__21_7);
+                }
+                case 8: 
+                {
+                    return aos.util.ToObject.box(__local__21_8);
+                }
+                case 9: 
+                {
+                    return aos.util.ToObject.box(__local__21_9);
+                }
+                case 10: 
+                {
+                    return aos.util.ToObject.box(__local__21_10);
+                }
+                case 11: 
+                {
+                    return aos.util.ToObject.box(__local__21_11);
+                }
+                case 12: 
+                {
+                    return aos.util.ToObject.box(__local__21_12);
+                }
+                case 13: 
+                {
+                    return aos.util.ToObject.box(__local__21_13);
                 }
                 default: 
                 {

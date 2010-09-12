@@ -110,6 +110,29 @@ public class BPlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
         return __c;
     }
     
+    public aos.jack.jak.beliefset.BeliefSetCursor getByCoord(aos.jack.jak.logic.StringVariable __v0, int __v1, int __v2)
+        throws aos.jack.jak.beliefset.BeliefSetException
+    {
+        rmit.ai.clima.jackagt.data.BPlayerPosition__Tuple __t = new rmit.ai.clima.jackagt.data.BPlayerPosition__Tuple();
+        rmit.ai.clima.jackagt.data.BPlayerPosition.__Cursor __c = new rmit.ai.clima.jackagt.data.BPlayerPosition.__Cursor(__t);
+        if (!__v0.check_unifiable(StringType)) 
+            throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerPosition:getByCoord:OII: arg 0 agentName Incorrect Variable type");
+        if (__v0.isGround()) {
+            try {
+                __t.agentName = __v0.as_string();
+            }
+            catch (java.lang.Exception e) {
+                throw new aos.jack.jak.beliefset.BeliefSetException("BPlayerPosition:getByCoord:OII: got " + e.toString());
+            }
+        }
+         else 
+            __c.agentName = __v0;
+        __t.posX = __v1;
+        __t.posY = __v2;
+        __c.init(2,this);
+        return __c;
+    }
+    
     public boolean checkByName(java.lang.String name)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
@@ -129,12 +152,12 @@ public class BPlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
     
     public int fullIndex()
     {
-        return 0;
+        return 2;
     }
     
     public int nIndexes()
     {
-        return 2;
+        return 3;
     }
     
     public aos.jack.jak.beliefset.Tuple newTuple()

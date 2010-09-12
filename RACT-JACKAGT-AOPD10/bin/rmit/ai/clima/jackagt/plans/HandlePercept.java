@@ -16,9 +16,9 @@ import aos.jack.jak.core.Generator;
 import aos.jack.jak.cursor.Cursor;
 import aos.jack.jak.cursor.BinaryBoolOp;
 import aos.jack.jak.logic.Signature;
+import rmit.ai.clima.jackagt.events.EShowBeliefs;
 import rmit.ai.clima.jackagt.events.EUpdateBel;
 import rmit.ai.clima.jackagt.events.MEInformAgentStatus;
-import rmit.ai.clima.jackagt.events.EShowBeliefs;
 import rmit.ai.clima.jackagt.events.MEReportPlayerPercept;
 import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
 import rmit.ai.clima.iface.PerceiveClimaServer;
@@ -35,9 +35,9 @@ import aos.jack.jak.core.Jak;
 
 public class HandlePercept extends aos.jack.jak.plan.Plan {
     final static java.lang.String ID = "HAND_PERC";
+    public rmit.ai.clima.jackagt.events.EShowBeliefs eshowbeliefs_p;
     public rmit.ai.clima.jackagt.events.EUpdateBel eupdatebel_s;
     public rmit.ai.clima.jackagt.events.MEInformAgentStatus meinformagentstatus_p;
-    public rmit.ai.clima.jackagt.events.EShowBeliefs eshowbeliefs_p;
     public rmit.ai.clima.jackagt.events.MEReportPlayerPercept mereportplayerpercept_s;
     public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
     public rmit.ai.clima.iface.PerceiveClimaServer perceiveclimaserver_h;
@@ -79,9 +79,9 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
             "72"};
     private final static java.lang.String[] __planVariableNames = {
             "ID",
+            "eshowbeliefs_p",
             "eupdatebel_s",
             "meinformagentstatus_p",
-            "eshowbeliefs_p",
             "mereportplayerpercept_s",
             "eguidebugmessage_s",
             "perceiveclimaserver_h",
@@ -91,9 +91,9 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "String",
+            "EShowBeliefs",
             "rmit.ai.clima.jackagt.events.EUpdateBel",
             "MEInformAgentStatus",
-            "EShowBeliefs",
             "MEReportPlayerPercept",
             "EGUIDebugMessage",
             "rmit.ai.clima.iface.PerceiveClimaServer",
@@ -159,9 +159,9 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
+        eshowbeliefs_p = __env.eshowbeliefs_p;
         eupdatebel_s = __env.eupdatebel_s;
         meinformagentstatus_p = __env.meinformagentstatus_p;
-        eshowbeliefs_p = __env.eshowbeliefs_p;
         mereportplayerpercept_s = __env.mereportplayerpercept_s;
         eguidebugmessage_s = __env.eguidebugmessage_s;
         perceiveclimaserver_h = __env.perceiveclimaserver_h;
@@ -173,6 +173,11 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
+        eshowbeliefs_p = (rmit.ai.clima.jackagt.events.EShowBeliefs) __a.findEvent("rmit.ai.clima.jackagt.events.EShowBeliefs");
+        if (eshowbeliefs_p == null) {
+            warning("Failed to find EShowBeliefs eshowbeliefs_p");
+            return false;
+        }
         eupdatebel_s = (rmit.ai.clima.jackagt.events.EUpdateBel) __a.findEvent("rmit.ai.clima.jackagt.events.EUpdateBel");
         if (eupdatebel_s == null) {
             warning("Failed to find EUpdateBel eupdatebel_s");
@@ -181,11 +186,6 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
         meinformagentstatus_p = (rmit.ai.clima.jackagt.events.MEInformAgentStatus) __a.findEvent("rmit.ai.clima.jackagt.events.MEInformAgentStatus");
         if (meinformagentstatus_p == null) {
             warning("Failed to find MEInformAgentStatus meinformagentstatus_p");
-            return false;
-        }
-        eshowbeliefs_p = (rmit.ai.clima.jackagt.events.EShowBeliefs) __a.findEvent("rmit.ai.clima.jackagt.events.EShowBeliefs");
-        if (eshowbeliefs_p == null) {
-            warning("Failed to find EShowBeliefs eshowbeliefs_p");
             return false;
         }
         mereportplayerpercept_s = (rmit.ai.clima.jackagt.events.MEReportPlayerPercept) __a.findEvent("rmit.ai.clima.jackagt.events.MEReportPlayerPercept");
@@ -324,15 +324,15 @@ public class HandlePercept extends aos.jack.jak.plan.Plan {
             }
             case 1: 
             {
-                return aos.util.ToObject.box(eupdatebel_s);
+                return aos.util.ToObject.box(eshowbeliefs_p);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(meinformagentstatus_p);
+                return aos.util.ToObject.box(eupdatebel_s);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(eshowbeliefs_p);
+                return aos.util.ToObject.box(meinformagentstatus_p);
             }
             case 4: 
             {

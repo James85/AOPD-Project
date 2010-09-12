@@ -10,16 +10,19 @@ import aos.jack.jak.event.BDIGoalEvent;
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 public class EFindPath extends aos.jack.jak.event.BDIGoalEvent {
+    public java.lang.String playerName;
     public int srcX;
     public int srcY;
     public int dstX;
     public int dstY;
     private final static java.lang.String[] __eventVariableNames = {
+            "playerName",
             "srcX",
             "srcY",
             "dstX",
             "dstY"};
     private final static java.lang.String[] __eventVariableTypes = {
+            "String",
             "int",
             "int",
             "int",
@@ -29,15 +32,16 @@ public class EFindPath extends aos.jack.jak.event.BDIGoalEvent {
         return "/******** Start PDT Design Block *** DO NOT EDIT IT *********/\n";
     }
     
-    public rmit.ai.clima.jackagt.events.EFindPath post(int srcX, int srcY, int dstX, int dstY)
+    public rmit.ai.clima.jackagt.events.EFindPath post(java.lang.String playerName, int srcX, int srcY, int dstX, int dstY)
     {
         rmit.ai.clima.jackagt.events.EFindPath tmp = new rmit.ai.clima.jackagt.events.EFindPath();
         tmp.init(this);
-        return tmp.post_body(srcX,srcY,dstX,dstY);
+        return tmp.post_body(playerName,srcX,srcY,dstX,dstY);
     }
     
-    private rmit.ai.clima.jackagt.events.EFindPath post_body(int srcX, int srcY, int dstX, int dstY)
+    private rmit.ai.clima.jackagt.events.EFindPath post_body(java.lang.String playerName, int srcX, int srcY, int dstX, int dstY)
     {
+        this.playerName = playerName;
         this.srcX = srcX;
         this.srcY = srcY;
         this.dstX = dstX;
@@ -69,17 +73,21 @@ public class EFindPath extends aos.jack.jak.event.BDIGoalEvent {
         switch (n) {
             case 0: 
             {
-                return aos.util.ToObject.box(srcX);
+                return aos.util.ToObject.box(playerName);
             }
             case 1: 
             {
-                return aos.util.ToObject.box(srcY);
+                return aos.util.ToObject.box(srcX);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(dstX);
+                return aos.util.ToObject.box(srcY);
             }
             case 3: 
+            {
+                return aos.util.ToObject.box(dstX);
+            }
+            case 4: 
             {
                 return aos.util.ToObject.box(dstY);
             }
