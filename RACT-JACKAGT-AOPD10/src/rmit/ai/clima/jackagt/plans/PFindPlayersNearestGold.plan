@@ -1,0 +1,119 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.*;
+import java.util.*;
+
+public plan PFindPlayersNearestGold extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PFindPlayersNearestGold
+*/
+	//Events handled by the plan are declared here.
+	#handles event EFindClosestGold efindclosestgold_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BPlayerClosestGold bel_playerClosestGold_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BPlayer bel_players_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	context()
+	{
+		true;
+	}
+	
+	
+
+	body()
+	{
+	   
+	   Vector distances = new Vector();
+	   boolean[] playerAssigned = new boolean[ bel_playerPositions_dat.nFacts() ]; 
+	   Vector usedDistances = new Vector();
+	   
+	   logical String $name;
+	   
+	   Cursor c_player = bel_players_dat.get( $name );
+	   
+	   
+	   //Calculate the distance between all players with all known gold positions
+	   int playerId = 0;
+	   while( c_player.next()  )
+	   {
+	      
+	      logical int $playerX, $playerY;
+	      bel_playerPositions_dat.getByName( $name.as_string(), $playerX, $playerY );
+	      GridPoint playerPos = new GridPoint( $playerX.as_int(), $playerY.as_int() );
+	      
+	      logical int $goldX, $goldY;
+	      Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
+	      System.out.println("8========================D " + bel_goldAt_dat.nFacts());
+	      while ( c_gold.next() )
+	      {
+	         PlayerGold pg = new PlayerGold();
+	         pg.pos = new GridPoint( $goldX.as_int(), $goldY.as_int() );
+	         pg.playerId = playerId;
+	         pg.name = $name.as_string();
+	         pg.dist = pg.pos.getManhattanDist(playerPos);
+	         
+	         distances.add(pg);
+	         
+	      }
+	      playerAssigned[playerId] = false;
+	      playerId++;
+	   }
+	   
+
+	   Collections.sort(distances);
+	   
+	   
+	   for ( int i = 0; i < distances.size(); ++i )
+	   {
+	      
+	      boolean b_discard = false;
+	      PlayerGold pg = (PlayerGold)distances.get(i);
+	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
+	      {
+	         PlayerGold pg2 = (PlayerGold)usedDistances.get(j);
+	         if(pg.name == pg2.name || pg.pos.x == pg2.pos.x && pg.pos.y == pg2.pos.y)
+	            b_discard = true;
+	      }
+	      if(b_discard)
+	         continue;
+	     
+	      usedDistances.add(pg);
+	      bel_playerClosestGold_dat.add( pg.name, pg.pos.x, pg.pos.y );
+	      
+	   }
+	   
+	}
+	
+	class PlayerGold implements Comparable
+	{
+	   public int playerId;
+	   public String name;
+	   public GridPoint pos;
+	   public int dist;
+	   
+	   public boolean equals(Object obj)
+	   {
+	      PlayerGold pg = (PlayerGold) obj;
+	      return pg.dist == this.dist;
+	   }
+	   public int compareTo(Object obj)
+	   {
+	      PlayerGold pg = (PlayerGold) obj;
+	      return ( this.dist - pg.dist );
+	   }
+	
+	}
+}

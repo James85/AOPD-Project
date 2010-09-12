@@ -27,17 +27,12 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayer bel_players_dat(/*String name*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
 	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BMoveHint bel_moveHint_dat(/*int srcX, int srcY, int dstX, int dstY, String dir*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -47,54 +42,69 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
+	#private data BPlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayer bel_players_dat(/*String name*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerClosestGold bel_playerClosestGold_dat(/*String name, int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
 	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
+	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
 
 
 	//Events handled, posted and sent are declared here.
-	#handles event EChoosePlayerActions ;
-	#posts event EChoosePlayerActions echooseplayeractions_p;
+	#handles event MESimEnd ;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#handles event EFindClosestGold ;
+	#posts event EFindClosestGold efindclosestgold_p;
 
 	#sends event MEPlayerAction meplayeraction_s;
+
+	#handles event MESimStart ;
 
 	#handles event EUpdateBel ;
 	#posts event EUpdateBel eupdatebel_p;
 
-	#handles event MESimStart ;
+	#handles event EChoosePlayerActions ;
+	#posts event EChoosePlayerActions echooseplayeractions_p;
 
 	#handles event MEGameEnd ;
 
 	#handles event MEReportPlayerPercept ;
 
-	#handles event ECellStatusChanged ;
-	#posts event ECellStatusChanged ecellstatuschanged_p;
-
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
-	#handles event MESimEnd ;
-
 
 	//Plans directly used are declared here.
-	#uses plan UpdateCellsAround ;
-
 	#uses plan Coord_InitSimulation ;
 
-	#uses plan Coord_EndSimulation ;
+	#uses plan UpdateCellsAround ;
 
-	#uses plan Coord_ReportCellChanged ;
+	#uses plan PCoord_ChoosePlayerActions ;
+
+	#uses plan Coord_EndSimulation ;
 
 	#uses plan Coord_EndGame ;
 
 	#uses plan Coord_AssimilatePlayerPercept ;
 
-	#uses plan PCoord_ChoosePlayerActions ;
-
 
 	// Inner capabilities are declared here.
+	#has capability CPathFinding cpathfinding_cap;
+
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
    //other Data Member and Method definitions.

@@ -21,25 +21,25 @@ Description: This plan assimilates each percept information received from the ga
 
 */
 	//Events handled by the plan are declared here.
-	#sends event MEReportPlayerPercept mereportplayerpercept_s;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#posts event MEInformAgentStatus meinformagentstatus_p;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#sends event EUpdateBel eupdatebel_s;
+
+	#sends event MEReportPlayerPercept mereportplayerpercept_s;
 
 	#posts event EShowBeliefs eshowbeliefs_p;
-
-	#sends event EUpdateBel eupdatebel_s;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
 	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
 
 	#modifies data BCurrentPosition bel_currentPosition_dat;
-
-	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -84,7 +84,7 @@ Description: This plan assimilates each percept information received from the ga
       GridPoint currentPos = new GridPoint(posX, posY);
       Cell[] cells = reqAction.cells;	// the cells around
       // *************
-
+     
       // id is the package number in the whole simulation, 
       // whereas step contains the step number of the particular simulation
       // However, step starts with 0, instead of 1. So if a simulation has
@@ -142,14 +142,11 @@ Description: This plan assimilates each percept information received from the ga
       @send("gui", eguidebugmessage_s.reportMessage(ID, "Step: "+ id + " - Location: " + GridPoint.toString(currentPos) + " - Gold: " + items) );
 
 
-      // Also send this information to the coordinator agent
+      // Send a message to the coordinator agent so they can "reason"/"switch statement" about what the best action to send to clima is.
       @send( "boss", mereportplayerpercept_s.send( id, currentPos, cells, items, getAgent().name() ));
       
       // Next, report on the agent's current beliefs 
       @post( eshowbeliefs_p.show() );
-
-      // Finally, post an event to act next on the game server
-      //@post( eact_p.act() );
 
 
       // Update beliefset with the request action id from the incoming percept

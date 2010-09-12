@@ -26,7 +26,7 @@ PATH_JARS=$PATH_JAR_JACKAGT:$PATH_JAR_JACK:$PATH_JAR_CLIMACOMMS:$PATH_JAR_EXTRAS
 
 # This is the address of the CLIMA game server
 HOST=localhost
-PORT=1001
+PORT=12345
 
 # Team information login/password
 USER1=participant1
