@@ -18,16 +18,6 @@ Capability Name: CPathFinding
 	*/
 	#exports data BMoveHint bel_moveHint_dat(/*int srcX, int srcY, int endX, int endY, String move*/);
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayer bel_players_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
-
 	/*	Note that this data is external.
 	Maybe you want to modify the declaration as '#agent' manually.
 	*/
@@ -41,7 +31,17 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayer bel_players_dat();
 
 
 	//Events handled, posted and sent are declared here.
@@ -51,9 +51,9 @@ Capability Name: CPathFinding
 
 
 	//Plans directly used are declared here.
-	#uses plan PFindPath ;
-
 	#uses plan PFindPlayersNearestGold ;
+
+	#uses plan PFindPath ;
 
 
 	// Inner capabilities are declared here.

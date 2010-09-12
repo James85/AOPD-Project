@@ -11,27 +11,27 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
-	#posts event EFindClosestGold efindclosestgold_p;
-
 	#sends event MEPlayerAction meplayeraction_s;
 
 	#posts event EFindPath efindpath_p;
+
+	#posts event EFindClosestGold efindclosestgold_p;
 
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BMoveHint bel_moveHint_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
+
 	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
+
+	#reads data BPlayer bel_players_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
-
-	#reads data BPlayerGold bel_playerGold_dat;
-
-	#reads data BPlayer bel_players_dat;
-
-	#reads data BMoveHint bel_moveHint_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
