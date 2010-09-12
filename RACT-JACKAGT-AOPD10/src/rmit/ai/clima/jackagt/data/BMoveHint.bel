@@ -1,0 +1,39 @@
+package rmit.ai.clima.jackagt.data;
+import rmit.ai.clima.jackagt.events.*;
+
+public beliefset BMoveHint extends ClosedWorld /*or OpenWorld*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: BMoveHint
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+	/*	start x-pos
+	*/
+	#key field int srcX;
+
+	/*	start y-pos
+	*/
+	#key field int srcY;
+
+	/*	end x-pos
+	*/
+	#key field int endX;
+
+	/*	end y-pos
+	*/
+	#key field int endY;
+
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+	/*	the direction in which to move to get from start to end
+	*/
+	#value field String move;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
+}

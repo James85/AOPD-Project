@@ -1,0 +1,16 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event EFindPath extends BDIGoalEvent
+{
+/*
+ * Message Name: EFindPath
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	/*Posting Method Declarations*/
+	#posted as methodName(/*parameters*/)
+	{
+		//Method Body
+	}
+}

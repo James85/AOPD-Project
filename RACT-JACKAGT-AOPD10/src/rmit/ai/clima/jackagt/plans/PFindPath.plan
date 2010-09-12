@@ -10,142 +10,27 @@ public plan PFindPath extends Plan
 Plan Name: PFindPath
 */
 	//Events handled by the plan are declared here.
+	#handles event EFindPath efindpath_h;
+
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BMoveHint bel_moveHint_dat;
+
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 	context()
 	{
-		// Error: this plan doesn't have any trigger event.
+		// Trigger: Event "EFindPath"
+
 
 		true;
 	}
 
-	final static adjacentDir = { "left", "right", "up", "down" };
-	
 	body()
 	{
-	   int width = 51;
-	   int height = 51;
-	   GridPoint src;
-	   GridPoint dst;
-	   
-	   //Init entire grid
-	   PathNode[] grid = new PathNode[ width * height ];
-	   for (int x=0; x<width; ++x) {
-	      for (int y=0; y<height; ++y) {
-            
-	         int gridIndex = y * width + x;
-	         PathNode node = grid[ gridIndex ]; 
-	         node.pos.x = x;
-	         node.pos.y = y;
-	         
-            //Check if obstacle at this location
-            node.obstacle = bel_obstacleAt_dat.check( x, y ));
-	      }
-	   }
-	   
-	   //Init root node
-	   int rootIndex = src.y * width + src.x;
-	   PathNode root = grid[ rootIndex ];
-	   root.dir = "";
-	   
-	   Vector open = new Vector();
-	   open.add( root );
-	   
-	   boolean dstReached = false; 
-	   while (!open.isEmpty())
-	   {
-	      //Get next node with shortest path estimate
-	      PathNode cur = open.lastElement();
-	      open.remove( open.size() -1 );
-	      
-	      //Check if destination reached
-	      if (cur.x == dst.x && cur.y == dst.y) {
-	         dstReached = true;
-	         break;
-	      }
-	      
-	      //Loop through adjacent nodes
-   	   for (int a=0; a<adjacentDir.length; ++a)
-   	   {
-   	      //Get adjacent node
-   	      GridCoord adjPos = open.pos.getFromDir( adjacentDir[a] );
-   	      int adjIndex = adjPos.y * width + adjPos.x;
-   	      PathNode adj = grid[ adjIndex ];
-   	      
-   	      //Skip nodes with obstacles
-   	      if (adj.obstacle) continue;
-   	      
-   	      //Calculate path status
-   	      int g = cur.g + 1;
-   	      int h = cur.pos.getManhattanDist( dst );
-   	      int f = g + h;
-   	      
-   	      //Check we've been here before
-   	      if (adj.visitied)
-   	      {
-               //Check if the current path is shorter
-               if (f < adj.f)
-               {
-                  //It is so  route from adjacent back to current
-                  adj.dir = GridPoint.getRelativeDirections( adj, cur )[0];
-                  adj.g = g;
-                  adj.h = h;
-                  adj.f = f;
-               }
-   	      }
-   	      else
-   	      {
-               //Haven't so route from adjacent back to current
-               adj.dir = GridPoint.getRelativeDirections( adj, cur )[0];
-               adj.g = g;
-               adj.h = h;
-               adj.f = f;
-               adj.visited = true;
-               open.add( adj );
-   	      }
-   	   
-   	   }//adjacent nodes
-   	   
-   	   Collections.sort( open );
-   	   
-	   }//open
-	   
-	   
-	   
-	}
-	
-	class PathNode implements Comparable
-	{
-	   GridPoint pos;
-	   String dir;
-	   boolean obstacle;
-      boolean visited;
-	   int g;
-	   int h;
-	   int f;
-	   
-	   PathNode ()
-	   {
-         node.visited = false;
-         node.g = 0;
-         node.h = 0;
-         node.f = 0;
-	   }
-	   
-	   boolean equals (Object o)
-	   {
-	      PathNode other = (PathNode)o;
-	      return (f == other.f);
-	   }
-	   
-	   int compareTo (Object o)
-	   {
-	      PathNode other = (PathNode)o;
-	      return f - other.f;
-	   }
+		// The plan body. This describes the actual steps
+		// an agent performs when it executes this plan.
 	}
 }
