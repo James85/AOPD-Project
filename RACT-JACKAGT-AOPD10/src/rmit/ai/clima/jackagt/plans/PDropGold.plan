@@ -1,0 +1,37 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PDropGold extends Plan
+{
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PDropGold
+*/
+	//Events handled by the plan are declared here.
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles event MEPlayerAction meplayeraction_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+
+   static boolean relevant (MEPlayerAction e)
+   {
+      return (e.action.equalsIgnoreCase( "drop" ));
+   }
+
+   context()
+   {
+      true;
+   }
+
+   body()
+   {
+      System.out.println( "Dropping my gold" );
+      eexecuteclimaaction_p.post("drop"); // Post an ExecuteClimaAction event to execute the action in the server
+   }
+}

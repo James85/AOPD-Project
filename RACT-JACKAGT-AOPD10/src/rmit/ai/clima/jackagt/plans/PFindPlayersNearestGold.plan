@@ -20,9 +20,9 @@ Plan Name: PFindPlayersNearestGold
 
 	#reads data BPlayer bel_players_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
-
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -56,7 +56,7 @@ Plan Name: PFindPlayersNearestGold
 	      
 	      logical int $goldX, $goldY;
 	      Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
-	      System.out.println("8========================D " + bel_goldAt_dat.nFacts());
+	      
 	      while ( c_gold.next() )
 	      {
 	         PlayerGold pg = new PlayerGold();

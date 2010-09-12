@@ -117,9 +117,9 @@ public class SimulationProp extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.cursor.Cursor getDepotLoc(aos.jack.jak.logic.IntegerVariable $depotX, aos.jack.jak.logic.IntegerVariable $depotY)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.SimulationProp.__complex_15 __c = new rmit.ai.clima.jackagt.data.SimulationProp.__complex_15($depotX,$depotY);
+        rmit.ai.clima.jackagt.data.SimulationProp.__complex_16 __c = new rmit.ai.clima.jackagt.data.SimulationProp.__complex_16($depotX,$depotY);
         try {
-            return __c.setCursor(__c.__complex_15_getDepotLoc());
+            return __c.setCursor(__c.__complex_16_getDepotLoc());
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("getDepotLoc got exception " + __e);
@@ -129,9 +129,9 @@ public class SimulationProp extends aos.jack.jak.beliefset.ClosedWorld {
     public aos.jack.jak.cursor.Cursor getGridSize(aos.jack.jak.logic.IntegerVariable $gridX, aos.jack.jak.logic.IntegerVariable $gridY)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.SimulationProp.__complex_16 __c = new rmit.ai.clima.jackagt.data.SimulationProp.__complex_16($gridX,$gridY);
+        rmit.ai.clima.jackagt.data.SimulationProp.__complex_17 __c = new rmit.ai.clima.jackagt.data.SimulationProp.__complex_17($gridX,$gridY);
         try {
-            return __c.setCursor(__c.__complex_16_getGridSize());
+            return __c.setCursor(__c.__complex_17_getGridSize());
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("getGridSize got exception " + __e);
@@ -380,7 +380,7 @@ public class SimulationProp extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_15 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_16 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable $depotX;
         aos.jack.jak.logic.IntegerVariable $depotY;
         aos.jack.jak.logic.IntegerVariable __local_2;
@@ -425,14 +425,14 @@ public class SimulationProp extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_15(aos.jack.jak.logic.IntegerVariable $depotX, aos.jack.jak.logic.IntegerVariable $depotY)
+        public __complex_16(aos.jack.jak.logic.IntegerVariable $depotX, aos.jack.jak.logic.IntegerVariable $depotY)
         {
             super($depotX);
             this.$depotX = $depotX;
             this.$depotY = $depotY;
         }
         
-        aos.jack.jak.cursor.Cursor __complex_15_getDepotLoc()
+        aos.jack.jak.cursor.Cursor __complex_16_getDepotLoc()
             throws java.lang.Exception
         {
             {
@@ -444,7 +444,7 @@ public class SimulationProp extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_16 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_17 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.IntegerVariable $gridX;
         aos.jack.jak.logic.IntegerVariable $gridY;
         aos.jack.jak.logic.IntegerVariable __local_2;
@@ -489,14 +489,14 @@ public class SimulationProp extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_16(aos.jack.jak.logic.IntegerVariable $gridX, aos.jack.jak.logic.IntegerVariable $gridY)
+        public __complex_17(aos.jack.jak.logic.IntegerVariable $gridX, aos.jack.jak.logic.IntegerVariable $gridY)
         {
             super($gridX);
             this.$gridX = $gridX;
             this.$gridY = $gridY;
         }
         
-        aos.jack.jak.cursor.Cursor __complex_16_getGridSize()
+        aos.jack.jak.cursor.Cursor __complex_17_getGridSize()
             throws java.lang.Exception
         {
             {

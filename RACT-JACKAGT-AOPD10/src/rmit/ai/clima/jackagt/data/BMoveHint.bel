@@ -37,4 +37,6 @@ public beliefset BMoveHint extends ClosedWorld /*or OpenWorld*/
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
 	#indexed query getByEndPoints(int srcX, int srcY, int dstX, int dstY, logical String dir);
+	#indexed query get(logical int srcX,logical int srcY, logical int dstX, logical int dstY, logical String dir);
+
 }

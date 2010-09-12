@@ -67,9 +67,9 @@ public class GUICurrentStep extends aos.jack.jak.beliefset.ClosedWorld {
     public int getStep(int agentNum)
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.GUICurrentStep.__complex_14 __c = new rmit.ai.clima.jackagt.data.GUICurrentStep.__complex_14(agentNum);
+        rmit.ai.clima.jackagt.data.GUICurrentStep.__complex_15 __c = new rmit.ai.clima.jackagt.data.GUICurrentStep.__complex_15(agentNum);
         try {
-            return __c.__complex_14_getStep();
+            return __c.__complex_15_getStep();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("getStep got exception " + __e);
@@ -268,7 +268,7 @@ public class GUICurrentStep extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_14 extends aos.jack.plugin.view.rt.CleanupCursor {
+    class __complex_15 extends aos.jack.plugin.view.rt.CleanupCursor {
         int agentNum;
         aos.jack.jak.logic.IntegerVariable __local_2;
         aos.jack.jak.cursor.Cursor __local_3;
@@ -315,13 +315,13 @@ public class GUICurrentStep extends aos.jack.jak.beliefset.ClosedWorld {
             return false;
         }
         
-        public __complex_14(int agentNum)
+        public __complex_15(int agentNum)
         {
             super();
             this.agentNum = agentNum;
         }
         
-        public int __complex_14_getStep()
+        public int __complex_15_getStep()
             throws java.lang.Exception
         {
             __local_2 = (aos.jack.jak.logic.IntegerVariable) new_variable(java.lang.Integer.TYPE);

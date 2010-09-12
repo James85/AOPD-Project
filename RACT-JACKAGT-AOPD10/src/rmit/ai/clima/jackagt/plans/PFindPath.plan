@@ -18,6 +18,8 @@ Plan Name: PFindPath
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BMoveHint bel_moveHint_dat;
 
+	#reads data SimulationProp bel_simulationProp_dat;
+
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
@@ -29,18 +31,23 @@ Plan Name: PFindPath
 		true;
 	}
 
-	final static String[] adjacentDir = { "left", "right", "up", "down" };
+	
 	
 	body()
 	{
-	   int width = 51;
-	   int height = 51;
-	   GridPoint src;
-	   GridPoint dst;
-	
+	   Vector adjacentDir = new Vector();
+	   logical int $width, $height;
+	   bel_simulationProp_dat.getGridSize( $width, $height );
 	   
-	   src = new GridPoint(efindpath_h.srcX, efindpath_h.srcY);
-	   dst = new GridPoint(efindpath_h.dstX, efindpath_h.dstY);
+	   int width = $width.as_int();
+	   int height = $height.as_int();
+	   GridPoint src = new GridPoint(efindpath_h.srcX, efindpath_h.srcY);
+	   GridPoint dst = new GridPoint(efindpath_h.dstX, efindpath_h.dstY);
+
+	   adjacentDir.add("left");
+	   adjacentDir.add("right");
+	   adjacentDir.add("up");
+	   adjacentDir.add("down");
 	   
 	   //Check for silly input
       if (src.equals(dst)) {
@@ -48,9 +55,9 @@ Plan Name: PFindPath
          return true;
       }
       
-	  System.out.println("STARTING PATHFINDING");
-     System.out.println("Src " + src.x + ", "+ src.y);
-     System.out.println("Dst " + dst.x + ", "+ dst.y);
+//	  System.out.println("STARTING PATHFINDING");
+//     System.out.println("Src " + src.x + ", "+ src.y);
+//     System.out.println("Dst " + dst.x + ", "+ dst.y);
 	   //Init obstacles
 	   PathGrid grid = new PathGrid( width,  height );
 	   for (int x=0; x<width; ++x) {
@@ -72,7 +79,7 @@ Plan Name: PFindPath
 	   
 	   Vector open = new Vector();
 	   open.add( root );
-      System.out.println("Root " + root.pos.x + ", "+ root.pos.y);
+//      System.out.println("Root " + root.pos.x + ", "+ root.pos.y);
 
 	   
 	   boolean dstReached = false; 
@@ -90,11 +97,13 @@ Plan Name: PFindPath
 	         break;
 	      }
 	     
+	      
 	      //Loop through adjacent nodes
-   	   for (int a=0; a<adjacentDir.length; ++a)
+	      Collections.shuffle(adjacentDir);
+   	   for (int a=0; a<adjacentDir.size(); ++a)
    	   {
    	      //Get adjacent node
-   	      GridPoint adjPos = cur.pos.getFromDir( adjacentDir[a] );
+   	      GridPoint adjPos = cur.pos.getFromDir( (String)adjacentDir.get(a) );
    	      
    	      if(adjPos.x < 0 || adjPos.x >= grid.width || adjPos.y < 0 || adjPos.y >= grid.height)
    	         continue;
@@ -149,15 +158,14 @@ Plan Name: PFindPath
          
          while (true)
          {
-            System.out.println( "Backtrack " + curNode.pos.x + "," + curNode.pos.y );
+            
             GridPoint prevPoint = curNode.pos.getFromDir(curNode.dir);
             prevNode = grid.getNode( prevPoint );
             if (prevNode == srcNode) break;
             curNode = prevNode;
          }
          
-         System.out.println( "Cur " + curNode.pos.x + "," + curNode.pos.y );
-         System.out.println( "Prev " + prevNode.pos.x + "," + prevNode.pos.y );
+        
          String moveDir = (String) ( prevNode.pos.getRelativeDirections( prevNode.pos, curNode.pos )[0] );
          bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, moveDir );
       }

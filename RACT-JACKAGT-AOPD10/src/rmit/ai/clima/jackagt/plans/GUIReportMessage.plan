@@ -51,10 +51,10 @@ Description: Reports a text message in the GUI
 			
 			 //Now, print the message in the gui window
        		if(guiAgent.showGUI) {
-	        	guiAgent.guiInterface.reportMessage(agentNo, eguidebugmessage_h.entity, 
-	        			"[" + eguidebugmessage_h.timestamp.get(Calendar.MINUTE) + ":" +
-	        			eguidebugmessage_h.timestamp.get(Calendar.SECOND) + ":" +
-	        			eguidebugmessage_h.timestamp.get(Calendar.MILLISECOND) + "] " + eguidebugmessage_h.message);
+//	        	guiAgent.guiInterface.reportMessage(agentNo, eguidebugmessage_h.entity, 
+//	        			"[" + eguidebugmessage_h.timestamp.get(Calendar.MINUTE) + ":" +
+//	        			eguidebugmessage_h.timestamp.get(Calendar.SECOND) + ":" +
+//	        			eguidebugmessage_h.timestamp.get(Calendar.MILLISECOND) + "] " + eguidebugmessage_h.message);
 	        }
 
 	    mutex_accessGUI_dat.signal(); // release mutex

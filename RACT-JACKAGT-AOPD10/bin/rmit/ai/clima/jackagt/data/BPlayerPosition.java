@@ -15,8 +15,10 @@ import aos.jack.jak.beliefset.Tuple;
 import aos.jack.jak.beliefset.BeliefSet;
 import aos.jack.jak.logic.ChoicePoint;
 import aos.jack.jak.logic.Variable;
-import aos.jack.jak.cursor.BeliefState;
 import aos.jack.jak.cursor.Cursor;
+import aos.jack.jak.cursor.BeliefState;
+import aos.jack.plugin.view.rt.CleanupCursor;
+import java.lang.Object;
 
 public class BPlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
     static public rmit.ai.clima.jackagt.data.BPlayerPosition__Tuple __hole = new rmit.ai.clima.jackagt.data.BPlayerPosition__Tuple(true);
@@ -106,6 +108,18 @@ public class BPlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
             __c.posY = __v2;
         __c.init(0,this);
         return __c;
+    }
+    
+    public boolean checkByName(java.lang.String name)
+        throws aos.jack.jak.beliefset.BeliefSetException
+    {
+        rmit.ai.clima.jackagt.data.BPlayerPosition.__complex_6 __c = new rmit.ai.clima.jackagt.data.BPlayerPosition.__complex_6(name);
+        try {
+            return __c.__complex_6_checkByName();
+        }
+        catch (java.lang.Exception __e) {
+            throw new aos.jack.jak.beliefset.BeliefSetException("checkByName got exception " + __e);
+        }
     }
     
     public int keyIndex()
@@ -311,6 +325,70 @@ public class BPlayerPosition extends aos.jack.jak.beliefset.ClosedWorld {
             if (agentName != null) 
                 return false;
             return true;
+        }
+        
+    }
+    class __complex_6 extends aos.jack.plugin.view.rt.CleanupCursor {
+        java.lang.String name;
+        aos.jack.jak.logic.IntegerVariable __local_2;
+        aos.jack.jak.logic.IntegerVariable __local_3;
+        public java.lang.Object genObject(int __index)
+        {
+            switch (__index) {
+            }
+            aos.jack.jak.core.Jak.error("illegal Object Construction");
+            return null;
+        }
+        
+        public aos.jack.jak.cursor.Cursor genCursor(int __index)
+            throws java.lang.Exception
+        {
+            switch (__index) {
+                case 0: 
+                {
+                    return (getByName(name,__local_2,__local_3));
+                }
+                case 1: 
+                {
+                    return (aos.jack.jak.cursor.Cursor.trueCursor);
+                }
+            }
+            aos.jack.jak.core.Jak.error("illegal Cursor Construction");
+            return null;
+        }
+        
+        public aos.jack.jak.fsm.FSM genFSM(int __index)
+            throws java.lang.Exception
+        {
+            switch (__index) {
+            }
+            aos.jack.jak.core.Jak.error("illegal FSM Construction");
+            return null;
+        }
+        
+        public boolean testCondition(int __index)
+            throws java.lang.Exception
+        {
+            switch (__index) {
+            }
+            aos.jack.jak.core.Jak.error("illegal test Construction");
+            return false;
+        }
+        
+        public __complex_6(java.lang.String name)
+        {
+            super();
+            this.name = name;
+        }
+        
+        public boolean __complex_6_checkByName()
+            throws java.lang.Exception
+        {
+            {
+                __local_2 = (aos.jack.jak.logic.IntegerVariable) new_variable(java.lang.Integer.TYPE);
+                __local_3 = (aos.jack.jak.logic.IntegerVariable) new_variable(java.lang.Integer.TYPE);
+            }
+            return genCursor(0) == genCursor(1);
         }
         
     }

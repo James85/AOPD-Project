@@ -17,116 +17,117 @@ import aos.jack.jak.logic.Signature;
 import java.lang.Object;
 import rmit.ai.clima.jackagt.events.EFindPath;
 import rmit.ai.clima.jackagt.data.BMoveHint;
+import rmit.ai.clima.jackagt.data.SimulationProp;
 import rmit.ai.clima.jackagt.data.BObstacleAt;
-import rmit.ai.clima.gui.grid.GridPoint;
 import java.util.Vector;
+import rmit.ai.clima.gui.grid.GridPoint;
 import java.util.Collections;
 import aos.jack.jak.cursor.Cursor;
 import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
 
 public class PFindPath extends aos.jack.jak.plan.Plan {
-    final static java.lang.String[] adjacentDir = {
-            "left",
-            "right",
-            "up",
-            "down"};
     public rmit.ai.clima.jackagt.events.EFindPath efindpath_h;
     public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
+    public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
     public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PFindPath.plan",
             "body",
-            "36",
-            "37",
+            "38",
+            "39",
+            "40",
             "42",
             "43",
-            "46",
+            "44",
+            "45",
             "47",
             "48",
-            "48",
-            "51",
-            "52",
+            "49",
+            "50",
             "53",
+            "54",
             "55",
-            "56",
-            "56",
-            "57",
-            "57",
-            "60",
+            "55",
             "62",
             "63",
-            "57",
-            "56",
+            "63",
+            "64",
+            "64",
+            "67",
             "69",
             "70",
-            "71",
-            "73",
-            "74",
-            "75",
+            "64",
+            "63",
+            "76",
+            "77",
             "78",
-            "79",
-            "83",
-            "84",
-            "87",
-            "88",
+            "80",
+            "81",
+            "85",
+            "86",
             "90",
+            "91",
             "94",
-            "94",
+            "95",
             "97",
-            "99",
-            "100",
             "102",
-            "105",
-            "105",
+            "103",
+            "103",
+            "106",
             "108",
             "109",
-            "110",
-            "113",
+            "111",
+            "114",
+            "114",
             "117",
-            "120",
-            "121",
+            "118",
+            "119",
             "122",
-            "123",
+            "126",
             "129",
             "130",
             "131",
             "132",
-            "133",
-            "134",
-            "94",
+            "138",
             "139",
+            "140",
+            "141",
+            "142",
             "143",
-            "145",
-            "146",
-            "147",
+            "103",
             "148",
-            "150",
             "152",
-            "153",
             "154",
             "155",
-            "155",
             "156",
+            "157",
             "159",
-            "160",
-            "161",
             "162",
-            "34"};
+            "163",
+            "164",
+            "164",
+            "165",
+            "169",
+            "170",
+            "36"};
     private final static java.lang.String[] __planVariableNames = {
-            "adjacentDir",
             "efindpath_h",
             "bel_moveHint_dat",
+            "bel_simulationProp_dat",
             "bel_obstacleAt_dat"};
     private final static java.lang.String[] __planVariableTypes = {
-            "java.lang.String[]",
             "rmit.ai.clima.jackagt.events.EFindPath",
             "rmit.ai.clima.jackagt.data.BMoveHint",
+            "rmit.ai.clima.jackagt.data.SimulationProp",
             "rmit.ai.clima.jackagt.data.BObstacleAt"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __fsmVariableNames_body = {
+            "adjacentDir",
+            "$width",
+            "$height",
             "width",
             "height",
             "src",
@@ -152,6 +153,9 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
             "prevPoint",
             "moveDir"};
     private final static java.lang.String[] __fsmTypes_body = {
+            "Vector",
+            "logical int",
+            "logical int",
             "int",
             "int",
             "GridPoint",
@@ -177,30 +181,33 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
             "GridPoint",
             "String"};
     private final static java.lang.String[] __fsmLocalNames_body = {
-            "__local__18_0",
-            "__local__18_1",
-            "__local__18_2",
-            "__local__18_3",
-            "__local__18_4",
-            "__local__18_5",
-            "__local__18_6",
-            "__local__18_7",
-            "__local__18_8",
-            "__local__18_9",
-            "__local__18_10",
-            "__local__18_11",
-            "__local__18_12",
-            "__local__18_13",
-            "__local__18_14",
-            "__local__18_15",
-            "__local__18_16",
-            "__local__18_17",
-            "__local__18_18",
-            "__local__18_19",
-            "__local__18_20",
-            "__local__18_21",
-            "__local__18_22",
-            "__local__18_23"};
+            "__local__19_0",
+            "__local__19_1",
+            "__local__19_2",
+            "__local__19_3",
+            "__local__19_4",
+            "__local__19_5",
+            "__local__19_6",
+            "__local__19_7",
+            "__local__19_8",
+            "__local__19_9",
+            "__local__19_10",
+            "__local__19_11",
+            "__local__19_12",
+            "__local__19_13",
+            "__local__19_14",
+            "__local__19_15",
+            "__local__19_16",
+            "__local__19_17",
+            "__local__19_18",
+            "__local__19_19",
+            "__local__19_20",
+            "__local__19_21",
+            "__local__19_22",
+            "__local__19_23",
+            "__local__19_24",
+            "__local__19_25",
+            "__local__19_26"};
     public PFindPath()
     {
     }
@@ -213,6 +220,7 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
         __logic = __t.logic;
         efindpath_h = __env.efindpath_h;
         bel_moveHint_dat = __env.bel_moveHint_dat;
+        bel_simulationProp_dat = __env.bel_simulationProp_dat;
         bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
     }
     
@@ -226,6 +234,11 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
         bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_moveHint_dat == null) {
             warning("Failed to find BMoveHint bel_moveHint_dat");
+            return false;
+        }
+        bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",0);
+        if (bel_simulationProp_dat == null) {
+            warning("Failed to find SimulationProp bel_simulationProp_dat");
             return false;
         }
         bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",0);
@@ -330,15 +343,15 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
         switch (n) {
             case 0: 
             {
-                return aos.util.ToObject.box(adjacentDir);
+                return aos.util.ToObject.box(efindpath_h);
             }
             case 1: 
             {
-                return aos.util.ToObject.box(efindpath_h);
+                return aos.util.ToObject.box(bel_moveHint_dat);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_moveHint_dat);
+                return aos.util.ToObject.box(bel_simulationProp_dat);
             }
             case 3: 
             {
@@ -430,30 +443,33 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
         
     }
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
-        int __local__18_0;
-        int __local__18_1;
-        rmit.ai.clima.gui.grid.GridPoint __local__18_2;
-        rmit.ai.clima.gui.grid.GridPoint __local__18_3;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathGrid __local__18_4;
-        int __local__18_5;
-        int __local__18_6;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__18_7;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__18_8;
-        java.util.Vector __local__18_9;
-        boolean __local__18_10;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__18_11;
-        int __local__18_12;
-        rmit.ai.clima.gui.grid.GridPoint __local__18_13;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__18_14;
-        int __local__18_15;
-        int __local__18_16;
-        int __local__18_17;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__18_18;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__18_19;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__18_20;
-        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__18_21;
-        rmit.ai.clima.gui.grid.GridPoint __local__18_22;
-        java.lang.String __local__18_23;
+        java.util.Vector __local__19_0;
+        aos.jack.jak.logic.IntegerVariable __local__19_1;
+        aos.jack.jak.logic.IntegerVariable __local__19_2;
+        int __local__19_3;
+        int __local__19_4;
+        rmit.ai.clima.gui.grid.GridPoint __local__19_5;
+        rmit.ai.clima.gui.grid.GridPoint __local__19_6;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathGrid __local__19_7;
+        int __local__19_8;
+        int __local__19_9;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__19_10;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__19_11;
+        java.util.Vector __local__19_12;
+        boolean __local__19_13;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__19_14;
+        int __local__19_15;
+        rmit.ai.clima.gui.grid.GridPoint __local__19_16;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__19_17;
+        int __local__19_18;
+        int __local__19_19;
+        int __local__19_20;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__19_21;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__19_22;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__19_23;
+        rmit.ai.clima.jackagt.plans.PFindPath.PathNode __local__19_24;
+        rmit.ai.clima.gui.grid.GridPoint __local__19_25;
+        java.lang.String __local__19_26;
         private int __breakLevel = 0;
         public int run(int __status)
             throws java.lang.Throwable
@@ -482,133 +498,25 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PFindPath.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (36) 	   int width = 51;
+                        //* (38) 	   Vector adjacentDir = new Vector();
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __local__18_0 = 51;
+                            __local__19_0 = new java.util.Vector();
                             __state = 11;
                             break;
                         }
-                        //* (37) 	   int height = 51;
+                        //* (39) 	   logical int $width, $height;
                         case 11: 
                         {
-                            __local__18_1 = 51;
+                            __local__19_1 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
+                            __local__19_2 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
                             __state = 12;
                             break;
                         }
-                        //* (42) 	   src = new GridPoint(efindpath_h.srcX, efindpath_h.srcY);
+                        //* (40) 	   bel_simulationProp_dat.getGridSize( $width, $height );
                         case 12: 
                         {
-                            __state = 13;
-                            __local__18_2 = new rmit.ai.clima.gui.grid.GridPoint(efindpath_h.srcX,efindpath_h.srcY);
-                            break;
-                        }
-                        //* (43) 	   dst = new GridPoint(efindpath_h.dstX, efindpath_h.dstY);
-                        case 13: 
-                        {
-                            __state = 14;
-                            __local__18_3 = new rmit.ai.clima.gui.grid.GridPoint(efindpath_h.dstX,efindpath_h.dstY);
-                            break;
-                        }
-                        //* (46)       if (src.equals(dst)) {
-                        case 14: 
-                        {
-                            if (__local__18_2.equals(__local__18_3)) 
-                                __state = 15;
-                             else 
-                                __state = 18;
-                            break;
-                        }
-                        //* (47)          bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, "cur" );
-                        case 15: 
-                        {
-                            __breakLevel = 2;
-                            __state = 16;
-                            bel_moveHint_dat.add(__local__18_2.x,__local__18_2.y,__local__18_3.x,__local__18_3.y,"cur");
-                            break;
-                        }
-                        //* (48)          return true;
-                        case 16: 
-                        {
-                            if (true) 
-                                __state = 17;
-                             else 
-                                throw planfailed;
-                            break;
-                        }
-                        //* (48)          return true;
-                        case 17: 
-                        {
-                            __breakLevel = 0;
-                            __state = 85;
-                            break;
-                        }
-                        //* (51) 	  System.out.println("STARTING PATHFINDING");
-                        case 18: 
-                        {
-                            __state = 19;
-                            java.lang.System.out.println("STARTING PATHFINDING");
-                            break;
-                        }
-                        //* (52)      System.out.println("Src " + src.x + ", "+ src.y);
-                        case 19: 
-                        {
-                            __state = 20;
-                            java.lang.System.out.println("Src " + __local__18_2.x + ", " + __local__18_2.y);
-                            break;
-                        }
-                        //* (53)      System.out.println("Dst " + dst.x + ", "+ dst.y);
-                        case 20: 
-                        {
-                            __state = 21;
-                            java.lang.System.out.println("Dst " + __local__18_3.x + ", " + __local__18_3.y);
-                            break;
-                        }
-                        //* (55) 	   PathGrid grid = new PathGrid( width,  height );
-                        case 21: 
-                        {
-                            __local__18_4 = new rmit.ai.clima.jackagt.plans.PFindPath.PathGrid(__local__18_0,__local__18_1);
-                            __state = 22;
-                            break;
-                        }
-                        //* (56) 	   for (int x=0; x<width; ++x) {
-                        case 22: 
-                        {
-                            __local__18_5 = 0;
-                            __state = 23;
-                            break;
-                        }
-                        //* (56) 	   for (int x=0; x<width; ++x) {
-                        case 23: 
-                        {
-                            if (__local__18_5 < __local__18_0) 
-                                __state = 24;
-                             else 
-                                __state = 31;
-                            break;
-                        }
-                        //* (57) 	      for (int y=0; y<height; ++y) {
-                        case 24: 
-                        {
-                            __breakLevel = 4;
-                            __local__18_6 = 0;
-                            __state = 25;
-                            break;
-                        }
-                        //* (57) 	      for (int y=0; y<height; ++y) {
-                        case 25: 
-                        {
-                            if (__local__18_6 < __local__18_1) 
-                                __state = 26;
-                             else 
-                                __state = 30;
-                            break;
-                        }
-                        //* (60) 	         if(bel_obstacleAt_dat.check( x, y ))
-                        case 26: 
-                        {
-                            __breakLevel = 8;
                             boolean __b;
                             aos.jack.jak.cursor.Cursor __c = null;
                             try {
@@ -620,458 +528,596 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
                                     __c.finished();
                             }
                             if (__b) 
-                                __state = 27;
+                                __state = 13;
                              else 
-                                __state = 29;
+                                throw planfailed;
                             break;
                         }
-                        //* (62) 	            PathNode node = grid.getNode( x, y ); 
+                        //* (42) 	   int width = $width.as_int();
+                        case 13: 
+                        {
+                            __local__19_3 = __local__19_1.as_int();
+                            __state = 14;
+                            break;
+                        }
+                        //* (43) 	   int height = $height.as_int();
+                        case 14: 
+                        {
+                            __local__19_4 = __local__19_2.as_int();
+                            __state = 15;
+                            break;
+                        }
+                        //* (44) 	   GridPoint src = new GridPoint(efindpath_h.srcX, efindpath_h.srcY);
+                        case 15: 
+                        {
+                            __local__19_5 = new rmit.ai.clima.gui.grid.GridPoint(efindpath_h.srcX,efindpath_h.srcY);
+                            __state = 16;
+                            break;
+                        }
+                        //* (45) 	   GridPoint dst = new GridPoint(efindpath_h.dstX, efindpath_h.dstY);
+                        case 16: 
+                        {
+                            __local__19_6 = new rmit.ai.clima.gui.grid.GridPoint(efindpath_h.dstX,efindpath_h.dstY);
+                            __state = 17;
+                            break;
+                        }
+                        //* (47) 	   adjacentDir.add("left");
+                        case 17: 
+                        {
+                            if (__local__19_0.add("left")) 
+                                __state = 18;
+                             else 
+                                throw planfailed;
+                            break;
+                        }
+                        //* (48) 	   adjacentDir.add("right");
+                        case 18: 
+                        {
+                            if (__local__19_0.add("right")) 
+                                __state = 19;
+                             else 
+                                throw planfailed;
+                            break;
+                        }
+                        //* (49) 	   adjacentDir.add("up");
+                        case 19: 
+                        {
+                            if (__local__19_0.add("up")) 
+                                __state = 20;
+                             else 
+                                throw planfailed;
+                            break;
+                        }
+                        //* (50) 	   adjacentDir.add("down");
+                        case 20: 
+                        {
+                            if (__local__19_0.add("down")) 
+                                __state = 21;
+                             else 
+                                throw planfailed;
+                            break;
+                        }
+                        //* (53)       if (src.equals(dst)) {
+                        case 21: 
+                        {
+                            if (__local__19_5.equals(__local__19_6)) 
+                                __state = 22;
+                             else 
+                                __state = 25;
+                            break;
+                        }
+                        //* (54)          bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, "cur" );
+                        case 22: 
+                        {
+                            __breakLevel = 2;
+                            __state = 23;
+                            bel_moveHint_dat.add(__local__19_5.x,__local__19_5.y,__local__19_6.x,__local__19_6.y,"cur");
+                            break;
+                        }
+                        //* (55)          return true;
+                        case 23: 
+                        {
+                            if (true) 
+                                __state = 24;
+                             else 
+                                throw planfailed;
+                            break;
+                        }
+                        //* (55)          return true;
+                        case 24: 
+                        {
+                            __breakLevel = 0;
+                            __state = 86;
+                            break;
+                        }
+                        //* (62) 	   PathGrid grid = new PathGrid( width,  height );
+                        case 25: 
+                        {
+                            __local__19_7 = new rmit.ai.clima.jackagt.plans.PFindPath.PathGrid(__local__19_3,__local__19_4);
+                            __state = 26;
+                            break;
+                        }
+                        //* (63) 	   for (int x=0; x<width; ++x) {
+                        case 26: 
+                        {
+                            __local__19_8 = 0;
+                            __state = 27;
+                            break;
+                        }
+                        //* (63) 	   for (int x=0; x<width; ++x) {
                         case 27: 
                         {
-                            __breakLevel = 10;
-                            __local__18_7 = __local__18_4.getNode(__local__18_5,__local__18_6);
-                            __state = 28;
+                            if (__local__19_8 < __local__19_3) 
+                                __state = 28;
+                             else 
+                                __state = 35;
                             break;
                         }
-                        //* (63) 	            node.obstacle = true;
+                        //* (64) 	      for (int y=0; y<height; ++y) {
                         case 28: 
                         {
+                            __breakLevel = 4;
+                            __local__19_9 = 0;
                             __state = 29;
-                            __local__18_7.obstacle = true;
                             break;
                         }
-                        //* (57) 	      for (int y=0; y<height; ++y) {
+                        //* (64) 	      for (int y=0; y<height; ++y) {
                         case 29: 
                         {
-                            __state = 25;
-                            ++__local__18_6;
+                            if (__local__19_9 < __local__19_4) 
+                                __state = 30;
+                             else 
+                                __state = 34;
                             break;
                         }
-                        //* (56) 	   for (int x=0; x<width; ++x) {
+                        //* (67) 	         if(bel_obstacleAt_dat.check( x, y ))
                         case 30: 
                         {
-                            __state = 23;
-                            ++__local__18_5;
+                            __breakLevel = 8;
+                            boolean __b;
+                            aos.jack.jak.cursor.Cursor __c = null;
+                            try {
+                                __c = genCursor(1);
+                                __b = __c.next();
+                            }
+                            finally {
+                                if (__c != null) 
+                                    __c.finished();
+                            }
+                            if (__b) 
+                                __state = 31;
+                             else 
+                                __state = 33;
                             break;
                         }
-                        //* (69) 	   PathNode root = grid.getNode( src );
+                        //* (69) 	            PathNode node = grid.getNode( x, y ); 
                         case 31: 
                         {
-                            __local__18_8 = __local__18_4.getNode(__local__18_2);
+                            __breakLevel = 10;
+                            __local__19_10 = __local__19_7.getNode(__local__19_8,__local__19_9);
                             __state = 32;
                             break;
                         }
-                        //* (70) 	   root.dir = "";
+                        //* (70) 	            node.obstacle = true;
                         case 32: 
                         {
                             __state = 33;
-                            __local__18_8.dir = "";
+                            __local__19_10.obstacle = true;
                             break;
                         }
-                        //* (71) 	   root.visited = true;
+                        //* (64) 	      for (int y=0; y<height; ++y) {
                         case 33: 
                         {
-                            __state = 34;
-                            __local__18_8.visited = true;
+                            __state = 29;
+                            ++__local__19_9;
                             break;
                         }
-                        //* (73) 	   Vector open = new Vector();
+                        //* (63) 	   for (int x=0; x<width; ++x) {
                         case 34: 
                         {
-                            __local__18_9 = new java.util.Vector();
-                            __state = 35;
+                            __state = 27;
+                            ++__local__19_8;
                             break;
                         }
-                        //* (74) 	   open.add( root );
+                        //* (76) 	   PathNode root = grid.getNode( src );
                         case 35: 
                         {
-                            if (__local__18_9.add(__local__18_8)) 
-                                __state = 36;
-                             else 
-                                throw planfailed;
+                            __local__19_11 = __local__19_7.getNode(__local__19_5);
+                            __state = 36;
                             break;
                         }
-                        //* (75)       System.out.println("Root " + root.pos.x + ", "+ root.pos.y);
+                        //* (77) 	   root.dir = "";
                         case 36: 
                         {
                             __state = 37;
-                            java.lang.System.out.println("Root " + __local__18_8.pos.x + ", " + __local__18_8.pos.y);
+                            __local__19_11.dir = "";
                             break;
                         }
-                        //* (78) 	   boolean dstReached = false; 
+                        //* (78) 	   root.visited = true;
                         case 37: 
                         {
-                            __local__18_10 = false;
                             __state = 38;
+                            __local__19_11.visited = true;
                             break;
                         }
-                        //* (79) 	   while (!open.isEmpty())
+                        //* (80) 	   Vector open = new Vector();
                         case 38: 
                         {
-                            if (!__local__18_9.isEmpty()) 
-                                __state = 39;
-                             else 
-                                __state = 69;
+                            __local__19_12 = new java.util.Vector();
+                            __state = 39;
                             break;
                         }
-                        //* (83) 	      PathNode cur = (PathNode)open.lastElement();
+                        //* (81) 	   open.add( root );
                         case 39: 
                         {
-                            __breakLevel = 4;
-                            __local__18_11 = (rmit.ai.clima.jackagt.plans.PFindPath.PathNode) __local__18_9.lastElement();
-                            __state = 40;
-                            break;
-                        }
-                        //* (84) 	      open.remove( open.size() -1 );
-                        case 40: 
-                        {
-                            __state = 41;
-                            __local__18_9.remove(__local__18_9.size() - 1);
-                            break;
-                        }
-                        //* (87) 	      if (cur.pos.x == dst.x && cur.pos.y == dst.y) {
-                        case 41: 
-                        {
-                            if (__local__18_11.pos.x == __local__18_3.x && __local__18_11.pos.y == __local__18_3.y) 
-                                __state = 42;
-                             else 
-                                __state = 44;
-                            break;
-                        }
-                        //* (88) 	         dstReached = true;
-                        case 42: 
-                        {
-                            __breakLevel = 6;
-                            __state = 43;
-                            __local__18_10 = true;
-                            break;
-                        }
-                        //* (90) 	         break;
-                        case 43: 
-                        {
-                            __breakLevel = 2;
-                            __state = 69;
-                            break;
-                        }
-                        //* (94)    	   for (int a=0; a<adjacentDir.length; ++a)
-                        case 44: 
-                        {
-                            __local__18_12 = 0;
-                            __state = 45;
-                            break;
-                        }
-                        //* (94)    	   for (int a=0; a<adjacentDir.length; ++a)
-                        case 45: 
-                        {
-                            if (__local__18_12 < adjacentDir.length) 
-                                __state = 46;
-                             else 
-                                __state = 68;
-                            break;
-                        }
-                        //* (97)    	      GridPoint adjPos = cur.pos.getFromDir( adjacentDir[a] );
-                        case 46: 
-                        {
-                            __breakLevel = 8;
-                            __local__18_13 = __local__18_11.pos.getFromDir(adjacentDir[__local__18_12]);
-                            __state = 47;
-                            break;
-                        }
-                        //* (99)    	      if(adjPos.x < 0 || adjPos.x >= grid.width || adjPos.y < 0 || adjPos.y >= grid.height)
-                        case 47: 
-                        {
-                            if (__local__18_13.x < 0 || __local__18_13.x >= __local__18_4.width || __local__18_13.y < 0 || __local__18_13.y >= __local__18_4.height) 
-                                __state = 48;
-                             else 
-                                __state = 49;
-                            break;
-                        }
-                        //* (100)    	         continue;
-                        case 48: 
-                        {
-                            __breakLevel = 7;
-                            __state = 67;
-                            break;
-                        }
-                        //* (102)    	      PathNode adj = grid.getNode( adjPos );
-                        case 49: 
-                        {
-                            __local__18_14 = __local__18_4.getNode(__local__18_13);
-                            __state = 50;
-                            break;
-                        }
-                        //* (105)    	      if (adj.obstacle) continue;
-                        case 50: 
-                        {
-                            if (__local__18_14.obstacle) 
-                                __state = 51;
-                             else 
-                                __state = 52;
-                            break;
-                        }
-                        //* (105)    	      if (adj.obstacle) continue;
-                        case 51: 
-                        {
-                            __breakLevel = 7;
-                            __state = 67;
-                            break;
-                        }
-                        //* (108)    	      int g = cur.g + 1;
-                        case 52: 
-                        {
-                            __local__18_15 = __local__18_11.g + 1;
-                            __state = 53;
-                            break;
-                        }
-                        //* (109)    	      int h = adj.pos.getManhattanDist( dst );
-                        case 53: 
-                        {
-                            __local__18_16 = __local__18_14.pos.getManhattanDist(__local__18_3);
-                            __state = 54;
-                            break;
-                        }
-                        //* (110)    	      int f = g + h;
-                        case 54: 
-                        {
-                            __local__18_17 = __local__18_15 + __local__18_16;
-                            __state = 55;
-                            break;
-                        }
-                        //* (113)    	      if (adj.visited)
-                        case 55: 
-                        {
-                            if (__local__18_14.visited) 
-                                __state = 56;
-                             else 
-                                __state = 61;
-                            break;
-                        }
-                        //* (117)                if (f < adj.f)
-                        case 56: 
-                        {
-                            __breakLevel = 10;
-                            if (__local__18_17 < __local__18_14.f) 
-                                __state = 57;
-                             else 
-                                __state = 67;
-                            break;
-                        }
-                        //* (120)                   adj.dir = (String) (GridPoint.getRelativeDirections( adj.pos, cur.pos )[0]);
-                        case 57: 
-                        {
-                            __breakLevel = 12;
-                            __state = 58;
-                            //It is so  route from adjacent back to current
-
-                            __local__18_14.dir = (java.lang.String) (rmit.ai.clima.gui.grid.GridPoint.getRelativeDirections(__local__18_14.pos,__local__18_11.pos)[0]);
-                            break;
-                        }
-                        //* (121)                   adj.g = g;
-                        case 58: 
-                        {
-                            __state = 59;
-                            __local__18_14.g = __local__18_15;
-                            break;
-                        }
-                        //* (122)                   adj.h = h;
-                        case 59: 
-                        {
-                            __state = 60;
-                            __local__18_14.h = __local__18_16;
-                            break;
-                        }
-                        //* (123)                   adj.f = f;
-                        case 60: 
-                        {
-                            __state = 67;
-                            __local__18_14.f = __local__18_17;
-                            break;
-                        }
-                        //* (129)                adj.dir = (String) ( GridPoint.getRelativeDirections( adj.pos, cur.pos )[0] );
-                        case 61: 
-                        {
-                            __breakLevel = 10;
-                            __state = 62;
-                            //Haven't so route from adjacent back to current
-
-                            __local__18_14.dir = (java.lang.String) (rmit.ai.clima.gui.grid.GridPoint.getRelativeDirections(__local__18_14.pos,__local__18_11.pos)[0]);
-                            break;
-                        }
-                        //* (130)                adj.g = g;
-                        case 62: 
-                        {
-                            __state = 63;
-                            __local__18_14.g = __local__18_15;
-                            break;
-                        }
-                        //* (131)                adj.h = h;
-                        case 63: 
-                        {
-                            __state = 64;
-                            __local__18_14.h = __local__18_16;
-                            break;
-                        }
-                        //* (132)                adj.f = f;
-                        case 64: 
-                        {
-                            __state = 65;
-                            __local__18_14.f = __local__18_17;
-                            break;
-                        }
-                        //* (133)                adj.visited = true;
-                        case 65: 
-                        {
-                            __state = 66;
-                            __local__18_14.visited = true;
-                            break;
-                        }
-                        //* (134)                open.add( adj );
-                        case 66: 
-                        {
-                            if (__local__18_9.add(__local__18_14)) 
-                                __state = 67;
+                            if (__local__19_12.add(__local__19_11)) 
+                                __state = 40;
                              else 
                                 throw planfailed;
                             break;
                         }
-                        //* (94)    	   for (int a=0; a<adjacentDir.length; ++a)
-                        case 67: 
+                        //* (85) 	   boolean dstReached = false; 
+                        case 40: 
                         {
-                            __state = 45;
-                            ++__local__18_12;
+                            __local__19_13 = false;
+                            __state = 41;
                             break;
                         }
-                        //* (139)    	   Collections.sort( open );
-                        case 68: 
+                        //* (86) 	   while (!open.isEmpty())
+                        case 41: 
                         {
-                            __state = 38;
-                            //adjacent nodes
-
-                            java.util.Collections.sort(__local__18_9);
-                            break;
-                        }
-                        //* (143)       if(dstReached)
-                        case 69: 
-                        {
-                            if (__local__18_10) 
-                                __state = 70;
+                            if (!__local__19_12.isEmpty()) 
+                                __state = 42;
                              else 
-                                __state = 85;
+                                __state = 73;
                             break;
                         }
-                        //* (145)          PathNode dstNode = grid.getNode( dst );
-                        case 70: 
+                        //* (90) 	      PathNode cur = (PathNode)open.lastElement();
+                        case 42: 
+                        {
+                            __breakLevel = 4;
+                            __local__19_14 = (rmit.ai.clima.jackagt.plans.PFindPath.PathNode) __local__19_12.lastElement();
+                            __state = 43;
+                            break;
+                        }
+                        //* (91) 	      open.remove( open.size() -1 );
+                        case 43: 
+                        {
+                            __state = 44;
+                            __local__19_12.remove(__local__19_12.size() - 1);
+                            break;
+                        }
+                        //* (94) 	      if (cur.pos.x == dst.x && cur.pos.y == dst.y) {
+                        case 44: 
+                        {
+                            if (__local__19_14.pos.x == __local__19_6.x && __local__19_14.pos.y == __local__19_6.y) 
+                                __state = 45;
+                             else 
+                                __state = 47;
+                            break;
+                        }
+                        //* (95) 	         dstReached = true;
+                        case 45: 
+                        {
+                            __breakLevel = 6;
+                            __state = 46;
+                            __local__19_13 = true;
+                            break;
+                        }
+                        //* (97) 	         break;
+                        case 46: 
                         {
                             __breakLevel = 2;
-                            __local__18_18 = __local__18_4.getNode(__local__18_3);
-                            __state = 71;
-                            break;
-                        }
-                        //* (146)          PathNode srcNode = grid.getNode( src );
-                        case 71: 
-                        {
-                            __local__18_19 = __local__18_4.getNode(__local__18_2);
-                            __state = 72;
-                            break;
-                        }
-                        //* (147)          PathNode prevNode = dstNode;
-                        case 72: 
-                        {
-                            __local__18_20 = __local__18_18;
                             __state = 73;
                             break;
                         }
-                        //* (148)          PathNode curNode = dstNode;
+                        //* (102) 	      Collections.shuffle(adjacentDir);
+                        case 47: 
+                        {
+                            __state = 48;
+                            //Loop through adjacent nodes
+
+                            java.util.Collections.shuffle(__local__19_0);
+                            break;
+                        }
+                        //* (103)    	   for (int a=0; a<adjacentDir.size(); ++a)
+                        case 48: 
+                        {
+                            __local__19_15 = 0;
+                            __state = 49;
+                            break;
+                        }
+                        //* (103)    	   for (int a=0; a<adjacentDir.size(); ++a)
+                        case 49: 
+                        {
+                            if (__local__19_15 < __local__19_0.size()) 
+                                __state = 50;
+                             else 
+                                __state = 72;
+                            break;
+                        }
+                        //* (106)    	      GridPoint adjPos = cur.pos.getFromDir( (String)adjacentDir.get(a) );
+                        case 50: 
+                        {
+                            __breakLevel = 8;
+                            __local__19_16 = __local__19_14.pos.getFromDir((java.lang.String) __local__19_0.get(__local__19_15));
+                            __state = 51;
+                            break;
+                        }
+                        //* (108)    	      if(adjPos.x < 0 || adjPos.x >= grid.width || adjPos.y < 0 || adjPos.y >= grid.height)
+                        case 51: 
+                        {
+                            if (__local__19_16.x < 0 || __local__19_16.x >= __local__19_7.width || __local__19_16.y < 0 || __local__19_16.y >= __local__19_7.height) 
+                                __state = 52;
+                             else 
+                                __state = 53;
+                            break;
+                        }
+                        //* (109)    	         continue;
+                        case 52: 
+                        {
+                            __breakLevel = 7;
+                            __state = 71;
+                            break;
+                        }
+                        //* (111)    	      PathNode adj = grid.getNode( adjPos );
+                        case 53: 
+                        {
+                            __local__19_17 = __local__19_7.getNode(__local__19_16);
+                            __state = 54;
+                            break;
+                        }
+                        //* (114)    	      if (adj.obstacle) continue;
+                        case 54: 
+                        {
+                            if (__local__19_17.obstacle) 
+                                __state = 55;
+                             else 
+                                __state = 56;
+                            break;
+                        }
+                        //* (114)    	      if (adj.obstacle) continue;
+                        case 55: 
+                        {
+                            __breakLevel = 7;
+                            __state = 71;
+                            break;
+                        }
+                        //* (117)    	      int g = cur.g + 1;
+                        case 56: 
+                        {
+                            __local__19_18 = __local__19_14.g + 1;
+                            __state = 57;
+                            break;
+                        }
+                        //* (118)    	      int h = adj.pos.getManhattanDist( dst );
+                        case 57: 
+                        {
+                            __local__19_19 = __local__19_17.pos.getManhattanDist(__local__19_6);
+                            __state = 58;
+                            break;
+                        }
+                        //* (119)    	      int f = g + h;
+                        case 58: 
+                        {
+                            __local__19_20 = __local__19_18 + __local__19_19;
+                            __state = 59;
+                            break;
+                        }
+                        //* (122)    	      if (adj.visited)
+                        case 59: 
+                        {
+                            if (__local__19_17.visited) 
+                                __state = 60;
+                             else 
+                                __state = 65;
+                            break;
+                        }
+                        //* (126)                if (f < adj.f)
+                        case 60: 
+                        {
+                            __breakLevel = 10;
+                            if (__local__19_20 < __local__19_17.f) 
+                                __state = 61;
+                             else 
+                                __state = 71;
+                            break;
+                        }
+                        //* (129)                   adj.dir = (String) (GridPoint.getRelativeDirections( adj.pos, cur.pos )[0]);
+                        case 61: 
+                        {
+                            __breakLevel = 12;
+                            __state = 62;
+                            //It is so  route from adjacent back to current
+
+                            __local__19_17.dir = (java.lang.String) (rmit.ai.clima.gui.grid.GridPoint.getRelativeDirections(__local__19_17.pos,__local__19_14.pos)[0]);
+                            break;
+                        }
+                        //* (130)                   adj.g = g;
+                        case 62: 
+                        {
+                            __state = 63;
+                            __local__19_17.g = __local__19_18;
+                            break;
+                        }
+                        //* (131)                   adj.h = h;
+                        case 63: 
+                        {
+                            __state = 64;
+                            __local__19_17.h = __local__19_19;
+                            break;
+                        }
+                        //* (132)                   adj.f = f;
+                        case 64: 
+                        {
+                            __state = 71;
+                            __local__19_17.f = __local__19_20;
+                            break;
+                        }
+                        //* (138)                adj.dir = (String) ( GridPoint.getRelativeDirections( adj.pos, cur.pos )[0] );
+                        case 65: 
+                        {
+                            __breakLevel = 10;
+                            __state = 66;
+                            //Haven't so route from adjacent back to current
+
+                            __local__19_17.dir = (java.lang.String) (rmit.ai.clima.gui.grid.GridPoint.getRelativeDirections(__local__19_17.pos,__local__19_14.pos)[0]);
+                            break;
+                        }
+                        //* (139)                adj.g = g;
+                        case 66: 
+                        {
+                            __state = 67;
+                            __local__19_17.g = __local__19_18;
+                            break;
+                        }
+                        //* (140)                adj.h = h;
+                        case 67: 
+                        {
+                            __state = 68;
+                            __local__19_17.h = __local__19_19;
+                            break;
+                        }
+                        //* (141)                adj.f = f;
+                        case 68: 
+                        {
+                            __state = 69;
+                            __local__19_17.f = __local__19_20;
+                            break;
+                        }
+                        //* (142)                adj.visited = true;
+                        case 69: 
+                        {
+                            __state = 70;
+                            __local__19_17.visited = true;
+                            break;
+                        }
+                        //* (143)                open.add( adj );
+                        case 70: 
+                        {
+                            if (__local__19_12.add(__local__19_17)) 
+                                __state = 71;
+                             else 
+                                throw planfailed;
+                            break;
+                        }
+                        //* (103)    	   for (int a=0; a<adjacentDir.size(); ++a)
+                        case 71: 
+                        {
+                            __state = 49;
+                            ++__local__19_15;
+                            break;
+                        }
+                        //* (148)    	   Collections.sort( open );
+                        case 72: 
+                        {
+                            __state = 41;
+                            //adjacent nodes
+
+                            java.util.Collections.sort(__local__19_12);
+                            break;
+                        }
+                        //* (152)       if(dstReached)
                         case 73: 
                         {
-                            __local__18_21 = __local__18_18;
-                            __state = 74;
+                            if (__local__19_13) 
+                                __state = 74;
+                             else 
+                                __state = 86;
                             break;
                         }
-                        //* (150)          while (true)
+                        //* (154)          PathNode dstNode = grid.getNode( dst );
                         case 74: 
                         {
-                            if (true) 
-                                __state = 75;
-                             else 
-                                __state = 81;
+                            __breakLevel = 2;
+                            __local__19_21 = __local__19_7.getNode(__local__19_6);
+                            __state = 75;
                             break;
                         }
-                        //* (152)             System.out.println( "Backtrack " + curNode.pos.x + "," + curNode.pos.y );
+                        //* (155)          PathNode srcNode = grid.getNode( src );
                         case 75: 
                         {
-                            __breakLevel = 6;
+                            __local__19_22 = __local__19_7.getNode(__local__19_5);
                             __state = 76;
-                            java.lang.System.out.println("Backtrack " + __local__18_21.pos.x + "," + __local__18_21.pos.y);
                             break;
                         }
-                        //* (153)             GridPoint prevPoint = curNode.pos.getFromDir(curNode.dir);
+                        //* (156)          PathNode prevNode = dstNode;
                         case 76: 
                         {
-                            __local__18_22 = __local__18_21.pos.getFromDir(__local__18_21.dir);
+                            __local__19_23 = __local__19_21;
                             __state = 77;
                             break;
                         }
-                        //* (154)             prevNode = grid.getNode( prevPoint );
+                        //* (157)          PathNode curNode = dstNode;
                         case 77: 
                         {
+                            __local__19_24 = __local__19_21;
                             __state = 78;
-                            __local__18_20 = __local__18_4.getNode(__local__18_22);
                             break;
                         }
-                        //* (155)             if (prevNode == srcNode) break;
+                        //* (159)          while (true)
                         case 78: 
                         {
-                            if (__local__18_20 == __local__18_19) 
+                            if (true) 
                                 __state = 79;
                              else 
-                                __state = 80;
+                                __state = 84;
                             break;
                         }
-                        //* (155)             if (prevNode == srcNode) break;
+                        //* (162)             GridPoint prevPoint = curNode.pos.getFromDir(curNode.dir);
                         case 79: 
                         {
-                            __breakLevel = 4;
-                            __state = 81;
+                            __breakLevel = 6;
+                            __local__19_25 = __local__19_24.pos.getFromDir(__local__19_24.dir);
+                            __state = 80;
                             break;
                         }
-                        //* (156)             curNode = prevNode;
+                        //* (163)             prevNode = grid.getNode( prevPoint );
                         case 80: 
                         {
-                            __state = 74;
-                            __local__18_21 = __local__18_20;
+                            __state = 81;
+                            __local__19_23 = __local__19_7.getNode(__local__19_25);
                             break;
                         }
-                        //* (159)          System.out.println( "Cur " + curNode.pos.x + "," + curNode.pos.y );
+                        //* (164)             if (prevNode == srcNode) break;
                         case 81: 
                         {
-                            __state = 82;
-                            java.lang.System.out.println("Cur " + __local__18_21.pos.x + "," + __local__18_21.pos.y);
+                            if (__local__19_23 == __local__19_22) 
+                                __state = 82;
+                             else 
+                                __state = 83;
                             break;
                         }
-                        //* (160)          System.out.println( "Prev " + prevNode.pos.x + "," + prevNode.pos.y );
+                        //* (164)             if (prevNode == srcNode) break;
                         case 82: 
                         {
-                            __state = 83;
-                            java.lang.System.out.println("Prev " + __local__18_20.pos.x + "," + __local__18_20.pos.y);
-                            break;
-                        }
-                        //* (161)          String moveDir = (String) ( prevNode.pos.getRelativeDirections( prevNode.pos, curNode.pos )[0] );
-                        case 83: 
-                        {
-                            __local__18_23 = (java.lang.String) (__local__18_20.pos.getRelativeDirections(__local__18_20.pos,__local__18_21.pos)[0]);
+                            __breakLevel = 4;
                             __state = 84;
                             break;
                         }
-                        //* (162)          bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, moveDir );
-                        case 84: 
+                        //* (165)             curNode = prevNode;
+                        case 83: 
                         {
-                            __state = 85;
-                            bel_moveHint_dat.add(__local__18_2.x,__local__18_2.y,__local__18_3.x,__local__18_3.y,__local__18_23);
+                            __state = 78;
+                            __local__19_24 = __local__19_23;
                             break;
                         }
-                        //* (34) 	body()
+                        //* (169)          String moveDir = (String) ( prevNode.pos.getRelativeDirections( prevNode.pos, curNode.pos )[0] );
+                        case 84: 
+                        {
+                            __local__19_26 = (java.lang.String) (__local__19_23.pos.getRelativeDirections(__local__19_23.pos,__local__19_24.pos)[0]);
+                            __state = 85;
+                            break;
+                        }
+                        //* (170)          bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, moveDir );
                         case 85: 
+                        {
+                            __state = 86;
+                            bel_moveHint_dat.add(__local__19_5.x,__local__19_5.y,__local__19_6.x,__local__19_6.y,__local__19_26);
+                            break;
+                        }
+                        //* (36) 	body()
+                        case 86: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;
@@ -1123,7 +1169,11 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
             switch (__index) {
                 case 0: 
                 {
-                    return (bel_obstacleAt_dat.check(__local__18_5,__local__18_6));
+                    return (bel_simulationProp_dat.getGridSize(__local__19_1,__local__19_2));
+                }
+                case 1: 
+                {
+                    return (bel_obstacleAt_dat.check(__local__19_8,__local__19_9));
                 }
             }
             aos.jack.jak.core.Jak.error("illegal Cursor Construction");
@@ -1173,99 +1223,111 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
             switch (n) {
                 case 0: 
                 {
-                    return aos.util.ToObject.box(__local__18_0);
+                    return aos.util.ToObject.box(__local__19_0);
                 }
                 case 1: 
                 {
-                    return aos.util.ToObject.box(__local__18_1);
+                    return aos.util.ToObject.box(__local__19_1);
                 }
                 case 2: 
                 {
-                    return aos.util.ToObject.box(__local__18_2);
+                    return aos.util.ToObject.box(__local__19_2);
                 }
                 case 3: 
                 {
-                    return aos.util.ToObject.box(__local__18_3);
+                    return aos.util.ToObject.box(__local__19_3);
                 }
                 case 4: 
                 {
-                    return aos.util.ToObject.box(__local__18_4);
+                    return aos.util.ToObject.box(__local__19_4);
                 }
                 case 5: 
                 {
-                    return aos.util.ToObject.box(__local__18_5);
+                    return aos.util.ToObject.box(__local__19_5);
                 }
                 case 6: 
                 {
-                    return aos.util.ToObject.box(__local__18_6);
+                    return aos.util.ToObject.box(__local__19_6);
                 }
                 case 7: 
                 {
-                    return aos.util.ToObject.box(__local__18_7);
+                    return aos.util.ToObject.box(__local__19_7);
                 }
                 case 8: 
                 {
-                    return aos.util.ToObject.box(__local__18_8);
+                    return aos.util.ToObject.box(__local__19_8);
                 }
                 case 9: 
                 {
-                    return aos.util.ToObject.box(__local__18_9);
+                    return aos.util.ToObject.box(__local__19_9);
                 }
                 case 10: 
                 {
-                    return aos.util.ToObject.box(__local__18_10);
+                    return aos.util.ToObject.box(__local__19_10);
                 }
                 case 11: 
                 {
-                    return aos.util.ToObject.box(__local__18_11);
+                    return aos.util.ToObject.box(__local__19_11);
                 }
                 case 12: 
                 {
-                    return aos.util.ToObject.box(__local__18_12);
+                    return aos.util.ToObject.box(__local__19_12);
                 }
                 case 13: 
                 {
-                    return aos.util.ToObject.box(__local__18_13);
+                    return aos.util.ToObject.box(__local__19_13);
                 }
                 case 14: 
                 {
-                    return aos.util.ToObject.box(__local__18_14);
+                    return aos.util.ToObject.box(__local__19_14);
                 }
                 case 15: 
                 {
-                    return aos.util.ToObject.box(__local__18_15);
+                    return aos.util.ToObject.box(__local__19_15);
                 }
                 case 16: 
                 {
-                    return aos.util.ToObject.box(__local__18_16);
+                    return aos.util.ToObject.box(__local__19_16);
                 }
                 case 17: 
                 {
-                    return aos.util.ToObject.box(__local__18_17);
+                    return aos.util.ToObject.box(__local__19_17);
                 }
                 case 18: 
                 {
-                    return aos.util.ToObject.box(__local__18_18);
+                    return aos.util.ToObject.box(__local__19_18);
                 }
                 case 19: 
                 {
-                    return aos.util.ToObject.box(__local__18_19);
+                    return aos.util.ToObject.box(__local__19_19);
                 }
                 case 20: 
                 {
-                    return aos.util.ToObject.box(__local__18_20);
+                    return aos.util.ToObject.box(__local__19_20);
                 }
                 case 21: 
                 {
-                    return aos.util.ToObject.box(__local__18_21);
+                    return aos.util.ToObject.box(__local__19_21);
                 }
                 case 22: 
                 {
-                    return aos.util.ToObject.box(__local__18_22);
+                    return aos.util.ToObject.box(__local__19_22);
                 }
                 case 23: 
                 {
-                    return aos.util.ToObject.box(__local__18_23);
+                    return aos.util.ToObject.box(__local__19_23);
+                }
+                case 24: 
+                {
+                    return aos.util.ToObject.box(__local__19_24);
+                }
+                case 25: 
+                {
+                    return aos.util.ToObject.box(__local__19_25);
+                }
+                case 26: 
+                {
+                    return aos.util.ToObject.box(__local__19_26);
                 }
                 default: 
                 {

@@ -54,6 +54,75 @@ public class BMoveHint extends aos.jack.jak.beliefset.ClosedWorld {
         return __c;
     }
     
+    public aos.jack.jak.beliefset.BeliefSetCursor get(aos.jack.jak.logic.IntegerVariable __v0, aos.jack.jak.logic.IntegerVariable __v1, aos.jack.jak.logic.IntegerVariable __v2, aos.jack.jak.logic.IntegerVariable __v3, aos.jack.jak.logic.StringVariable __v4)
+        throws aos.jack.jak.beliefset.BeliefSetException
+    {
+        rmit.ai.clima.jackagt.data.BMoveHint__Tuple __t = new rmit.ai.clima.jackagt.data.BMoveHint__Tuple();
+        rmit.ai.clima.jackagt.data.BMoveHint.__Cursor __c = new rmit.ai.clima.jackagt.data.BMoveHint.__Cursor(__t);
+        if (!__v0.check_unifiable(java.lang.Integer.TYPE)) 
+            throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: arg 0 srcX Incorrect Variable type");
+        if (__v0.isGround()) {
+            try {
+                __t.srcX = __v0.as_int();
+            }
+            catch (java.lang.Exception e) {
+                throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: got " + e.toString());
+            }
+        }
+         else 
+            __c.srcX = __v0;
+        if (!__v1.check_unifiable(java.lang.Integer.TYPE)) 
+            throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: arg 1 srcY Incorrect Variable type");
+        if (__v1.isGround()) {
+            try {
+                __t.srcY = __v1.as_int();
+            }
+            catch (java.lang.Exception e) {
+                throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: got " + e.toString());
+            }
+        }
+         else 
+            __c.srcY = __v1;
+        if (!__v2.check_unifiable(java.lang.Integer.TYPE)) 
+            throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: arg 2 endX Incorrect Variable type");
+        if (__v2.isGround()) {
+            try {
+                __t.endX = __v2.as_int();
+            }
+            catch (java.lang.Exception e) {
+                throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: got " + e.toString());
+            }
+        }
+         else 
+            __c.endX = __v2;
+        if (!__v3.check_unifiable(java.lang.Integer.TYPE)) 
+            throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: arg 3 endY Incorrect Variable type");
+        if (__v3.isGround()) {
+            try {
+                __t.endY = __v3.as_int();
+            }
+            catch (java.lang.Exception e) {
+                throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: got " + e.toString());
+            }
+        }
+         else 
+            __c.endY = __v3;
+        if (!__v4.check_unifiable(StringType)) 
+            throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: arg 4 move Incorrect Variable type");
+        if (__v4.isGround()) {
+            try {
+                __t.move = __v4.as_string();
+            }
+            catch (java.lang.Exception e) {
+                throw new aos.jack.jak.beliefset.BeliefSetException("BMoveHint:get:OOOOO: got " + e.toString());
+            }
+        }
+         else 
+            __c.move = __v4;
+        __c.init(-1,this);
+        return __c;
+    }
+    
     public int keyIndex()
     {
         return 0;
@@ -66,7 +135,7 @@ public class BMoveHint extends aos.jack.jak.beliefset.ClosedWorld {
     
     public int nIndexes()
     {
-        return 1;
+        return 2;
     }
     
     public aos.jack.jak.beliefset.Tuple newTuple()

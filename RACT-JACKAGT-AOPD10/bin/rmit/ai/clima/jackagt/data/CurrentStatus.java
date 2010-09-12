@@ -78,9 +78,9 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
     public boolean debugConsole()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentStatus.__complex_12 __c = new rmit.ai.clima.jackagt.data.CurrentStatus.__complex_12();
+        rmit.ai.clima.jackagt.data.CurrentStatus.__complex_13 __c = new rmit.ai.clima.jackagt.data.CurrentStatus.__complex_13();
         try {
-            return __c.__complex_12_debugConsole();
+            return __c.__complex_13_debugConsole();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("debugConsole got exception " + __e);
@@ -90,9 +90,9 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
     public boolean debugGUI()
         throws aos.jack.jak.beliefset.BeliefSetException
     {
-        rmit.ai.clima.jackagt.data.CurrentStatus.__complex_13 __c = new rmit.ai.clima.jackagt.data.CurrentStatus.__complex_13();
+        rmit.ai.clima.jackagt.data.CurrentStatus.__complex_14 __c = new rmit.ai.clima.jackagt.data.CurrentStatus.__complex_14();
         try {
-            return __c.__complex_13_debugGUI();
+            return __c.__complex_14_debugGUI();
         }
         catch (java.lang.Exception __e) {
             throw new aos.jack.jak.beliefset.BeliefSetException("debugGUI got exception " + __e);
@@ -289,68 +289,6 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
         }
         
     }
-    class __complex_12 extends aos.jack.plugin.view.rt.CleanupCursor {
-        aos.jack.jak.logic.BooleanVariable __local_2;
-        aos.jack.jak.logic.BooleanVariable __local_3;
-        public java.lang.Object genObject(int __index)
-        {
-            switch (__index) {
-            }
-            aos.jack.jak.core.Jak.error("illegal Object Construction");
-            return null;
-        }
-        
-        public aos.jack.jak.cursor.Cursor genCursor(int __index)
-            throws java.lang.Exception
-        {
-            switch (__index) {
-                case 0: 
-                {
-                    return (get(__local_2,__local_3));
-                }
-            }
-            aos.jack.jak.core.Jak.error("illegal Cursor Construction");
-            return null;
-        }
-        
-        public aos.jack.jak.fsm.FSM genFSM(int __index)
-            throws java.lang.Exception
-        {
-            switch (__index) {
-            }
-            aos.jack.jak.core.Jak.error("illegal FSM Construction");
-            return null;
-        }
-        
-        public boolean testCondition(int __index)
-            throws java.lang.Exception
-        {
-            switch (__index) {
-            }
-            aos.jack.jak.core.Jak.error("illegal test Construction");
-            return false;
-        }
-        
-        public __complex_12()
-        {
-            super();
-        }
-        
-        public boolean __complex_12_debugConsole()
-            throws java.lang.Exception
-        {
-            {
-                __local_2 = (aos.jack.jak.logic.BooleanVariable) new_variable(java.lang.Boolean.TYPE);
-                __local_3 = (aos.jack.jak.logic.BooleanVariable) new_variable(java.lang.Boolean.TYPE);
-            }
-            if (genCursor(0).next()) {
-                return __local_2.as_boolean();
-            }
-             else 
-                return false;
-        }
-        
-    }
     class __complex_13 extends aos.jack.plugin.view.rt.CleanupCursor {
         aos.jack.jak.logic.BooleanVariable __local_2;
         aos.jack.jak.logic.BooleanVariable __local_3;
@@ -398,7 +336,69 @@ public class CurrentStatus extends aos.jack.jak.beliefset.ClosedWorld {
             super();
         }
         
-        public boolean __complex_13_debugGUI()
+        public boolean __complex_13_debugConsole()
+            throws java.lang.Exception
+        {
+            {
+                __local_2 = (aos.jack.jak.logic.BooleanVariable) new_variable(java.lang.Boolean.TYPE);
+                __local_3 = (aos.jack.jak.logic.BooleanVariable) new_variable(java.lang.Boolean.TYPE);
+            }
+            if (genCursor(0).next()) {
+                return __local_2.as_boolean();
+            }
+             else 
+                return false;
+        }
+        
+    }
+    class __complex_14 extends aos.jack.plugin.view.rt.CleanupCursor {
+        aos.jack.jak.logic.BooleanVariable __local_2;
+        aos.jack.jak.logic.BooleanVariable __local_3;
+        public java.lang.Object genObject(int __index)
+        {
+            switch (__index) {
+            }
+            aos.jack.jak.core.Jak.error("illegal Object Construction");
+            return null;
+        }
+        
+        public aos.jack.jak.cursor.Cursor genCursor(int __index)
+            throws java.lang.Exception
+        {
+            switch (__index) {
+                case 0: 
+                {
+                    return (get(__local_2,__local_3));
+                }
+            }
+            aos.jack.jak.core.Jak.error("illegal Cursor Construction");
+            return null;
+        }
+        
+        public aos.jack.jak.fsm.FSM genFSM(int __index)
+            throws java.lang.Exception
+        {
+            switch (__index) {
+            }
+            aos.jack.jak.core.Jak.error("illegal FSM Construction");
+            return null;
+        }
+        
+        public boolean testCondition(int __index)
+            throws java.lang.Exception
+        {
+            switch (__index) {
+            }
+            aos.jack.jak.core.Jak.error("illegal test Construction");
+            return false;
+        }
+        
+        public __complex_14()
+        {
+            super();
+        }
+        
+        public boolean __complex_14_debugGUI()
             throws java.lang.Exception
         {
             {

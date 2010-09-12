@@ -17,7 +17,6 @@ import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
 import aos.jack.util.thread.Semaphore;
 import rmit.ai.clima.jackagt.data.BAgentNumbers;
 import rmit.ai.clima.jackagt.agents.GUIAgent;
-import java.util.Calendar;
 import java.lang.Object;
 import aos.jack.jak.cursor.Cursor;
 import aos.jack.jak.fsm.FSM;
@@ -37,7 +36,7 @@ public class GUIReportMessage extends aos.jack.jak.plan.Plan {
             "49",
             "50",
             "53",
-            "54",
+            "38",
             "60",
             "38"};
     private final static java.lang.String[] __planVariableNames = {
@@ -315,12 +314,10 @@ public class GUIReportMessage extends aos.jack.jak.plan.Plan {
                                 __state = 17;
                             break;
                         }
-                        //* (54) 	        	guiAgent.guiInterface.reportMessage(agentNo, eguidebugmessage_h.entity, 
+                        //* (38)     #reasoning method
                         case 16: 
                         {
-                            __breakLevel = 2;
                             __state = 17;
-                            __local__12_0.guiInterface.reportMessage(__local__12_2,eguidebugmessage_h.entity,"[" + eguidebugmessage_h.timestamp.get(java.util.Calendar.MINUTE) + ":" + eguidebugmessage_h.timestamp.get(java.util.Calendar.SECOND) + ":" + eguidebugmessage_h.timestamp.get(java.util.Calendar.MILLISECOND) + "] " + eguidebugmessage_h.message);
                             break;
                         }
                         //* (60) 	    mutex_accessGUI_dat.signal(); // release mutex

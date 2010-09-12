@@ -2,56 +2,66 @@ package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.*;
+import java.util.*;
 
 public plan PCoord_ChoosePlayerActions extends Plan
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-/*
+   /*
 Plan Name: PCoord_ChoosePlayerActions
-*/
-	//Events handled by the plan are declared here.
-	#posts event EFindPath efindpath_p;
+    */
+   //Events handled by the plan are declared here.
+   #sends event MEPlayerAction meplayeraction_s;
 
-	#posts event EFindClosestGold efindclosestgold_p;
+   #posts event EFindPath efindpath_p;
 
-	#sends event MEPlayerAction meplayeraction_s;
+   #posts event EFindClosestGold efindclosestgold_p;
 
-	#handles event EChoosePlayerActions echooseplayeractions_h;
+   #handles event EChoosePlayerActions echooseplayeractions_h;
 
 
-	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
+   // Declarations of any beliefset/data that the plan accesses.
+   #modifies data BPlayerPosition bel_playerTarget_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
+   #reads data BPlayerGold bel_playerGold_dat;
 
-	#reads data BMoveHint bel_moveHint_dat;
+   #reads data BPlayerPosition bel_playerPositions_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
+   #reads data SimulationProp bel_simulationProp_dat;
 
-	#reads data BPlayerGold bel_playerGold_dat;
+   #reads data BPlayerClosestGold bel_playerClosestGold_dat;
 
-	#reads data BPlayer bel_players_dat;
+   #reads data BObstacleAt bel_obstacleAt_dat;
 
-/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   #reads data BPlayer bel_players_dat;
 
-	static boolean relevant(EChoosePlayerActions e)
-	{
-	   return true;
-	}
-	context()
-	{
-		true;
-	}
-	
+   #reads data BMoveHint bel_moveHint_dat;
+
+   #reads data BGoldAt bel_goldAt_dat;
+
+   /******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   static boolean relevant(EChoosePlayerActions e)
+   {
+      return true;
+   }
+   context()
+   {
+      true;
+   }
+
    final static String[] lookUpDirs = { "up", "down", "right", "left" };
-   
-	#reasoning method
-	body()
-	{
-	   //Find the closest player-gold pairs
+
+   #reasoning method
+   body()
+   {
+      logical int $depotX, $depotY;
+      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
+
+      //Find the closest player-gold pairs
       @subtask(efindclosestgold_p.post());
-      
+
       //Loop through all players on the team
       logical String $playerName;
       String baseName;
@@ -62,45 +72,141 @@ Plan Name: PCoord_ChoosePlayerActions
          logical int $x, $y;
          logical int $numGold;
          boolean goldFound = false;
-         
+
          baseName = $playerName.as_string();
          baseName = baseName.substring(0,baseName.indexOf("@"));
-         
+
          //Get player info
          bel_playerPositions_dat.getByName( $playerName.as_string(), $x, $y );
          bel_playerGold_dat.getByName( $playerName.as_string(), $numGold );
-         
+
          System.out.println($playerName.as_string() + " has : "+ $numGold.as_int());
-         //dirty hack will change after #TODO
+
+         //if we have a target to move to
+         logical int $targetX, $targetY;
+         if(bel_playerTarget_dat.getByName($playerName.as_string(), $targetX, $targetY ))
+         {
+            //we have arrived then remove this from our playerTarget beliefset
+            if($targetX.as_int() == $x.as_int() && $targetY.as_int() == $y.as_int())
+            {
+               System.out.println("I have finished exploring");
+               bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
+            }
+            else
+            {
+               //find the path and head towards to it
+               System.out.println("I am exploring");
+               @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
+               logical String $move;
+               
+               if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int(), $move ))
+                  @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+               continue;  
+            }
+         }
+
+
+
+         if( $x.as_int() == $depotX.as_int() && $y.as_int() == $depotY.as_int() )
+         {
+            if($numGold.as_int() > 0)
+            {
+               @send( baseName, meplayeraction_s.send( "drop" ));
+               continue;
+            }
+            else continue;
+         }
+         // return to depot if we have our max carrying gold
          if($numGold.as_int() >= 3)
          {
-            @send( baseName, meplayeraction_s.send( "moveRand" ));
+            //@send( baseName, meplayeraction_s.send( "moveRand" ));
+            @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $depotX.as_int(), $depotY.as_int() ));
+            logical String $move;
+            
+            if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $depotX.as_int(), $depotY.as_int(), $move ))
+               @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+            else
+               @send( baseName, meplayeraction_s.send( "moveRand" ));
+
             continue;  
          }
-         
+
          //Check if gold at current location
          if (bel_goldAt_dat.check( $x.as_int(), $y.as_int() ))
          {
             @send( baseName, meplayeraction_s.send( "pick" ));
             continue;
          }
-         
+
          //Check if theres a gold nearby
          logical int $goldX, $goldY;
          if (bel_playerClosestGold_dat.getByName( $playerName.as_string(), $goldX, $goldY ))
          {
             //Find path to that gold
             @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int() ));
+            //Move to path hinted direction
+            logical String $move;
+           
+            if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int(), $move ))
+               @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+            else
+            {
+               @send( baseName, meplayeraction_s.send( "moveRand" ));
+            }
          }
-         
-         //Move to path hinted direction
-         logical String $move;
-         System.out.println("There are this many move hints: " + bel_moveHint_dat.nFacts());
-         if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $goldX.as_int(), $goldY.as_int(), $move ))
-            @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
          else
-            @send( baseName, meplayeraction_s.send( "moveRand" ));
-      }
+         {
+            //we are doing this because we have no gold for uz
 
-	}
+            //choose a random unexplored point to move to and store it in a new beliefset
+
+            if(!bel_playerTarget_dat.checkByName($playerName.as_string()))
+            {
+               logical int $width, $height;
+               bel_simulationProp_dat.getGridSize( $width, $height );
+               Random rand = new Random();
+               int r = rand.nextInt( $width.as_int() * $height.as_int() );
+               System.out.println("RANDOM NUMBER WAS: "+ r);
+               int i = r+1;
+               //Stop when looped back to start point
+               while(i != r)
+               {
+                  int x = i % $width.as_int();
+                  int y = (i - x) / $width.as_int();
+
+                  //if we find an unknown cell we should move to it
+                  if(bel_obstacleAt_dat.checkUnknown(x,y))
+                  {
+                     System.out.println("I have picked an unexplored location " + x + ", " + y);
+                     bel_playerTarget_dat.add($playerName.as_string(), x, y);
+                     break;
+                  }
+
+                  //Loop we end of array reached 
+                  if (++i == $width.as_int() * $height.as_int() ) i = 0;
+
+
+               }
+
+            }
+            //find the path and head towards to it
+            logical int $tX, $tY;
+            bel_playerTarget_dat.getByName($playerName.as_string(), $tX, $tY);
+            @subtask(efindpath_p.post( $x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int() ));
+            logical String $move;
+            
+            if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $move ))
+               @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+            else continue;  
+         }
+
+
+      }//players loop
+      logical int $srcX, $srcY,  $dstX,  $dstY;
+      logical String $dir;
+
+      bel_moveHint_dat.get($srcX, $srcY, $dstX, $dstY, $dir).removeAll();
+
+
+   }
 }
