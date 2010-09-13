@@ -41,12 +41,10 @@ public class GUIInitiate extends aos.jack.jak.plan.Plan {
             "64",
             "69",
             "75",
-            "77",
             "83",
             "85",
             "88",
             "91",
-            "93",
             "97",
             "43"};
     private final static java.lang.String[] __planVariableNames = {
@@ -300,7 +298,7 @@ public class GUIInitiate extends aos.jack.jak.plan.Plan {
                             if (__local__11_0.showGUI && !__local__11_0.guiReady) 
                                 __state = 13;
                              else 
-                                __state = 17;
+                                __state = 16;
                             break;
                         }
                         //* (64) 				String title = "Sim Id: " + mesimstart_h.id + " - Opponent: " + mesimstart_h.opponent; 
@@ -330,66 +328,50 @@ public class GUIInitiate extends aos.jack.jak.plan.Plan {
                             __local__11_0.guiReady = true;
                             break;
                         }
-                        //* (77) 	            System.out.println("================> GUI interface initialized <=================");
+                        //* (83)     if(gui.showGUI){
                         case 16: 
                         {
-                            __state = 17;
-                            // now the GUI is ready to be used!
-
-                            java.lang.System.out.println("================> GUI interface initialized <=================");
-                            break;
-                        }
-                        //* (83)     if(gui.showGUI){
-                        case 17: 
-                        {
                             if (__local__11_0.showGUI) 
-                                __state = 18;
+                                __state = 17;
                              else 
-                                __state = 22;
+                                __state = 20;
                             break;
                         }
                         //* (85)     	int agentNo = gui.guiInterface.newAgent(mesimstart_h.from, GameGraphics.getAgentGraphic()); 	
-                        case 18: 
+                        case 17: 
                         {
                             __breakLevel = 2;
                             __local__11_2 = __local__11_0.guiInterface.newAgent(mesimstart_h.from,rmit.ai.clima.gui.grid.GameGraphics.getAgentGraphic());
-                            __state = 19;
+                            __state = 18;
                             break;
                         }
                         //* (88)     	bel_agentNumbers_dat.add(mesimstart_h.from, agentNo); 
-                        case 19: 
+                        case 18: 
                         {
-                            __state = 20;
+                            __state = 19;
                             // Register the agent for tracking
 
                             bel_agentNumbers_dat.add(mesimstart_h.from,__local__11_2);
                             break;
                         }
                         //* (91) 	    bel_GUICurrentStep_dat.add(agentNo, 0);
-                        case 20: 
+                        case 19: 
                         {
-                            __state = 21;
+                            __state = 20;
                             // Second, initialize the agent in the GUI
 
                             bel_GUICurrentStep_dat.add(__local__11_2,0);
                             break;
                         }
-                        //* (93) 	    System.out.println("=================> Agent "+mesimstart_h.from+" registered in the GUI with number "+agentNo);
-                        case 21: 
-                        {
-                            __state = 22;
-                            java.lang.System.out.println("=================> Agent " + mesimstart_h.from + " registered in the GUI with number " + __local__11_2);
-                            break;
-                        }
                         //* (97)     mutex_accessGUI_dat.signal(); // release mutex
-                        case 22: 
+                        case 20: 
                         {
-                            __state = 23;
+                            __state = 21;
                             mutex_accessGUI_dat.signal();
                             break;
                         }
                         //* (43)    body()
-                        case 23: 
+                        case 21: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

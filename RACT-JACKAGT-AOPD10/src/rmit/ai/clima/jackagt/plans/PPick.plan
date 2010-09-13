@@ -31,7 +31,7 @@ Plan Name: PPick
 	#reasoning method
 	body()
 	{
-	   System.out.println( "TRYING TO PICK THIS GOLD" );
+//	   System.out.println( "TRYING TO PICK THIS GOLD" );
 	   eexecuteclimaaction_p.post("pick");
 	}
 }

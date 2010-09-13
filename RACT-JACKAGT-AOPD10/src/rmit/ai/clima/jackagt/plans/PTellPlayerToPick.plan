@@ -1,0 +1,59 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PTellPlayerToPick extends Plan
+{
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PTellPlayerToPick
+*/
+	//Events handled by the plan are declared here.
+	#sends event MEPlayerAction meplayeraction_s;
+
+	#handles event EPostPlayerAction epostplayeraction_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
+
+	#reads data BPlayerPosition bel_playerTarget_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   logical int $x, $y;
+   logical int $numGold;
+   
+   context()
+   {
+      bel_playerGold_dat.getByName( epostplayeraction_h.playerName, $numGold )
+      && $numGold.as_int() < 3
+      && bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $x, $y )
+      && bel_goldAt_dat.check( $x.as_int(), $y.as_int() );
+   }
+
+   body()
+   {
+      //System.out.print("TRYYYYYYYING TO PICK!!!!!");
+      String baseName = epostplayeraction_h.playerName;
+      baseName = baseName.substring(0,baseName.indexOf("@"));
+      @send( baseName, meplayeraction_s.send( "pick" ));
+      
+      //Clear the target if any
+      logical int $targetX, $targetY;
+      if (bel_playerTarget_dat.getByName( epostplayeraction_h.playerName, $targetX, $targetY))
+         bel_playerTarget_dat.remove( epostplayeraction_h.playerName, $targetX.as_int(), $targetY.as_int() );
+   }
+   public PlanInstanceInfo getInstanceInfo()
+   {
+      return PlanInstanceInfo.def[7];
+   }
+}

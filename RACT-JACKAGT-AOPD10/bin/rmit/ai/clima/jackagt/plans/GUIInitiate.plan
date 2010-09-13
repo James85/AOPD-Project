@@ -74,7 +74,7 @@ Description: Start the GUI interface
               	//gui.guiInterface.setVisible(true);
             	gui.guiReady=true;	// now the GUI is ready to be used!
 				
-	            System.out.println("================> GUI interface initialized <=================");
+	            //System.out.println("================> GUI interface initialized <=================");
         }
 
 
@@ -90,7 +90,7 @@ Description: Start the GUI interface
 	    // Second, initialize the agent in the GUI
 	    bel_GUICurrentStep_dat.add(agentNo, 0);
 	    
-	    System.out.println("=================> Agent "+mesimstart_h.from+" registered in the GUI with number "+agentNo);
+	    //System.out.println("=================> Agent "+mesimstart_h.from+" registered in the GUI with number "+agentNo);
     }
 
     

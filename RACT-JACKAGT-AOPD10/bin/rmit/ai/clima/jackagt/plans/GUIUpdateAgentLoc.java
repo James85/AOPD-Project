@@ -15,8 +15,8 @@ import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MEInformAgentStatus;
-import rmit.ai.clima.jackagt.data.GUICurrentStep;
 import aos.jack.util.thread.Semaphore;
+import rmit.ai.clima.jackagt.data.GUICurrentStep;
 import rmit.ai.clima.jackagt.data.BAgentNumbers;
 import rmit.ai.clima.jackagt.agents.GUIAgent;
 import java.lang.Object;
@@ -26,8 +26,8 @@ import aos.jack.jak.core.Jak;
 
 public class GUIUpdateAgentLoc extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.MEInformAgentStatus meinformagentstatus_h;
-    public rmit.ai.clima.jackagt.data.GUICurrentStep bel_GUICurrentStep_dat;
     public aos.jack.util.thread.Semaphore mutex_accessGUI_dat;
+    public rmit.ai.clima.jackagt.data.GUICurrentStep bel_GUICurrentStep_dat;
     public rmit.ai.clima.jackagt.data.BAgentNumbers bel_agentNumbers_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
@@ -43,13 +43,13 @@ public class GUIUpdateAgentLoc extends aos.jack.jak.plan.Plan {
             "42"};
     private final static java.lang.String[] __planVariableNames = {
             "meinformagentstatus_h",
-            "bel_GUICurrentStep_dat",
             "mutex_accessGUI_dat",
+            "bel_GUICurrentStep_dat",
             "bel_agentNumbers_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.MEInformAgentStatus",
-            "GUICurrentStep",
             "aos.jack.util.thread.Semaphore",
+            "GUICurrentStep",
             "rmit.ai.clima.jackagt.data.BAgentNumbers"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
@@ -73,8 +73,8 @@ public class GUIUpdateAgentLoc extends aos.jack.jak.plan.Plan {
         __planTask = __t;
         __logic = __t.logic;
         meinformagentstatus_h = __env.meinformagentstatus_h;
-        bel_GUICurrentStep_dat = __env.bel_GUICurrentStep_dat;
         mutex_accessGUI_dat = __env.mutex_accessGUI_dat;
+        bel_GUICurrentStep_dat = __env.bel_GUICurrentStep_dat;
         bel_agentNumbers_dat = __env.bel_agentNumbers_dat;
     }
     
@@ -85,14 +85,14 @@ public class GUIUpdateAgentLoc extends aos.jack.jak.plan.Plan {
             warning("Failed to find MEInformAgentStatus meinformagentstatus_h");
             return false;
         }
-        bel_GUICurrentStep_dat = (rmit.ai.clima.jackagt.data.GUICurrentStep) lookupNamedObject("bel_GUICurrentStep_dat","rmit.ai.clima.jackagt.data.GUICurrentStep",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_GUICurrentStep_dat == null) {
-            warning("Failed to find GUICurrentStep bel_GUICurrentStep_dat");
-            return false;
-        }
         mutex_accessGUI_dat = (aos.jack.util.thread.Semaphore) lookupNamedObject("mutex_accessGUI_dat","aos.jack.util.thread.Semaphore",0);
         if (mutex_accessGUI_dat == null) {
             warning("Failed to find Semaphore mutex_accessGUI_dat");
+            return false;
+        }
+        bel_GUICurrentStep_dat = (rmit.ai.clima.jackagt.data.GUICurrentStep) lookupNamedObject("bel_GUICurrentStep_dat","rmit.ai.clima.jackagt.data.GUICurrentStep",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_GUICurrentStep_dat == null) {
+            warning("Failed to find GUICurrentStep bel_GUICurrentStep_dat");
             return false;
         }
         bel_agentNumbers_dat = (rmit.ai.clima.jackagt.data.BAgentNumbers) lookupNamedObject("bel_agentNumbers_dat","rmit.ai.clima.jackagt.data.BAgentNumbers",0);
@@ -201,11 +201,11 @@ public class GUIUpdateAgentLoc extends aos.jack.jak.plan.Plan {
             }
             case 1: 
             {
-                return aos.util.ToObject.box(bel_GUICurrentStep_dat);
+                return aos.util.ToObject.box(mutex_accessGUI_dat);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(mutex_accessGUI_dat);
+                return aos.util.ToObject.box(bel_GUICurrentStep_dat);
             }
             case 3: 
             {

@@ -27,7 +27,6 @@ public class PPick extends aos.jack.jak.plan.Plan {
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PPick.plan",
             "body",
-            "34",
             "35",
             "31"};
     private final static java.lang.String[] __planVariableNames = {
@@ -227,25 +226,18 @@ public class PPick extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PPick.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (34) 	   System.out.println( "TRYING TO PICK THIS GOLD" );
+                        //* (35) 	   eexecuteclimaaction_p.post("pick");
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __state = 11;
-                            java.lang.System.out.println("TRYING TO PICK THIS GOLD");
-                            break;
-                        }
-                        //* (35) 	   eexecuteclimaaction_p.post("pick");
-                        case 11: 
-                        {
                             __task.push(eexecuteclimaaction_p.post("pick"));
                             __state = -__state;
-                            __subtask_pass = 12;
+                            __subtask_pass = 11;
                             __subtask_fail = 4;
                             return SUBTASK;
                         }
                         //* (31) 	#reasoning method
-                        case 12: 
+                        case 11: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

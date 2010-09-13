@@ -27,7 +27,6 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PDropGold.plan",
             "body",
-            "34",
             "35",
             "32"};
     private final static java.lang.String[] __planVariableNames = {
@@ -227,25 +226,18 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PDropGold.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (34)       System.out.println( "Dropping my gold" );
+                        //* (35)       eexecuteclimaaction_p.post("drop"); // Post an ExecuteClimaAction event to execute the action in the server
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __state = 11;
-                            java.lang.System.out.println("Dropping my gold");
-                            break;
-                        }
-                        //* (35)       eexecuteclimaaction_p.post("drop"); // Post an ExecuteClimaAction event to execute the action in the server
-                        case 11: 
-                        {
                             __task.push(eexecuteclimaaction_p.post("drop"));
                             __state = -__state;
-                            __subtask_pass = 12;
+                            __subtask_pass = 11;
                             __subtask_fail = 4;
                             return SUBTASK;
                         }
                         //* (32)    body()
-                        case 12: 
+                        case 11: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

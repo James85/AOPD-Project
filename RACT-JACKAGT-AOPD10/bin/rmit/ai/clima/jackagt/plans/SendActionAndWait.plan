@@ -18,9 +18,9 @@ Plan Name: SendActionAndWait
 Description: Send an action to the game server and wait for the next request-action message
 */
 	//Events handled by the plan are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#posts event TellClimaServer tellclimaserver_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event EExecuteCLIMAaction eexecuteclimaaction_h;
 

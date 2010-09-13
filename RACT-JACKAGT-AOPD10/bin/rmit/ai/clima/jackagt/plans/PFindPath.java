@@ -18,8 +18,8 @@ import java.lang.Object;
 import rmit.ai.clima.jackagt.events.EFindPath;
 import rmit.ai.clima.jackagt.data.BMoveHint;
 import rmit.ai.clima.jackagt.data.SimulationProp;
-import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.data.BObstacleAt;
+import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import java.util.Vector;
 import rmit.ai.clima.gui.grid.GridPoint;
 import java.util.Collections;
@@ -31,8 +31,8 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EFindPath efindpath_h;
     public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PFindPath.plan",
@@ -127,14 +127,14 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
             "efindpath_h",
             "bel_moveHint_dat",
             "bel_simulationProp_dat",
-            "bel_playerPositions_dat",
-            "bel_obstacleAt_dat"};
+            "bel_obstacleAt_dat",
+            "bel_playerPositions_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.EFindPath",
             "rmit.ai.clima.jackagt.data.BMoveHint",
             "rmit.ai.clima.jackagt.data.SimulationProp",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition",
-            "rmit.ai.clima.jackagt.data.BObstacleAt"};
+            "rmit.ai.clima.jackagt.data.BObstacleAt",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __fsmVariableNames_body = {
@@ -246,8 +246,8 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
         efindpath_h = __env.efindpath_h;
         bel_moveHint_dat = __env.bel_moveHint_dat;
         bel_simulationProp_dat = __env.bel_simulationProp_dat;
-        bel_playerPositions_dat = __env.bel_playerPositions_dat;
         bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
+        bel_playerPositions_dat = __env.bel_playerPositions_dat;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
@@ -267,14 +267,14 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
             warning("Failed to find SimulationProp bel_simulationProp_dat");
             return false;
         }
-        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
-        if (bel_playerPositions_dat == null) {
-            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
-            return false;
-        }
         bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",0);
         if (bel_obstacleAt_dat == null) {
             warning("Failed to find BObstacleAt bel_obstacleAt_dat");
+            return false;
+        }
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
+        if (bel_playerPositions_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
             return false;
         }
         return true;
@@ -386,11 +386,11 @@ public class PFindPath extends aos.jack.jak.plan.Plan {
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_obstacleAt_dat);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_obstacleAt_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             default: 
             {

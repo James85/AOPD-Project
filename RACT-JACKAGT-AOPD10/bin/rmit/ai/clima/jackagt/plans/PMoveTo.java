@@ -27,8 +27,7 @@ public class PMoveTo extends aos.jack.jak.plan.Plan {
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PMoveTo.plan",
             "body",
-            "34",
-            "36",
+            "35",
             "31"};
     private final static java.lang.String[] __planVariableNames = {
             "eexecuteclimaaction_p",
@@ -227,25 +226,18 @@ public class PMoveTo extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PMoveTo.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (34)       System.out.println( "MOVING TO " + meplayeraction_h.direction );
+                        //* (35)       eexecuteclimaaction_p.post(meplayeraction_h.direction); // Post an ExecuteClimaAction event to execute the action in the server
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __state = 11;
-                            java.lang.System.out.println("MOVING TO " + meplayeraction_h.direction);
-                            break;
-                        }
-                        //* (36)       eexecuteclimaaction_p.post(meplayeraction_h.direction); // Post an ExecuteClimaAction event to execute the action in the server
-                        case 11: 
-                        {
                             __task.push(eexecuteclimaaction_p.post(meplayeraction_h.direction));
                             __state = -__state;
-                            __subtask_pass = 12;
+                            __subtask_pass = 11;
                             __subtask_fail = 4;
                             return SUBTASK;
                         }
                         //* (31)    #reasoning method
-                        case 12: 
+                        case 11: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

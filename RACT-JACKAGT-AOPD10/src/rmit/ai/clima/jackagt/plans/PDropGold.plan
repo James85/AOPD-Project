@@ -31,7 +31,7 @@ Plan Name: PDropGold
 
    body()
    {
-      System.out.println( "Dropping my gold" );
+//      System.out.println( "Dropping my gold" );
       eexecuteclimaaction_p.post("drop"); // Post an ExecuteClimaAction event to execute the action in the server
    }
 }

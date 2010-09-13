@@ -17,9 +17,9 @@ import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.EFindPath;
 import rmit.ai.clima.jackagt.events.EIdentifyTarget;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
-import rmit.ai.clima.jackagt.data.BMoveHint;
 import rmit.ai.clima.jackagt.data.BObstacleAt;
 import rmit.ai.clima.jackagt.data.SimulationProp;
+import rmit.ai.clima.jackagt.data.BMoveHint;
 import java.util.Random;
 import java.lang.Object;
 import aos.jack.jak.cursor.Cursor;
@@ -30,10 +30,10 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EFindPath efindpath_p;
     public rmit.ai.clima.jackagt.events.EIdentifyTarget eidentifytarget_h;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
-    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
+    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PIdentifyExploreTarget.plan",
@@ -50,44 +50,43 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             "53",
             "54",
             "55",
-            "58",
+            "56",
             "59",
             "60",
-            "61",
-            "64",
+            "62",
             "65",
-            "67",
-            "68",
-            "71",
-            "74",
-            "75",
+            "66",
+            "69",
+            "70",
+            "73",
             "76",
-            "79",
-            "80",
-            "81",
+            "77",
+            "78",
             "82",
-            "86",
-            "87",
+            "83",
+            "84",
             "88",
-            "92",
-            "92",
+            "89",
+            "90",
+            "94",
+            "94",
             "38"};
     private final static java.lang.String[] __planVariableNames = {
             "efindpath_p",
             "eidentifytarget_h",
             "bel_playerTarget_dat",
-            "bel_moveHint_dat",
+            "bel_playerPositions_dat",
             "bel_obstacleAt_dat",
             "bel_simulationProp_dat",
-            "bel_playerPositions_dat"};
+            "bel_moveHint_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.EFindPath",
             "rmit.ai.clima.jackagt.events.EIdentifyTarget",
             "rmit.ai.clima.jackagt.data.BPlayerPosition",
-            "rmit.ai.clima.jackagt.data.BMoveHint",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition",
             "rmit.ai.clima.jackagt.data.BObstacleAt",
             "rmit.ai.clima.jackagt.data.SimulationProp",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition"};
+            "rmit.ai.clima.jackagt.data.BMoveHint"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __fsmVariableNames_body = {
@@ -148,10 +147,10 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
         efindpath_p = __env.efindpath_p;
         eidentifytarget_h = __env.eidentifytarget_h;
         bel_playerTarget_dat = __env.bel_playerTarget_dat;
-        bel_moveHint_dat = __env.bel_moveHint_dat;
+        bel_playerPositions_dat = __env.bel_playerPositions_dat;
         bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
         bel_simulationProp_dat = __env.bel_simulationProp_dat;
-        bel_playerPositions_dat = __env.bel_playerPositions_dat;
+        bel_moveHint_dat = __env.bel_moveHint_dat;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
@@ -171,9 +170,9 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerPosition bel_playerTarget_dat");
             return false;
         }
-        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
-        if (bel_moveHint_dat == null) {
-            warning("Failed to find BMoveHint bel_moveHint_dat");
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
+        if (bel_playerPositions_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
             return false;
         }
         bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",0);
@@ -186,9 +185,9 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             warning("Failed to find SimulationProp bel_simulationProp_dat");
             return false;
         }
-        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
-        if (bel_playerPositions_dat == null) {
-            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
+        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
+        if (bel_moveHint_dat == null) {
+            warning("Failed to find BMoveHint bel_moveHint_dat");
             return false;
         }
         return true;
@@ -300,7 +299,7 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_moveHint_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 4: 
             {
@@ -312,7 +311,7 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             }
             case 6: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_moveHint_dat);
             }
             default: 
             {
@@ -487,61 +486,63 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             __state = 21;
                             break;
                         }
-                        //* (55)       while(!targetFound && !targetUnreachable)
+                        //* (55)       System.out.println("FINDING A NEW UNEXPLORED AREA TO GO TO");
                         case 21: 
                         {
-                            if (!__local__21_6 && !__local__21_7) 
-                                __state = 22;
-                             else 
-                                __state = 43;
+                            __state = 22;
+                            java.lang.System.out.println("FINDING A NEW UNEXPLORED AREA TO GO TO");
                             break;
                         }
-                        //* (58)          Random rand = new Random();
+                        //* (56)       while(!targetFound && !targetUnreachable)
                         case 22: 
+                        {
+                            if (!__local__21_6 && !__local__21_7) 
+                                __state = 23;
+                             else 
+                                __state = 42;
+                            break;
+                        }
+                        //* (59)          Random rand = new Random();
+                        case 23: 
                         {
                             __breakLevel = 4;
                             __local__21_8 = new java.util.Random();
-                            __state = 23;
-                            break;
-                        }
-                        //* (59)          int r = rand.nextInt( $width.as_int() * $height.as_int() );
-                        case 23: 
-                        {
-                            __local__21_9 = __local__21_8.nextInt(__local__21_0.as_int() * __local__21_1.as_int());
                             __state = 24;
                             break;
                         }
-                        //* (60)          System.out.println("RANDOM NUMBER WAS: "+ r);
+                        //* (60)          int r = rand.nextInt( $width.as_int() * $height.as_int() );
                         case 24: 
                         {
+                            __local__21_9 = __local__21_8.nextInt(__local__21_0.as_int() * __local__21_1.as_int());
                             __state = 25;
-                            java.lang.System.out.println("RANDOM NUMBER WAS: " + __local__21_9);
                             break;
                         }
-                        //* (61)          targetUnreachable = false;
+                        //* (62)          targetUnreachable = false;
                         case 25: 
                         {
                             __state = 26;
+                            //         System.out.println("RANDOM NUMBER WAS: "+ r);
+
                             __local__21_7 = false;
                             break;
                         }
-                        //* (64)          int i = r+1;
+                        //* (65)          int i = r+1;
                         case 26: 
                         {
                             __local__21_10 = __local__21_9 + 1;
                             __state = 27;
                             break;
                         }
-                        //* (65)          while(i != r)
+                        //* (66)          while(i != r)
                         case 27: 
                         {
                             if (__local__21_10 != __local__21_9) 
                                 __state = 28;
                              else 
-                                __state = 21;
+                                __state = 22;
                             break;
                         }
-                        //* (67)             int x = i % $width.as_int();
+                        //* (69)             int x = i % $width.as_int();
                         case 28: 
                         {
                             __breakLevel = 8;
@@ -549,23 +550,23 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             __state = 29;
                             break;
                         }
-                        //* (68)             int y = (i - x) / $width.as_int();
+                        //* (70)             int y = (i - x) / $width.as_int();
                         case 29: 
                         {
                             __local__21_12 = (__local__21_10 - __local__21_11) / __local__21_0.as_int();
                             __state = 30;
                             break;
                         }
-                        //* (71)             if(bel_obstacleAt_dat.checkUnknown(x,y) && visited[i] == false)
+                        //* (73)             if(bel_obstacleAt_dat.checkUnknown(x,y) && visited[i] == false)
                         case 30: 
                         {
                             if (bel_obstacleAt_dat.checkUnknown(__local__21_11,__local__21_12) && __local__21_4[__local__21_10] == false) 
                                 __state = 31;
                              else 
-                                __state = 41;
+                                __state = 40;
                             break;
                         }
-                        //* (74)                logical String $move;
+                        //* (76)                logical String $move;
                         case 31: 
                         {
                             __breakLevel = 10;
@@ -573,7 +574,7 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             __state = 32;
                             break;
                         }
-                        //* (75)                @subtask(efindpath_p.post( eidentifytarget_h.playerName, $playerX.as_int(), $playerY.as_int(), x, y ));
+                        //* (77)                @subtask(efindpath_p.post( eidentifytarget_h.playerName, $playerX.as_int(), $playerY.as_int(), x, y ));
                         case 32: 
                         {
                             __task.push(efindpath_p.post(eidentifytarget_h.playerName,__local__21_2.as_int(),__local__21_3.as_int(),__local__21_11,__local__21_12));
@@ -582,7 +583,7 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             __subtask_fail = 4;
                             return SUBTASK;
                         }
-                        //* (76)                if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), x, y, $move ))
+                        //* (78)                if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), x, y, $move ))
                         case 33: 
                         {
                             boolean __b;
@@ -598,81 +599,75 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             if (__b) 
                                 __state = 34;
                              else 
-                                __state = 38;
+                                __state = 37;
                             break;
                         }
-                        //* (79)                   System.out.println("I AM GOING TO EXPLORE " + x + ", " + y);
+                        //* (82)                   bel_playerTarget_dat.add( eidentifytarget_h.playerName, x, y);
                         case 34: 
                         {
                             __breakLevel = 12;
                             __state = 35;
                             //Store the player target
+//                  System.out.println("I AM GOING TO EXPLORE " + x + ", " + y);
 
-                            java.lang.System.out.println("I AM GOING TO EXPLORE " + __local__21_11 + ", " + __local__21_12);
-                            break;
-                        }
-                        //* (80)                   bel_playerTarget_dat.add( eidentifytarget_h.playerName, x, y);
-                        case 35: 
-                        {
-                            __state = 36;
                             bel_playerTarget_dat.add(eidentifytarget_h.playerName,__local__21_11,__local__21_12);
                             break;
                         }
-                        //* (81)                   targetFound = true;
-                        case 36: 
+                        //* (83)                   targetFound = true;
+                        case 35: 
                         {
-                            __state = 37;
+                            __state = 36;
                             __local__21_6 = true;
                             break;
                         }
-                        //* (82)                   break;
-                        case 37: 
+                        //* (84)                   break;
+                        case 36: 
                         {
                             __breakLevel = 6;
-                            __state = 21;
+                            __state = 22;
                             break;
                         }
-                        //* (86)                visited[i] = true;
-                        case 38: 
+                        //* (88)                visited[i] = true;
+                        case 37: 
                         {
-                            __state = 39;
+                            __state = 38;
                             //Mark as visited
 
                             __local__21_4[__local__21_10] = true;
                             break;
                         }
-                        //* (87)                targetUnreachable = true;
-                        case 39: 
+                        //* (89)                targetUnreachable = true;
+                        case 38: 
                         {
-                            __state = 40;
+                            __state = 39;
                             __local__21_7 = true;
                             break;
                         }
-                        //* (88)                break;
-                        case 40: 
+                        //* (90)                break;
+                        case 39: 
                         {
                             __breakLevel = 6;
-                            __state = 21;
+                            __state = 22;
                             break;
                         }
-                        //* (92)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
-                        case 41: 
+                        //* (94)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
+                        case 40: 
                         {
                             if (++__local__21_10 == __local__21_0.as_int() * __local__21_1.as_int()) 
-                                __state = 42;
+                                __state = 41;
                              else 
                                 __state = 27;
                             break;
                         }
-                        //* (92)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
-                        case 42: 
+                        //* (94)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
+                        case 41: 
                         {
                             __state = 27;
                             __local__21_10 = 0;
                             break;
                         }
                         //* (38)    body()
-                        case 43: 
+                        case 42: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;
