@@ -15,10 +15,10 @@ import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MESimEnd;
-import rmit.ai.clima.jackagt.data.BPlayer;
-import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.data.BPlayerGold;
 import rmit.ai.clima.jackagt.data.BPlayerPerceptReceived;
+import rmit.ai.clima.jackagt.data.BPlayerPosition;
+import rmit.ai.clima.jackagt.data.BPlayer;
 import rmit.ai.clima.jackagt.data.SimulationProp;
 import rmit.ai.clima.interfaces.DebugInterface;
 import java.lang.Object;
@@ -28,10 +28,10 @@ import aos.jack.jak.core.Jak;
 
 public class Coord_EndSimulation extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.MESimEnd mesimend_h;
-    public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
+    public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
@@ -48,18 +48,18 @@ public class Coord_EndSimulation extends aos.jack.jak.plan.Plan {
             "49"};
     private final static java.lang.String[] __planVariableNames = {
             "mesimend_h",
-            "bel_players_dat",
-            "bel_playerPositions_dat",
             "bel_playerGold_dat",
             "bel_playerPerceptReceived_dat",
+            "bel_playerPositions_dat",
+            "bel_players_dat",
             "bel_simulationProp_dat",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.MESimEnd",
-            "BPlayer",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition",
             "BPlayerGold",
             "rmit.ai.clima.jackagt.data.BPlayerPerceptReceived",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition",
+            "BPlayer",
             "rmit.ai.clima.jackagt.data.SimulationProp",
             "rmit.ai.clima.interfaces.DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
@@ -107,10 +107,10 @@ public class Coord_EndSimulation extends aos.jack.jak.plan.Plan {
         __planTask = __t;
         __logic = __t.logic;
         mesimend_h = __env.mesimend_h;
-        bel_players_dat = __env.bel_players_dat;
-        bel_playerPositions_dat = __env.bel_playerPositions_dat;
         bel_playerGold_dat = __env.bel_playerGold_dat;
         bel_playerPerceptReceived_dat = __env.bel_playerPerceptReceived_dat;
+        bel_playerPositions_dat = __env.bel_playerPositions_dat;
+        bel_players_dat = __env.bel_players_dat;
         bel_simulationProp_dat = __env.bel_simulationProp_dat;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
@@ -122,16 +122,6 @@ public class Coord_EndSimulation extends aos.jack.jak.plan.Plan {
             warning("Failed to find MESimEnd mesimend_h");
             return false;
         }
-        bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_players_dat == null) {
-            warning("Failed to find BPlayer bel_players_dat");
-            return false;
-        }
-        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_playerPositions_dat == null) {
-            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
-            return false;
-        }
         bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_playerGold_dat == null) {
             warning("Failed to find BPlayerGold bel_playerGold_dat");
@@ -140,6 +130,16 @@ public class Coord_EndSimulation extends aos.jack.jak.plan.Plan {
         bel_playerPerceptReceived_dat = (rmit.ai.clima.jackagt.data.BPlayerPerceptReceived) lookupNamedObject("bel_playerPerceptReceived_dat","rmit.ai.clima.jackagt.data.BPlayerPerceptReceived",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_playerPerceptReceived_dat == null) {
             warning("Failed to find BPlayerPerceptReceived bel_playerPerceptReceived_dat");
+            return false;
+        }
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_playerPositions_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
+            return false;
+        }
+        bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_players_dat == null) {
+            warning("Failed to find BPlayer bel_players_dat");
             return false;
         }
         bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",0);
@@ -248,19 +248,19 @@ public class Coord_EndSimulation extends aos.jack.jak.plan.Plan {
             }
             case 1: 
             {
-                return aos.util.ToObject.box(bel_players_dat);
+                return aos.util.ToObject.box(bel_playerGold_dat);
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_playerPerceptReceived_dat);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_playerGold_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_playerPerceptReceived_dat);
+                return aos.util.ToObject.box(bel_players_dat);
             }
             case 5: 
             {

@@ -10,17 +10,17 @@ public plan PSendPlayerToDepot extends Plan
 Plan Name: PSendPlayerToDepot
 */
 	//Events handled by the plan are declared here.
-	#sends event MEPlayerAction meplayeraction_s;
-
 	#posts event EFindPath efindpath_p;
+
+	#sends event MEPlayerAction meplayeraction_s;
 
 	#handles event EPostPlayerAction epostplayeraction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BMoveHint bel_moveHint_dat;
-
 	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BMoveHint bel_moveHint_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
 

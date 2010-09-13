@@ -12,23 +12,21 @@ Plan Name: PTellPlayerToMove
 	//Events handled by the plan are declared here.
 	#posts event EFindPath efindpath_p;
 
-	#sends event MEPlayerAction meplayeraction_s;
-
 	#posts event EFindClosestGold efindclosestgold_p;
+
+	#sends event MEPlayerAction meplayeraction_s;
 
 	#handles event EPostPlayerAction epostplayeraction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BGoldAt bel_goldAt_dat;
-
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
 
 	#reads data BPlayerPosition bel_playerTarget_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
-
-	#reads data BPlayerGold bel_playerGold_dat;
+	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BMoveHint bel_moveHint_dat;
 

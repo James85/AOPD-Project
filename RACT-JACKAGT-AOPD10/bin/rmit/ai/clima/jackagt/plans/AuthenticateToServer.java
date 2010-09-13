@@ -13,8 +13,8 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
-import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
 import rmit.ai.clima.iface.TellClimaServer;
+import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
 import rmit.ai.clima.jackagt.events.EStart;
 import aos.util.timer.Timer;
 import rmit.ai.clima.comms.AuthRequest;
@@ -24,8 +24,8 @@ import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
 
 public class AuthenticateToServer extends aos.jack.jak.plan.Plan {
-    public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
     public rmit.ai.clima.iface.TellClimaServer tellclimaserver_p;
+    public rmit.ai.clima.jackagt.events.EGUIDebugMessage eguidebugmessage_s;
     public rmit.ai.clima.jackagt.events.EStart estart_h;
     public aos.util.timer.Timer clima_timer_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
@@ -37,13 +37,13 @@ public class AuthenticateToServer extends aos.jack.jak.plan.Plan {
             "55",
             "46"};
     private final static java.lang.String[] __planVariableNames = {
-            "eguidebugmessage_s",
             "tellclimaserver_p",
+            "eguidebugmessage_s",
             "estart_h",
             "clima_timer_dat"};
     private final static java.lang.String[] __planVariableTypes = {
-            "EGUIDebugMessage",
             "rmit.ai.clima.iface.TellClimaServer",
+            "EGUIDebugMessage",
             "EStart",
             "Timer"};
     private final static java.lang.String[] __reasoningMethods = {
@@ -71,22 +71,22 @@ public class AuthenticateToServer extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        eguidebugmessage_s = __env.eguidebugmessage_s;
         tellclimaserver_p = __env.tellclimaserver_p;
+        eguidebugmessage_s = __env.eguidebugmessage_s;
         estart_h = __env.estart_h;
         clima_timer_dat = __env.clima_timer_dat;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) __a.findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
-        if (eguidebugmessage_s == null) {
-            warning("Failed to find EGUIDebugMessage eguidebugmessage_s");
-            return false;
-        }
         tellclimaserver_p = (rmit.ai.clima.iface.TellClimaServer) __a.findEvent("rmit.ai.clima.iface.TellClimaServer");
         if (tellclimaserver_p == null) {
             warning("Failed to find TellClimaServer tellclimaserver_p");
+            return false;
+        }
+        eguidebugmessage_s = (rmit.ai.clima.jackagt.events.EGUIDebugMessage) __a.findEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage");
+        if (eguidebugmessage_s == null) {
+            warning("Failed to find EGUIDebugMessage eguidebugmessage_s");
             return false;
         }
         estart_h = (rmit.ai.clima.jackagt.events.EStart) __a.findEvent("rmit.ai.clima.jackagt.events.EStart");
@@ -196,11 +196,11 @@ public class AuthenticateToServer extends aos.jack.jak.plan.Plan {
         switch (n) {
             case 0: 
             {
-                return aos.util.ToObject.box(eguidebugmessage_s);
+                return aos.util.ToObject.box(tellclimaserver_p);
             }
             case 1: 
             {
-                return aos.util.ToObject.box(tellclimaserver_p);
+                return aos.util.ToObject.box(eguidebugmessage_s);
             }
             case 2: 
             {

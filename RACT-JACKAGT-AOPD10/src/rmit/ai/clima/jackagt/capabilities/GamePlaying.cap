@@ -23,6 +23,26 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data SimulationProp bel_simulationProp_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentStatus bel_currentStatus_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -33,30 +53,14 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentStatus bel_currentStatus_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data SimulationProp bel_simulationProp_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BObstacleAt bel_obstacleAt_dat();
 
 
 	//Events handled, posted and sent are declared here.
+	#handles external event ECellChange ;
+
+	#handles external event MEPlayerAction ;
+
 	#handles event EShowBeliefs ;
 	#posts event EShowBeliefs eshowbeliefs_p;
 
@@ -64,32 +68,28 @@ Capability Name: GamePlaying
 
 	#posts external event TellClimaServer tellclimaserver_p;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
-	#posts event MEReportPlayerPercept mereportplayerpercept_p;
-
-	#posts event EAct eact_p;
-
 	#sends event MEInformCellStatus meinformcellstatus_s;
-
-	#handles external event MEPlayerAction ;
 
 	#handles event EExecuteCLIMAaction ;
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
+	#posts event EAct eact_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
 	#handles external event PerceiveClimaServer ;
 
-	#handles external event ECellChange ;
+	#posts event MEReportPlayerPercept mereportplayerpercept_p;
 
 	#sends event EUpdateBel eupdatebel_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan SendActionAndWait ;
+	#uses plan UpdateCellsAround ;
 
 	#uses plan HandlePercept ;
 
-	#uses plan UpdateCellsAround ;
+	#uses plan SendActionAndWait ;
 
 
 	// Inner capabilities are declared here.

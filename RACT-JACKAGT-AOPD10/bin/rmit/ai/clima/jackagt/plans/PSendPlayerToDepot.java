@@ -19,10 +19,10 @@ import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import rmit.ai.clima.jackagt.events.EFindPath;
 import rmit.ai.clima.jackagt.events.EPostPlayerAction;
-import rmit.ai.clima.jackagt.data.BMoveHint;
 import rmit.ai.clima.jackagt.data.BPlayerGold;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.data.SimulationProp;
+import rmit.ai.clima.jackagt.data.BMoveHint;
 import java.lang.Object;
 import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
@@ -36,10 +36,10 @@ public class PSendPlayerToDepot extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_s;
     public rmit.ai.clima.jackagt.events.EFindPath efindpath_p;
     public rmit.ai.clima.jackagt.events.EPostPlayerAction epostplayeraction_h;
-    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
     public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
+    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PSendPlayerToDepot.plan",
@@ -60,10 +60,10 @@ public class PSendPlayerToDepot extends aos.jack.jak.plan.Plan {
             "meplayeraction_s",
             "efindpath_p",
             "epostplayeraction_h",
-            "bel_moveHint_dat",
             "bel_playerGold_dat",
             "bel_playerPositions_dat",
-            "bel_simulationProp_dat"};
+            "bel_simulationProp_dat",
+            "bel_moveHint_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "aos.jack.jak.logic.IntegerVariable",
             "aos.jack.jak.logic.IntegerVariable",
@@ -73,10 +73,10 @@ public class PSendPlayerToDepot extends aos.jack.jak.plan.Plan {
             "MEPlayerAction",
             "rmit.ai.clima.jackagt.events.EFindPath",
             "rmit.ai.clima.jackagt.events.EPostPlayerAction",
-            "rmit.ai.clima.jackagt.data.BMoveHint",
             "BPlayerGold",
             "BPlayerPosition",
-            "SimulationProp"};
+            "SimulationProp",
+            "rmit.ai.clima.jackagt.data.BMoveHint"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __logSignatureVariableNames = {
@@ -118,10 +118,10 @@ public class PSendPlayerToDepot extends aos.jack.jak.plan.Plan {
         meplayeraction_s = __env.meplayeraction_s;
         efindpath_p = __env.efindpath_p;
         epostplayeraction_h = __env.epostplayeraction_h;
-        bel_moveHint_dat = __env.bel_moveHint_dat;
         bel_playerGold_dat = __env.bel_playerGold_dat;
         bel_playerPositions_dat = __env.bel_playerPositions_dat;
         bel_simulationProp_dat = __env.bel_simulationProp_dat;
+        bel_moveHint_dat = __env.bel_moveHint_dat;
         $playerX = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $playerY = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $depotX = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
@@ -146,11 +146,6 @@ public class PSendPlayerToDepot extends aos.jack.jak.plan.Plan {
             warning("Failed to find EPostPlayerAction epostplayeraction_h");
             return false;
         }
-        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
-        if (bel_moveHint_dat == null) {
-            warning("Failed to find BMoveHint bel_moveHint_dat");
-            return false;
-        }
         bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",0);
         if (bel_playerGold_dat == null) {
             warning("Failed to find BPlayerGold bel_playerGold_dat");
@@ -164,6 +159,11 @@ public class PSendPlayerToDepot extends aos.jack.jak.plan.Plan {
         bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",0);
         if (bel_simulationProp_dat == null) {
             warning("Failed to find SimulationProp bel_simulationProp_dat");
+            return false;
+        }
+        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
+        if (bel_moveHint_dat == null) {
+            warning("Failed to find BMoveHint bel_moveHint_dat");
             return false;
         }
         return true;
@@ -344,19 +344,19 @@ public class PSendPlayerToDepot extends aos.jack.jak.plan.Plan {
             }
             case 8: 
             {
-                return aos.util.ToObject.box(bel_moveHint_dat);
+                return aos.util.ToObject.box(bel_playerGold_dat);
             }
             case 9: 
             {
-                return aos.util.ToObject.box(bel_playerGold_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 10: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_simulationProp_dat);
             }
             case 11: 
             {
-                return aos.util.ToObject.box(bel_simulationProp_dat);
+                return aos.util.ToObject.box(bel_moveHint_dat);
             }
             default: 
             {
