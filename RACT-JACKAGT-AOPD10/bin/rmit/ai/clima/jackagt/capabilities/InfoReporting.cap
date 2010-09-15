@@ -30,21 +30,6 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BGoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentStatus bel_currentStatus_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BCurrentPosition bel_currentPosition_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -55,12 +40,25 @@ Description: Tasks to report on information believed
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentStatus bel_currentStatus_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles external event ECellChange ;
@@ -69,13 +67,15 @@ Description: Tasks to report on information believed
 
 	#sends event MEInformCellStatus meinformcellstatus_s;
 
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
 
 	//Plans directly used are declared here.
-	#uses plan ConsoleBeliefPrinting ;
+	#uses plan ReportCellChangeToGUI ;
 
 	#uses plan BeliefReporting ;
 
-	#uses plan ReportCellChangeToGUI ;
+	#uses plan ConsoleBeliefPrinting ;
 
 
 	// Inner capabilities are declared here.

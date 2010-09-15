@@ -15,8 +15,9 @@ import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
 import aos.jack.jak.logic.Signature;
-import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import rmit.ai.clima.jackagt.events.EIdentifyTarget;
+import rmit.ai.clima.jackagt.events.EFindPath;
+import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import rmit.ai.clima.jackagt.events.EPostPlayerAction;
 import rmit.ai.clima.jackagt.data.BMoveHint;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
@@ -29,48 +30,54 @@ import aos.jack.jak.core.Jak;
 public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
     aos.jack.jak.logic.IntegerVariable $targetX;
     aos.jack.jak.logic.IntegerVariable $targetY;
-    public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_s;
     public rmit.ai.clima.jackagt.events.EIdentifyTarget eidentifytarget_p;
+    public rmit.ai.clima.jackagt.events.EFindPath efindpath_p;
+    public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_s;
     public rmit.ai.clima.jackagt.events.EPostPlayerAction epostplayeraction_h;
     public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PSendPlayerToExplore.plan",
             "body",
-            "40",
-            "41",
-            "44",
-            "45",
+            "42",
+            "43",
             "46",
-            "53",
-            "54",
+            "47",
+            "48",
             "55",
             "56",
-            "59",
-            "38"};
+            "57",
+            "58",
+            "61",
+            "65",
+            "66",
+            "69",
+            "40"};
     private final static java.lang.String[] __planVariableNames = {
             "$targetX",
             "$targetY",
-            "meplayeraction_s",
             "eidentifytarget_p",
+            "efindpath_p",
+            "meplayeraction_s",
             "epostplayeraction_h",
             "bel_moveHint_dat",
             "bel_playerTarget_dat",
-            "bel_playerPositions_dat",
-            "bel_playerGold_dat"};
+            "bel_playerGold_dat",
+            "bel_playerPositions_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "logical int",
             "logical int",
-            "MEPlayerAction",
             "rmit.ai.clima.jackagt.events.EIdentifyTarget",
+            "rmit.ai.clima.jackagt.events.EFindPath",
+            "MEPlayerAction",
             "rmit.ai.clima.jackagt.events.EPostPlayerAction",
             "rmit.ai.clima.jackagt.data.BMoveHint",
             "rmit.ai.clima.jackagt.data.BPlayerPosition",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition",
-            "BPlayerGold"};
+            "BPlayerGold",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __logSignatureVariableNames = {
@@ -115,27 +122,33 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        meplayeraction_s = __env.meplayeraction_s;
         eidentifytarget_p = __env.eidentifytarget_p;
+        efindpath_p = __env.efindpath_p;
+        meplayeraction_s = __env.meplayeraction_s;
         epostplayeraction_h = __env.epostplayeraction_h;
         bel_moveHint_dat = __env.bel_moveHint_dat;
         bel_playerTarget_dat = __env.bel_playerTarget_dat;
-        bel_playerPositions_dat = __env.bel_playerPositions_dat;
         bel_playerGold_dat = __env.bel_playerGold_dat;
+        bel_playerPositions_dat = __env.bel_playerPositions_dat;
         $targetX = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $targetY = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        meplayeraction_s = (rmit.ai.clima.jackagt.events.MEPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.MEPlayerAction");
-        if (meplayeraction_s == null) {
-            warning("Failed to find MEPlayerAction meplayeraction_s");
-            return false;
-        }
         eidentifytarget_p = (rmit.ai.clima.jackagt.events.EIdentifyTarget) __a.findEvent("rmit.ai.clima.jackagt.events.EIdentifyTarget");
         if (eidentifytarget_p == null) {
             warning("Failed to find EIdentifyTarget eidentifytarget_p");
+            return false;
+        }
+        efindpath_p = (rmit.ai.clima.jackagt.events.EFindPath) __a.findEvent("rmit.ai.clima.jackagt.events.EFindPath");
+        if (efindpath_p == null) {
+            warning("Failed to find EFindPath efindpath_p");
+            return false;
+        }
+        meplayeraction_s = (rmit.ai.clima.jackagt.events.MEPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.MEPlayerAction");
+        if (meplayeraction_s == null) {
+            warning("Failed to find MEPlayerAction meplayeraction_s");
             return false;
         }
         epostplayeraction_h = (rmit.ai.clima.jackagt.events.EPostPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.EPostPlayerAction");
@@ -153,14 +166,14 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerPosition bel_playerTarget_dat");
             return false;
         }
-        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
-        if (bel_playerPositions_dat == null) {
-            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
-            return false;
-        }
         bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",0);
         if (bel_playerGold_dat == null) {
             warning("Failed to find BPlayerGold bel_playerGold_dat");
+            return false;
+        }
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
+        if (bel_playerPositions_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
             return false;
         }
         return true;
@@ -287,31 +300,35 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
             }
             case 2: 
             {
-                return aos.util.ToObject.box(meplayeraction_s);
+                return aos.util.ToObject.box(eidentifytarget_p);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(eidentifytarget_p);
+                return aos.util.ToObject.box(efindpath_p);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(epostplayeraction_h);
+                return aos.util.ToObject.box(meplayeraction_s);
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_moveHint_dat);
+                return aos.util.ToObject.box(epostplayeraction_h);
             }
             case 6: 
             {
-                return aos.util.ToObject.box(bel_playerTarget_dat);
+                return aos.util.ToObject.box(bel_moveHint_dat);
             }
             case 7: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_playerTarget_dat);
             }
             case 8: 
             {
                 return aos.util.ToObject.box(bel_playerGold_dat);
+            }
+            case 9: 
+            {
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             default: 
             {
@@ -381,7 +398,7 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PSendPlayerToExplore.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (40)       String baseName = epostplayeraction_h.playerName;
+                        //* (42)       String baseName = epostplayeraction_h.playerName;
                         case 10: 
                         {
                             __breakLevel = 0;
@@ -389,14 +406,14 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
                             __state = 11;
                             break;
                         }
-                        //* (41)       baseName = baseName.substring(0,baseName.indexOf("@"));
+                        //* (43)       baseName = baseName.substring(0,baseName.indexOf("@"));
                         case 11: 
                         {
                             __state = 12;
                             __local__26_0 = __local__26_0.substring(0,__local__26_0.indexOf("@"));
                             break;
                         }
-                        //* (44)       logical int $tX, $tY;
+                        //* (46)       logical int $tX, $tY;
                         case 12: 
                         {
                             __local__26_1 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
@@ -404,7 +421,7 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
                             __state = 13;
                             break;
                         }
-                        //* (45)       @subtask(eidentifytarget_p.post( epostplayeraction_h.playerName ));
+                        //* (47)       @subtask(eidentifytarget_p.post( epostplayeraction_h.playerName ));
                         case 13: 
                         {
                             __task.push(eidentifytarget_p.post(epostplayeraction_h.playerName));
@@ -413,7 +430,7 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
                             __subtask_fail = 4;
                             return SUBTASK;
                         }
-                        //* (46)       bel_playerTarget_dat.getByName( epostplayeraction_h.playerName, $tX, $tY);
+                        //* (48)       bel_playerTarget_dat.getByName( epostplayeraction_h.playerName, $tX, $tY);
                         case 14: 
                         {
                             boolean __b;
@@ -432,7 +449,7 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
                                 throw planfailed;
                             break;
                         }
-                        //* (53)       logical int $x, $y;
+                        //* (55)       logical int $x, $y;
                         case 15: 
                         {
                             __local__26_3 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
@@ -440,14 +457,14 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
                             __state = 16;
                             break;
                         }
-                        //* (54)       logical String $tMove;
+                        //* (56)       logical String $tMove;
                         case 16: 
                         {
                             __local__26_5 = (aos.jack.jak.logic.StringVariable) __logic.new_variable(java.lang.String.class);
                             __state = 17;
                             break;
                         }
-                        //* (55)       bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $x, $y );
+                        //* (57)       bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $x, $y );
                         case 17: 
                         {
                             boolean __b;
@@ -466,7 +483,7 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
                                 throw planfailed;
                             break;
                         }
-                        //* (56)       if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
+                        //* (58)       if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
                         case 18: 
                         {
                             boolean __b;
@@ -485,16 +502,53 @@ public class PSendPlayerToExplore extends aos.jack.jak.plan.Plan {
                                 __state = 20;
                             break;
                         }
-                        //* (59)          @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
+                        //* (61)          @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
                         case 19: 
                         {
                             __breakLevel = 2;
-                            __state = 20;
+                            __state = 23;
                             agent.send(__local__26_0,meplayeraction_s.send("moveTo",__local__26_5.as_string()));
                             break;
                         }
-                        //* (38)    body()
+                        //* (65)     	  @subtask(efindpath_p.post( epostplayeraction_h.playerName, $x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int() ));
                         case 20: 
+                        {
+                            __breakLevel = 2;
+                            __task.push(efindpath_p.post(epostplayeraction_h.playerName,__local__26_3.as_int(),__local__26_4.as_int(),__local__26_1.as_int(),__local__26_2.as_int()));
+                            __state = -__state;
+                            __subtask_pass = 21;
+                            __subtask_fail = 4;
+                            return SUBTASK;
+                        }
+                        //* (66)     	  if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
+                        case 21: 
+                        {
+                            boolean __b;
+                            aos.jack.jak.cursor.Cursor __c = null;
+                            try {
+                                __c = genCursor(2);
+                                __b = __c.next();
+                            }
+                            finally {
+                                if (__c != null) 
+                                    __c.finished();
+                            }
+                            if (__b) 
+                                __state = 22;
+                             else 
+                                __state = 23;
+                            break;
+                        }
+                        //* (69)              @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
+                        case 22: 
+                        {
+                            __breakLevel = 4;
+                            __state = 23;
+                            agent.send(__local__26_0,meplayeraction_s.send("moveTo",__local__26_5.as_string()));
+                            break;
+                        }
+                        //* (40)    body()
+                        case 23: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

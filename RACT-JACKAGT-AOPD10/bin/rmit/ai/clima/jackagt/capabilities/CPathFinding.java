@@ -8,26 +8,26 @@ package rmit.ai.clima.jackagt.capabilities;
 import aos.jack.jak.agent.Capability;
 import aos.jack.jak.agent.NameSpace;
 import aos.jack.jak.agent.Agent;
-import rmit.ai.clima.jackagt.data.BGoldAt;
+import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.data.BPlayer;
+import rmit.ai.clima.jackagt.data.BMoveHint;
+import rmit.ai.clima.jackagt.data.BGoldAt;
+import rmit.ai.clima.jackagt.data.BPlayerClosestGold;
 import rmit.ai.clima.jackagt.data.SimulationProp;
 import rmit.ai.clima.jackagt.data.BObstacleAt;
-import rmit.ai.clima.jackagt.data.BMoveHint;
-import rmit.ai.clima.jackagt.data.BPlayerClosestGold;
-import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.events.EFindPath;
 import rmit.ai.clima.jackagt.events.EFindClosestGold;
-import rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold;
 import rmit.ai.clima.jackagt.plans.PFindPath;
+import rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold;
 
 public class CPathFinding extends aos.jack.jak.agent.Capability {
-    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
+    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
+    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerClosestGold bel_playerClosestGold_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
     public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
-    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerClosestGold bel_playerClosestGold_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     // Inner capabilities are declared here.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 //other Data Member and Method definitions.
@@ -40,10 +40,10 @@ public class CPathFinding extends aos.jack.jak.agent.Capability {
     
     public void __init1()
     {
-        setNamedCreator("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",new aos.jack.jak.agent.DataCreator(false){
+        setNamedCreator("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",new aos.jack.jak.agent.DataCreator(false){
             public java.lang.Object create()
             {
-                return __named_data_bel_goldAt_dat();
+                return __named_data_bel_playerPositions_dat();
             }
             
         },true);
@@ -51,6 +51,27 @@ public class CPathFinding extends aos.jack.jak.agent.Capability {
             public java.lang.Object create()
             {
                 return __named_data_bel_players_dat();
+            }
+            
+        },true);
+        setNamedCreator("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",new aos.jack.jak.agent.DataCreator(false){
+            public java.lang.Object create()
+            {
+                return __named_data_bel_moveHint_dat();
+            }
+            
+        },true);
+        setNamedCreator("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",new aos.jack.jak.agent.DataCreator(false){
+            public java.lang.Object create()
+            {
+                return __named_data_bel_goldAt_dat();
+            }
+            
+        },true);
+        setNamedCreator("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold",new aos.jack.jak.agent.DataCreator(false){
+            public java.lang.Object create()
+            {
+                return __named_data_bel_playerClosestGold_dat();
             }
             
         },true);
@@ -68,38 +89,17 @@ public class CPathFinding extends aos.jack.jak.agent.Capability {
             }
             
         },true);
-        setNamedCreator("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",new aos.jack.jak.agent.DataCreator(false){
-            public java.lang.Object create()
-            {
-                return __named_data_bel_moveHint_dat();
-            }
-            
-        },true);
-        setNamedCreator("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold",new aos.jack.jak.agent.DataCreator(false){
-            public java.lang.Object create()
-            {
-                return __named_data_bel_playerClosestGold_dat();
-            }
-            
-        },true);
-        setNamedCreator("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",new aos.jack.jak.agent.DataCreator(false){
-            public java.lang.Object create()
-            {
-                return __named_data_bel_playerPositions_dat();
-            }
-            
-        },true);
     }
     
     public void __init2()
     {
-        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) getNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt");
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) getNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition");
         bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) getNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer");
+        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) getNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint");
+        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) getNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt");
+        bel_playerClosestGold_dat = (rmit.ai.clima.jackagt.data.BPlayerClosestGold) getNamedObject("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold");
         bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) getNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp");
         bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt");
-        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) getNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint");
-        bel_playerClosestGold_dat = (rmit.ai.clima.jackagt.data.BPlayerClosestGold) getNamedObject("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold");
-        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) getNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition");
         autorun();
     }
     
@@ -107,17 +107,17 @@ public class CPathFinding extends aos.jack.jak.agent.Capability {
     {
         externals.put("rmit.ai.clima.jackagt.events.EFindClosestGold","rmit.ai.clima.jackagt.events.EFindClosestGold");
         externals.put("rmit.ai.clima.jackagt.events.EFindPath","rmit.ai.clima.jackagt.events.EFindPath");
-        externals.put("bel_playerPositions_dat","bel_playerPositions_dat");
-        externals.put("bel_playerClosestGold_dat","bel_playerClosestGold_dat");
-        externals.put("bel_moveHint_dat","bel_moveHint_dat");
         externals.put("bel_obstacleAt_dat","bel_obstacleAt_dat");
         externals.put("bel_simulationProp_dat","bel_simulationProp_dat");
-        externals.put("bel_players_dat","bel_players_dat");
+        externals.put("bel_playerClosestGold_dat","bel_playerClosestGold_dat");
         externals.put("bel_goldAt_dat","bel_goldAt_dat");
+        externals.put("bel_moveHint_dat","bel_moveHint_dat");
+        externals.put("bel_players_dat","bel_players_dat");
+        externals.put("bel_playerPositions_dat","bel_playerPositions_dat");
         addEvent("rmit.ai.clima.jackagt.events.EFindPath",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.EFindClosestGold",aos.jack.jak.agent.Agent.HANDLED_EVENT);
-        addPlan("rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold",0);
         addPlan("rmit.ai.clima.jackagt.plans.PFindPath",0);
+        addPlan("rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold",0);
     }
     
     public CPathFinding(aos.jack.jak.agent.NameSpace outer)
@@ -128,8 +128,26 @@ public class CPathFinding extends aos.jack.jak.agent.Capability {
     synchronized public void __bindNames()
     {
         super.__bindNames();
-        __bindToPlan("rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold");
         __bindToPlan("rmit.ai.clima.jackagt.plans.PFindPath");
+        __bindToPlan("rmit.ai.clima.jackagt.plans.PFindPlayersNearestGold");
+    }
+    
+    private rmit.ai.clima.jackagt.data.BPlayerPosition __named_data_bel_playerPositions_dat()
+    {
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) getNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition");
+        return bel_playerPositions_dat;
+    }
+    
+    private rmit.ai.clima.jackagt.data.BPlayer __named_data_bel_players_dat()
+    {
+        bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) getNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer");
+        return bel_players_dat;
+    }
+    
+    private rmit.ai.clima.jackagt.data.BMoveHint __named_data_bel_moveHint_dat()
+    {
+        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) getNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint");
+        return bel_moveHint_dat;
     }
     
     private rmit.ai.clima.jackagt.data.BGoldAt __named_data_bel_goldAt_dat()
@@ -138,10 +156,10 @@ public class CPathFinding extends aos.jack.jak.agent.Capability {
         return bel_goldAt_dat;
     }
     
-    private rmit.ai.clima.jackagt.data.BPlayer __named_data_bel_players_dat()
+    private rmit.ai.clima.jackagt.data.BPlayerClosestGold __named_data_bel_playerClosestGold_dat()
     {
-        bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) getNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer");
-        return bel_players_dat;
+        bel_playerClosestGold_dat = (rmit.ai.clima.jackagt.data.BPlayerClosestGold) getNamedObject("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold");
+        return bel_playerClosestGold_dat;
     }
     
     private rmit.ai.clima.jackagt.data.SimulationProp __named_data_bel_simulationProp_dat()
@@ -154,24 +172,6 @@ public class CPathFinding extends aos.jack.jak.agent.Capability {
     {
         bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) getNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt");
         return bel_obstacleAt_dat;
-    }
-    
-    private rmit.ai.clima.jackagt.data.BMoveHint __named_data_bel_moveHint_dat()
-    {
-        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) getNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint");
-        return bel_moveHint_dat;
-    }
-    
-    private rmit.ai.clima.jackagt.data.BPlayerClosestGold __named_data_bel_playerClosestGold_dat()
-    {
-        bel_playerClosestGold_dat = (rmit.ai.clima.jackagt.data.BPlayerClosestGold) getNamedObject("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold");
-        return bel_playerClosestGold_dat;
-    }
-    
-    private rmit.ai.clima.jackagt.data.BPlayerPosition __named_data_bel_playerPositions_dat()
-    {
-        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) getNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition");
-        return bel_playerPositions_dat;
     }
     
 }

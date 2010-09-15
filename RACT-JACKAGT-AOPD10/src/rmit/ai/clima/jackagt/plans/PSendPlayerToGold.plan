@@ -4,7 +4,7 @@ import rmit.ai.clima.jackagt.data.*;
 
 public plan PSendPlayerToGold extends Plan
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 /*
 Plan Name: PSendPlayerToGold
@@ -18,49 +18,50 @@ Plan Name: PSendPlayerToGold
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
 	#reads data BGoldAt bel_goldAt_dat;
-
-	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
-
-	#reads data BPlayerGold bel_playerGold_dat;
 
 	#reads data BPlayerPosition bel_playerTarget_dat;
 
 	#reads data BMoveHint bel_moveHint_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	logical int $goldX, $goldY, $playerX, $playerY;
 	context()
 	{
 		// Trigger: Event "EPostPlayerAction"
-	   bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $playerX, $playerY ) 
-	   && (bel_playerClosestGold_dat.getByName( epostplayeraction_h.playerName, $goldX, $goldY ));
+		bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $playerX, $playerY ) 
+		&& (bel_playerClosestGold_dat.getByName( epostplayeraction_h.playerName, $goldX, $goldY ));
 	}
 
 	body()
 	{
-	   //System.out.print("TRYYYYYYYING TO GOLD!!!!!");
-	   @subtask(efindpath_p.post( epostplayeraction_h.playerName, $playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int() ));
-      //Move to path hinted direction
-      logical String $move;
+		//System.out.print("TRYYYYYYYING TO GOLD!!!!!");
+		//if(!epostplayeraction_h.hasPath)
+		@subtask(efindpath_p.post( epostplayeraction_h.playerName, $playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int() ));
+		//Move to path hinted direction
+		logical String $move;
 
-      if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int(), $move ))
-      {
-         String baseName = epostplayeraction_h.playerName;
-         baseName = baseName.substring(0,baseName.indexOf("@"));
-         @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
-         
-         //Clear the target if any
-         logical int $targetX, $targetY;
-         if (bel_playerTarget_dat.getByName( epostplayeraction_h.playerName, $targetX, $targetY))
-            bel_playerTarget_dat.remove( epostplayeraction_h.playerName, $targetX.as_int(), $targetY.as_int() );
-      }
-    
+		if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int(), $move ))
+		{
+			String baseName = epostplayeraction_h.playerName;
+			baseName = baseName.substring(0,baseName.indexOf("@"));
+			@send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+
+			//Clear the target if any
+			logical int $targetX, $targetY;
+			if (bel_playerTarget_dat.getByName( epostplayeraction_h.playerName, $targetX, $targetY))
+				bel_playerTarget_dat.remove( epostplayeraction_h.playerName, $targetX.as_int(), $targetY.as_int() );
+		}
+
 	}
-	  public PlanInstanceInfo getInstanceInfo()
-	   {
-	      return PlanInstanceInfo.def[6];
-	   }
+	public PlanInstanceInfo getInstanceInfo()
+	{
+		return PlanInstanceInfo.def[6];
+	}
 }

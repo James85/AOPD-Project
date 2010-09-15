@@ -6,19 +6,19 @@ import java.util.*;
 
 public plan PCoord_ChoosePlayerActions extends Plan
 {
-   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
+	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 /*
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
-	#posts event EFindClosestGold efindclosestgold_p;
+	#posts event EFindPath efindpath_p;
 
-	#posts event EPostPlayerAction epostplayeraction_p;
+	#posts event EFindClosestGold efindclosestgold_p;
 
 	#posts event EIdentifyTarget eidentifytarget_p;
 
-	#posts event EFindPath efindpath_p;
+	#posts event EPostPlayerAction epostplayeraction_p;
 
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
@@ -26,116 +26,133 @@ Plan Name: PCoord_ChoosePlayerActions
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPlayerPosition bel_playerTarget_dat;
 
-	#reads data BPlayerGold bel_playerGold_dat;
-
-	#reads data BObstacleAt bel_obstacleAt_dat;
-
-	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
-
-	#reads data BMoveHint bel_moveHint_dat;
-
-	#reads data BGoldAt bel_goldAt_dat;
-
 	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BPlayer bel_players_dat;
 
+	#reads data BMoveHint bel_moveHint_dat;
+
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
-   static boolean relevant(EChoosePlayerActions e)
-   {
-      return true;
-   }
-   context()
-   {
-      true;
-   }
+	static boolean relevant(EChoosePlayerActions e)
+	{
+		return true;
+	}
+	context()
+	{
+		true;
+	}
 
-   final static String[] lookUpDirs = { "up", "down", "right", "left" };
+	final static String[] lookUpDirs = { "up", "down", "right", "left" };
 
-   #reasoning method
-   body()
-   {
-      logical int $depotX, $depotY;
-      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
+	#reasoning method
+	body()
+	{
+		logical int $depotX, $depotY;
+		bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
 
-      //Find the closest player-gold pairs
-      @subtask(efindclosestgold_p.post());
+		//Find the closest player-gold pairs
+		@subtask(efindclosestgold_p.post());
 
-      //Loop through all players on the team
-      logical String $playerName;
-      String baseName;
-      Cursor c_players = bel_players_dat.get( $playerName );
-//      System.out.println(bel_goldAt_dat.nFacts());
-      while (c_players.next())
-      {
-         logical int $x, $y;
-         logical int $numGold;
-         boolean goldFound = false;
+		//Loop through all players on the team
+		logical String $playerName;
+		String baseName;
+		Cursor c_players = bel_players_dat.get( $playerName );
+		//      System.out.println(bel_goldAt_dat.nFacts());
+		while (c_players.next())
+		{
+			logical int $x, $y;
+			logical int $numGold;
+			boolean goldFound = false;
 
-         Cursor c_target;
-         logical String $targetMove;
-         logical int $targetX, $targetY;
-         boolean haveTarget = false;
+			Cursor c_target;
+			logical String $targetMove;
+			logical int $targetX, $targetY;
+			boolean haveTarget = true;
+			boolean pathComputed = false;
 
-         baseName = $playerName.as_string();
-         baseName = baseName.substring(0,baseName.indexOf("@"));
+			baseName = $playerName.as_string();
+			baseName = baseName.substring(0,baseName.indexOf("@"));
 
-         //Get player info
-         bel_playerPositions_dat.getByName( $playerName.as_string(), $x, $y );
-         bel_playerGold_dat.getByName( $playerName.as_string(), $numGold );
+			//Get player info
+			bel_playerPositions_dat.getByName( $playerName.as_string(), $x, $y );
+			bel_playerGold_dat.getByName( $playerName.as_string(), $numGold );
 
-//         System.out.println($playerName.as_string() + " has : "+ $numGold.as_int());
+			//         System.out.println($playerName.as_string() + " has : "+ $numGold.as_int());
 
-         //Get player target if any
-         if (bel_playerTarget_dat.getByName($playerName.as_string(), $targetX, $targetY ))
-         {
-            //Find path to current target
-//            System.out.println($playerName.as_string() + " has target "+ $targetX.as_int() + ", " + $targetY.as_int());
-            @subtask(efindpath_p.post( $playerName.as_string(), $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
-            c_target = bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int(), $targetMove );
-
-            //Remove this target if unreachable
-            if (!c_target.next()) {
-               bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
-//               System.out.println( "Dropping target - unreachable" );
-
-            //Remove this target if as explored
-            }else if( !bel_obstacleAt_dat.checkUnknown($targetX.as_int(), $targetY.as_int() )) {
-               bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
-//               System.out.println( "Dropping target - explored" );
-
-            //Remove this target if reached
-            }else if ($targetX.as_int() == $x.as_int() && $targetY.as_int() == $y.as_int()) {
-               bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
-//               System.out.println( "Dropping target - reached" );
-
-            //Target is still valid
-            }else {
-               haveTarget = true;
-//               System.out.println($targetMove.as_string() + "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd");
-            }
-         }
-
-         //post a single event to handle some different stuff
-         @subtask(epostplayeraction_p.post($playerName.as_string()));
- 
-      }//players loop
+			//Get player target if any
+			if (bel_playerTarget_dat.getByName($playerName.as_string(), $targetX, $targetY ))
+			{
+				//Find path to current target
+				//            System.out.println($playerName.as_string() + " has target "+ $targetX.as_int() + ", " + $targetY.as_int());
 
 
-      //Clear the pathfinding results
-      logical int $srcX, $srcY,  $dstX,  $dstY;
-      logical String $dir;
-      bel_moveHint_dat.get($srcX, $srcY, $dstX, $dstY, $dir).removeAll();
+				//Remove this target if explored
+				if($targetX.as_int() == $x.as_int() && $targetY.as_int() == $y.as_int()) {
+					bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
+					haveTarget = false;
+					//              System.out.println( "Dropping target - reached" );
 
-      logical String $profit;
-      logical int $profitX, $profitY;
+					//Target is still valid
+				} else if( !bel_obstacleAt_dat.checkUnknown($targetX.as_int(), $targetY.as_int() )) {
+					bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
+					//               System.out.println( "Dropping target - explored" );
 
-      bel_playerClosestGold_dat.get( $profit, $profitX, $profitY ).removeAll();
+					//Remove this target if reached
+					haveTarget = false;
+				}
+				else 
+				{
+					@subtask(efindpath_p.post( $playerName.as_string(), $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
+					c_target = bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int(), $targetMove );
+					pathComputed = true;
+					//if we can't get to the target drop it
+					if (!c_target.next()) 
+					{
+						haveTarget = false;
+						pathComputed = false;
+						bel_playerTarget_dat.remove( $playerName.as_string(), $targetX.as_int(), $targetY.as_int() );
+						//              System.out.println( "Dropping target - unreachable" );
+
+						//Remove this target if as explored
+					}
+			
+				}
+				
+			}
+			else
+			{
+				pathComputed = false;
+				haveTarget = false;
+			}
+
+			//post a single event to handle some different stuff
+			@subtask(epostplayeraction_p.post($playerName.as_string(), pathComputed));
+
+		}//players loop
+
+
+		//Clear the pathfinding results
+		logical int $srcX, $srcY,  $dstX,  $dstY;
+		logical String $dir;
+		bel_moveHint_dat.get($srcX, $srcY, $dstX, $dstY, $dir).removeAll();
+
+		logical String $profit;
+		logical int $profitX, $profitY;
+
+		bel_playerClosestGold_dat.get( $profit, $profitX, $profitY ).removeAll();
 
 
 
-   }
+	}
 }

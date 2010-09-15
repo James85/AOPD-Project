@@ -12,19 +12,19 @@ Plan Name: PTellPlayerToMove
 	//Events handled by the plan are declared here.
 	#posts event EFindPath efindpath_p;
 
-	#posts event EFindClosestGold efindclosestgold_p;
-
 	#sends event MEPlayerAction meplayeraction_s;
+
+	#posts event EFindClosestGold efindclosestgold_p;
 
 	#handles event EPostPlayerAction epostplayeraction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
 	#reads data BPlayerGold bel_playerGold_dat;
 
 	#reads data BPlayerPosition bel_playerTarget_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
@@ -41,13 +41,15 @@ Plan Name: PTellPlayerToMove
 	body()
 	{
       //System.out.print("TRYYYYYYYING TO MOVE!!!!!");
+	  //System.out.println(epostplayeraction_h.playerName +" moving to: " + $targetX.as_int() + ", " + $targetY.as_int());
 	   logical int $x, $y;
 	   bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $x, $y );
 	   
 	     String baseName = epostplayeraction_h.playerName;
 	      baseName = baseName.substring(0,baseName.indexOf("@"));
 	   
-	   @subtask(efindpath_p.post( epostplayeraction_h.playerName, $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
+	   if(!epostplayeraction_h.hasPath)
+		   @subtask(efindpath_p.post( epostplayeraction_h.playerName, $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
 	   
 	   logical String $targetMove;
       bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int(), $targetMove );

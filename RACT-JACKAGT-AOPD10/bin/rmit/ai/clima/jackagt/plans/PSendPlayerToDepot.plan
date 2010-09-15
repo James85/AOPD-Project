@@ -4,7 +4,7 @@ import rmit.ai.clima.jackagt.data.*;
 
 public plan PSendPlayerToDepot extends Plan
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 /*
 Plan Name: PSendPlayerToDepot
@@ -30,28 +30,29 @@ Plan Name: PSendPlayerToDepot
 	logical int $playerX, $playerY, $depotX, $depotY, $numGold;
 	context()
 	{
-	   bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $playerX, $playerY ) 
-      && bel_simulationProp_dat.getDepotLoc( $depotX, $depotY ) 
-      && bel_playerGold_dat.getByName( epostplayeraction_h.playerName, $numGold )
-      && $numGold.as_int() >= 1;
+		bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $playerX, $playerY ) 
+		&& bel_simulationProp_dat.getDepotLoc( $depotX, $depotY ) 
+		&& bel_playerGold_dat.getByName( epostplayeraction_h.playerName, $numGold )
+		&& $numGold.as_int() >= 1;
 	}
 
 	body()
 	{
-	   //System.out.print("TRYYYYYYYING TO DEPOT!!!!!");
-	   @subtask(efindpath_p.post( epostplayeraction_h.playerName, $playerX.as_int(), $playerY.as_int(), $depotX.as_int(), $depotY.as_int() ));
-      logical String $move;
+		//System.out.print("TRYYYYYYYING TO DEPOT!!!!!");
+		if(!epostplayeraction_h.hasPath)
+			@subtask(efindpath_p.post( epostplayeraction_h.playerName, $playerX.as_int(), $playerY.as_int(), $depotX.as_int(), $depotY.as_int() ));
+		logical String $move;
 
-      if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), $depotX.as_int(), $depotY.as_int(), $move ))
-      {
-         String baseName = epostplayeraction_h.playerName;
-         baseName = baseName.substring(0,baseName.indexOf("@"));
-         @send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
-         
-      }
+		if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), $depotX.as_int(), $depotY.as_int(), $move ))
+		{
+			String baseName = epostplayeraction_h.playerName;
+			baseName = baseName.substring(0,baseName.indexOf("@"));
+			@send( baseName, meplayeraction_s.send( "moveTo", $move.as_string() ));
+
+		}
 	}
-   public PlanInstanceInfo getInstanceInfo()
-   {
-      return PlanInstanceInfo.def[8];
-   }
+	public PlanInstanceInfo getInstanceInfo()
+	{
+		return PlanInstanceInfo.def[8];
+	}
 }

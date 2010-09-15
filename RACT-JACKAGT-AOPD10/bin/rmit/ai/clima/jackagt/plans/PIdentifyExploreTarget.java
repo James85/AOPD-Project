@@ -17,9 +17,9 @@ import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.EFindPath;
 import rmit.ai.clima.jackagt.events.EIdentifyTarget;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
-import rmit.ai.clima.jackagt.data.BMoveHint;
 import rmit.ai.clima.jackagt.data.SimulationProp;
 import rmit.ai.clima.jackagt.data.BObstacleAt;
+import rmit.ai.clima.jackagt.data.BMoveHint;
 import java.util.Random;
 import java.lang.Object;
 import aos.jack.jak.cursor.Cursor;
@@ -30,10 +30,10 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EFindPath efindpath_p;
     public rmit.ai.clima.jackagt.events.EIdentifyTarget eidentifytarget_h;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
-    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
     public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
+    public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PIdentifyExploreTarget.plan",
@@ -49,7 +49,6 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             "49",
             "53",
             "54",
-            "55",
             "56",
             "59",
             "60",
@@ -75,18 +74,18 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             "efindpath_p",
             "eidentifytarget_h",
             "bel_playerTarget_dat",
-            "bel_moveHint_dat",
-            "bel_playerPositions_dat",
             "bel_simulationProp_dat",
-            "bel_obstacleAt_dat"};
+            "bel_obstacleAt_dat",
+            "bel_playerPositions_dat",
+            "bel_moveHint_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.EFindPath",
             "rmit.ai.clima.jackagt.events.EIdentifyTarget",
             "rmit.ai.clima.jackagt.data.BPlayerPosition",
-            "rmit.ai.clima.jackagt.data.BMoveHint",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition",
             "rmit.ai.clima.jackagt.data.SimulationProp",
-            "rmit.ai.clima.jackagt.data.BObstacleAt"};
+            "rmit.ai.clima.jackagt.data.BObstacleAt",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition",
+            "rmit.ai.clima.jackagt.data.BMoveHint"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __fsmVariableNames_body = {
@@ -147,10 +146,10 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
         efindpath_p = __env.efindpath_p;
         eidentifytarget_h = __env.eidentifytarget_h;
         bel_playerTarget_dat = __env.bel_playerTarget_dat;
-        bel_moveHint_dat = __env.bel_moveHint_dat;
-        bel_playerPositions_dat = __env.bel_playerPositions_dat;
         bel_simulationProp_dat = __env.bel_simulationProp_dat;
         bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
+        bel_playerPositions_dat = __env.bel_playerPositions_dat;
+        bel_moveHint_dat = __env.bel_moveHint_dat;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
@@ -170,16 +169,6 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerPosition bel_playerTarget_dat");
             return false;
         }
-        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
-        if (bel_moveHint_dat == null) {
-            warning("Failed to find BMoveHint bel_moveHint_dat");
-            return false;
-        }
-        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
-        if (bel_playerPositions_dat == null) {
-            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
-            return false;
-        }
         bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",0);
         if (bel_simulationProp_dat == null) {
             warning("Failed to find SimulationProp bel_simulationProp_dat");
@@ -188,6 +177,16 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
         bel_obstacleAt_dat = (rmit.ai.clima.jackagt.data.BObstacleAt) lookupNamedObject("bel_obstacleAt_dat","rmit.ai.clima.jackagt.data.BObstacleAt",0);
         if (bel_obstacleAt_dat == null) {
             warning("Failed to find BObstacleAt bel_obstacleAt_dat");
+            return false;
+        }
+        bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
+        if (bel_playerPositions_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerPositions_dat");
+            return false;
+        }
+        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
+        if (bel_moveHint_dat == null) {
+            warning("Failed to find BMoveHint bel_moveHint_dat");
             return false;
         }
         return true;
@@ -299,19 +298,19 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_moveHint_dat);
+                return aos.util.ToObject.box(bel_simulationProp_dat);
             }
             case 4: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_obstacleAt_dat);
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_simulationProp_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 6: 
             {
-                return aos.util.ToObject.box(bel_obstacleAt_dat);
+                return aos.util.ToObject.box(bel_moveHint_dat);
             }
             default: 
             {
@@ -486,105 +485,98 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             __state = 21;
                             break;
                         }
-                        //* (55)       System.out.println("FINDING A NEW UNEXPLORED AREA TO GO TO");
+                        //* (56)       while(!targetFound && !targetUnreachable)
                         case 21: 
                         {
-                            __state = 22;
-                            java.lang.System.out.println("FINDING A NEW UNEXPLORED AREA TO GO TO");
-                            break;
-                        }
-                        //* (56)       while(!targetFound && !targetUnreachable)
-                        case 22: 
-                        {
                             if (!__local__21_6 && !__local__21_7) 
-                                __state = 23;
+                                __state = 22;
                              else 
-                                __state = 42;
+                                __state = 41;
                             break;
                         }
                         //* (59)          Random rand = new Random();
-                        case 23: 
+                        case 22: 
                         {
                             __breakLevel = 4;
                             __local__21_8 = new java.util.Random();
-                            __state = 24;
+                            __state = 23;
                             break;
                         }
                         //* (60)          int r = rand.nextInt( $width.as_int() * $height.as_int() );
-                        case 24: 
+                        case 23: 
                         {
                             __local__21_9 = __local__21_8.nextInt(__local__21_0.as_int() * __local__21_1.as_int());
-                            __state = 25;
+                            __state = 24;
                             break;
                         }
                         //* (62)          targetUnreachable = false;
-                        case 25: 
+                        case 24: 
                         {
-                            __state = 26;
+                            __state = 25;
                             //         System.out.println("RANDOM NUMBER WAS: "+ r);
 
                             __local__21_7 = false;
                             break;
                         }
                         //* (65)          int i = r+1;
-                        case 26: 
+                        case 25: 
                         {
                             __local__21_10 = __local__21_9 + 1;
-                            __state = 27;
+                            __state = 26;
                             break;
                         }
                         //* (66)          while(i != r)
-                        case 27: 
+                        case 26: 
                         {
                             if (__local__21_10 != __local__21_9) 
-                                __state = 28;
+                                __state = 27;
                              else 
-                                __state = 22;
+                                __state = 21;
                             break;
                         }
                         //* (69)             int x = i % $width.as_int();
-                        case 28: 
+                        case 27: 
                         {
                             __breakLevel = 8;
                             __local__21_11 = __local__21_10 % __local__21_0.as_int();
-                            __state = 29;
+                            __state = 28;
                             break;
                         }
                         //* (70)             int y = (i - x) / $width.as_int();
-                        case 29: 
+                        case 28: 
                         {
                             __local__21_12 = (__local__21_10 - __local__21_11) / __local__21_0.as_int();
-                            __state = 30;
+                            __state = 29;
                             break;
                         }
                         //* (73)             if(bel_obstacleAt_dat.checkUnknown(x,y) && visited[i] == false)
-                        case 30: 
+                        case 29: 
                         {
                             if (bel_obstacleAt_dat.checkUnknown(__local__21_11,__local__21_12) && __local__21_4[__local__21_10] == false) 
-                                __state = 31;
+                                __state = 30;
                              else 
-                                __state = 40;
+                                __state = 39;
                             break;
                         }
                         //* (76)                logical String $move;
-                        case 31: 
+                        case 30: 
                         {
                             __breakLevel = 10;
                             __local__21_13 = (aos.jack.jak.logic.StringVariable) __logic.new_variable(java.lang.String.class);
-                            __state = 32;
+                            __state = 31;
                             break;
                         }
                         //* (77)                @subtask(efindpath_p.post( eidentifytarget_h.playerName, $playerX.as_int(), $playerY.as_int(), x, y ));
-                        case 32: 
+                        case 31: 
                         {
                             __task.push(efindpath_p.post(eidentifytarget_h.playerName,__local__21_2.as_int(),__local__21_3.as_int(),__local__21_11,__local__21_12));
                             __state = -__state;
-                            __subtask_pass = 33;
+                            __subtask_pass = 32;
                             __subtask_fail = 4;
                             return SUBTASK;
                         }
                         //* (78)                if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), x, y, $move ))
-                        case 33: 
+                        case 32: 
                         {
                             boolean __b;
                             aos.jack.jak.cursor.Cursor __c = null;
@@ -597,16 +589,16 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                                     __c.finished();
                             }
                             if (__b) 
-                                __state = 34;
+                                __state = 33;
                              else 
-                                __state = 37;
+                                __state = 36;
                             break;
                         }
                         //* (82)                   bel_playerTarget_dat.add( eidentifytarget_h.playerName, x, y);
-                        case 34: 
+                        case 33: 
                         {
                             __breakLevel = 12;
-                            __state = 35;
+                            __state = 34;
                             //Store the player target
 //                  System.out.println("I AM GOING TO EXPLORE " + x + ", " + y);
 
@@ -614,60 +606,60 @@ public class PIdentifyExploreTarget extends aos.jack.jak.plan.Plan {
                             break;
                         }
                         //* (83)                   targetFound = true;
-                        case 35: 
+                        case 34: 
                         {
-                            __state = 36;
+                            __state = 35;
                             __local__21_6 = true;
                             break;
                         }
                         //* (84)                   break;
-                        case 36: 
+                        case 35: 
                         {
                             __breakLevel = 6;
-                            __state = 22;
+                            __state = 21;
                             break;
                         }
                         //* (88)                visited[i] = true;
-                        case 37: 
+                        case 36: 
                         {
-                            __state = 38;
+                            __state = 37;
                             //Mark as visited
 
                             __local__21_4[__local__21_10] = true;
                             break;
                         }
                         //* (89)                targetUnreachable = true;
-                        case 38: 
+                        case 37: 
                         {
-                            __state = 39;
+                            __state = 38;
                             __local__21_7 = true;
                             break;
                         }
                         //* (90)                break;
-                        case 39: 
+                        case 38: 
                         {
                             __breakLevel = 6;
-                            __state = 22;
+                            __state = 21;
+                            break;
+                        }
+                        //* (94)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
+                        case 39: 
+                        {
+                            if (++__local__21_10 == __local__21_0.as_int() * __local__21_1.as_int()) 
+                                __state = 40;
+                             else 
+                                __state = 26;
                             break;
                         }
                         //* (94)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
                         case 40: 
                         {
-                            if (++__local__21_10 == __local__21_0.as_int() * __local__21_1.as_int()) 
-                                __state = 41;
-                             else 
-                                __state = 27;
-                            break;
-                        }
-                        //* (94)             if (++i == $width.as_int() * $height.as_int() ) i = 0;
-                        case 41: 
-                        {
-                            __state = 27;
+                            __state = 26;
                             __local__21_10 = 0;
                             break;
                         }
                         //* (38)    body()
-                        case 42: 
+                        case 41: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;

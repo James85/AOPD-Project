@@ -19,7 +19,12 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BGoldAt bel_goldAt_dat();
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+
+	/*	Note that this data is external.
+	Maybe you want to modify the declaration as '#agent' manually.
+	*/
+	#global data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -29,12 +34,7 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
-
-	/*	Note that this data is external.
-	Maybe you want to modify the declaration as '#agent' manually.
-	*/
-	#global data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
+	#imports data BGoldAt bel_goldAt_dat();
 
 
 	//Events handled, posted and sent are declared here.
@@ -46,13 +46,13 @@ Description: Decide what to do next
 
 
 	//Plans directly used are declared here.
-	#uses plan PMoveRand ;
+	#uses plan PMoveTo ;
 
-	#uses plan PPick ;
+	#uses plan PMoveRand ;
 
 	#uses plan PDropGold ;
 
-	#uses plan PMoveTo ;
+	#uses plan PPick ;
 
 
 	// Inner capabilities are declared here.

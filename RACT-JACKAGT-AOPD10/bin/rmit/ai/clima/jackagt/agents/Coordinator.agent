@@ -22,6 +22,16 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
+	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BMoveHint bel_moveHint_dat(/*int srcX, int srcY, int endX, int endY, String move*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
 	#private data BPlayerGold bel_playerGold_dat(/*String agentName, int goldAmount*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -37,11 +47,6 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayerPosition bel_playerTarget_dat(/*String agentName, int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
 	#private data BPlayer bel_players_dat(/*String name*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -52,76 +57,71 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
+	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerPosition bel_playerTarget_dat(/*String agentName, int posX, int posY*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
 	#private data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BMoveHint bel_moveHint_dat(/*int srcX, int srcY, int endX, int endY, String move*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
-
 
 	//Events handled, posted and sent are declared here.
-	#handles event EFindClosestGold ;
-	#posts event EFindClosestGold efindclosestgold_p;
-
-	#handles event EChoosePlayerActions ;
-	#posts event EChoosePlayerActions echooseplayeractions_p;
-
-	#handles event MESimStart ;
-
-	#handles event EPostPlayerAction ;
-	#posts event EPostPlayerAction epostplayeraction_p;
-
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
-	#handles event EFindPath ;
-	#posts event EFindPath efindpath_p;
-
-	#handles event MESimEnd ;
-
-	#sends event MEPlayerAction meplayeraction_s;
-
 	#handles event EIdentifyTarget ;
 	#posts event EIdentifyTarget eidentifytarget_p;
 
 	#handles event MEGameEnd ;
+
+	#handles event EChoosePlayerActions ;
+	#posts event EChoosePlayerActions echooseplayeractions_p;
 
 	#handles event MEReportPlayerPercept ;
 
 	#handles event EUpdateBel ;
 	#posts event EUpdateBel eupdatebel_p;
 
+	#handles event EFindPath ;
+	#posts event EFindPath efindpath_p;
+
+	#handles event MESimEnd ;
+
+	#handles event MESimStart ;
+
+	#sends event MEPlayerAction meplayeraction_s;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#handles event EFindClosestGold ;
+	#posts event EFindClosestGold efindclosestgold_p;
+
+	#handles event EPostPlayerAction ;
+	#posts event EPostPlayerAction epostplayeraction_p;
+
 
 	//Plans directly used are declared here.
-	#uses plan Coord_EndSimulation ;
+	#uses plan UpdateCellsAround ;
 
 	#uses plan Coord_AssimilatePlayerPercept ;
 
-	#uses plan Coord_InitSimulation ;
-
-	#uses plan UpdateCellsAround ;
+	#uses plan PIdentifyExploreTarget ;
 
 	#uses plan Coord_EndGame ;
 
-	#uses plan PIdentifyExploreTarget ;
-
 	#uses plan PCoord_ChoosePlayerActions ;
+
+	#uses plan Coord_EndSimulation ;
+
+	#uses plan Coord_InitSimulation ;
 
 
 	// Inner capabilities are declared here.
-	#has capability CResolvePlayerActions cresolveplayeractions_cap;
-
 	#has capability CPathFinding cpathfinding_cap;
+
+	#has capability CResolvePlayerActions cresolveplayeractions_cap;
 
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/

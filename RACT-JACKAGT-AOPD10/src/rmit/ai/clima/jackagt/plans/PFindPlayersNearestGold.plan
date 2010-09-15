@@ -18,11 +18,11 @@ Plan Name: PFindPlayersNearestGold
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPlayerClosestGold bel_playerClosestGold_dat;
 
-	#reads data BPlayer bel_players_dat;
-
 	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayer bel_players_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

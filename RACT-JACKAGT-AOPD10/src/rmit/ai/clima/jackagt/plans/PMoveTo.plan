@@ -20,7 +20,6 @@ Plan Name: PMoveTo
 	
    static boolean relevant (MEPlayerAction e)
    {
-      
       return (e.action.equalsIgnoreCase( "moveTo" ));
    }
    
@@ -32,6 +31,7 @@ Plan Name: PMoveTo
 	body()
 	{
 //      System.out.println( "MOVING TO " + meplayeraction_h.direction );
+	  //System.out.println(getAgent().name() +" moving to: " + meplayeraction_h.direction);
       eexecuteclimaaction_p.post(meplayeraction_h.direction); // Post an ExecuteClimaAction event to execute the action in the server
 	}
 }

@@ -28,7 +28,7 @@ public class PMoveTo extends aos.jack.jak.plan.Plan {
             "rmit/ai/clima/jackagt/plans/PMoveTo.plan",
             "body",
             "35",
-            "31"};
+            "30"};
     private final static java.lang.String[] __planVariableNames = {
             "eexecuteclimaaction_p",
             "meplayeraction_h"};
@@ -236,7 +236,7 @@ public class PMoveTo extends aos.jack.jak.plan.Plan {
                             __subtask_fail = 4;
                             return SUBTASK;
                         }
-                        //* (31)    #reasoning method
+                        //* (30)    #reasoning method
                         case 11: 
                         {
                             if (__pending == null) 

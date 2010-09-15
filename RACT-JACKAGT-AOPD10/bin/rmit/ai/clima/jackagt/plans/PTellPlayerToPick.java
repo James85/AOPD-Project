@@ -19,9 +19,9 @@ import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import rmit.ai.clima.jackagt.events.EPostPlayerAction;
 import rmit.ai.clima.jackagt.data.BPlayerGold;
-import rmit.ai.clima.jackagt.data.BGoldAt;
-import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.data.BPlayerClosestGold;
+import rmit.ai.clima.jackagt.data.BPlayerPosition;
+import rmit.ai.clima.jackagt.data.BGoldAt;
 import java.lang.Object;
 import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
@@ -33,10 +33,10 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_s;
     public rmit.ai.clima.jackagt.events.EPostPlayerAction epostplayeraction_h;
     public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
-    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
     public rmit.ai.clima.jackagt.data.BPlayerClosestGold bel_playerClosestGold_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
+    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PTellPlayerToPick.plan",
@@ -55,10 +55,10 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             "meplayeraction_s",
             "epostplayeraction_h",
             "bel_playerGold_dat",
-            "bel_goldAt_dat",
-            "bel_playerTarget_dat",
             "bel_playerClosestGold_dat",
-            "bel_playerPositions_dat"};
+            "bel_playerPositions_dat",
+            "bel_goldAt_dat",
+            "bel_playerTarget_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "logical int",
             "logical int",
@@ -66,10 +66,10 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             "MEPlayerAction",
             "rmit.ai.clima.jackagt.events.EPostPlayerAction",
             "BPlayerGold",
-            "BGoldAt",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition",
             "BPlayerClosestGold",
-            "BPlayerPosition"};
+            "BPlayerPosition",
+            "BGoldAt",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __logSignatureVariableNames = {
@@ -110,10 +110,10 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
         meplayeraction_s = __env.meplayeraction_s;
         epostplayeraction_h = __env.epostplayeraction_h;
         bel_playerGold_dat = __env.bel_playerGold_dat;
-        bel_goldAt_dat = __env.bel_goldAt_dat;
-        bel_playerTarget_dat = __env.bel_playerTarget_dat;
         bel_playerClosestGold_dat = __env.bel_playerClosestGold_dat;
         bel_playerPositions_dat = __env.bel_playerPositions_dat;
+        bel_goldAt_dat = __env.bel_goldAt_dat;
+        bel_playerTarget_dat = __env.bel_playerTarget_dat;
         $x = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $y = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $numGold = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
@@ -136,16 +136,6 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerGold bel_playerGold_dat");
             return false;
         }
-        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
-        if (bel_goldAt_dat == null) {
-            warning("Failed to find BGoldAt bel_goldAt_dat");
-            return false;
-        }
-        bel_playerTarget_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerTarget_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
-        if (bel_playerTarget_dat == null) {
-            warning("Failed to find BPlayerPosition bel_playerTarget_dat");
-            return false;
-        }
         bel_playerClosestGold_dat = (rmit.ai.clima.jackagt.data.BPlayerClosestGold) lookupNamedObject("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold",0);
         if (bel_playerClosestGold_dat == null) {
             warning("Failed to find BPlayerClosestGold bel_playerClosestGold_dat");
@@ -154,6 +144,16 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
         bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
         if (bel_playerPositions_dat == null) {
             warning("Failed to find BPlayerPosition bel_playerPositions_dat");
+            return false;
+        }
+        bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
+        if (bel_goldAt_dat == null) {
+            warning("Failed to find BGoldAt bel_goldAt_dat");
+            return false;
+        }
+        bel_playerTarget_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerTarget_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
+        if (bel_playerTarget_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerTarget_dat");
             return false;
         }
         return true;
@@ -322,19 +322,19 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             }
             case 6: 
             {
-                return aos.util.ToObject.box(bel_goldAt_dat);
+                return aos.util.ToObject.box(bel_playerClosestGold_dat);
             }
             case 7: 
             {
-                return aos.util.ToObject.box(bel_playerTarget_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 8: 
             {
-                return aos.util.ToObject.box(bel_playerClosestGold_dat);
+                return aos.util.ToObject.box(bel_goldAt_dat);
             }
             case 9: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_playerTarget_dat);
             }
             default: 
             {

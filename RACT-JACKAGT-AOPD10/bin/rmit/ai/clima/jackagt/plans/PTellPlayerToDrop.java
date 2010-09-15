@@ -18,10 +18,10 @@ import aos.jack.jak.cursor.BinaryBoolOp;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import rmit.ai.clima.jackagt.events.EPostPlayerAction;
-import rmit.ai.clima.jackagt.data.SimulationProp;
-import rmit.ai.clima.jackagt.data.BPlayerGold;
-import rmit.ai.clima.jackagt.data.BPlayerPosition;
 import rmit.ai.clima.jackagt.data.BMoveHint;
+import rmit.ai.clima.jackagt.data.SimulationProp;
+import rmit.ai.clima.jackagt.data.BPlayerPosition;
+import rmit.ai.clima.jackagt.data.BPlayerGold;
 import java.lang.Object;
 import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
@@ -34,16 +34,15 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
     aos.jack.jak.logic.IntegerVariable $numGold;
     public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_s;
     public rmit.ai.clima.jackagt.events.EPostPlayerAction epostplayeraction_h;
-    public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
     public rmit.ai.clima.jackagt.data.BMoveHint bel_moveHint_dat;
+    public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PTellPlayerToDrop.plan",
             "body",
-            "49",
             "50",
             "51",
             "52",
@@ -59,11 +58,11 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
             "$numGold",
             "meplayeraction_s",
             "epostplayeraction_h",
-            "bel_simulationProp_dat",
-            "bel_playerGold_dat",
-            "bel_playerTarget_dat",
             "bel_moveHint_dat",
-            "bel_playerPositions_dat"};
+            "bel_simulationProp_dat",
+            "bel_playerTarget_dat",
+            "bel_playerPositions_dat",
+            "bel_playerGold_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "logical int",
             "logical int",
@@ -72,11 +71,11 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
             "logical int",
             "MEPlayerAction",
             "rmit.ai.clima.jackagt.events.EPostPlayerAction",
-            "SimulationProp",
-            "BPlayerGold",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition",
             "BMoveHint",
-            "BPlayerPosition"};
+            "SimulationProp",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition",
+            "BPlayerPosition",
+            "BPlayerGold"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __logSignatureVariableNames = {
@@ -120,11 +119,11 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
         __logic = __t.logic;
         meplayeraction_s = __env.meplayeraction_s;
         epostplayeraction_h = __env.epostplayeraction_h;
-        bel_simulationProp_dat = __env.bel_simulationProp_dat;
-        bel_playerGold_dat = __env.bel_playerGold_dat;
-        bel_playerTarget_dat = __env.bel_playerTarget_dat;
         bel_moveHint_dat = __env.bel_moveHint_dat;
+        bel_simulationProp_dat = __env.bel_simulationProp_dat;
+        bel_playerTarget_dat = __env.bel_playerTarget_dat;
         bel_playerPositions_dat = __env.bel_playerPositions_dat;
+        bel_playerGold_dat = __env.bel_playerGold_dat;
         $playerX = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $playerY = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $depotX = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
@@ -144,14 +143,14 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
             warning("Failed to find EPostPlayerAction epostplayeraction_h");
             return false;
         }
+        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
+        if (bel_moveHint_dat == null) {
+            warning("Failed to find BMoveHint bel_moveHint_dat");
+            return false;
+        }
         bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",0);
         if (bel_simulationProp_dat == null) {
             warning("Failed to find SimulationProp bel_simulationProp_dat");
-            return false;
-        }
-        bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",0);
-        if (bel_playerGold_dat == null) {
-            warning("Failed to find BPlayerGold bel_playerGold_dat");
             return false;
         }
         bel_playerTarget_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerTarget_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
@@ -159,14 +158,14 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
             warning("Failed to find BPlayerPosition bel_playerTarget_dat");
             return false;
         }
-        bel_moveHint_dat = (rmit.ai.clima.jackagt.data.BMoveHint) lookupNamedObject("bel_moveHint_dat","rmit.ai.clima.jackagt.data.BMoveHint",0);
-        if (bel_moveHint_dat == null) {
-            warning("Failed to find BMoveHint bel_moveHint_dat");
-            return false;
-        }
         bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
         if (bel_playerPositions_dat == null) {
             warning("Failed to find BPlayerPosition bel_playerPositions_dat");
+            return false;
+        }
+        bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",0);
+        if (bel_playerGold_dat == null) {
+            warning("Failed to find BPlayerGold bel_playerGold_dat");
             return false;
         }
         return true;
@@ -359,11 +358,11 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
             }
             case 7: 
             {
-                return aos.util.ToObject.box(bel_simulationProp_dat);
+                return aos.util.ToObject.box(bel_moveHint_dat);
             }
             case 8: 
             {
-                return aos.util.ToObject.box(bel_playerGold_dat);
+                return aos.util.ToObject.box(bel_simulationProp_dat);
             }
             case 9: 
             {
@@ -371,11 +370,11 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
             }
             case 10: 
             {
-                return aos.util.ToObject.box(bel_moveHint_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 11: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_playerGold_dat);
             }
             default: 
             {
@@ -442,45 +441,38 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PTellPlayerToDrop.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (49) 	   System.out.print("TRYYYYYYYING TO DROOOPPP!!!!!");
+                        //* (50) 	   String baseName = epostplayeraction_h.playerName;
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __state = 11;
-                            java.lang.System.out.print("TRYYYYYYYING TO DROOOPPP!!!!!");
-                            break;
-                        }
-                        //* (50) 	   String baseName = epostplayeraction_h.playerName;
-                        case 11: 
-                        {
                             __local__28_0 = epostplayeraction_h.playerName;
-                            __state = 12;
+                            __state = 11;
                             break;
                         }
                         //* (51)       baseName = baseName.substring(0,baseName.indexOf("@"));
-                        case 12: 
+                        case 11: 
                         {
-                            __state = 13;
+                            __state = 12;
                             __local__28_0 = __local__28_0.substring(0,__local__28_0.indexOf("@"));
                             break;
                         }
                         //* (52) 	   @send( baseName, meplayeraction_s.send( "drop" ));
-                        case 13: 
+                        case 12: 
                         {
-                            __state = 14;
+                            __state = 13;
                             agent.send(__local__28_0,meplayeraction_s.send("drop"));
                             break;
                         }
                         //* (55)       logical int $targetX, $targetY;
-                        case 14: 
+                        case 13: 
                         {
                             __local__28_1 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
                             __local__28_2 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
-                            __state = 15;
+                            __state = 14;
                             break;
                         }
                         //* (56)       if (bel_playerTarget_dat.getByName( epostplayeraction_h.playerName, $targetX, $targetY))
-                        case 15: 
+                        case 14: 
                         {
                             boolean __b;
                             aos.jack.jak.cursor.Cursor __c = null;
@@ -493,20 +485,20 @@ public class PTellPlayerToDrop extends aos.jack.jak.plan.Plan {
                                     __c.finished();
                             }
                             if (__b) 
-                                __state = 16;
+                                __state = 15;
                              else 
-                                __state = 17;
+                                __state = 16;
                             break;
                         }
                         //* (57)          bel_playerTarget_dat.remove( epostplayeraction_h.playerName, $targetX.as_int(), $targetY.as_int() );
-                        case 16: 
+                        case 15: 
                         {
-                            __state = 17;
+                            __state = 16;
                             bel_playerTarget_dat.remove(epostplayeraction_h.playerName,__local__28_1.as_int(),__local__28_2.as_int());
                             break;
                         }
                         //* (47) 	body()
-                        case 17: 
+                        case 16: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;
