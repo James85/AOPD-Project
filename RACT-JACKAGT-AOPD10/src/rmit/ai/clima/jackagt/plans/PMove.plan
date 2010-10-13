@@ -1,0 +1,53 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PMove extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PMove
+*/
+	//Events handled by the plan are declared here.
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles event EExecuteAction eexecuteaction_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BCurrentState bel_currentState_dat;
+
+	#reads data BCurrentPath bel_currentPath_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	
+   logical String $state;
+   logical String $moveHint;
+   logical int $pathLength;
+   
+   static boolean relevant (EExecuteAction e)
+   {
+      return true;
+   }
+   
+   context()
+   {
+      //Need to be in any of moving states
+      bel_currentState_dat.get( $state ) &&
+      ($state.as_string().equals("gold") ||
+       $state.as_string().equals("explore") ||
+       $state.as_string().equals("depot"))
+       &&
+      //Path needs to be valid
+      bel_currentPath_dat.get( $moveHint, $pathLength )
+       && !($moveHint.as_string().equals(""));
+   }
+
+   #reasoning method
+	body()
+	{
+      System.out.println( "Moving to " + $moveHint.as_string() );
+      eexecuteclimaaction_p.post( $moveHint.as_string() );
+	}
+}

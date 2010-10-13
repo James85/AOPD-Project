@@ -12,13 +12,15 @@ public event MEReturnPlayerState extends MessageEvent
 	
    public String state;
    public GridPoint target;
-   public String dir;
+   public String moveHint;
+   public int pathLength;
    
    /*Posting Method Declarations*/
-   #posted as send(String state, GridPoint target, String dir)
+   #posted as send(String state, GridPoint target, String moveHint, int pathLength)
    {
       this.state = state;
       this.target = target;
-      this.dir = dir;
+      this.moveHint = moveHint;
+      this.pathLength = pathLength;
    }
 }

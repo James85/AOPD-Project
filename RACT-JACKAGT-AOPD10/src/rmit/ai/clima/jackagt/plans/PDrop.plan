@@ -2,12 +2,12 @@ package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 
-public plan PPick extends Plan
+public plan PDrop extends Plan
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 /*
-Plan Name: PPick
+Plan Name: PDrop
 */
 	//Events handled by the plan are declared here.
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
@@ -20,24 +20,23 @@ Plan Name: PPick
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
-	logical String $state;
-	
+   logical String $state;
+   
    static boolean relevant (EExecuteAction e)
    {
       return true;
    }
    
    context()
-	{
-      //Need to be in picking state
-		bel_currentState_dat.get( $state )
-		&& $state.as_string().equals( "pick");
-	}
-   
-	#reasoning method
-	body()
-	{
-	   System.out.println( "Picking gold" );
-	   eexecuteclimaaction_p.post("pick");
-	}
+   {
+      //Need to be in dropping state
+      bel_currentState_dat.get( $state )
+      && $state.as_string().equals( "drop");
+   }
+
+   body()
+   {
+      System.out.println( "Dropping gold" );
+      eexecuteclimaaction_p.post("drop");
+   }
 }

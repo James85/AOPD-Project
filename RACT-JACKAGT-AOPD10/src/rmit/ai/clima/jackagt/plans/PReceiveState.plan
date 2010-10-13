@@ -1,0 +1,71 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PReceiveState extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PReceiveState
+*/
+	//Events handled by the plan are declared here.
+	#posts event EExecuteAction eexecuteaction_p;
+
+	#handles event MEReturnPlayerState mereturnplayerstate_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BCurrentPath bel_currentPath_dat;
+
+	#modifies data BCurrentState bel_currentState_dat;
+
+	#modifies data BCurrentPosition bel_currentTarget_dat;
+
+	#reads data BCurrentPosition bel_currentPosition_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	static boolean relevant (MEReturnPlayerState e)
+	{
+	   return true;
+	}
+	
+	context()
+	{
+		true;
+	}
+
+	body()
+	{
+	   System.out.println( "GOT NEW STATE");
+	   
+      logical String $state;
+      logical int $posX, $posY, $targetX, $targetY;
+      //logical int $numGold;
+      
+      bel_currentState_dat.get( $state );
+      bel_currentPosition_dat.get( $posX, $posY );
+      bel_currentTarget_dat.get( $targetX, $targetY );
+      //bel_numCarryingGold_dat.get( $numGold );
+      
+      //Get current path
+      logical String $moveHint;
+      logical int $pathLength;
+      bel_currentPath_dat.get( $moveHint, $pathLength );
+      
+      //Check if current path invalid or longer than the new path
+      //if ($moveHint.as_string.equals("") || $pathLength.as_int() > mereturnplayerstate_h.pathLength)
+      {
+         //Update state, target and path with what we received from the coordinator
+         bel_currentState_dat.add( mereturnplayerstate_h.state );
+         bel_currentTarget_dat.add( mereturnplayerstate_h.target.x, mereturnplayerstate_h.target.y );
+         bel_currentPath_dat.add( mereturnplayerstate_h.moveHint, mereturnplayerstate_h.pathLength );
+      }
+      
+      //TODO: Re-do PUpdateState as we might be standing on a gold that is assigned to us
+      //so we need to pick it right away instead of trying to move to "cur" first
+      
+      @post( eexecuteaction_p.post() );
+	}
+}

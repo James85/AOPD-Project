@@ -10,9 +10,9 @@ public plan PSendPlayerToExplore extends Plan
 Plan Name: PSendPlayerToExplore
 */
 	//Events handled by the plan are declared here.
-	#posts event EIdentifyTarget eidentifytarget_p;
-
 	#posts event MEPlayerAction meplayeraction_p;
+
+	#posts event EIdentifyTarget eidentifytarget_p;
 
 	#handles event EPostPlayerAction epostplayeraction_h;
 

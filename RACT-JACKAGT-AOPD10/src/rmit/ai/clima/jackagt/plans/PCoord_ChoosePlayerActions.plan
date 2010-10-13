@@ -12,13 +12,13 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
+	#posts event EIdentifyTarget eidentifytarget_p;
+
 	#posts event EPostPlayerAction epostplayeraction_p;
 
 	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
 	#posts event EFindClosestGold efindclosestgold_p;
-
-	#posts event EIdentifyTarget eidentifytarget_p;
 
 	#posts event EFindPath efindpath_p;
 
@@ -30,21 +30,21 @@ Plan Name: PCoord_ChoosePlayerActions
 
 	#reads data BPlayer bel_players_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
+	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
+
+	#reads data BMoveHint bel_moveHint_dat;
+
+	#reads data BPlayerState bel_playerState_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BPlayerGold bel_playerGold_dat;
 
-	#reads data BPlayerState bel_playerState_dat;
-
-	#reads data BMoveHint bel_moveHint_dat;
-
-	#reads data BObstacleAt bel_obstacleAt_dat;
-
-	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
-
-	#reads data SimulationProp bel_simulationProp_dat;
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -65,38 +65,60 @@ Plan Name: PCoord_ChoosePlayerActions
       logical int $depotX, $depotY;
       bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
 
-      //Find the closest player-gold pairs
-      @subtask(efindclosestgold_p.post());
-      return true;
-      //Loop through all players on the team
-      logical String $playerName;
-      String baseName;
-      Cursor c_players = bel_players_dat.get( $playerName );
-//      System.out.println(bel_goldAt_dat.nFacts());
+      Vector relevantPlayers = new Vector();
+      
+      //Loop through all the players on the team
+      logical String $name;
+      Cursor c_players = bel_players_dat.get( $name );
       while (c_players.next())
       {
-         //if( $state.as_string == "pick" || $state.as_string() == "drop" || $state.as_string() == "depot" )
-           // continue;
+         //TODO: Picking should still be relevant for gold so that other players
+         //don't get the same gold assigned while a player is trying to pick
          
-         logical int $x, $y;
-         logical int $numGold;
-         boolean goldFound = false;
-
-         Cursor c_target;
-         logical String $targetMove;
-         logical int $pathLength;
-         logical int $targetX, $targetY;
-         boolean haveTarget = false;
-
-         baseName = $playerName.as_string();
-         baseName = baseName.substring(0,baseName.indexOf("@"));
-
-         //Get player info
-         bel_playerPositions_dat.getByName( $playerName.as_string(), $x, $y );
-         bel_playerGold_dat.getByName( $playerName.as_string(), $numGold );
-
-//         System.out.println($playerName.as_string() + " has : "+ $numGold.as_int());
-
+         //Check if the player is relevant to chasing gold
+         logical String $state;
+         bel_playerState_dat.getByName( $name.as_string(), $state );
+         if(! ($state.as_string().equals("pick") ||
+               $state.as_string().equals("drop") ||
+               $state.as_string().equals("depot")))
+            relevantPlayers.add( $name.as_string() );
+      }
+      
+      //Find the closest player-gold pairs
+      @subtask(efindclosestgold_p.post(relevantPlayers));
+      relevantPlayers.clear();
+      
+      //Loop through all players on the team
+      c_players = bel_players_dat.get( $name );
+      while (c_players.next())
+      {
+         //Check if the player has gold assigned
+         logical int $goldX, $goldY, $playerX, $playerY;
+         if (bel_playerClosestGold_dat.getByName( $name.as_string(), $goldX, $goldY ))
+         {
+            //Find path to gold
+            logical String $moveHint;
+            logical int $pathLength;
+            bel_playerPositions_dat.getByName( $name.as_string(), $playerX, $playerY );
+            @subtask(efindpath_p.post( $name.as_string(), $playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int() ));
+            bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int(), $moveHint, $pathLength);
+          
+            //Report new state to player
+            String baseName = $name.as_string();
+            baseName = baseName.substring(0,baseName.indexOf("@"));
+            @send( baseName, mereturnplayerstate_s.send(
+                  "gold", new GridPoint( $goldX.as_int(), $goldY.as_int() ),
+                  $moveHint.as_string(), $pathLength.as_int() ));
+            
+            System.out.println( baseName + " closest gold at " + $goldX.as_int() + "," + $goldY.as_int() );
+         }
+         else relevantPlayers.add( $name.as_string() );
+      }
+      
+      //TODO: Follow with a similar subtask to find player-explore pairs
+         
+         /*
+         TODO: Implement path termination checks on the Player side
          //Get player target if any
          if (bel_playerTarget_dat.getByName($playerName.as_string(), $targetX, $targetY ))
          {
@@ -129,21 +151,20 @@ Plan Name: PCoord_ChoosePlayerActions
 
          //post a single event to handle some different stuff
          @subtask(epostplayeraction_p.post($playerName.as_string()));
- 
-      }//players loop
+         */
 
-
+      System.out.println( "CLEARING");
+      
       //Clear the pathfinding results
       logical int $srcX, $srcY,  $dstX,  $dstY, $pathLength;
       logical String $dir;
       bel_moveHint_dat.get($srcX, $srcY, $dstX, $dstY, $dir, $pathLength).removeAll();
 
+      //Clear the player-gold pairs
       logical String $profit;
       logical int $profitX, $profitY;
-
       bel_playerClosestGold_dat.get( $profit, $profitX, $profitY ).removeAll();
-
-
-
+      
+      //TODO: Clear the player-explore pairs
    }
 }

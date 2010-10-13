@@ -38,20 +38,20 @@ Plan Name: PCoord_AssimilatePlayerStates
 	#reasoning method
 	body()
    {
-      
+      //Store current state of this player
       bel_playerTarget_dat.add( mereportplayerstate_h.name, mereportplayerstate_h.target.x , mereportplayerstate_h.target.y );
       bel_playerState_dat.add( mereportplayerstate_h.name, mereportplayerstate_h.state );
-      bel_playerStateReceived_dat.add( mereportplayerstate_h.name);
       
-      //consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts() );
-      if( bel_playerStateReceived_dat.nFacts()  == bel_players_dat.nFacts() )
+      //Check if we got a state message from every player on the team
+      bel_playerStateReceived_dat.add( mereportplayerstate_h.name);
+      if( bel_playerStateReceived_dat.nFacts() == bel_players_dat.nFacts() )
       {
+    	 //Reset the sync table
          logical String $name;
          bel_playerStateReceived_dat.get($name).removeAll();
          
+         //Proceed with next task
          @post( echooseplayeractions_p.post() );
       }
-         
-
    }
 }

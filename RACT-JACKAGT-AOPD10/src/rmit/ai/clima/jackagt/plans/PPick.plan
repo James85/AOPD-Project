@@ -12,24 +12,32 @@ Plan Name: PPick
 	//Events handled by the plan are declared here.
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
+	#handles event EExecuteAction eexecuteaction_h;
+
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BCurrentState bel_currentState_dat;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
-   static boolean relevant (MEPlayerAction e)
+	logical String $state;
+	
+   static boolean relevant (EExecuteAction e)
    {
-      
-      return (e.action.equalsIgnoreCase( "pick" ));
+      return true;
    }
    
-//	context()
-//	{
-//		true;
-//	}
+   context()
+	{
+      //Need to be in picking state
+		bel_currentState_dat.get( $state )
+		&& $state.as_string().equals( "pick");
+	}
+   
 	#reasoning method
 	body()
 	{
-//	   System.out.println( "TRYING TO PICK THIS GOLD" );
-	   //eexecuteclimaaction_p.post("pick");
+	   System.out.println( "Picking gold" );
+	   eexecuteclimaaction_p.post("pick");
 	}
 }
