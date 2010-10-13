@@ -1,0 +1,99 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+public plan PUpdateState extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PUpdateState
+*/
+	//Events handled by the plan are declared here.
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
+	#sends event MEReportPlayerState mereportplayerstate_s;
+
+	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BCurrentState bel_currentState_dat;
+
+	#modifies data BCurrentPosition bel_currentTarget_dat;
+
+	#reads data BNumCarryingGold bel_numCarryingGold_dat;
+
+	#reads data BCurrentPosition bel_currentPosition_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	static boolean relevant(MEPlayerPerceptsAssimilated e)
+	{
+	   
+	   return true;
+	}
+	
+	context()
+	{
+		// Trigger: Event "MEPlayerPerceptsAssimilated"
+
+
+		true;
+	}
+
+	#reasoning method
+	body()
+	{
+		logical String $state;
+		logical int $posX, $posY, $targetX, $targetY;
+		logical int $numGold;
+		
+		bel_currentState_dat.get( $state );
+	   bel_currentPosition_dat.get( $posX, $posY );
+	   bel_currentTarget_dat.get( $targetX, $targetY );
+	   bel_numCarryingGold_dat.get( $numGold );
+	   
+		
+		if($state.as_string().equals( "pick") )
+		{
+		   if( bel_goldAt_dat.check( $posX.as_int(), $posY.as_int() ))
+		      bel_currentState_dat.add("idle");
+		}
+		else if($state.as_string().equals( "drop" ))
+	   {
+	         if( $numGold.as_int() == 0 )
+	            bel_currentState_dat.add("idle");
+	   }
+		else if($state.as_string().equals( "gold") )
+		{
+		   
+		}
+		else if($state.as_string().equals("depot") )
+		{
+		   
+		}
+		else if($state.as_string().equals("explore") )
+		{
+		   
+		}
+		else if($state.as_string().equals("idle") )
+		{
+		   
+		}
+		
+		//retrieve the state again as we may have changed it with the above code 
+		bel_currentState_dat.get( $state );
+		
+		@send("boss", mereportplayerstate_s.send( getAgent().name(), $state.as_string(), new GridPoint( $targetX.as_int(), $targetY.as_int() )));
+		eexecuteclimaaction_p.post("left");
+		
+	}
+}

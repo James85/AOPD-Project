@@ -9,11 +9,9 @@ public event EPostPlayerAction extends BDIGoalEvent
 */
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
    public String playerName;
-   public boolean hasPath;
 	/*Posting Method Declarations*/
-	#posted as post(String name, boolean hasPath)
+	#posted as post(String name)
 	{
 		this.playerName = name;
-		this.hasPath = hasPath;
 	}
 }

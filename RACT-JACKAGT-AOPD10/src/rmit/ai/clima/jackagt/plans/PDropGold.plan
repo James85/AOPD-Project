@@ -12,8 +12,6 @@ Plan Name: PDropGold
 	//Events handled by the plan are declared here.
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-	#handles event MEPlayerAction meplayeraction_h;
-
 
 	// Declarations of any beliefset/data that the plan accesses.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
@@ -23,15 +21,15 @@ Plan Name: PDropGold
    {
       return (e.action.equalsIgnoreCase( "drop" ));
    }
-
-   context()
-   {
-      true;
-   }
+//
+//   context()
+//   {
+//      true;
+//   }
 
    body()
    {
 //      System.out.println( "Dropping my gold" );
-      eexecuteclimaaction_p.post("drop"); // Post an ExecuteClimaAction event to execute the action in the server
+      //eexecuteclimaaction_p.post("drop"); // Post an ExecuteClimaAction event to execute the action in the server
    }
 }

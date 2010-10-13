@@ -20,13 +20,13 @@ Plan Name: PIdentifyExploreTarget
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPlayerPosition bel_playerTarget_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
 	#reads data BMoveHint bel_moveHint_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -52,7 +52,7 @@ Plan Name: PIdentifyExploreTarget
       //Try to find a new target
       boolean targetFound = false;
       boolean targetUnreachable = false;
-      //System.out.println("FINDING A NEW UNEXPLORED AREA TO GO TO");
+      System.out.println("FINDING A NEW UNEXPLORED AREA TO GO TO");
       while(!targetFound && !targetUnreachable)
       {
          //Pick a random location to start from
@@ -74,8 +74,9 @@ Plan Name: PIdentifyExploreTarget
             {
                //Check if cell reachable
                logical String $move;
+               logical int $pathLength;
                @subtask(efindpath_p.post( eidentifytarget_h.playerName, $playerX.as_int(), $playerY.as_int(), x, y ));
-               if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), x, y, $move ))
+               if (bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), x, y, $move, $pathLength ))
                {               
                   //Store the player target
 //                  System.out.println("I AM GOING TO EXPLORE " + x + ", " + y);

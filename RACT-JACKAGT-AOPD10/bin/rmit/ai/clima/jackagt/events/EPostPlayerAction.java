@@ -11,29 +11,25 @@ import aos.jack.jak.event.BDIGoalEvent;
 
 public class EPostPlayerAction extends aos.jack.jak.event.BDIGoalEvent {
     public java.lang.String playerName;
-    public boolean hasPath;
     private final static java.lang.String[] __eventVariableNames = {
-            "playerName",
-            "hasPath"};
+            "playerName"};
     private final static java.lang.String[] __eventVariableTypes = {
-            "String",
-            "boolean"};
+            "String"};
     public java.lang.String getDocumentation()
     {
         return "/******** Start PDT Design Block *** DO NOT EDIT IT *********/\n";
     }
     
-    public rmit.ai.clima.jackagt.events.EPostPlayerAction post(java.lang.String name, boolean hasPath)
+    public rmit.ai.clima.jackagt.events.EPostPlayerAction post(java.lang.String name)
     {
         rmit.ai.clima.jackagt.events.EPostPlayerAction tmp = new rmit.ai.clima.jackagt.events.EPostPlayerAction();
         tmp.init(this);
-        return tmp.post_body(name,hasPath);
+        return tmp.post_body(name);
     }
     
-    private rmit.ai.clima.jackagt.events.EPostPlayerAction post_body(java.lang.String name, boolean hasPath)
+    private rmit.ai.clima.jackagt.events.EPostPlayerAction post_body(java.lang.String name)
     {
         this.playerName = name;
-        this.hasPath = hasPath;
         return this;
     }
     
@@ -62,10 +58,6 @@ public class EPostPlayerAction extends aos.jack.jak.event.BDIGoalEvent {
             case 0: 
             {
                 return aos.util.ToObject.box(playerName);
-            }
-            case 1: 
-            {
-                return aos.util.ToObject.box(hasPath);
             }
             default: 
             {

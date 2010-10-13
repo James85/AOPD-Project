@@ -1,0 +1,17 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event MERequestCellInfo extends MessageEvent
+{
+/*
+ * Message Name: MERequestCellInfo
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   public GridPoint cellPos;
+	/*Posting Method Declarations*/
+	#posted as send(GridPoint cellPos)
+	{
+		this.cellPos = cellPos;
+	}
+}

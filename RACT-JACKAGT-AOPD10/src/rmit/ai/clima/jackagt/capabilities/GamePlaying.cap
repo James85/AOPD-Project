@@ -23,6 +23,21 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data CurrentStatus bel_currentStatus_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -43,51 +58,52 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
+	#imports data BCurrentPosition bel_currentTarget_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+	#imports data BCurrentState bel_currentState_dat();
 
 
 	//Events handled, posted and sent are declared here.
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
 	#handles event EExecuteCLIMAaction ;
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
 	#handles external event PerceiveClimaServer ;
-
-	#sends event MEInformCellStatus meinformcellstatus_s;
-
-	#posts event MEReportPlayerPercept mereportplayerpercept_p;
-
-	#handles external event MEPlayerAction ;
-
-	#sends event EUpdateBel eupdatebel_s;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles external event ECellChange ;
 
-	#posts external event TellClimaServer tellclimaserver_p;
+	#posts event MEReportPlayerPercept mereportplayerpercept_p;
+
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#sends event MEReportPlayerState mereportplayerstate_s;
+
+	#handles external event MEPlayerPerceptsAssimilated ;
+
+	#posts event EAct eact_p;
 
 	#handles event EShowBeliefs ;
 	#posts event EShowBeliefs eshowbeliefs_p;
 
-	#posts event EAct eact_p;
+	#posts external event TellClimaServer tellclimaserver_p;
+
+	#sends event EUpdateBel eupdatebel_s;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan HandlePercept ;
-
 	#uses plan UpdateCellsAround ;
+
+	#uses plan HandlePercept ;
 
 	#uses plan SendActionAndWait ;
 

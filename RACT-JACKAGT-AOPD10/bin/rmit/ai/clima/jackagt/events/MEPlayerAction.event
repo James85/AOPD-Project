@@ -2,7 +2,7 @@ package rmit.ai.clima.jackagt.events;
 import rmit.ai.clima.jackagt.data.*;
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
-public event MEPlayerAction extends MessageEvent
+public event MEPlayerAction extends BDIGoalEvent
 {
 /*
  * Message Name: MEPlayerAction

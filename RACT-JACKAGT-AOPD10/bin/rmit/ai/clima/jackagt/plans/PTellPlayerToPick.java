@@ -18,10 +18,10 @@ import aos.jack.jak.cursor.BinaryBoolOp;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import rmit.ai.clima.jackagt.events.EPostPlayerAction;
-import rmit.ai.clima.jackagt.data.BPlayerGold;
-import rmit.ai.clima.jackagt.data.BPlayerClosestGold;
 import rmit.ai.clima.jackagt.data.BPlayerPosition;
+import rmit.ai.clima.jackagt.data.BPlayerGold;
 import rmit.ai.clima.jackagt.data.BGoldAt;
+import rmit.ai.clima.jackagt.data.BPlayerClosestGold;
 import java.lang.Object;
 import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
@@ -30,20 +30,19 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
     aos.jack.jak.logic.IntegerVariable $x;
     aos.jack.jak.logic.IntegerVariable $y;
     aos.jack.jak.logic.IntegerVariable $numGold;
-    public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_s;
+    public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_p;
     public rmit.ai.clima.jackagt.events.EPostPlayerAction epostplayeraction_h;
-    public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
-    public rmit.ai.clima.jackagt.data.BPlayerClosestGold bel_playerClosestGold_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerPositions_dat;
-    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPosition bel_playerTarget_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerGold bel_playerGold_dat;
+    public rmit.ai.clima.jackagt.data.BGoldAt bel_goldAt_dat;
+    public rmit.ai.clima.jackagt.data.BPlayerClosestGold bel_playerClosestGold_dat;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PTellPlayerToPick.plan",
             "body",
             "44",
             "45",
-            "46",
             "49",
             "50",
             "51",
@@ -52,24 +51,24 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             "$x",
             "$y",
             "$numGold",
-            "meplayeraction_s",
+            "meplayeraction_p",
             "epostplayeraction_h",
-            "bel_playerGold_dat",
-            "bel_playerClosestGold_dat",
             "bel_playerPositions_dat",
+            "bel_playerTarget_dat",
+            "bel_playerGold_dat",
             "bel_goldAt_dat",
-            "bel_playerTarget_dat"};
+            "bel_playerClosestGold_dat"};
     private final static java.lang.String[] __planVariableTypes = {
             "logical int",
             "logical int",
             "logical int",
             "MEPlayerAction",
             "rmit.ai.clima.jackagt.events.EPostPlayerAction",
-            "BPlayerGold",
-            "BPlayerClosestGold",
             "BPlayerPosition",
+            "rmit.ai.clima.jackagt.data.BPlayerPosition",
+            "BPlayerGold",
             "BGoldAt",
-            "rmit.ai.clima.jackagt.data.BPlayerPosition"};
+            "BPlayerClosestGold"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     private final static java.lang.String[] __logSignatureVariableNames = {
@@ -89,9 +88,9 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             "logical int",
             "logical int"};
     private final static java.lang.String[] __fsmLocalNames_body = {
-            "__local__30_0",
-            "__local__30_1",
-            "__local__30_2"};
+            "__local__32_0",
+            "__local__32_1",
+            "__local__32_2"};
     public aos.jack.jak.plan.PlanInstanceInfo getInstanceInfo()
     {
         return aos.jack.jak.plan.PlanInstanceInfo.def[7];
@@ -107,13 +106,13 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
         __ns = __env.__ns;
         __planTask = __t;
         __logic = __t.logic;
-        meplayeraction_s = __env.meplayeraction_s;
+        meplayeraction_p = __env.meplayeraction_p;
         epostplayeraction_h = __env.epostplayeraction_h;
-        bel_playerGold_dat = __env.bel_playerGold_dat;
-        bel_playerClosestGold_dat = __env.bel_playerClosestGold_dat;
         bel_playerPositions_dat = __env.bel_playerPositions_dat;
-        bel_goldAt_dat = __env.bel_goldAt_dat;
         bel_playerTarget_dat = __env.bel_playerTarget_dat;
+        bel_playerGold_dat = __env.bel_playerGold_dat;
+        bel_goldAt_dat = __env.bel_goldAt_dat;
+        bel_playerClosestGold_dat = __env.bel_playerClosestGold_dat;
         $x = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $y = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
         $numGold = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
@@ -121,9 +120,9 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
     {
-        meplayeraction_s = (rmit.ai.clima.jackagt.events.MEPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.MEPlayerAction");
-        if (meplayeraction_s == null) {
-            warning("Failed to find MEPlayerAction meplayeraction_s");
+        meplayeraction_p = (rmit.ai.clima.jackagt.events.MEPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.MEPlayerAction");
+        if (meplayeraction_p == null) {
+            warning("Failed to find MEPlayerAction meplayeraction_p");
             return false;
         }
         epostplayeraction_h = (rmit.ai.clima.jackagt.events.EPostPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.EPostPlayerAction");
@@ -131,19 +130,19 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             warning("Failed to find EPostPlayerAction epostplayeraction_h");
             return false;
         }
-        bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",0);
-        if (bel_playerGold_dat == null) {
-            warning("Failed to find BPlayerGold bel_playerGold_dat");
-            return false;
-        }
-        bel_playerClosestGold_dat = (rmit.ai.clima.jackagt.data.BPlayerClosestGold) lookupNamedObject("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold",0);
-        if (bel_playerClosestGold_dat == null) {
-            warning("Failed to find BPlayerClosestGold bel_playerClosestGold_dat");
-            return false;
-        }
         bel_playerPositions_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerPositions_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
         if (bel_playerPositions_dat == null) {
             warning("Failed to find BPlayerPosition bel_playerPositions_dat");
+            return false;
+        }
+        bel_playerTarget_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerTarget_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
+        if (bel_playerTarget_dat == null) {
+            warning("Failed to find BPlayerPosition bel_playerTarget_dat");
+            return false;
+        }
+        bel_playerGold_dat = (rmit.ai.clima.jackagt.data.BPlayerGold) lookupNamedObject("bel_playerGold_dat","rmit.ai.clima.jackagt.data.BPlayerGold",0);
+        if (bel_playerGold_dat == null) {
+            warning("Failed to find BPlayerGold bel_playerGold_dat");
             return false;
         }
         bel_goldAt_dat = (rmit.ai.clima.jackagt.data.BGoldAt) lookupNamedObject("bel_goldAt_dat","rmit.ai.clima.jackagt.data.BGoldAt",0);
@@ -151,9 +150,9 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             warning("Failed to find BGoldAt bel_goldAt_dat");
             return false;
         }
-        bel_playerTarget_dat = (rmit.ai.clima.jackagt.data.BPlayerPosition) lookupNamedObject("bel_playerTarget_dat","rmit.ai.clima.jackagt.data.BPlayerPosition",0);
-        if (bel_playerTarget_dat == null) {
-            warning("Failed to find BPlayerPosition bel_playerTarget_dat");
+        bel_playerClosestGold_dat = (rmit.ai.clima.jackagt.data.BPlayerClosestGold) lookupNamedObject("bel_playerClosestGold_dat","rmit.ai.clima.jackagt.data.BPlayerClosestGold",0);
+        if (bel_playerClosestGold_dat == null) {
+            warning("Failed to find BPlayerClosestGold bel_playerClosestGold_dat");
             return false;
         }
         return true;
@@ -310,7 +309,7 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             }
             case 3: 
             {
-                return aos.util.ToObject.box(meplayeraction_s);
+                return aos.util.ToObject.box(meplayeraction_p);
             }
             case 4: 
             {
@@ -318,15 +317,15 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             }
             case 5: 
             {
-                return aos.util.ToObject.box(bel_playerGold_dat);
+                return aos.util.ToObject.box(bel_playerPositions_dat);
             }
             case 6: 
             {
-                return aos.util.ToObject.box(bel_playerClosestGold_dat);
+                return aos.util.ToObject.box(bel_playerTarget_dat);
             }
             case 7: 
             {
-                return aos.util.ToObject.box(bel_playerPositions_dat);
+                return aos.util.ToObject.box(bel_playerGold_dat);
             }
             case 8: 
             {
@@ -334,7 +333,7 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             }
             case 9: 
             {
-                return aos.util.ToObject.box(bel_playerTarget_dat);
+                return aos.util.ToObject.box(bel_playerClosestGold_dat);
             }
             default: 
             {
@@ -370,9 +369,9 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
     }
     
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
-        java.lang.String __local__30_0;
-        aos.jack.jak.logic.IntegerVariable __local__30_1;
-        aos.jack.jak.logic.IntegerVariable __local__30_2;
+        java.lang.String __local__32_0;
+        aos.jack.jak.logic.IntegerVariable __local__32_1;
+        aos.jack.jak.logic.IntegerVariable __local__32_2;
         private int __breakLevel = 0;
         public int run(int __status)
             throws java.lang.Throwable
@@ -405,7 +404,7 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __local__30_0 = epostplayeraction_h.playerName;
+                            __local__32_0 = epostplayeraction_h.playerName;
                             __state = 11;
                             break;
                         }
@@ -413,26 +412,19 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
                         case 11: 
                         {
                             __state = 12;
-                            __local__30_0 = __local__30_0.substring(0,__local__30_0.indexOf("@"));
-                            break;
-                        }
-                        //* (46)       @send( baseName, meplayeraction_s.send( "pick" ));
-                        case 12: 
-                        {
-                            __state = 13;
-                            agent.send(__local__30_0,meplayeraction_s.send("pick"));
+                            __local__32_0 = __local__32_0.substring(0,__local__32_0.indexOf("@"));
                             break;
                         }
                         //* (49)       logical int $targetX, $targetY;
-                        case 13: 
+                        case 12: 
                         {
-                            __local__30_1 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
-                            __local__30_2 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
-                            __state = 14;
+                            __local__32_1 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
+                            __local__32_2 = (aos.jack.jak.logic.IntegerVariable) __logic.new_variable(java.lang.Integer.TYPE);
+                            __state = 13;
                             break;
                         }
                         //* (50)       if (bel_playerTarget_dat.getByName( epostplayeraction_h.playerName, $targetX, $targetY))
-                        case 14: 
+                        case 13: 
                         {
                             boolean __b;
                             aos.jack.jak.cursor.Cursor __c = null;
@@ -445,20 +437,20 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
                                     __c.finished();
                             }
                             if (__b) 
-                                __state = 15;
+                                __state = 14;
                              else 
-                                __state = 16;
+                                __state = 15;
                             break;
                         }
                         //* (51)          bel_playerTarget_dat.remove( epostplayeraction_h.playerName, $targetX.as_int(), $targetY.as_int() );
-                        case 15: 
+                        case 14: 
                         {
-                            __state = 16;
-                            bel_playerTarget_dat.remove(epostplayeraction_h.playerName,__local__30_1.as_int(),__local__30_2.as_int());
+                            __state = 15;
+                            bel_playerTarget_dat.remove(epostplayeraction_h.playerName,__local__32_1.as_int(),__local__32_2.as_int());
                             break;
                         }
                         //* (41)    body()
-                        case 16: 
+                        case 15: 
                         {
                             if (__pending == null) 
                                 __state = PASSED_STATE;
@@ -510,7 +502,7 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             switch (__index) {
                 case 0: 
                 {
-                    return (bel_playerTarget_dat.getByName(epostplayeraction_h.playerName,__local__30_1,__local__30_2));
+                    return (bel_playerTarget_dat.getByName(epostplayeraction_h.playerName,__local__32_1,__local__32_2));
                 }
             }
             aos.jack.jak.core.Jak.error("illegal Cursor Construction");
@@ -560,15 +552,15 @@ public class PTellPlayerToPick extends aos.jack.jak.plan.Plan {
             switch (n) {
                 case 0: 
                 {
-                    return aos.util.ToObject.box(__local__30_0);
+                    return aos.util.ToObject.box(__local__32_0);
                 }
                 case 1: 
                 {
-                    return aos.util.ToObject.box(__local__30_1);
+                    return aos.util.ToObject.box(__local__32_1);
                 }
                 case 2: 
                 {
-                    return aos.util.ToObject.box(__local__30_2);
+                    return aos.util.ToObject.box(__local__32_2);
                 }
                 default: 
                 {

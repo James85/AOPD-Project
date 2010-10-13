@@ -12,8 +12,6 @@ Plan Name: PPick
 	//Events handled by the plan are declared here.
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-	#handles event MEPlayerAction meplayeraction_h;
-
 
 	// Declarations of any beliefset/data that the plan accesses.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
@@ -24,14 +22,14 @@ Plan Name: PPick
       return (e.action.equalsIgnoreCase( "pick" ));
    }
    
-	context()
-	{
-		true;
-	}
+//	context()
+//	{
+//		true;
+//	}
 	#reasoning method
 	body()
 	{
 //	   System.out.println( "TRYING TO PICK THIS GOLD" );
-	   eexecuteclimaaction_p.post("pick");
+	   //eexecuteclimaaction_p.post("pick");
 	}
 }

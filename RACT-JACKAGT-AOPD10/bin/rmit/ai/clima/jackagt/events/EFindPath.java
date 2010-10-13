@@ -15,17 +15,23 @@ public class EFindPath extends aos.jack.jak.event.BDIGoalEvent {
     public int srcY;
     public int dstX;
     public int dstY;
+    public java.lang.String moveHint;
+    public int pathLength;
     private final static java.lang.String[] __eventVariableNames = {
             "playerName",
             "srcX",
             "srcY",
             "dstX",
-            "dstY"};
+            "dstY",
+            "moveHint",
+            "pathLength"};
     private final static java.lang.String[] __eventVariableTypes = {
             "String",
             "int",
             "int",
             "int",
+            "int",
+            "String",
             "int"};
     public java.lang.String getDocumentation()
     {
@@ -46,6 +52,8 @@ public class EFindPath extends aos.jack.jak.event.BDIGoalEvent {
         this.srcY = srcY;
         this.dstX = dstX;
         this.dstY = dstY;
+        this.moveHint = "";
+        this.pathLength = 0;
         return this;
     }
     
@@ -90,6 +98,14 @@ public class EFindPath extends aos.jack.jak.event.BDIGoalEvent {
             case 4: 
             {
                 return aos.util.ToObject.box(dstY);
+            }
+            case 5: 
+            {
+                return aos.util.ToObject.box(moveHint);
+            }
+            case 6: 
+            {
+                return aos.util.ToObject.box(pathLength);
             }
             default: 
             {

@@ -10,21 +10,21 @@ public plan PTellPlayerToPick extends Plan
 Plan Name: PTellPlayerToPick
 */
 	//Events handled by the plan are declared here.
-	#sends event MEPlayerAction meplayeraction_s;
+	#posts event MEPlayerAction meplayeraction_p;
 
 	#handles event EPostPlayerAction epostplayeraction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BPlayerGold bel_playerGold_dat;
-
-	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
-
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerPosition bel_playerTarget_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
-	#reads data BPlayerPosition bel_playerTarget_dat;
+	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
    logical int $x, $y;
@@ -40,10 +40,10 @@ Plan Name: PTellPlayerToPick
 
    body()
    {
-      //System.out.print(epostplayeraction_h.playerName +" : PICK!!!!!");
+      //System.out.print("TRYYYYYYYING TO PICK!!!!!");
       String baseName = epostplayeraction_h.playerName;
       baseName = baseName.substring(0,baseName.indexOf("@"));
-      @send( baseName, meplayeraction_s.send( "pick" ));
+    //  @send( baseName, meplayeraction_s.send( "pick" ));
       
       //Clear the target if any
       logical int $targetX, $targetY;

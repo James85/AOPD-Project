@@ -15,17 +15,17 @@ Plan Name: Coord_AssimilatePlayerPercept
 	//Events handled by the plan are declared here.
 	#posts event EUpdateBel eupdatebel_p;
 
-	#posts event EChoosePlayerActions echooseplayeractions_p;
+	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
 
 	#handles event MEReportPlayerPercept mereportplayerpercept_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerPosition bel_playerPositions_dat;
-
 	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+
+	#modifies data BPlayerPosition bel_playerPositions_dat;
 
 	#reads data BPlayer bel_players_dat;
 
@@ -49,13 +49,22 @@ Plan Name: Coord_AssimilatePlayerPercept
 		bel_playerPerceptReceived_dat.add(mereportplayerpercept_h.name);
 		
 		
-		logical String $name;
-		   
+		
+		
 		//consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts() );
 		if(bel_playerPerceptReceived_dat.nFacts()  == bel_players_dat.nFacts())
 		{
+		   logical String $name;
+		   Cursor c_players = bel_playerPerceptReceived_dat.get($name);
+		   while(c_players.next())
+		   {
+		      String baseName = $name.as_string();
+	         baseName = baseName.substring(0,baseName.indexOf("@"));
+		      @send(baseName, meplayerperceptsassimilated_s.send() );
+		   }
+		   //#TODO find out how to do this with a cursor instead
 		   bel_playerPerceptReceived_dat.get($name).removeAll();
-		   @post( echooseplayeractions_p.post() );
+		   
 		}
 		   
 

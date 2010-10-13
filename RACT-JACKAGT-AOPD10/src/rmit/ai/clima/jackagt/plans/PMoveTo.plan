@@ -12,26 +12,25 @@ Plan Name: PMoveTo
 	//Events handled by the plan are declared here.
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-	#handles event MEPlayerAction meplayeraction_h;
-
 
 	// Declarations of any beliefset/data that the plan accesses.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	
    static boolean relevant (MEPlayerAction e)
    {
+      
       return (e.action.equalsIgnoreCase( "moveTo" ));
    }
-   
-	context()
-	{
-		true;
-	}
+//   
+//	context()
+//	{
+//		true;
+//	}
    #reasoning method
 	body()
 	{
+      System.out.println("FUCK");
 //      System.out.println( "MOVING TO " + meplayeraction_h.direction );
-	  //System.out.println(getAgent().name() +" moving to: " + meplayeraction_h.direction);
-      eexecuteclimaaction_p.post(meplayeraction_h.direction); // Post an ExecuteClimaAction event to execute the action in the server
+      //eexecuteclimaaction_p.post(meplayeraction_h.direction); // Post an ExecuteClimaAction event to execute the action in the server
 	}
 }

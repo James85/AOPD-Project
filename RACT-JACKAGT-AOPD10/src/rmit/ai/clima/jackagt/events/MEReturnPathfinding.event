@@ -1,0 +1,23 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event MEReturnPathfinding extends MessageEvent
+{
+/*
+ * Message Name: MEReturnPathfinding
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+  
+   public GridPoint src;
+   public GridPoint dst;
+   public String dir;
+   /*Posting Method Declarations*/
+   #posted as send(GridPoint src, GridPoint dst, String dir)
+   {
+      this.src = src;
+      this.dst = dst;
+      this.dir = dir;
+   }
+}

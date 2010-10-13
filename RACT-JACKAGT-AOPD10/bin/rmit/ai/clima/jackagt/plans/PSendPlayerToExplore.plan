@@ -12,21 +12,19 @@ Plan Name: PSendPlayerToExplore
 	//Events handled by the plan are declared here.
 	#posts event EIdentifyTarget eidentifytarget_p;
 
-	#posts event EFindPath efindpath_p;
-
-	#sends event MEPlayerAction meplayeraction_s;
+	#posts event MEPlayerAction meplayeraction_p;
 
 	#handles event EPostPlayerAction epostplayeraction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BMoveHint bel_moveHint_dat;
-
 	#modifies data BPlayerPosition bel_playerTarget_dat;
 
-	#reads data BPlayerGold bel_playerGold_dat;
+	#modifies data BMoveHint bel_moveHint_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -55,19 +53,10 @@ Plan Name: PSendPlayerToExplore
       logical int $x, $y;
       logical String $tMove;
       bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $x, $y );
-      if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
+     // if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
       {
          //Move towards the new target
-         @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
-      }
-      else
-      {
-    	  @subtask(efindpath_p.post( epostplayeraction_h.playerName, $x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int() ));
-    	  if (bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $tX.as_int(), $tY.as_int(), $tMove ))
-          {
-             //Move towards the new target
-             @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
-          }
+        // @send( baseName, meplayeraction_s.send( "moveTo", $tMove.as_string() ));
       }
    }
    public PlanInstanceInfo getInstanceInfo()

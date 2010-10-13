@@ -34,9 +34,13 @@ public beliefset BMoveHint extends ClosedWorld /*or OpenWorld*/
 	*/
 	#value field String move;
 
+	/*	the length of the path from start to end
+	*/
+	#value field int length;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
-	#indexed query getByEndPoints(int srcX, int srcY, int dstX, int dstY, logical String dir);
-	#indexed query get(logical int srcX,logical int srcY, logical int dstX, logical int dstY, logical String dir);
+	#indexed query getByEndPoints(int srcX, int srcY, int dstX, int dstY, logical String dir, logical int length);
+	#indexed query get(logical int srcX,logical int srcY, logical int dstX, logical int dstY, logical String dir, logical int length);
 
 }

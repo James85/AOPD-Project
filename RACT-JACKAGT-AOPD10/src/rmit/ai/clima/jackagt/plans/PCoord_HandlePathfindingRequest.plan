@@ -1,0 +1,36 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PCoord_HandlePathfindingRequest extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PCoord_HandlePathfindingRequest
+*/
+	//Events handled by the plan are declared here.
+	#posts event EFindPath efindpath_p;
+
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
+
+	#handles event MERequestPathfinding merequestpathfinding_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	context()
+	{
+		// Trigger: Event "MERequestPathfinding"
+
+
+		true;
+	}
+
+	body()
+	{
+		// The plan body. This describes the actual steps
+		// an agent performs when it executes this plan.
+	}
+}

@@ -9,7 +9,8 @@ public event EChoosePlayerActions extends BDIGoalEvent
 */
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	/*Posting Method Declarations*/
-	#posted as post(/*parameters*/)
+	#posted as post()
 	{
+	   
 	}
 }

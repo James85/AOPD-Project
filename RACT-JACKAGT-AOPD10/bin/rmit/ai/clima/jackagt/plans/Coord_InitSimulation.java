@@ -17,8 +17,8 @@ import aos.jack.jak.cursor.Cursor;
 import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.MESimStart;
 import rmit.ai.clima.jackagt.data.BObstacleAt;
-import rmit.ai.clima.jackagt.data.BPlayer;
 import rmit.ai.clima.jackagt.data.BPlayerPerceptReceived;
+import rmit.ai.clima.jackagt.data.BPlayer;
 import rmit.ai.clima.jackagt.data.SimulationProp;
 import rmit.ai.clima.interfaces.DebugInterface;
 import java.lang.Object;
@@ -28,8 +28,8 @@ import aos.jack.jak.core.Jak;
 public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.MESimStart mesimstart_h;
     public rmit.ai.clima.jackagt.data.BObstacleAt bel_obstacleAt_dat;
-    public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
     public rmit.ai.clima.jackagt.data.BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+    public rmit.ai.clima.jackagt.data.BPlayer bel_players_dat;
     public rmit.ai.clima.jackagt.data.SimulationProp bel_simulationProp_dat;
     public rmit.ai.clima.interfaces.DebugInterface consoleIface;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
@@ -50,15 +50,15 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
     private final static java.lang.String[] __planVariableNames = {
             "mesimstart_h",
             "bel_obstacleAt_dat",
-            "bel_players_dat",
             "bel_playerPerceptReceived_dat",
+            "bel_players_dat",
             "bel_simulationProp_dat",
             "consoleIface"};
     private final static java.lang.String[] __planVariableTypes = {
             "rmit.ai.clima.jackagt.events.MESimStart",
             "rmit.ai.clima.jackagt.data.BObstacleAt",
-            "rmit.ai.clima.jackagt.data.BPlayer",
             "BPlayerPerceptReceived",
+            "rmit.ai.clima.jackagt.data.BPlayer",
             "rmit.ai.clima.jackagt.data.SimulationProp",
             "DebugInterface"};
     private final static java.lang.String[] __reasoningMethods = {
@@ -98,8 +98,8 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
         __logic = __t.logic;
         mesimstart_h = __env.mesimstart_h;
         bel_obstacleAt_dat = __env.bel_obstacleAt_dat;
-        bel_players_dat = __env.bel_players_dat;
         bel_playerPerceptReceived_dat = __env.bel_playerPerceptReceived_dat;
+        bel_players_dat = __env.bel_players_dat;
         bel_simulationProp_dat = __env.bel_simulationProp_dat;
         consoleIface = (rmit.ai.clima.interfaces.DebugInterface) __ns.getIF(rmit.ai.clima.interfaces.DebugInterface.class);
     }
@@ -116,14 +116,14 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
             warning("Failed to find BObstacleAt bel_obstacleAt_dat");
             return false;
         }
-        bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",aos.jack.jak.agent.Agent.WRITEABLE);
-        if (bel_players_dat == null) {
-            warning("Failed to find BPlayer bel_players_dat");
-            return false;
-        }
         bel_playerPerceptReceived_dat = (rmit.ai.clima.jackagt.data.BPlayerPerceptReceived) lookupNamedObject("bel_playerPerceptReceived_dat","rmit.ai.clima.jackagt.data.BPlayerPerceptReceived",aos.jack.jak.agent.Agent.WRITEABLE);
         if (bel_playerPerceptReceived_dat == null) {
             warning("Failed to find BPlayerPerceptReceived bel_playerPerceptReceived_dat");
+            return false;
+        }
+        bel_players_dat = (rmit.ai.clima.jackagt.data.BPlayer) lookupNamedObject("bel_players_dat","rmit.ai.clima.jackagt.data.BPlayer",aos.jack.jak.agent.Agent.WRITEABLE);
+        if (bel_players_dat == null) {
+            warning("Failed to find BPlayer bel_players_dat");
             return false;
         }
         bel_simulationProp_dat = (rmit.ai.clima.jackagt.data.SimulationProp) lookupNamedObject("bel_simulationProp_dat","rmit.ai.clima.jackagt.data.SimulationProp",0);
@@ -236,11 +236,11 @@ public class Coord_InitSimulation extends aos.jack.jak.plan.Plan {
             }
             case 2: 
             {
-                return aos.util.ToObject.box(bel_players_dat);
+                return aos.util.ToObject.box(bel_playerPerceptReceived_dat);
             }
             case 3: 
             {
-                return aos.util.ToObject.box(bel_playerPerceptReceived_dat);
+                return aos.util.ToObject.box(bel_players_dat);
             }
             case 4: 
             {

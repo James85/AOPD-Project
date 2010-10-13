@@ -1,0 +1,24 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event MEReturnPlayerState extends MessageEvent
+{
+/*
+ * Message Name: MEReturnPlayerState
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	
+   public String state;
+   public GridPoint target;
+   public String dir;
+   
+   /*Posting Method Declarations*/
+   #posted as send(String state, GridPoint target, String dir)
+   {
+      this.state = state;
+      this.target = target;
+      this.dir = dir;
+   }
+}

@@ -16,7 +16,12 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerPosition bel_playerPositions_dat();
+	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerState bel_playerState_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -31,17 +36,17 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BGoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data SimulationProp bel_simulationProp_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerPosition bel_playerPositions_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -50,15 +55,21 @@ Capability Name: CPathFinding
 
 
 	//Events handled, posted and sent are declared here.
+	#handles external event MERequestPathfinding ;
+
 	#handles external event EFindPath ;
 
 	#handles external event EFindClosestGold ;
+
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
 
 
 	//Plans directly used are declared here.
 	#uses plan PFindPath ;
 
 	#uses plan PFindPlayersNearestGold ;
+
+	#uses plan PCoord_HandlePathfindingRequest ;
 
 
 	// Inner capabilities are declared here.

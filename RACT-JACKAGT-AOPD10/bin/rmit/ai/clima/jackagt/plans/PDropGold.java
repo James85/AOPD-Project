@@ -9,32 +9,25 @@ import aos.jack.jak.plan.Plan;
 import aos.jack.jak.plan.PlanFSM;
 import aos.jack.jak.plan.ExMap;
 import aos.jack.jak.agent.NameSpace;
-import aos.jack.jak.event.Event;
 import aos.jack.jak.task.Task;
 import aos.jack.jak.core.Generator;
-import aos.jack.jak.logic.Signature;
 import rmit.ai.clima.jackagt.events.EExecuteCLIMAaction;
 import rmit.ai.clima.jackagt.events.MEPlayerAction;
 import java.lang.Object;
-import aos.jack.jak.cursor.Cursor;
-import aos.jack.jak.fsm.FSM;
 import aos.jack.jak.core.Jak;
 
-public class PDropGold extends aos.jack.jak.plan.Plan {
+public abstract class PDropGold extends aos.jack.jak.plan.Plan {
     public rmit.ai.clima.jackagt.events.EExecuteCLIMAaction eexecuteclimaaction_p;
-    public rmit.ai.clima.jackagt.events.MEPlayerAction meplayeraction_h;
     private static aos.jack.jak.plan.ExMap[] __exMap_body;
     private static java.lang.String[] __tt__body = {
             "rmit/ai/clima/jackagt/plans/PDropGold.plan",
             "body",
-            "35",
-            "32"};
+            "30",
+            "30"};
     private final static java.lang.String[] __planVariableNames = {
-            "eexecuteclimaaction_p",
-            "meplayeraction_h"};
+            "eexecuteclimaaction_p"};
     private final static java.lang.String[] __planVariableTypes = {
-            "rmit.ai.clima.jackagt.events.EExecuteCLIMAaction",
-            "MEPlayerAction"};
+            "EExecuteCLIMAaction"};
     private final static java.lang.String[] __reasoningMethods = {
             "body"};
     // Declarations of any beliefset/data that the plan accesses.
@@ -56,7 +49,6 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
         __planTask = __t;
         __logic = __t.logic;
         eexecuteclimaaction_p = __env.eexecuteclimaaction_p;
-        meplayeraction_h = __env.meplayeraction_h;
     }
     
     public boolean init_sentinel(aos.jack.jak.agent.NameSpace __a)
@@ -64,11 +56,6 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
         eexecuteclimaaction_p = (rmit.ai.clima.jackagt.events.EExecuteCLIMAaction) __a.findEvent("rmit.ai.clima.jackagt.events.EExecuteCLIMAaction");
         if (eexecuteclimaaction_p == null) {
             warning("Failed to find EExecuteCLIMAaction eexecuteclimaaction_p");
-            return false;
-        }
-        meplayeraction_h = (rmit.ai.clima.jackagt.events.MEPlayerAction) __a.findEvent("rmit.ai.clima.jackagt.events.MEPlayerAction");
-        if (meplayeraction_h == null) {
-            warning("Failed to find MEPlayerAction meplayeraction_h");
             return false;
         }
         return true;
@@ -124,35 +111,6 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
         return new rmit.ai.clima.jackagt.plans.PDropGold.__bodyFSM();
     }
     
-    private PDropGold(rmit.ai.clima.jackagt.events.MEPlayerAction __ev, aos.jack.jak.task.Task __t, rmit.ai.clima.jackagt.plans.PDropGold __env)
-    {
-        this(__t,__env);
-        this.meplayeraction_h = __ev;
-    }
-    
-    protected aos.jack.jak.logic.Signature eventSignature(int __log)
-    {
-        return meplayeraction_h.getSignature(__log);
-    }
-    
-    public java.lang.String handledEvent()
-    {
-        return "rmit.ai.clima.jackagt.events.MEPlayerAction";
-    }
-    
-    public boolean __relevant(aos.jack.jak.event.Event __e)
-    {
-        return __ns.isEnabled() && relevant(((rmit.ai.clima.jackagt.events.MEPlayerAction) __e));
-    }
-    
-    public aos.jack.jak.plan.Plan createPlan(aos.jack.jak.event.Event __e, aos.jack.jak.task.Task __t)
-    {
-        if (!(__e instanceof rmit.ai.clima.jackagt.events.MEPlayerAction)) 
-            return null;
-        rmit.ai.clima.jackagt.events.MEPlayerAction __e1 = (rmit.ai.clima.jackagt.events.MEPlayerAction) __e;
-        return new rmit.ai.clima.jackagt.plans.PDropGold(__e1,__t,this);
-    }
-    
     public java.lang.String[] variableNames()
     {
         return __planVariableNames;
@@ -170,10 +128,6 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
             {
                 return aos.util.ToObject.box(eexecuteclimaaction_p);
             }
-            case 1: 
-            {
-                return aos.util.ToObject.box(meplayeraction_h);
-            }
             default: 
             {
                 throw new java.lang.IndexOutOfBoundsException("Plan " + this + " does not have variable number " + n);
@@ -184,17 +138,6 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
     public java.lang.String[] reasoningMethods()
     {
         return mergeReasoningMethods(__reasoningMethods,super.reasoningMethods());
-    }
-    
-    public aos.jack.jak.cursor.Cursor context()
-    {
-        try {
-            return (((true)?aos.jack.jak.cursor.Cursor.trueCursor:aos.jack.jak.cursor.Cursor.falseCursor));
-        }
-        catch (java.lang.Exception e) {
-            e.printStackTrace();
-            return aos.jack.jak.cursor.Cursor.falseCursor;
-        }
     }
     
     class __bodyFSM extends aos.jack.jak.plan.PlanFSM implements aos.jack.jak.core.Generator {
@@ -226,17 +169,14 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
                             aos.jack.jak.core.Jak.error("PDropGold.body: Illegal state");
                             return FAILED_STATE;
                         }
-                        //* (35)       eexecuteclimaaction_p.post("drop"); // Post an ExecuteClimaAction event to execute the action in the server
+                        //* (30)    body()
                         case 10: 
                         {
                             __breakLevel = 0;
-                            __task.push(eexecuteclimaaction_p.post("drop"));
-                            __state = -__state;
-                            __subtask_pass = 11;
-                            __subtask_fail = 4;
-                            return SUBTASK;
+                            __state = 11;
+                            break;
                         }
-                        //* (32)    body()
+                        //* (30)    body()
                         case 11: 
                         {
                             if (__pending == null) 
@@ -313,16 +253,6 @@ public class PDropGold extends aos.jack.jak.plan.Plan {
         public aos.jack.jak.plan.Plan getPlan()
         {
             return rmit.ai.clima.jackagt.plans.PDropGold.this;
-        }
-        
-        protected aos.jack.jak.fsm.FSM fail()
-        {
-            return getPlan().fail();
-        }
-        
-        protected aos.jack.jak.fsm.FSM pass()
-        {
-            return getPlan().pass();
         }
         
         public void enter()

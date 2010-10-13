@@ -1,0 +1,57 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PCoord_AssimilatePlayerStates extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PCoord_AssimilatePlayerStates
+*/
+	//Events handled by the plan are declared here.
+	#posts event EChoosePlayerActions echooseplayeractions_p;
+
+	#handles event MEReportPlayerState mereportplayerstate_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BPlayer bel_playerStateReceived_dat;
+
+	#modifies data BPlayerState bel_playerState_dat;
+
+	#modifies data BPlayerPosition bel_playerTarget_dat;
+
+	#reads data BPlayer bel_players_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	static boolean relevant(MEReportPlayerState e)
+	{
+	   return true;
+	}
+	context()
+	{
+		// Trigger: Event "MEReportPlayerState"
+		true;
+	}
+	#reasoning method
+	body()
+   {
+      
+      bel_playerTarget_dat.add( mereportplayerstate_h.name, mereportplayerstate_h.target.x , mereportplayerstate_h.target.y );
+      bel_playerState_dat.add( mereportplayerstate_h.name, mereportplayerstate_h.state );
+      bel_playerStateReceived_dat.add( mereportplayerstate_h.name);
+      
+      //consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts() );
+      if( bel_playerStateReceived_dat.nFacts()  == bel_players_dat.nFacts() )
+      {
+         logical String $name;
+         bel_playerStateReceived_dat.get($name).removeAll();
+         
+         @post( echooseplayeractions_p.post() );
+      }
+         
+
+   }
+}

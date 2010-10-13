@@ -7,10 +7,10 @@
 package rmit.ai.clima.jackagt.agents;
 import aos.jack.jak.agent.Agent;
 import rmit.ai.clima.interfaces.ExternalAgent;
-import rmit.ai.clima.jackagt.events.MESimEnd;
-import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
-import rmit.ai.clima.jackagt.events.MEInformCellStatus;
 import rmit.ai.clima.jackagt.events.MESimStart;
+import rmit.ai.clima.jackagt.events.EGUIDebugMessage;
+import rmit.ai.clima.jackagt.events.MESimEnd;
+import rmit.ai.clima.jackagt.events.MEInformCellStatus;
 import rmit.ai.clima.jackagt.events.MEInformAgentStatus;
 import rmit.ai.clima.jackagt.capabilities.GUIUpdateCapability;
 import rmit.ai.clima.gui.GuiInterface;
@@ -22,8 +22,8 @@ public class GUIAgent extends aos.jack.jak.agent.Agent implements rmit.ai.clima.
     public int stepsPerSave;
     public boolean showGUI;
     public rmit.ai.clima.jackagt.capabilities.GUIUpdateCapability guiupdatecapability_cap;
-    private rmit.ai.clima.jackagt.events.MESimEnd mesimend_p;
     private rmit.ai.clima.jackagt.events.MESimStart mesimstart_p;
+    private rmit.ai.clima.jackagt.events.MESimEnd mesimend_p;
     /* Constructor */
 
     public GUIAgent(java.lang.String name, boolean review, boolean showGUI, int maxAgents, int stepsPerSave)
@@ -78,8 +78,8 @@ public class GUIAgent extends aos.jack.jak.agent.Agent implements rmit.ai.clima.
     public void __init2()
     {
         super.__init2();
-        mesimend_p = (rmit.ai.clima.jackagt.events.MESimEnd) findEvent("rmit.ai.clima.jackagt.events.MESimEnd");
         mesimstart_p = (rmit.ai.clima.jackagt.events.MESimStart) findEvent("rmit.ai.clima.jackagt.events.MESimStart");
+        mesimend_p = (rmit.ai.clima.jackagt.events.MESimEnd) findEvent("rmit.ai.clima.jackagt.events.MESimEnd");
         guiupdatecapability_cap.__init2();
     }
     
@@ -88,12 +88,12 @@ public class GUIAgent extends aos.jack.jak.agent.Agent implements rmit.ai.clima.
         guiupdatecapability_cap = new rmit.ai.clima.jackagt.capabilities.GUIUpdateCapability(this);
         guiupdatecapability_cap.__initCapability(this,"guiupdatecapability_cap");
         guiupdatecapability_cap.init_desc();
-        addEvent("rmit.ai.clima.jackagt.events.MESimEnd",aos.jack.jak.agent.Agent.HANDLED_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.MESimEnd",aos.jack.jak.agent.Agent.POSTED_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage",aos.jack.jak.agent.Agent.HANDLED_EVENT);
-        addEvent("rmit.ai.clima.jackagt.events.MEInformCellStatus",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.MESimStart",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.MESimStart",aos.jack.jak.agent.Agent.POSTED_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.EGUIDebugMessage",aos.jack.jak.agent.Agent.HANDLED_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MESimEnd",aos.jack.jak.agent.Agent.HANDLED_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MESimEnd",aos.jack.jak.agent.Agent.POSTED_EVENT);
+        addEvent("rmit.ai.clima.jackagt.events.MEInformCellStatus",aos.jack.jak.agent.Agent.HANDLED_EVENT);
         addEvent("rmit.ai.clima.jackagt.events.MEInformAgentStatus",aos.jack.jak.agent.Agent.HANDLED_EVENT);
     }
     

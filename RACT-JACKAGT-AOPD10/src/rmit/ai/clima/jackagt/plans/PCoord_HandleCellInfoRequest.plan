@@ -1,0 +1,40 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PCoord_HandleCellInfoRequest extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PCoord_HandleCellInfoRequest
+*/
+	//Events handled by the plan are declared here.
+	#sends event MEReturnCellInfo mereturncellinfo_s;
+
+	#handles event MERequestCellInfo merequestcellinfo_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BObstacleAt bel_obstacleAt_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	context()
+	{
+		// Trigger: Event "MERequestCellInfo"
+
+
+		true;
+	}
+
+	body()
+	{
+		// The plan body. This describes the actual steps
+		// an agent performs when it executes this plan.
+	}
+}

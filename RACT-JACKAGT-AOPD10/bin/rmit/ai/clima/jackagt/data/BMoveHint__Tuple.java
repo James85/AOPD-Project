@@ -36,6 +36,7 @@ public class BMoveHint__Tuple extends aos.jack.jak.beliefset.Tuple implements ao
   public int	endX;
   public int	endY;
   public String	move;
+  public int	length;
 
 
 public BMoveHint__Tuple(boolean v)
@@ -65,6 +66,8 @@ public java.lang.String toString()
     __s.append(endY);
     __s.append(":");
     __s.append(move);
+    __s.append(":");
+    __s.append(length);
     return __s.toString();
 }
 
@@ -105,6 +108,7 @@ public int hash(int __i)
 	endX = 0;
 	endY = 0;
 	move = null;
+	length = 0;
 
   }
 
@@ -122,6 +126,7 @@ public int hash(int __i)
     ":endX",
     ":endY",
     ":move",
+    ":length",
     };
 
     private String[] dn = {
@@ -130,9 +135,11 @@ public int hash(int __i)
     ":endX",
     ":endY",
     ":move",
+    ":length",
     };
 
     private boolean[] ftr = {
+    false,
     false,
     false,
     false,
@@ -146,9 +153,11 @@ public int hash(int __i)
     false,
     false,
     false,
+    false,
     };
 
     private boolean[] fhd = {
+    false,
     false,
     false,
     false,
@@ -162,6 +171,7 @@ public int hash(int __i)
     3,
     3,
     11,
+    3,
     };
 
     private aos.apib.EnumInfo[] fe = {
@@ -170,9 +180,11 @@ public int hash(int __i)
 	null,
 	null,
 	null,
+	null,
     };
 
     private String[] cm = {
+    null,
     null,
     null,
     null,
@@ -187,9 +199,11 @@ public int hash(int __i)
 	null,
 	null,
 	null,
+	null,
     };
 
     private String[] fsubt = {
+    null, 
     null, 
     null, 
     null, 
@@ -279,11 +293,14 @@ public int hash(int __i)
    case 4:
 	v.move = in.getString(true);
 	break;
-      case 5:
+   case 5:
+	v.length = in.getInt();
+	break;
+      case 6:
         in.readBaseClasses(o, this, 0);
         break;
       default:
-        if (i >= 0 && i <= 5) break;
+        if (i >= 0 && i <= 6) break;
         in.error("Reader for BMoveHint__Tuple: illegal field number:"+i);
         return false;
       }
@@ -311,11 +328,14 @@ public int hash(int __i)
    case 4:
 	out.putString(v.move, i, __def.move, this);
 	break;
-        case 5:
+   case 5:
+	out.putInt(v.length, i, __def.length, this);
+	break;
+        case 6:
           out.writeBaseClasses(o, this);
           break;
         default:
-          if (i >= 0 && i <= 5) break;
+          if (i >= 0 && i <= 6) break;
           out.error("Writer for BMoveHint__Tuple: illegal field number:"+i);
           return false;
         }
@@ -336,6 +356,7 @@ public int hash(int __i)
 	   if (__def.move == null) return false;
 	   if (!v.move.equals(__def.move)) return false;
 	}
+	if (v.length != __def.length) return false;
       if (baseclasses != null && baseclasses.length == 1)
         return baseclasses[0].isDefault(o);
       return true;
