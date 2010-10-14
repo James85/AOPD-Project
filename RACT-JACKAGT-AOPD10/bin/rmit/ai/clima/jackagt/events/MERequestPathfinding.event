@@ -11,7 +11,7 @@ public event MERequestPathfinding extends MessageEvent
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
    public GridPoint src;
    public GridPoint dst;
-	/*Posting Method Declarations*/
+	
 	#posted as send(GridPoint src, GridPoint dst)
 	{
 		this.src = src;

@@ -1,6 +1,7 @@
 package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
 
 public plan PCoord_HandlePathfindingRequest extends Plan
 {
@@ -10,9 +11,9 @@ public plan PCoord_HandlePathfindingRequest extends Plan
 Plan Name: PCoord_HandlePathfindingRequest
 */
 	//Events handled by the plan are declared here.
-	#posts event EFindPath efindpath_p;
-
 	#sends event MEReturnPathfinding mereturnpathfinding_s;
+
+	#posts event EFindPath efindpath_p;
 
 	#handles event MERequestPathfinding merequestpathfinding_h;
 
@@ -20,17 +21,27 @@ Plan Name: PCoord_HandlePathfindingRequest
 	// Declarations of any beliefset/data that the plan accesses.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
+	static boolean relevant (MERequestPathfinding e)
+	{
+	   return true;
+	}
+	
 	context()
 	{
-		// Trigger: Event "MERequestPathfinding"
-
-
 		true;
 	}
 
 	body()
 	{
-		// The plan body. This describes the actual steps
-		// an agent performs when it executes this plan.
+      String name = merequestpathfinding_h.from;
+	   GridPoint src = merequestpathfinding_h.src;
+	   GridPoint dst = merequestpathfinding_h.dst;
+
+	   EFindPath eFindPath = efindpath_p.post( name, src.x, src.y, dst.x, dst.y ); 
+      @subtask( eFindPath );
+      @reply( merequestpathfinding_h,
+            mereturnpathfinding_s.reply( src, dst, eFindPath.moveHint, eFindPath.pathLength ));
+      
+      System.out.println( "Path move: " + eFindPath.moveHint + " len: " + eFindPath.pathLength );
 	}
 }

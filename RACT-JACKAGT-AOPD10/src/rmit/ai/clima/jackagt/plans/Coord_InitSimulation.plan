@@ -17,11 +17,11 @@ Description: Coordination plan to start a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayer bel_players_dat;
-
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
 	#modifies data BObstacleAt bel_obstacleAt_dat;
+
+	#modifies data BPlayer bel_players_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 

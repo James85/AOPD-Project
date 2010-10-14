@@ -12,15 +12,15 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
-	#posts event EIdentifyTarget eidentifytarget_p;
-
 	#posts event EFindPath efindpath_p;
 
-	#posts event EPostPlayerAction epostplayeraction_p;
+	#posts event EIdentifyTarget eidentifytarget_p;
+
+	#posts event EFindClosestGold efindclosestgold_p;
 
 	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
-	#posts event EFindClosestGold efindclosestgold_p;
+	#posts event EPostPlayerAction epostplayeraction_p;
 
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
@@ -28,23 +28,23 @@ Plan Name: PCoord_ChoosePlayerActions
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPlayerPosition bel_playerTarget_dat;
 
+	#reads data BObstacleAt bel_obstacleAt_dat;
+
 	#reads data BPlayer bel_players_dat;
 
 	#reads data BPlayerState bel_playerState_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
-
-	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
-
 	#reads data BPlayerPosition bel_playerPositions_dat;
 
-	#reads data BPlayerGold bel_playerGold_dat;
+	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BMoveHint bel_moveHint_dat;
 
-	#reads data BObstacleAt bel_obstacleAt_dat;
+	#reads data BPlayerGold bel_playerGold_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -61,9 +61,7 @@ Plan Name: PCoord_ChoosePlayerActions
 
    
    body()
-   {
-      System.out.println("=================================================================================================================D");
-      
+   {  
       logical int $depotX, $depotY;
       bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
 
@@ -73,11 +71,8 @@ Plan Name: PCoord_ChoosePlayerActions
       logical String $name;
       Cursor c_players = bel_players_dat.get( $name );
       while (c_players.next())
-      {
-         //TODO: Picking should still be relevant for gold so that other players
-         //don't get the same gold assigned while a player is trying to pick
-         
-         //Check if the player is relevant to chasing gold
+      {         
+         //Check if the player is relevant to going for gold
          logical String $state;
          bel_playerState_dat.getByName( $name.as_string(), $state );
          if(! ($state.as_string().equals("depot")))
@@ -116,8 +111,6 @@ Plan Name: PCoord_ChoosePlayerActions
                   $moveHint.as_string(), $pathLength.as_int() ));
             
             System.out.println("I'M SENDING PLAYERS TO THE DEPOT");
-            
-         
          }
          
         
@@ -138,8 +131,9 @@ Plan Name: PCoord_ChoosePlayerActions
             @send( baseName, mereturnplayerstate_s.send(
                   "gold", new GridPoint( $goldX.as_int(), $goldY.as_int() ),
                   $moveHint.as_string(), $pathLength.as_int() ));
-            System.out.println("I'M SENDING PLAYERS TO THE GOLD");
+            
             System.out.println( baseName + " closest gold at " + $goldX.as_int() + "," + $goldY.as_int() );
+            System.out.println("I'M SENDING PLAYERS TO THE GOLD");
          }
          else relevantPlayers.add( $name.as_string() );
       }

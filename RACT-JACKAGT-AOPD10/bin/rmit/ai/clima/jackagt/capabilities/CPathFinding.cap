@@ -21,6 +21,21 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BMoveHint bel_moveHint_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BPlayerState bel_playerState_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -31,45 +46,30 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerPosition bel_playerPositions_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BPlayer bel_players_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BGoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BMoveHint bel_moveHint_dat();
+	#imports data BPlayerPosition bel_playerPositions_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event EFindPath ;
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
 
 	#handles external event MERequestPathfinding ;
 
-	#sends event MEReturnPathfinding mereturnpathfinding_s;
-
 	#handles external event EFindClosestGold ;
+
+	#handles external event EFindPath ;
 
 
 	//Plans directly used are declared here.
-	#uses plan PFindPath ;
-
 	#uses plan PCoord_HandlePathfindingRequest ;
 
 	#uses plan PFindPlayersNearestGold ;
+
+	#uses plan PFindPath ;
 
 
 	// Inner capabilities are declared here.

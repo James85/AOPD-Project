@@ -12,12 +12,14 @@ public event MEReturnPathfinding extends MessageEvent
   
    public GridPoint src;
    public GridPoint dst;
-   public String dir;
-   /*Posting Method Declarations*/
-   #posted as send(GridPoint src, GridPoint dst, String dir)
+   public String moveHint;
+   public int pathLength;
+   
+   #posted as reply (GridPoint src, GridPoint dst, String moveHint, int pathLength)
    {
       this.src = src;
       this.dst = dst;
-      this.dir = dir;
+      this.moveHint = moveHint;
+      this.pathLength = pathLength;
    }
 }

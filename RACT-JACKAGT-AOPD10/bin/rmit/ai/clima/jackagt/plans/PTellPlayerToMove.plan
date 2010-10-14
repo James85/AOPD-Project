@@ -10,23 +10,23 @@ public plan PTellPlayerToMove extends Plan
 Plan Name: PTellPlayerToMove
 */
 	//Events handled by the plan are declared here.
-	#posts event EFindClosestGold efindclosestgold_p;
+	#posts event EFindPath efindpath_p;
 
 	#posts event MEPlayerAction meplayeraction_p;
 
-	#posts event EFindPath efindpath_p;
+	#posts event EFindClosestGold efindclosestgold_p;
 
 	#handles event EPostPlayerAction epostplayeraction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BPlayerGold bel_playerGold_dat;
+	#reads data BMoveHint bel_moveHint_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
+	#reads data BPlayerGold bel_playerGold_dat;
 
-	#reads data BMoveHint bel_moveHint_dat;
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 	#reads data BPlayerPosition bel_playerTarget_dat;
 

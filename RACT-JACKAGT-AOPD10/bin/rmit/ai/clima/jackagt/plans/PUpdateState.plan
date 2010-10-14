@@ -13,11 +13,11 @@ Plan Name: PUpdateState
 	//Events handled by the plan are declared here.
 	#sends event MERequestPathfinding merequestpathfinding_s;
 
+	#posts event EExecuteAction eexecuteaction_p;
+
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
 	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#posts event EExecuteAction eexecuteaction_p;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
@@ -27,27 +27,25 @@ Plan Name: PUpdateState
 
 	#modifies data BCurrentState bel_currentState_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
-	#reads data BCurrentPath bel_currentPath_dat;
+	#reads data BGoldAt bel_goldAt_dat;
 
-	#reads data BNumCarryingGold bel_numCarryingGold_dat;
+	#reads data BCurrentPath bel_currentPath_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 	static boolean relevant(MEPlayerPerceptsAssimilated e)
 	{
-	   
 	   return true;
 	}
 	
 	context()
 	{
-		// Trigger: Event "MEPlayerPerceptsAssimilated"
-
-
 		true;
 	}
 
@@ -63,50 +61,74 @@ Plan Name: PUpdateState
 	   bel_currentTarget_dat.get( $targetX, $targetY );
 	   bel_numCarryingGold_dat.get( $numGold );
 	   
-      System.out.println( "My pos: " + $posX.as_int() + "," + $posY.as_int() );
-	   System.out.println( "My target: " + $targetX.as_int() + "," + $targetY.as_int() );
-	   //Update state
-	   //TODO: need to request target cell info to check for invalid target
-	   //TODO: need to request pathfinding to check reachability and update next move
-
-		if($state.as_string().equals( "gold") )
+	   GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
+	   GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
+	   
+      System.out.println( "My pos: " + pos.x + "," + pos.y );
+	   System.out.println( "My target: " + target.x + "," + target.y );
+	   
+	   MEReturnCellInfo cellInfoReply;
+	   if (! $state.as_string().equals("idle"))
+	   {
+   	   //Request fresh info about target cell from the coordinator
+         MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( target );
+         @send( "boss", cellInfoRequest );
+         @wait_for( cellInfoRequest.replied() );
+         cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply();
+	   }
+      
+      //Check current state
+      if($state.as_string().equals("gold") )
 		{
-		   
-		   //If we have MAX_GOLD move set our state to depot
+		   //If we have MAX_GOLD set state to depot
 		   if($numGold.as_int() >= 2)
-		      bel_currentState_dat.add("depot");
-		   else
 		   {
-		   //TODO: Check if gold still at target
-		   //Check if target reached or there's no gold
-		      if ($posX.as_int() == $targetX.as_int() && $posY.as_int() == $targetY.as_int() ||
-		            ! bel_goldAt_dat.check( $posX.as_int(), $posY.as_int())) {
-		         bel_currentState_dat.add("idle");
-		      }
+		      logical int $depotX, $depotY;
+		      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
+		      bel_currentState_dat.add("depot");
+		      bel_currentTarget_dat.add( $depotX.as_int(), $depotY.as_int() );
 		   }
+		   
+         //If gold removed set state to idle
+		   else if (!cellInfoReply.hasGold)
+		      bel_currentState_dat.add("idle");
 		}
 		else if($state.as_string().equals("depot") )
 		{
-   	   //Check if target reached and we don't have gold
-         if ($posX.as_int() == $targetX.as_int() && $posY.as_int() == $targetY.as_int())
-         {
-            if ($numGold.as_int() == 0)
-               bel_currentState_dat.add( "idle" );  
-         }
+   	   //If gold dropped set state to idle
+		   if ($numGold.as_int() == 0)
+            bel_currentState_dat.add( "idle" );
 		}
 		else if($state.as_string().equals("explore") )
 		{
-		   //TODO: Check if target still unexplored
-		   //Check if target reached
-         if ($posX.as_int() == $targetX.as_int() && $posY.as_int() == $targetY.as_int())
+		   //If target became explored set state to idle
+		   if (cellInfoReply.isExplored)
             bel_currentState_dat.add("idle");
 		}
+      
+      MEReturnPathfinding findPathReply;
+      if (! $state.as_string().equals("idle"))
+      {
+         //Request fresh info about path to target from the coordinator
+         MERequestPathfinding findPathRequest = merequestpathfinding_s.send( pos, target );
+         @send( "boss", findPathRequest );
+         @wait_for( findPathRequest.replied() );
+         findPathReply = (MEReturnPathfinding) findPathRequest.getReply();
+         
+         //Update path info with fresh data
+         bel_currentPath_dat.add( findPathReply.moveHint, findPathReply.pathLength );
+         
+         //If target is unreachable set state to idle
+         //TODO: This is dangerous if a player is heading for the depot
+         //while another player is in there dropping!
+         //if (findPathReply.moveHint.equals(""))
+           // bel_currentState_dat.add("idle");
+      }
 		
-		logical String $newState;
 		//Send the updated state to coordinator
+      logical String $newState;
 		bel_currentState_dat.get( $newState );
-		
-		@send("boss", mereportplayerstate_s.send( getAgent().name(), $newState.as_string(), new GridPoint( $targetX.as_int(), $targetY.as_int() )));
+		@send("boss", mereportplayerstate_s.send( getAgent().name(), $newState.as_string(), target ));
 		
 		//Execute actions that don't need coordination
 //      if ($state.as_string().equals("pick") ||

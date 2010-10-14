@@ -25,15 +25,15 @@ Description: Finalize a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
 	#modifies data BGoldAt bel_goldAt_dat;
 
-	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+	#modifies data SimulationProp bel_simulationProp_dat;
 
 	#modifies data BObstacleAt bel_obstacleAt_dat;
 
 	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
-
-	#modifies data SimulationProp bel_simulationProp_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

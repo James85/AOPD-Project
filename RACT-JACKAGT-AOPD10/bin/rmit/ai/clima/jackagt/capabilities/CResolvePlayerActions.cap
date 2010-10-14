@@ -16,26 +16,6 @@ Capability Name: CResolvePlayerActions
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerPosition bel_playerPositions_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerGold bel_playerGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BGoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BMoveHint bel_moveHint_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -46,36 +26,56 @@ Capability Name: CResolvePlayerActions
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerPosition bel_playerTarget_dat();
+	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
 	#imports data BPlayerClosestGold bel_playerClosestGold_dat();
 
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerPosition bel_playerTarget_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerGold bel_playerGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data SimulationProp bel_simulationProp_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerPosition bel_playerPositions_dat();
+
 
 	//Events handled, posted and sent are declared here.
-	#handles external event EPostPlayerAction ;
-
-	#posts external event MEPlayerAction meplayeraction_p;
-
 	#posts external event EFindClosestGold efindclosestgold_p;
 
 	#posts external event EFindPath efindpath_p;
+
+	#handles external event EPostPlayerAction ;
+
+	#posts external event MEPlayerAction meplayeraction_p;
 
 	#posts external event EIdentifyTarget eidentifytarget_p;
 
 
 	//Plans directly used are declared here.
-	#uses plan PSendPlayerToDepot ;
-
 	#uses plan PSendPlayerToExplore ;
+
+	#uses plan PSendPlayerToGold ;
 
 	#uses plan PTellPlayerToPick ;
 
 	#uses plan PTellPlayerToDrop ;
 
-	#uses plan PSendPlayerToGold ;
+	#uses plan PSendPlayerToDepot ;
 
 	#uses plan PTellPlayerToMove ;
 

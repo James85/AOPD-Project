@@ -16,11 +16,11 @@ Plan Name: PReceiveState
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentPosition bel_currentTarget_dat;
-
 	#modifies data BCurrentState bel_currentState_dat;
 
 	#modifies data BCurrentPath bel_currentPath_dat;
+
+	#modifies data BCurrentPosition bel_currentTarget_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
@@ -41,12 +41,12 @@ Plan Name: PReceiveState
 	   System.out.println( "GOT NEW STATE");
 	   
       logical String $state;
-      logical int $posX, $posY, $targetX, $targetY;
+      //logical int $posX, $posY, $targetX, $targetY;
       //logical int $numGold;
       
       bel_currentState_dat.get( $state );
-      bel_currentPosition_dat.get( $posX, $posY );
-      bel_currentTarget_dat.get( $targetX, $targetY );
+      //bel_currentPosition_dat.get( $posX, $posY );
+      //bel_currentTarget_dat.get( $targetX, $targetY );
       //bel_numCarryingGold_dat.get( $numGold );
       
       //Get current path
@@ -56,14 +56,14 @@ Plan Name: PReceiveState
       
       //Check if current path invalid or longer than the new path
       //if ($moveHint.as_string.equals("") || $pathLength.as_int() > mereturnplayerstate_h.pathLength)
+      if ($state.as_string().equals("idle"))
       {
          //Update state, target and path with what we received from the coordinator
          bel_currentState_dat.add( mereturnplayerstate_h.state );
          bel_currentTarget_dat.add( mereturnplayerstate_h.target.x, mereturnplayerstate_h.target.y );
          bel_currentPath_dat.add( mereturnplayerstate_h.moveHint, mereturnplayerstate_h.pathLength );
+         System.out.println( "ACCEPTED new state" );
       }
-      
-     
       
       @post( eexecuteaction_p.post() );
 	}

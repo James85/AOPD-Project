@@ -8,8 +8,9 @@ public event MERequestCellInfo extends MessageEvent
  * Message Name: MERequestCellInfo
 */
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
+   
    public GridPoint cellPos;
-	/*Posting Method Declarations*/
+	
 	#posted as send(GridPoint cellPos)
 	{
 		this.cellPos = cellPos;

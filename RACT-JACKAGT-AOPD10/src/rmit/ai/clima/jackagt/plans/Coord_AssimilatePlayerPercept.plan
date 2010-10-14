@@ -21,11 +21,11 @@ Plan Name: Coord_AssimilatePlayerPercept
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerGold bel_playerGold_dat;
+	#modifies data BPlayerPosition bel_playerPositions_dat;
 
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
-	#modifies data BPlayerPosition bel_playerPositions_dat;
+	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#reads data BPlayer bel_players_dat;
 

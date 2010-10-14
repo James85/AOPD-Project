@@ -9,12 +9,13 @@ public event MEReturnCellInfo extends MessageEvent
  * Message Name: MEReturnCellInfo
 */
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
+   
    public boolean hasGold;
    public boolean hasObstacle;
    public boolean isExplored;
    public GridPoint cellPos;
-	/*Posting Method Declarations*/
-	#posted as send(GridPoint cellPos, boolean hasGold, boolean hasObstacle, boolean isExplored)
+	
+	#posted as reply(GridPoint cellPos, boolean hasGold, boolean hasObstacle, boolean isExplored)
 	{
 	   this.cellPos = cellPos;
 	   this.hasGold = hasGold;
