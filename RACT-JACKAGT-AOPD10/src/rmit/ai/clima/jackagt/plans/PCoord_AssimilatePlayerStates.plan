@@ -16,9 +16,9 @@ Plan Name: PCoord_AssimilatePlayerStates
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayer bel_playerStateReceived_dat;
-
 	#modifies data BPlayerState bel_playerState_dat;
+
+	#modifies data BPlayer bel_playerStateReceived_dat;
 
 	#modifies data BPlayerPosition bel_playerTarget_dat;
 
@@ -44,6 +44,7 @@ Plan Name: PCoord_AssimilatePlayerStates
       
       //Check if we got a state message from every player on the team
       bel_playerStateReceived_dat.add( mereportplayerstate_h.name);
+      System.out.println("NFACTS: " +bel_playerStateReceived_dat.nFacts());
       if( bel_playerStateReceived_dat.nFacts() == bel_players_dat.nFacts() )
       {
     	 //Reset the sync table
@@ -52,6 +53,8 @@ Plan Name: PCoord_AssimilatePlayerStates
          
          //Proceed with next task
          @post( echooseplayeractions_p.post() );
+         
+         System.out.println("ALL YOUR STATES ARE BELONG TO US");
       }
    }
 }

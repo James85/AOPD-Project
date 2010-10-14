@@ -16,11 +16,16 @@ Plan Name: PDrop
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BCurrentPosition bel_currentPosition_dat;
+
 	#reads data BCurrentState bel_currentState_dat;
+
+	#reads data BCurrentPosition bel_currentTarget_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
    logical String $state;
+   logical int $posX, $posY, $targetX, $targetY;
    
    static boolean relevant (EExecuteAction e)
    {
@@ -29,9 +34,13 @@ Plan Name: PDrop
    
    context()
    {
-      //Need to be in dropping state
+      //Need to be in depot state and at the depot
       bel_currentState_dat.get( $state )
-      && $state.as_string().equals( "drop");
+      && bel_currentPosition_dat.get( $posX, $posY )
+      && bel_currentTarget_dat.get( $targetX, $targetY )
+      && $state.as_string().equals( "depot")
+      && $posX.as_int() == $targetX.as_int()
+      && $posY.as_int() == $targetY.as_int();
    }
 
    body()

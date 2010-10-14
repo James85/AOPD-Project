@@ -22,11 +22,11 @@ Plan Name: PIdentifyExploreTarget
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
 
+	#reads data SimulationProp bel_simulationProp_dat;
+
 	#reads data BMoveHint bel_moveHint_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
-
-	#reads data SimulationProp bel_simulationProp_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

@@ -16,11 +16,16 @@ Plan Name: PPick
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BCurrentPosition bel_currentTarget_dat;
+
 	#reads data BCurrentState bel_currentState_dat;
+
+	#reads data BCurrentPosition bel_currentPosition_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 	logical String $state;
+   logical int $posX, $posY, $targetX, $targetY;
 	
    static boolean relevant (EExecuteAction e)
    {
@@ -29,9 +34,13 @@ Plan Name: PPick
    
    context()
 	{
-      //Need to be in picking state
+      //Need to be in gold state and at the gold piece
 		bel_currentState_dat.get( $state )
-		&& $state.as_string().equals( "pick");
+      && bel_currentPosition_dat.get( $posX, $posY )
+      && bel_currentTarget_dat.get( $targetX, $targetY )
+      && $state.as_string().equals( "gold")
+      && $posX.as_int() == $targetX.as_int()
+      && $posY.as_int() == $targetY.as_int();
 	}
    
 	#reasoning method

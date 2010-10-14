@@ -11,13 +11,13 @@ public plan PUpdateState extends Plan
 Plan Name: PUpdateState
 */
 	//Events handled by the plan are declared here.
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
 	#sends event MERequestPathfinding merequestpathfinding_s;
 
-	#posts event EExecuteAction eexecuteaction_p;
-
 	#sends event MEReportPlayerState mereportplayerstate_s;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
+	#posts event EExecuteAction eexecuteaction_p;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
@@ -27,13 +27,13 @@ Plan Name: PUpdateState
 
 	#modifies data BCurrentState bel_currentState_dat;
 
-	#reads data BNumCarryingGold bel_numCarryingGold_dat;
+	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
-
 	#reads data BCurrentPath bel_currentPath_dat;
+
+	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -68,33 +68,31 @@ Plan Name: PUpdateState
 	   //Update state
 	   //TODO: need to request target cell info to check for invalid target
 	   //TODO: need to request pathfinding to check reachability and update next move
-		if($state.as_string().equals( "pick") )
+
+		if($state.as_string().equals( "gold") )
 		{
-		   System.out.println( "PICKING" );
-		   //Check if pick was successful
-		   if(! bel_goldAt_dat.check( $posX.as_int(), $posY.as_int() ))
-		      bel_currentState_dat.add("idle");
-		}
-		else if($state.as_string().equals( "drop" ))
-	   {
-		   //Check if drop was successful
-         if( $numGold.as_int() == 0 )
-            bel_currentState_dat.add("idle");
-	   }
-		else if($state.as_string().equals( "gold") )
-		{
+		   
+		   //If we have MAX_GOLD move set our state to depot
+		   if($numGold.as_int() >= 2)
+		      bel_currentState_dat.add("depot");
+		   else
+		   {
 		   //TODO: Check if gold still at target
-		   //Check if target reached
-		   if ($posX.as_int() == $targetX.as_int() && $posY.as_int() == $targetY.as_int()) {
-		      System.out.println( "GOING TO PICK" );
-		      bel_currentState_dat.add("pick");
+		   //Check if target reached or there's no gold
+		      if ($posX.as_int() == $targetX.as_int() && $posY.as_int() == $targetY.as_int() ||
+		            ! bel_goldAt_dat.check( $posX.as_int(), $posY.as_int())) {
+		         bel_currentState_dat.add("idle");
+		      }
 		   }
 		}
 		else if($state.as_string().equals("depot") )
 		{
-		   //Check if target reached
+   	   //Check if target reached and we don't have gold
          if ($posX.as_int() == $targetX.as_int() && $posY.as_int() == $targetY.as_int())
-            bel_currentState_dat.add("drop");		   
+         {
+            if ($numGold.as_int() == 0)
+               bel_currentState_dat.add( "idle" );  
+         }
 		}
 		else if($state.as_string().equals("explore") )
 		{
@@ -103,19 +101,17 @@ Plan Name: PUpdateState
          if ($posX.as_int() == $targetX.as_int() && $posY.as_int() == $targetY.as_int())
             bel_currentState_dat.add("idle");
 		}
-		else if($state.as_string().equals("idle") )
-		{
-		   
-		}
 		
+		logical String $newState;
 		//Send the updated state to coordinator
-		bel_currentState_dat.get( $state );
-		@send("boss", mereportplayerstate_s.send( getAgent().name(), $state.as_string(), new GridPoint( $targetX.as_int(), $targetY.as_int() )));
+		bel_currentState_dat.get( $newState );
+		
+		@send("boss", mereportplayerstate_s.send( getAgent().name(), $newState.as_string(), new GridPoint( $targetX.as_int(), $targetY.as_int() )));
 		
 		//Execute actions that don't need coordination
-      if ($state.as_string().equals("pick") ||
-          $state.as_string().equals("drop") ||
-          $state.as_string().equals("depot"))
-         @post( eexecuteaction_p.post() );
+//      if ($state.as_string().equals("pick") ||
+//          $state.as_string().equals("drop") ||
+//          $state.as_string().equals("depot"))
+//         @post( eexecuteaction_p.post() );
 	}
 }

@@ -14,13 +14,13 @@ Plan Name: PCoord_ChoosePlayerActions
 	//Events handled by the plan are declared here.
 	#posts event EIdentifyTarget eidentifytarget_p;
 
+	#posts event EFindPath efindpath_p;
+
 	#posts event EPostPlayerAction epostplayeraction_p;
 
 	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
 	#posts event EFindClosestGold efindclosestgold_p;
-
-	#posts event EFindPath efindpath_p;
 
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
@@ -30,21 +30,21 @@ Plan Name: PCoord_ChoosePlayerActions
 
 	#reads data BPlayer bel_players_dat;
 
-	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
-
-	#reads data SimulationProp bel_simulationProp_dat;
-
-	#reads data BObstacleAt bel_obstacleAt_dat;
-
-	#reads data BMoveHint bel_moveHint_dat;
-
 	#reads data BPlayerState bel_playerState_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
-	#reads data BPlayerGold bel_playerGold_dat;
+	#reads data BPlayerClosestGold bel_playerClosestGold_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BMoveHint bel_moveHint_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -62,6 +62,8 @@ Plan Name: PCoord_ChoosePlayerActions
    
    body()
    {
+      System.out.println("=================================================================================================================D");
+      
       logical int $depotX, $depotY;
       bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
 
@@ -78,9 +80,7 @@ Plan Name: PCoord_ChoosePlayerActions
          //Check if the player is relevant to chasing gold
          logical String $state;
          bel_playerState_dat.getByName( $name.as_string(), $state );
-         if(! ($state.as_string().equals("pick") ||
-               $state.as_string().equals("drop") ||
-               $state.as_string().equals("depot")))
+         if(! ($state.as_string().equals("depot")))
             relevantPlayers.add( $name.as_string() );
       }
       
@@ -92,10 +92,39 @@ Plan Name: PCoord_ChoosePlayerActions
       c_players = bel_players_dat.get( $name );
       while (c_players.next())
       {
-         //Check if the player has gold assigned
+         
+       
          logical int $goldX, $goldY, $playerX, $playerY;
+
+         logical String $state;
+         bel_playerState_dat.getByName( $name.as_string(), $state );
+         //if the players state is set to depot then send them there
+         if($state.as_string().equals("depot"))
+         {
+          //Find path to gold
+            logical String $moveHint;
+            logical int $pathLength;
+            bel_playerPositions_dat.getByName( $name.as_string(), $playerX, $playerY );
+            @subtask(efindpath_p.post( $name.as_string(), $playerX.as_int(), $playerY.as_int(), $depotX.as_int(), $depotY.as_int() ));
+            bel_moveHint_dat.getByEndPoints($playerX.as_int(), $playerY.as_int(), $depotX.as_int(), $depotY.as_int(), $moveHint, $pathLength);
+          
+            //Report new state to player
+            String baseName = $name.as_string();
+            baseName = baseName.substring(0,baseName.indexOf("@"));
+            @send( baseName, mereturnplayerstate_s.send(
+                  "depot", new GridPoint( $depotX.as_int(), $depotY.as_int() ),
+                  $moveHint.as_string(), $pathLength.as_int() ));
+            
+            System.out.println("I'M SENDING PLAYERS TO THE DEPOT");
+            
+         
+         }
+         
+        
+         //Check if the player has gold assigned
          if (bel_playerClosestGold_dat.getByName( $name.as_string(), $goldX, $goldY ))
          {
+           
             //Find path to gold
             logical String $moveHint;
             logical int $pathLength;
@@ -109,7 +138,7 @@ Plan Name: PCoord_ChoosePlayerActions
             @send( baseName, mereturnplayerstate_s.send(
                   "gold", new GridPoint( $goldX.as_int(), $goldY.as_int() ),
                   $moveHint.as_string(), $pathLength.as_int() ));
-            
+            System.out.println("I'M SENDING PLAYERS TO THE GOLD");
             System.out.println( baseName + " closest gold at " + $goldX.as_int() + "," + $goldY.as_int() );
          }
          else relevantPlayers.add( $name.as_string() );

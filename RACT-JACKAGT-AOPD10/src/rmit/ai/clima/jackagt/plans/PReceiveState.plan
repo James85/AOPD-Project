@@ -16,11 +16,11 @@ Plan Name: PReceiveState
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentPath bel_currentPath_dat;
+	#modifies data BCurrentPosition bel_currentTarget_dat;
 
 	#modifies data BCurrentState bel_currentState_dat;
 
-	#modifies data BCurrentPosition bel_currentTarget_dat;
+	#modifies data BCurrentPath bel_currentPath_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
@@ -63,8 +63,7 @@ Plan Name: PReceiveState
          bel_currentPath_dat.add( mereturnplayerstate_h.moveHint, mereturnplayerstate_h.pathLength );
       }
       
-      //TODO: Re-do PUpdateState as we might be standing on a gold that is assigned to us
-      //so we need to pick it right away instead of trying to move to "cur" first
+     
       
       @post( eexecuteaction_p.post() );
 	}

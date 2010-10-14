@@ -10,9 +10,9 @@ public plan PSendPlayerToExplore extends Plan
 Plan Name: PSendPlayerToExplore
 */
 	//Events handled by the plan are declared here.
-	#posts event MEPlayerAction meplayeraction_p;
-
 	#posts event EIdentifyTarget eidentifytarget_p;
+
+	#posts event MEPlayerAction meplayeraction_p;
 
 	#handles event EPostPlayerAction epostplayeraction_h;
 
@@ -22,9 +22,9 @@ Plan Name: PSendPlayerToExplore
 
 	#modifies data BMoveHint bel_moveHint_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
 	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
