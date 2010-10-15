@@ -1,6 +1,8 @@
 package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+import java.util.*;
 
 public plan PMove extends Plan
 {
@@ -16,9 +18,9 @@ Plan Name: PMove
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BCurrentPath bel_currentPath_dat;
-
 	#reads data BCurrentState bel_currentState_dat;
+
+	#reads data BCurrentPath bel_currentPath_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
@@ -27,8 +29,13 @@ Plan Name: PMove
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	
    logical String $state;
-   logical String $moveHint;
-   logical int $pathLength;
+   logical Object $path;
+   logical boolean $reachable;
+   
+   #reasoning method fail()
+   {
+       System.out.println("OMGZORS ===========DickZilla : PMove");
+   }
    
    static boolean relevant (EExecuteAction e)
    {
@@ -44,14 +51,41 @@ Plan Name: PMove
        $state.as_string().equals("depot"))
        &&
       //Path needs to be valid
-      bel_currentPath_dat.get( $moveHint, $pathLength )
-       && !($moveHint.as_string().equals(""));
+      bel_currentPath_dat.get( $path, $reachable )
+      && (((Vector)$path.as_object()).size() > 0)
+      && ($reachable.as_boolean() == true);
    }
 
    #reasoning method
 	body()
 	{
-      System.out.println( "Moving to " + $moveHint.as_string() );
-      eexecuteclimaaction_p.post( $moveHint.as_string() );
+      //Get current position
+      logical int $posX, $posY;
+      bel_currentPosition_dat.get( $posX, $posY );
+      GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
+      
+      //Get next position from the path
+      Vector path = (Vector) $path.as_object();
+      GridPoint nextPos = (GridPoint) path.get( path.size()-1 );
+      
+      /*
+      for (int p=path.size()-1; p>=0; --p) {
+         GridPoint point = (GridPoint) path.get(p);
+         System.out.println( "Path point " + point.x + "," + point.y );
+      }*/
+      
+      System.out.println( getAgent().name() + " Moving from " + pos.x + "," + pos.y + " to " + nextPos.x + "," + nextPos.y );
+      Object[] dirs = GridPoint.getRelativeDirections( pos, nextPos );
+      if (dirs.length > 0)
+      {
+         String dir = (String) dirs[0];
+         System.out.println( getAgent().name() + " Moving direction: " + dir );
+         eexecuteclimaaction_p.post( dir );
+      }
+      else
+      {
+         //This really shouldn't happen
+         System.out.println( getAgent().name() + " INVALID PATH NODE!!!!!");
+      }
 	}
 }

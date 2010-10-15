@@ -20,5 +20,5 @@ public beliefset BCurrentPath extends ClosedWorld /*or OpenWorld*/
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	
-	#indexed query get (logical String $move, logical int $length);
+	#indexed query get (logical Object path, logical boolean reachable);
 }

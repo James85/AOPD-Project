@@ -18,11 +18,11 @@ Plan Name: PFindPath
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPathCache bel_moveHint_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -32,7 +32,7 @@ Plan Name: PFindPath
 		true;
 	}
 	
-  #reasoning method fail()
+	#reasoning method fail()
    {
        System.out.println("OMGZORS ===========DickZilla : PFindPath");
    }
@@ -200,11 +200,11 @@ Plan Name: PFindPath
          PathNode curNode = dstNode;
          while (true)
          {
-            //Get point in the backwards direction
-            GridPoint prevPoint = curNode.pos.getFromDir(curNode.dir);
-            path.add( prevPoint );
+            //Store path point
+            path.add( curNode.pos );
             
-            //Get node at that point and check if source
+            //Get node in the backwards direction and check if source
+            GridPoint prevPoint = curNode.pos.getFromDir(curNode.dir);
             prevNode = grid.getNode( prevPoint );
             if (prevNode == srcNode) break;
             curNode = prevNode;

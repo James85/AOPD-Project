@@ -16,11 +16,6 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BObstacleAt bel_obstacleAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -31,12 +26,17 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPathCache bel_moveHint_dat();
+	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BGoldAt bel_goldAt_dat();
+	#imports data BPlayer bel_players_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data SimulationProp bel_simulationProp_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -46,23 +46,23 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayer bel_players_dat();
+	#imports data BPathCache bel_moveHint_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event MERequestPathfinding ;
-
 	#handles external event EFindPath ;
-
-	#handles external event EFindClosestGold ;
 
 	#sends event MEReturnPathfinding mereturnpathfinding_s;
 
+	#handles external event MERequestPathfinding ;
+
+	#handles external event EFindClosestGold ;
+
 
 	//Plans directly used are declared here.
-	#uses plan PCoord_HandlePathfindingRequest ;
-
 	#uses plan PFindPath ;
+
+	#uses plan PCoord_HandlePathfindingRequest ;
 
 	#uses plan PFindPlayersNearestGold ;
 

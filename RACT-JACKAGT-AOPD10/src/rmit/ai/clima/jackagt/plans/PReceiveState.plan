@@ -18,9 +18,9 @@ Plan Name: PReceiveState
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentPosition bel_currentTarget_dat;
-
 	#modifies data BCurrentState bel_currentState_dat;
+
+	#modifies data BCurrentPosition bel_currentTarget_dat;
 
 	#modifies data BCurrentPath bel_currentPath_dat;
 
@@ -50,14 +50,17 @@ Plan Name: PReceiveState
 	   String newState = mereturnplayerstate_h.state;
 	   GridPoint newTarget = mereturnplayerstate_h.target;
 	   Vector newPath = mereturnplayerstate_h.path;
-	   int newReachable = mereturnplayerstate_h.reachable;
+	   boolean newReachable = mereturnplayerstate_h.reachable;
 	   
+	   //Get current state
       logical String $state;
+      bel_currentState_dat.get( $state );
+      String state = $state.as_string();
+      System.out.println("Our current state is: " + state);
+      
       //logical int $posX, $posY, $targetX, $targetY;
       //logical int $numGold;
       
-      bel_currentState_dat.get( $state );
-      System.out.println("Our current state is: " + $state.as_string());
       //bel_currentPosition_dat.get( $posX, $posY );
       //bel_currentTarget_dat.get( $targetX, $targetY );
       //bel_numCarryingGold_dat.get( $numGold );
@@ -68,12 +71,12 @@ Plan Name: PReceiveState
       bel_currentPath_dat.get( $path, $reachable );
       Vector path = (Vector) $path.as_object();
       
-      //Check if valid state received
+      //Check if empty state received
       if (! newState.equals(""))
-      {
-         
+      {         
          //Check if current path invalid or longer than the new path
-         if ($state.as_string().equals("idle") || (newPath.size() < path.size()))
+         //if (state.equals("idle") || (newPath.size() < path.size()))
+         if (state.equals("idle"))
          {
             //Update state, target and path with what we received from the coordinator
             bel_currentState_dat.add( newState );

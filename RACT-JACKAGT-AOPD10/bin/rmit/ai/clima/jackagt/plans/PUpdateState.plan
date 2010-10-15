@@ -13,31 +13,31 @@ public plan PUpdateState extends Plan
 Plan Name: PUpdateState
 */
 	//Events handled by the plan are declared here.
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
 	#posts event EExecuteAction eexecuteaction_p;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
-	#sends event MERequestCellInfo merequestcellinfo_s;
+	#sends event MERequestPathfinding merequestpathfinding_s;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentPosition bel_currentTarget_dat;
-
 	#modifies data BCurrentState bel_currentState_dat;
 
-	#reads data BNumCarryingGold bel_numCarryingGold_dat;
+	#modifies data BCurrentPosition bel_currentTarget_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
-	#reads data BCurrentPath bel_currentPath_dat;
+	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
+
+	#reads data BCurrentPath bel_currentPath_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -59,8 +59,6 @@ Plan Name: PUpdateState
 	//#reasoning method
 	body()
 	{
-	   //prevNode.pos.getRelativeDirections( prevNode.pos, curNode.pos )[0]
-	                                                                   
 		logical String $state;
 		logical int $posX, $posY, $targetX, $targetY;
 		logical int $numGold;
@@ -71,19 +69,20 @@ Plan Name: PUpdateState
 	   bel_currentPosition_dat.get( $posX, $posY );
 	   bel_currentTarget_dat.get( $targetX, $targetY );
 	   bel_numCarryingGold_dat.get( $numGold );
-      bel_currentPath_dat.get( path, reachable );
-	   
+      bel_currentPath_dat.get( $path, $reachable );
+      
+      String state = $state.as_string();
 	   GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
 	   GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
       Vector path = (Vector) $path.as_object();
 	   
-      System.out.println( "My pos: " + pos.x + "," + pos.y );
-	   System.out.println( "My target: " + target.x + "," + target.y );
+      System.out.println( getAgent().name() + " My pos: " + pos.x + "," + pos.y );
+	   System.out.println( getAgent().name() + " My target: " + target.x + "," + target.y );
 	   
 	   
 	   //Check if last move was successful and remove point
 	   if (path.size() > 0) {
-	      if (pos == (GridPoint) path.lastElement()) {
+	      if (pos.equals( (GridPoint) path.lastElement() )) {
 	         path.remove( path.size()-1 );
 	         bel_currentPath_dat.add( path, $reachable.as_boolean() );
 	      }
@@ -92,14 +91,15 @@ Plan Name: PUpdateState
       //Check if our position adjacent to next point (otherwise somethings wrong)
       if (path.size() > 0) {
          if (pos.getManhattanDist( (GridPoint) path.lastElement() ) > 1) {
-            System.out.println( "WHOOOOOOPSIEEEEE not adjacent to next in path ==============D");
+            System.out.println( getAgent().name() + " Next point in path NOT ADJACENT!!!");
             bel_currentState_dat.add("idle");
+            state = "idle";
          }
       }
 	   
 	   
 	   MEReturnCellInfo cellInfoReply;
-	   if (! $state.as_string().equals("idle"))
+	   if (! state.equals("idle"))
 	   {
    	   //Request fresh info about target cell from the coordinator
          MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( target );
@@ -109,39 +109,50 @@ Plan Name: PUpdateState
 	   }
       
       //Check current state
-      if($state.as_string().equals("gold") )
+      if(state.equals("gold") )
 		{
 		   //If we have MAX_GOLD set state to depot
 		   if($numGold.as_int() >= 2)
 		   {
 		      logical int $depotX, $depotY;
 		      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
-		      bel_currentState_dat.add("depot");
+		      
 		      bel_currentTarget_dat.add( $depotX.as_int(), $depotY.as_int() );
-		      target = new GridPoint( $depotX.as_int(), $depotY.as_int() ); 
+		      target = new GridPoint( $depotX.as_int(), $depotY.as_int() );
+		      
+            bel_currentState_dat.add("depot");
+            state = "depot";
 		   }
 		   
          //If gold removed set state to idle
 		   else if (!cellInfoReply.hasGold)
+		   {
 		      bel_currentState_dat.add("idle");
+		      state = "idle";
+		   }
 		}
-		else if($state.as_string().equals("depot") )
+		else if(state.equals("depot") )
 		{
    	   //If gold dropped set state to idle
-		   if ($numGold.as_int() == 0)
+		   if ($numGold.as_int() == 0) {
             bel_currentState_dat.add( "idle" );
+            state = "idle";
+		   }
 		}
-		else if($state.as_string().equals("explore") )
+		else if(state.equals("explore") )
 		{
 		   //If target became explored set state to idle
-		   if (cellInfoReply.isExplored)
+		   if (cellInfoReply.isExplored) {
             bel_currentState_dat.add("idle");
+            state = "idle";
+		   }
 		}
       
       MEReturnPathfinding findPathReply;
-      if (! $state.as_string().equals("idle"))
+      //if (! state.equals("idle"))
+      if (state.equals("depot"))
       {
-         //Request fresh info about path to target from the coordinator
+         //Request fresh info about path from the coordinator
          MERequestPathfinding findPathRequest = merequestpathfinding_s.send( pos, target );
          @send( "boss", findPathRequest );
          @wait_for( findPathRequest.replied() );
@@ -152,10 +163,8 @@ Plan Name: PUpdateState
             bel_currentPath_dat.add( findPathReply.path, findPathReply.reachable );
       }
 		
-		//Send the updated state to coordinator
-      logical String $newState;
-		bel_currentState_dat.get( $newState );
-		@send("boss", mereportplayerstate_s.send( getAgent().name(), $newState.as_string(), target ));
+		//Send our state to coordinator
+		@send("boss", mereportplayerstate_s.send( getAgent().name(), state, target ));
 		
 		//Execute actions that don't need coordination
 //      if ($state.as_string().equals("pick") ||

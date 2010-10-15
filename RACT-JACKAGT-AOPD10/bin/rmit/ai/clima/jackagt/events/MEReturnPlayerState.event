@@ -1,6 +1,7 @@
 package rmit.ai.clima.jackagt.events;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.GridPoint;
+import java.util.*;
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event MEReturnPlayerState extends MessageEvent
@@ -12,23 +13,22 @@ public event MEReturnPlayerState extends MessageEvent
 	
    public String state;
    public GridPoint target;
-   public String moveHint;
-   public int pathLength;
+   public Vector path;
+   public boolean reachable;
    
-   /*Posting Method Declarations*/
-   #posted as send(String state, GridPoint target, String moveHint, int pathLength)
+   #posted as send(String state, GridPoint target, Vector path, boolean reachable)
    {
       this.state = state;
       this.target = target;
-      this.moveHint = moveHint;
-      this.pathLength = pathLength;
+      this.path = path;
+      this.reachable = reachable;
    }
    
    #posted as sendEmpty ()
    {
       this.state = "";
       this.target = new GridPoint(0,0);
-      this.moveHint = "";
-      this.pathLength = 0;
+      this.path = new Vector();
+      this.reachable = false;
    }
 }

@@ -12,9 +12,9 @@ public plan PCoord_HandlePathfindingRequest extends Plan
 Plan Name: PCoord_HandlePathfindingRequest
 */
 	//Events handled by the plan are declared here.
-	#posts event EFindPath efindpath_p;
-
 	#sends event MEReturnPathfinding mereturnpathfinding_s;
+
+	#posts event EFindPath efindpath_p;
 
 	#handles event MERequestPathfinding merequestpathfinding_h;
 
