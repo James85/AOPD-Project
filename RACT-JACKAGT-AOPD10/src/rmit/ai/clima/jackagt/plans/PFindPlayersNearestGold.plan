@@ -3,6 +3,7 @@ import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.*;
 import java.util.*;
+import rmit.ai.clima.jackagt.PlayerGold;
 
 public plan PFindPlayersNearestGold extends Plan
 {
@@ -18,17 +19,15 @@ Plan Name: PFindPlayersNearestGold
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerClosestGold bel_playerClosestGold_dat;
-
 	#reads data BPlayerPosition bel_playerPositions_dat;
 
-	#reads data BPlayerState bel_playerState_dat;
+	#reads data BPathCache bel_moveHint_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BPlayer bel_players_dat;
 
-	#reads data BMoveHint bel_moveHint_dat;
-
-	#reads data BGoldAt bel_goldAt_dat;
+	#reads data BPlayerState bel_playerState_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -37,7 +36,10 @@ Plan Name: PFindPlayersNearestGold
 		true;
 	}
 	
-	
+	  #reasoning method fail()
+	   {
+	       System.out.println("OMGZORS ===========DickZilla : PFindPlayersNearestGold");
+	   }
 
 	body()
 	{
@@ -64,20 +66,17 @@ Plan Name: PFindPlayersNearestGold
 	    	//only when accepting the new path
 	    	  
 	        //Find distance from player to gold, skip if unreachable
-//            logical int $pathLength;
-//            logical String $moveHint;
-//            @subtask( efindpath_p.post( $name.as_string(), $playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int()) );
-//            bel_moveHint_dat.getByEndPoints( $playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int(), $moveHint, $pathLength );
-//            if ($moveHint.as_string().equals("")) continue;
+            //EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int());
+            //@subtask( pathRequest);
+            
+           // if (pathRequest.moveHint.equals("") ) continue;
             
             //Calculate distance and store a new player-gold pair
 	         PlayerGold pg = new PlayerGold();
 	         pg.pos = new GridPoint( $goldX.as_int(), $goldY.as_int() );
 	         pg.name = name;
 	         pg.dist = pg.pos.getManhattanDist(playerPos);
-	         //pg.dist = $pathLength.as_int();
-            //pg.dist = efindpath_p.pathLength;
-	         //System.out.println("The distance is: "+pg.dist);
+	         //pg.dist = pathRequest.pathLength;
 	         distances.add(pg);
 	      }
 	   }
@@ -103,26 +102,27 @@ Plan Name: PFindPlayersNearestGold
 	     
 	      //Assign gold piece to player
 	      usedDistances.add(pg);
-	      bel_playerClosestGold_dat.add( pg.name, pg.pos.x, pg.pos.y );
+	      efindclosestgold_h.playerGold.add( pg );
+	      //bel_playerClosestGold_dat.add( pg.name, pg.pos.x, pg.pos.y );
 	   }	   
 	}
 	
-	class PlayerGold implements Comparable
-	{
-	   public String name;
-	   public GridPoint pos;
-	   public int dist;
-	   
-	   public boolean equals(Object obj)
-	   {
-	      PlayerGold pg = (PlayerGold) obj;
-	      return pg.dist == this.dist;
-	   }
-	   public int compareTo(Object obj)
-	   {
-	      PlayerGold pg = (PlayerGold) obj;
-	      return ( this.dist - pg.dist );
-	   }
-	
-	}
+//	class PlayerGold implements Comparable
+//	{
+//	   public String name;
+//	   public GridPoint pos;
+//	   public int dist;
+//	   
+//	   public boolean equals(Object obj)
+//	   {
+//	      PlayerGold pg = (PlayerGold) obj;
+//	      return pg.dist == this.dist;
+//	   }
+//	   public int compareTo(Object obj)
+//	   {
+//	      PlayerGold pg = (PlayerGold) obj;
+//	      return ( this.dist - pg.dist );
+//	   }
+//	
+//	}
 }

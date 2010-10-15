@@ -1,6 +1,7 @@
 package rmit.ai.clima.jackagt.events;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.GridPoint;
+import java.util.*;
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event MEReturnPathfinding extends MessageEvent
@@ -12,14 +13,14 @@ public event MEReturnPathfinding extends MessageEvent
   
    public GridPoint src;
    public GridPoint dst;
-   public String moveHint;
-   public int pathLength;
+   public Vector path;
+   public boolean reachable;
    
-   #posted as reply (GridPoint src, GridPoint dst, String moveHint, int pathLength)
+   #posted as reply (GridPoint src, GridPoint dst, Vector path, boolean reachable)
    {
       this.src = src;
       this.dst = dst;
-      this.moveHint = moveHint;
-      this.pathLength = pathLength;
+      this.path = path;
+      this.reachable = reachable;
    }
 }

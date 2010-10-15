@@ -2,6 +2,8 @@ package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.GridPoint;
+import rmit.ai.clima.jackagt.PlayerGold;
+import java.util.*;
 
 public plan PUpdateState extends Plan
 {
@@ -27,15 +29,15 @@ Plan Name: PUpdateState
 
 	#modifies data BCurrentState bel_currentState_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
-
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
-
-	#reads data BCurrentPosition bel_currentPosition_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
+	#reads data SimulationProp bel_simulationProp_dat;
+
 	#reads data BCurrentPath bel_currentPath_dat;
+
+	#reads data BCurrentPosition bel_currentPosition_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -48,24 +50,53 @@ Plan Name: PUpdateState
 	{
 		true;
 	}
+	
+	  #reasoning method fail()
+	   {
+	       System.out.println("OMGZORS ===========DickZilla : PUpdateState");
+	   }
 
 	//#reasoning method
 	body()
 	{
+	   //prevNode.pos.getRelativeDirections( prevNode.pos, curNode.pos )[0]
+	                                                                   
 		logical String $state;
 		logical int $posX, $posY, $targetX, $targetY;
 		logical int $numGold;
+      logical Object $path;
+      logical boolean $reachable;
 		
 		bel_currentState_dat.get( $state );
 	   bel_currentPosition_dat.get( $posX, $posY );
 	   bel_currentTarget_dat.get( $targetX, $targetY );
 	   bel_numCarryingGold_dat.get( $numGold );
+      bel_currentPath_dat.get( path, reachable );
 	   
 	   GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
 	   GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
+      Vector path = (Vector) $path.as_object();
 	   
       System.out.println( "My pos: " + pos.x + "," + pos.y );
 	   System.out.println( "My target: " + target.x + "," + target.y );
+	   
+	   
+	   //Check if last move was successful and remove point
+	   if (path.size() > 0) {
+	      if (pos == (GridPoint) path.lastElement()) {
+	         path.remove( path.size()-1 );
+	         bel_currentPath_dat.add( path, $reachable.as_boolean() );
+	      }
+	   }
+	   
+      //Check if our position adjacent to next point (otherwise somethings wrong)
+      if (path.size() > 0) {
+         if (pos.getManhattanDist( (GridPoint) path.lastElement() ) > 1) {
+            System.out.println( "WHOOOOOOPSIEEEEE not adjacent to next in path ==============D");
+            bel_currentState_dat.add("idle");
+         }
+      }
+	   
 	   
 	   MEReturnCellInfo cellInfoReply;
 	   if (! $state.as_string().equals("idle"))
@@ -87,6 +118,7 @@ Plan Name: PUpdateState
 		      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
 		      bel_currentState_dat.add("depot");
 		      bel_currentTarget_dat.add( $depotX.as_int(), $depotY.as_int() );
+		      target = new GridPoint( $depotX.as_int(), $depotY.as_int() ); 
 		   }
 		   
          //If gold removed set state to idle
@@ -115,14 +147,9 @@ Plan Name: PUpdateState
          @wait_for( findPathRequest.replied() );
          findPathReply = (MEReturnPathfinding) findPathRequest.getReply();
          
-         //Update path info with fresh data
-         bel_currentPath_dat.add( findPathReply.moveHint, findPathReply.pathLength );
-         
-         //If target is unreachable set state to idle
-         //TODO: This is dangerous if a player is heading for the depot
-         //while another player is in there dropping!
-         //if (findPathReply.moveHint.equals(""))
-           // bel_currentState_dat.add("idle");
+         //Update path info with fresh data if reachable
+         if (findPathReply.reachable)
+            bel_currentPath_dat.add( findPathReply.path, findPathReply.reachable );
       }
 		
 		//Send the updated state to coordinator

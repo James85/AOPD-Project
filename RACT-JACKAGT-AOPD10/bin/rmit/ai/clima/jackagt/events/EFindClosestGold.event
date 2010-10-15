@@ -1,6 +1,7 @@
 package rmit.ai.clima.jackagt.events;
 import rmit.ai.clima.jackagt.data.*;
 import java.util.*;
+import rmit.ai.clima.jackagt.PlayerGold;
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event EFindClosestGold extends BDIGoalEvent
@@ -11,10 +12,12 @@ public event EFindClosestGold extends BDIGoalEvent
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	
 	public Vector relevantPlayers;
+	public Vector playerGold; 
 	
 	/*Posting Method Declarations*/
 	#posted as post(Vector relevantPlayers)
 	{
 		this.relevantPlayers = relevantPlayers;
+		this.playerGold = new Vector();
 	}
 }

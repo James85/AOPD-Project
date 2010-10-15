@@ -16,24 +16,26 @@ Plan Name: PFindPath
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BMoveHint bel_moveHint_dat;
+	#modifies data BPathCache bel_moveHint_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 	context()
 	{
-		// Error: this plan doesn't have any trigger event.
 
 		true;
 	}
-
 	
+  #reasoning method fail()
+   {
+       System.out.println("OMGZORS ===========DickZilla : PFindPath");
+   }
 	
 	body()
 	{
@@ -43,11 +45,11 @@ Plan Name: PFindPath
       GridPoint dst = new GridPoint(efindpath_h.dstX, efindpath_h.dstY);
       
 	   //Check for cached result first
-	   logical String $cachedMoveHint;
-	   logical int $cachedPathLength;
-      if (bel_moveHint_dat.getByEndPoints( src.x, src.y, dst.x, dst.y, $cachedMoveHint, $cachedPathLength )) {
-         efindpath_h.moveHint = $cachedMoveHint.as_string();
-         efindpath_h.pathLength = $cachedPathLength.as_int();
+	   logical Object $cachedPath;
+	   logical boolean $cachedReachable;
+      if (bel_moveHint_dat.getByEndPoints( src.x, src.y, dst.x, dst.y, $cachedPath, $cachedReachable )) {
+         efindpath_h.path = (Vector)$cachedPath.as_object();
+         efindpath_h.reachable = $cachedReachable.as_boolean();
         // System.out.println("Path is cached");
          return true;
       }
@@ -73,8 +75,11 @@ Plan Name: PFindPath
 	   //Check for silly input
       if (src.equals(dst)) {
          
-         //Cache result
-         bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, "", 0 );
+         //Return an empty path
+         Vector path = new Vector();
+         bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, path, true );
+         efindpath_h.path = path;
+         efindpath_h.reachable = true;
          return true;
       }
       
@@ -93,10 +98,14 @@ Plan Name: PFindPath
 	         if(bel_obstacleAt_dat.check( x, y ))
 	            node.obstacle = true;
 	         
-	         //Check if depot at this location (and not start or end point)
-	         if(node.pos.equals(depotPoint) && !node.pos.equals(src) && !node.pos.equals(dst))
-	            node.obstacle = true;
-	         
+	         //Check if depot at this location 
+	         if(node.pos.equals(depotPoint))
+	         {
+	            //(and not start or end point)
+	            if(!node.pos.equals(src) && !node.pos.equals(dst))
+	               node.obstacle = true;
+	            continue;
+	         }
 	         //Check if any player at this location
 	         logical String $name;
 	         if (bel_playerPositions_dat.getByCoord( $name, x, y ))
@@ -181,32 +190,31 @@ Plan Name: PFindPath
    	   
 	   }//open
 	   
-      //Walk from end to start and measure path
-      String moveHint = "";
-	   int pathLength = 0;
+      //Walk from end to start and construct path
+      Vector path = new Vector();
 	   if(dstReached)
       {
          PathNode dstNode = grid.getNode( dst );
          PathNode srcNode = grid.getNode( src );
          PathNode prevNode = dstNode;
          PathNode curNode = dstNode;
-         
          while (true)
          {
-            pathLength++;
+            //Get point in the backwards direction
             GridPoint prevPoint = curNode.pos.getFromDir(curNode.dir);
+            path.add( prevPoint );
+            
+            //Get node at that point and check if source
             prevNode = grid.getNode( prevPoint );
             if (prevNode == srcNode) break;
             curNode = prevNode;
          }
-         
-         moveHint = (String) ( prevNode.pos.getRelativeDirections( prevNode.pos, curNode.pos )[0] );
       }
 	   
 	   //Cache result and return via event
-      bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, moveHint, pathLength );
-      efindpath_h.moveHint = moveHint;
-      efindpath_h.pathLength = pathLength;
+      bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, path, dstReached );
+      efindpath_h.path = path;
+      efindpath_h.reachable = dstReached;
 	}
 	
 	class PathGrid

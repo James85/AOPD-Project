@@ -2,6 +2,7 @@ package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.GridPoint;
+import java.util.*;
 
 public plan PCoord_HandlePathfindingRequest extends Plan
 {
@@ -11,9 +12,9 @@ public plan PCoord_HandlePathfindingRequest extends Plan
 Plan Name: PCoord_HandlePathfindingRequest
 */
 	//Events handled by the plan are declared here.
-	#sends event MEReturnPathfinding mereturnpathfinding_s;
-
 	#posts event EFindPath efindpath_p;
+
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
 
 	#handles event MERequestPathfinding merequestpathfinding_h;
 
@@ -30,6 +31,10 @@ Plan Name: PCoord_HandlePathfindingRequest
 	{
 		true;
 	}
+	  #reasoning method fail()
+	   {
+	       System.out.println("OMGZORS ===========DickZilla : HandlePathfinding");
+	   }
 
 	body()
 	{
@@ -40,8 +45,8 @@ Plan Name: PCoord_HandlePathfindingRequest
 	   EFindPath eFindPath = efindpath_p.post( name, src.x, src.y, dst.x, dst.y ); 
       @subtask( eFindPath );
       @reply( merequestpathfinding_h,
-            mereturnpathfinding_s.reply( src, dst, eFindPath.moveHint, eFindPath.pathLength ));
+            mereturnpathfinding_s.reply( src, dst, eFindPath.path, eFindPath.reachable ));
       
-      System.out.println( "Path move: " + eFindPath.moveHint + " len: " + eFindPath.pathLength );
+      System.out.println( "Path len: " + eFindPath.path.size() );
 	}
 }

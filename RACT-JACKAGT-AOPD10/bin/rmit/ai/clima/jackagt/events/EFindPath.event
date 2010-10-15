@@ -1,6 +1,6 @@
 package rmit.ai.clima.jackagt.events;
 import rmit.ai.clima.jackagt.data.*;
-
+import java.util.*;
 
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 public event EFindPath extends BDIGoalEvent
@@ -15,8 +15,8 @@ public event EFindPath extends BDIGoalEvent
    public int srcY;
    public int dstX;
    public int dstY;
-   public String moveHint;
-   public int pathLength;
+   public Vector path;
+   public boolean reachable;
    
 	/*Posting Method Declarations*/
 	#posted as post( String playerName, int srcX, int srcY, int dstX, int dstY )
@@ -29,7 +29,7 @@ public event EFindPath extends BDIGoalEvent
 		this.dstX = dstX;
 		this.dstY = dstY;
 		
-		this.moveHint = "";
-		this.pathLength = 0;
+		this.path = new Vector();
+		this.reachable = false;
 	}
 }

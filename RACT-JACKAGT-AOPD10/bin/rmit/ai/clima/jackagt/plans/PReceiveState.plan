@@ -1,6 +1,8 @@
 package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+import java.util.*;
 
 public plan PReceiveState extends Plan
 {
@@ -16,11 +18,11 @@ Plan Name: PReceiveState
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BCurrentPosition bel_currentTarget_dat;
+
 	#modifies data BCurrentState bel_currentState_dat;
 
 	#modifies data BCurrentPath bel_currentPath_dat;
-
-	#modifies data BCurrentPosition bel_currentTarget_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
@@ -35,34 +37,50 @@ Plan Name: PReceiveState
 	{
 		true;
 	}
+	
+	#reasoning method fail()
+   {
+       System.out.println("OMGZORS ===========DickZilla : PReceiveState");
+   }
+
 
 	body()
 	{
 	   System.out.println( "GOT NEW STATE");
+	   String newState = mereturnplayerstate_h.state;
+	   GridPoint newTarget = mereturnplayerstate_h.target;
+	   Vector newPath = mereturnplayerstate_h.path;
+	   int newReachable = mereturnplayerstate_h.reachable;
 	   
       logical String $state;
       //logical int $posX, $posY, $targetX, $targetY;
       //logical int $numGold;
       
       bel_currentState_dat.get( $state );
+      System.out.println("Our current state is: " + $state.as_string());
       //bel_currentPosition_dat.get( $posX, $posY );
       //bel_currentTarget_dat.get( $targetX, $targetY );
       //bel_numCarryingGold_dat.get( $numGold );
       
       //Get current path
-      logical String $moveHint;
-      logical int $pathLength;
-      bel_currentPath_dat.get( $moveHint, $pathLength );
+      logical Object $path;
+      logical boolean $reachable;
+      bel_currentPath_dat.get( $path, $reachable );
+      Vector path = (Vector) $path.as_object();
       
-      //Check if current path invalid or longer than the new path
-      //if ($moveHint.as_string.equals("") || $pathLength.as_int() > mereturnplayerstate_h.pathLength)
-      if ($state.as_string().equals("idle"))
+      //Check if valid state received
+      if (! newState.equals(""))
       {
-         //Update state, target and path with what we received from the coordinator
-         bel_currentState_dat.add( mereturnplayerstate_h.state );
-         bel_currentTarget_dat.add( mereturnplayerstate_h.target.x, mereturnplayerstate_h.target.y );
-         bel_currentPath_dat.add( mereturnplayerstate_h.moveHint, mereturnplayerstate_h.pathLength );
-         System.out.println( "ACCEPTED new state" );
+         
+         //Check if current path invalid or longer than the new path
+         if ($state.as_string().equals("idle") || (newPath.size() < path.size()))
+         {
+            //Update state, target and path with what we received from the coordinator
+            bel_currentState_dat.add( newState );
+            bel_currentTarget_dat.add( newTarget.x, newTarget.y );
+            bel_currentPath_dat.add( newPath, newReachable );
+            System.out.println( "ACCEPTED new state: "+ newState );
+         }
       }
       
       @post( eexecuteaction_p.post() );

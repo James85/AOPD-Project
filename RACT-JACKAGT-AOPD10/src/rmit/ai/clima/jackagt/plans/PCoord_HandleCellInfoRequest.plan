@@ -34,6 +34,10 @@ Plan Name: PCoord_HandleCellInfoRequest
 	{
 		true;
 	}
+	  #reasoning method fail()
+	   {
+	       System.out.println("OMGZORS ===========DickZilla : HandleCellInfoRequest");
+	   }
 
 	body()
 	{

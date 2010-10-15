@@ -23,4 +23,12 @@ public event MEReturnPlayerState extends MessageEvent
       this.moveHint = moveHint;
       this.pathLength = pathLength;
    }
+   
+   #posted as sendEmpty ()
+   {
+      this.state = "";
+      this.target = new GridPoint(0,0);
+      this.moveHint = "";
+      this.pathLength = 0;
+   }
 }
