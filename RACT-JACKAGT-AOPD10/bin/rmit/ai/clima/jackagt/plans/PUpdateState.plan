@@ -78,6 +78,7 @@ Plan Name: PUpdateState
 	   
       System.out.println( getAgent().name() + " My pos: " + pos.x + "," + pos.y );
 	   System.out.println( getAgent().name() + " My target: " + target.x + "," + target.y );
+	   System.out.println( getAgent().name() + " My path length: " + path.size() );
 	   
 	   
 	   //Check if last move was successful and remove point
@@ -149,8 +150,8 @@ Plan Name: PUpdateState
 		}
       
       MEReturnPathfinding findPathReply;
-      //if (! state.equals("idle"))
-      if (state.equals("depot"))
+      if (! state.equals("idle"))
+      //if (state.equals("depot"))
       {
          //Request fresh info about path from the coordinator
          MERequestPathfinding findPathRequest = merequestpathfinding_s.send( pos, target );

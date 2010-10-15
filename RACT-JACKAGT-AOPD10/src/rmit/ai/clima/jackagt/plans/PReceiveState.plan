@@ -75,8 +75,8 @@ Plan Name: PReceiveState
       if (! newState.equals(""))
       {         
          //Check if current path invalid or longer than the new path
-         //if (state.equals("idle") || (newPath.size() < path.size()))
-         if (state.equals("idle"))
+         if (state.equals("idle") || (newPath.size() < path.size()))
+         //if (state.equals("idle"))
          {
             //Update state, target and path with what we received from the coordinator
             bel_currentState_dat.add( newState );
