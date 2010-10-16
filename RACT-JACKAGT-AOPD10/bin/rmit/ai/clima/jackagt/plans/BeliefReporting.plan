@@ -21,9 +21,9 @@ Plan Name: BeliefReporting
 Description: Report the beliefs of the agent somewhere (e.g., in the GUI)
 */
 	//Events handled by the plan are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event EShowBeliefs eshowbeliefs_h;
 

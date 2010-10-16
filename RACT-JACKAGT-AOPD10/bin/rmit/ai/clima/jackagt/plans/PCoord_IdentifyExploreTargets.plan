@@ -34,7 +34,7 @@ Plan Name: PCoord_IdentifyExploreTargets
 	   bel_simulationProp_dat.getGridSize( $gridW, $gridH );
 	   
 	   //Calculate number of blocks required
-	   const int BLOCK_SIZE = 10;
+	   int BLOCK_SIZE = 10;
 	   int numBlocksX = (int) Math.ceil( (float) $gridW.as_int() / BLOCK_SIZE );
       int numBlocksY = (int) Math.ceil( (float) $gridH.as_int() / BLOCK_SIZE );
 	   UnexploredBlock[] blocks = new UnexploredBlock[ numBlocksX * numBlocksY ];
@@ -66,8 +66,7 @@ Plan Name: PCoord_IdentifyExploreTargets
 	      
 	      //Check if closer to center than old pivot and update pivot
          int uDist = block.center.getManhattanDist( uPos );
-         boolean closestToCenter = (block.count > 0) ? (dist < block.pivotDist) : true;
-	      if (closestToCenter)
+         if (block.count == 0 || uDist < block.pivotDist)
 	      {
 	         block.pivot = uPos;
 	         block.pivotDist = uDist;
@@ -79,8 +78,11 @@ Plan Name: PCoord_IdentifyExploreTargets
 	   //Add blocks with unexplored points to array
 	   for (int b=0; b<numBlocksX*numBlocksY; ++b)
 	   {
+	      System.out.println( "BLOCK #" + b + " center:" + blocks[b].center.x + "," + blocks[b].center.y
+	            + " count: " + blocks[b].count + " pivot:" + blocks[b].pivot.x + "," + blocks[b].pivot.y );
+	      
 	      if (blocks[b].count == 0)
-	         eidentifyexploretargets_h.exploreTargets.add( blocks[b] );  
+	         eidentifyexploretargets_h.targets.add( blocks[b] );
 	   }
 	}
 }

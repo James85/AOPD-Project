@@ -29,13 +29,13 @@ Description: Report the beliefs of the agent somewhere (e.g., in the GUI)
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data CurrentStatus bel_currentStatus_dat;
-
-	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
+	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
+	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#reads data CurrentStatus bel_currentStatus_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

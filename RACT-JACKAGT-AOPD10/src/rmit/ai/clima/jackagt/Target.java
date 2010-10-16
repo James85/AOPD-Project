@@ -3,10 +3,10 @@ import rmit.ai.clima.gui.grid.GridPoint;
 
 public class Target
 {
-   public enum Type
+   public class Type
    {
-      Gold,
-      Explore
+      static final int GOLD = 0;
+      static final int EXPLORE = 1;
    }
    
    public Type type;

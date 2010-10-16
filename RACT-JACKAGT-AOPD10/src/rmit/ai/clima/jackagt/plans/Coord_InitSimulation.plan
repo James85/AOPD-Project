@@ -19,9 +19,9 @@ Description: Coordination plan to start a simulation
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
-	#modifies data BPlayer bel_players_dat;
-
 	#modifies data BObstacleAt bel_obstacleAt_dat;
+
+	#modifies data BPlayer bel_players_dat;
 
 	#modifies data BUnexplored bel_unexplored_dat;
 
@@ -53,9 +53,9 @@ Description: Coordination plan to start a simulation
       int depotY = mesimstart_h.depotPosition.y;
       int numSteps = mesimstart_h.numSteps;
       
-      for(int i = 0; i < gridX; ++i)
-         for(int j = 0; j < gridY; ++j)
-            bel_unexplored_dat.add(i,j);
+      for(int x=0; x < gridX; ++x)
+         for(int y=0; y < gridY; ++y)
+            bel_unexplored_dat.add(x,y);
 
       //initialise flag that tracks which players have sent info this turn 
       bel_players_dat.add(mesimstart_h.from);

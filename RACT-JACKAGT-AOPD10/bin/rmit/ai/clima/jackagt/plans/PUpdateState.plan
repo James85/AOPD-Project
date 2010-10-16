@@ -29,13 +29,13 @@ Plan Name: PUpdateState
 
 	#modifies data BCurrentState bel_currentState_dat;
 
-	#reads data BNumCarryingGold bel_numCarryingGold_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
-
 	#reads data BCurrentPath bel_currentPath_dat;
+
+	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

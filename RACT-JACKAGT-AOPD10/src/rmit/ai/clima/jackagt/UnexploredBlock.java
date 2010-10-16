@@ -8,7 +8,7 @@ public class UnexploredBlock
    public GridPoint pivot;
    public int pivotDist;
    
-   UnexploredBlock( GridPoint center)
+   public UnexploredBlock( GridPoint center)
    {
       this.count = 0;
       this.center = center;
