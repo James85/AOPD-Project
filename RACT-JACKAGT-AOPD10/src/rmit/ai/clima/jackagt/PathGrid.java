@@ -11,13 +11,19 @@ public class PathGrid
    PathNode [] grid;
    
       
-   public static PathGrid getInstance(int width, int height)
+   public static PathGrid initInstance(int width, int height)
    {
       if(instance == null)
       {
          instance = new PathGrid( width, height );
          System.out.println("Instantiating the grid");
       }
+      return instance;
+   }
+   public static PathGrid getInstance()
+   {
+      if(instance == null)
+         instance = new PathGrid( 50 , 50);
       return instance;
    }
    
