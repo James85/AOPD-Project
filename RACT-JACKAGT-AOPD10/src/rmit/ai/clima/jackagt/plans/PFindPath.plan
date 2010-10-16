@@ -91,7 +91,8 @@ Plan Name: PFindPath
       //     System.out.println("Src " + src.x + ", "+ src.y);
       //     System.out.println("Dst " + dst.x + ", "+ dst.y);
       //Init obstacles
-      PathGrid grid = new PathGrid( width,  height );
+      
+      PathGrid grid = PathGrid.getInstance( width, height );
 
       //	   for (int x=0; x<width; ++x) {
       //	      for (int y=0; y<height; ++y) {
@@ -249,6 +250,8 @@ Plan Name: PFindPath
       bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, path, dstReached );
       efindpath_h.path = path;
       efindpath_h.reachable = dstReached;
+      
+      grid.Clean();
    }
 
    
