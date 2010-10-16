@@ -16,35 +16,10 @@ Description: Decide what to do next
 */
 
 	//Knowledge bases used are declared here.
-	/*	Note that this data is external.
-	Maybe you want to modify the declaration as '#agent' manually.
-	*/
-	#global data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data SimulationProp bel_simulationProp_dat();
-
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
 	#imports data BCurrentPath bel_currentPath_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentState bel_currentState_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentPosition bel_currentTarget_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -54,35 +29,48 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BCurrentPosition bel_currentTarget_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BCurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data SimulationProp bel_simulationProp_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentState bel_currentState_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#handles external event MEReturnPathfinding ;
-
 	#sends event MERequestPathfinding merequestpathfinding_s;
-
-	#handles external event MEPlayerPerceptsAssimilated ;
 
 	#handles event EExecuteAction ;
 	#posts event EExecuteAction eexecuteaction_p;
 
-	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+	#handles external event MEReturnCellInfo ;
 
 	#handles external event MEReturnPlayerState ;
 
-	#handles external event MEReturnCellInfo ;
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event MEPlayerPerceptsAssimilated ;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles external event MEReturnPathfinding ;
 
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan PUpdateState ;
-
 	#uses plan PPick ;
 
 	#uses plan PDrop ;
@@ -90,6 +78,8 @@ Description: Decide what to do next
 	#uses plan PMove ;
 
 	#uses plan PReceiveState ;
+
+	#uses plan PUpdateState ;
 
 
 	// Inner capabilities are declared here.

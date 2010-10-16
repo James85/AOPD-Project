@@ -21,9 +21,9 @@ Description: Update the beliefs about the cells around a location
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BObstacleAt bel_obstacleAt_dat;
-
 	#modifies data BGoldAt bel_goldAt_dat;
+
+	#modifies data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -74,7 +74,6 @@ Description: Update the beliefs about the cells around a location
          // Iterate on all the marks/labels for cells[i] (which is location loc)
          for(int j = 0; j < cells[i].marks.length; j++) 
          {
-
             // if mark is "unknown" then do not process the cell at all
             if( !(cells[i].marks[j].type.equalsIgnoreCase("unknown")) )
             {

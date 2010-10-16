@@ -15,27 +15,25 @@ Plan Name: PUpdateState
 	//Events handled by the plan are declared here.
 	#posts event EExecuteAction eexecuteaction_p;
 
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
 	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentState bel_currentState_dat;
-
 	#modifies data BCurrentPosition bel_currentTarget_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
-
-	#reads data SimulationProp bel_simulationProp_dat;
+	#modifies data BCurrentState bel_currentState_dat;
 
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BCurrentPath bel_currentPath_dat;
 
@@ -62,30 +60,29 @@ Plan Name: PUpdateState
 		logical String $state;
 		logical int $posX, $posY, $targetX, $targetY;
 		logical int $numGold;
-      logical Object $path;
-      logical boolean $reachable;
-		
+
 		bel_currentState_dat.get( $state );
 	   bel_currentPosition_dat.get( $posX, $posY );
 	   bel_currentTarget_dat.get( $targetX, $targetY );
 	   bel_numCarryingGold_dat.get( $numGold );
-      bel_currentPath_dat.get( $path, $reachable );
+	   Vector path = bel_currentPath_dat.getPath();
+	   boolean reachable = bel_currentPath_dat.getReachable();
       
       String state = $state.as_string();
 	   GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
 	   GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
-      Vector path = (Vector) $path.as_object();
 	   
       System.out.println( getAgent().name() + " My pos: " + pos.x + "," + pos.y );
 	   System.out.println( getAgent().name() + " My target: " + target.x + "," + target.y );
 	   System.out.println( getAgent().name() + " My path length: " + path.size() );
+      System.out.println( getAgent().name() + " My initial state: " + state);
 	   
 	   
 	   //Check if last move was successful and remove point
 	   if (path.size() > 0) {
 	      if (pos.equals( (GridPoint) path.lastElement() )) {
 	         path.remove( path.size()-1 );
-	         bel_currentPath_dat.add( path, $reachable.as_boolean() );
+	         bel_currentPath_dat.add( path, reachable );
 	      }
 	   }
 	   
@@ -160,17 +157,14 @@ Plan Name: PUpdateState
          findPathReply = (MEReturnPathfinding) findPathRequest.getReply();
          
          //Update path info with fresh data if reachable
-         if (findPathReply.reachable)
+         if (findPathReply.reachable) {
             bel_currentPath_dat.add( findPathReply.path, findPathReply.reachable );
+            path = findPathReply.path;
+            reachable = findPathReply.reachable;
+         }
       }
 		
 		//Send our state to coordinator
 		@send("boss", mereportplayerstate_s.send( getAgent().name(), state, target ));
-		
-		//Execute actions that don't need coordination
-//      if ($state.as_string().equals("pick") ||
-//          $state.as_string().equals("drop") ||
-//          $state.as_string().equals("depot"))
-//         @post( eexecuteaction_p.post() );
 	}
 }

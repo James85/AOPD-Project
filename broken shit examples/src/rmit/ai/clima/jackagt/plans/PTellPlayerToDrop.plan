@@ -1,0 +1,64 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PTellPlayerToDrop extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PTellPlayerToDrop
+*/
+	//Events handled by the plan are declared here.
+	#posts event MEPlayerAction meplayeraction_p;
+
+	#handles event EPostPlayerAction epostplayeraction_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BPlayerPosition bel_playerTarget_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BMoveHint bel_moveHint_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	logical int $playerX, $playerY, $depotX, $depotY, $numGold;
+   
+	context()
+	{
+		// Trigger: Event "EPostPlayerAction"
+		//true;
+	 //Get player info
+      ( 
+        bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $playerX, $playerY ) 
+        && bel_simulationProp_dat.getDepotLoc( $depotX, $depotY ) 
+        && $playerX.as_int() == $depotX.as_int() && $playerY.as_int() == $depotY.as_int() 
+        && bel_playerGold_dat.getByName( epostplayeraction_h.playerName, $numGold )
+        && $numGold.as_int() > 0
+        
+      );
+	}
+
+	body()
+	{
+	   System.out.print("TRYYYYYYYING TO DROOOPPP!!!!!");
+	   String baseName = epostplayeraction_h.playerName;
+      baseName = baseName.substring(0,baseName.indexOf("@"));
+	  // @send( baseName, meplayeraction_s.send( "drop" ));
+	   
+      //Clear the target if any
+      logical int $targetX, $targetY;
+      if (bel_playerTarget_dat.getByName( epostplayeraction_h.playerName, $targetX, $targetY))
+         bel_playerTarget_dat.remove( epostplayeraction_h.playerName, $targetX.as_int(), $targetY.as_int() );
+	}
+	
+	public PlanInstanceInfo getInstanceInfo()
+	{
+	   return PlanInstanceInfo.def[9];
+	}
+}

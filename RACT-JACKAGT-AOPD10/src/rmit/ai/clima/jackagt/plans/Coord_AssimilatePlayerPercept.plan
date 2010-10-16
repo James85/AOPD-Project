@@ -13,6 +13,8 @@ public plan Coord_AssimilatePlayerPercept extends Plan
 Plan Name: Coord_AssimilatePlayerPercept
 */
 	//Events handled by the plan are declared here.
+	#posts event ECoordUpdateBel ecoordupdatebel_p;
+
 	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
 
 	#posts event EUpdateBel eupdatebel_p;
@@ -21,11 +23,11 @@ Plan Name: Coord_AssimilatePlayerPercept
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BPlayerGold bel_playerGold_dat;
+
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
 	#modifies data BPlayerPosition bel_playerPositions_dat;
-
-	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#reads data BPlayer bel_players_dat;
 
@@ -46,16 +48,14 @@ Plan Name: Coord_AssimilatePlayerPercept
 	{
 	   // Update the information on all the cells around (as a subtask)
       @subtask( eupdatebel_p.post(mereportplayerpercept_h.step, mereportplayerpercept_h.currentPos, mereportplayerpercept_h.cells, mereportplayerpercept_h.noCarryingGold) );
+	   @subtask( ecoordupdatebel_p.post( mereportplayerpercept_h.currentPos, mereportplayerpercept_h.cells ));
 	   
+	   //Update info about this player
 		bel_playerPositions_dat.add(mereportplayerpercept_h.name, mereportplayerpercept_h.currentPos.x , mereportplayerpercept_h.currentPos.y );
 		bel_playerGold_dat.add(mereportplayerpercept_h.name, mereportplayerpercept_h.noCarryingGold);
 		
+		//Mark that we got percept from this player
 		bel_playerPerceptReceived_dat.add(mereportplayerpercept_h.name);
-		
-		
-		
-		
-		//consoleIface.showConsoleDebug("NUMBER OF REPLIED PLAYERS: " + bel_playerPerceptReceived_dat.nFacts() );
 		if(bel_playerPerceptReceived_dat.nFacts()  == bel_players_dat.nFacts())
 		{
 		   logical String $name;

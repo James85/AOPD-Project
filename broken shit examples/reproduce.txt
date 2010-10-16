@@ -1,0 +1,2 @@
+In coordinator detailed design: change bel_enemyAt -> bel_anything
+	causes code to stop generating

@@ -19,13 +19,13 @@ Plan Name: PFindPlayersNearestGold
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BGoldAt bel_goldAt_dat;
+	#reads data BPlayer bel_players_dat;
 
 	#reads data BPlayerState bel_playerState_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
 
-	#reads data BPlayer bel_players_dat;
+	#reads data BGoldAt bel_goldAt_dat;
 
 	#reads data BPathCache bel_moveHint_dat;
 
@@ -44,6 +44,7 @@ Plan Name: PFindPlayersNearestGold
 	body()
 	{
 	   Vector relevantPlayers = efindclosestgold_h.relevantPlayers;
+	   Vector relevantTargets = efindclosestgold_h.relevantTargets;
 	   Vector distances = new Vector(); 
 	   Vector usedDistances = new Vector();
 	   
@@ -58,25 +59,25 @@ Plan Name: PFindPlayersNearestGold
 	      GridPoint playerPos = new GridPoint( $playerX.as_int(), $playerY.as_int() );
 	      
 	      //Get positions of all gold pieces
-	      logical int $goldX, $goldY;
-	      Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
-	      while ( c_gold.next() )
+	      for (int t=0; t<relevantTargets.size(); ++t)
 	      {
 	    	//TODO: this turned out to be to slow, so we check actual distance
 	    	//only when accepting the new path
-	    	  
+	         GridPoint goldPos = (GridPoint) relevantTargets.get(t);
 	        //Find distance from player to gold, skip if unreachable
-            //EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), $goldX.as_int(), $goldY.as_int());
-            //@subtask( pathRequest);
-            
-           // if (pathRequest.moveHint.equals("") ) continue;
+//            EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), goldPos.x, goldPos.y);
+//            @subtask( pathRequest);  
+//            if (!pathRequest.reachable) continue;
+	         
+	         
+	         
             
             //Calculate distance and store a new player-gold pair
 	         PlayerGold pg = new PlayerGold();
-	         pg.pos = new GridPoint( $goldX.as_int(), $goldY.as_int() );
-	         pg.name = name;
-	         pg.dist = pg.pos.getManhattanDist(playerPos);
-	         //pg.dist = pathRequest.pathLength;
+            pg.name = name;
+	         pg.pos = goldPos;
+	         pg.dist = goldPos.getManhattanDist(playerPos);
+	         //pg.dist = pathRequest.path.size();
 	         distances.add(pg);
 	      }
 	   }

@@ -14,17 +14,19 @@ Plan Name: PMove
 	//Events handled by the plan are declared here.
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
 	#handles event EExecuteAction eexecuteaction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BCurrentState bel_currentState_dat;
-
 	#reads data BCurrentPath bel_currentPath_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
 	#reads data BCurrentPosition bel_currentTarget_dat;
+
+	#reads data BCurrentState bel_currentState_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	
@@ -56,7 +58,6 @@ Plan Name: PMove
       && ($reachable.as_boolean() == true);
    }
 
-   #reasoning method
 	body()
 	{
       //Get current position
@@ -67,6 +68,23 @@ Plan Name: PMove
       //Get next position from the path
       Vector path = (Vector) $path.as_object();
       GridPoint nextPos = (GridPoint) path.get( path.size()-1 );
+      
+      //Check if two squares away from the depot
+      if (path.size() <= 2)
+      {
+         //Request fresh info about target cell from the coordinator
+         MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( (GridPoint) path.get(0) );
+         @send( "boss", cellInfoRequest );
+         @wait_for( cellInfoRequest.replied() );
+         MEReturnCellInfo cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply();
+         
+         //Don't move if there's a player on the depot
+         if (cellInfoReply.hasPlayer) {
+            System.out.println( "SKIPPPPPINGGGGGGGGGGGGGGG ===================================================DD");
+            eexecuteclimaaction_p.post( "skip" );
+            return true;
+         }
+      }
       
       /*
       for (int p=path.size()-1; p>=0; --p) {

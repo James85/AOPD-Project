@@ -22,32 +22,7 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayerGold bel_playerGold_dat(/*String agentName, int goldAmount*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerState bel_playerState_dat(/*String name, String state*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPathCache bel_moveHint_dat(/*int srcX, int srcY, int dstX, int dstY, Object path, boolean reachable*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerPosition bel_playerTarget_dat(/*String agentName, int posX, int posY*/);
+	#private data BPlayer bel_playerStateReceived_dat(/*String name*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -57,12 +32,22 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
+	#private data BPlayerGold bel_playerGold_dat(/*String agentName, int goldAmount*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayer bel_playerStateReceived_dat(/*String name*/);
+	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPathCache bel_moveHint_dat(/*int srcX, int srcY, int dstX, int dstY, Object path, boolean reachable*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -72,61 +57,98 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
+	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
 	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerState bel_playerState_dat(/*String name, String state*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BUnexplored bel_unexplored_dat(/*int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerAt bel_playerAt_dat(/*int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerPosition bel_playerTarget_dat(/*String agentName, int posX, int posY*/);
 
 
 	//Events handled, posted and sent are declared here.
-	#handles event EChoosePlayerActions ;
-	#posts event EChoosePlayerActions echooseplayeractions_p;
+	#handles event MESimStart ;
+
+	#posts event MEPlayerAction meplayeraction_p;
+
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
 
 	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
 
 	#handles event EUpdateBel ;
 	#posts event EUpdateBel eupdatebel_p;
 
-	#sends event MEReturnPathfinding mereturnpathfinding_s;
+	#sends event MEReturnCellInfo mereturncellinfo_s;
 
 	#handles event EFindPath ;
 	#posts event EFindPath efindpath_p;
 
-	#handles event EPostPlayerAction ;
-	#posts event EPostPlayerAction epostplayeraction_p;
+	#handles event MESimEnd ;
 
-	#handles event MESimStart ;
+	#handles event MEReportPlayerPercept ;
 
-	#handles event MEGameEnd ;
+	#handles event EChoosePlayerActions ;
+	#posts event EChoosePlayerActions echooseplayeractions_p;
+
+	#handles event EIdentifyExploreTargets ;
+	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
+
+	#handles event EFindClosestGold ;
+	#posts event EFindClosestGold efindclosestgold_p;
+
+	#handles event MERequestPathfinding ;
 
 	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
-	#posts event MEPlayerAction meplayeraction_p;
+	#handles event MEGameEnd ;
 
-	#handles event MERequestPathfinding ;
+	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#handles event MERequestCellInfo ;
 
 	#handles event MEReportPlayerState ;
 
-	#posts event MEInformAgentStatus meinformagentstatus_p;
+	#handles event EPostPlayerAction ;
+	#posts event EPostPlayerAction epostplayeraction_p;
 
-	#sends event MEReturnCellInfo mereturncellinfo_s;
-
-	#handles event MEReportPlayerPercept ;
+	#handles event ECoordUpdateBel ;
+	#posts event ECoordUpdateBel ecoordupdatebel_p;
 
 	#handles event EIdentifyTarget ;
 	#posts event EIdentifyTarget eidentifytarget_p;
 
-	#handles event MESimEnd ;
-
-	#handles event EFindClosestGold ;
-	#posts event EFindClosestGold efindclosestgold_p;
-
 
 	//Plans directly used are declared here.
-	#uses plan PCoord_ChoosePlayerActions ;
+	#uses plan Coord_InitSimulation ;
 
 	#uses plan UpdateCellsAround ;
 
-	#uses plan Coord_InitSimulation ;
+	#uses plan Coord_EndSimulation ;
+
+	#uses plan Coord_AssimilatePlayerPercept ;
+
+	#uses plan PCoord_ChoosePlayerActions ;
+
+	#uses plan PCoord_IdentifyExploreTargets ;
 
 	#uses plan Coord_EndGame ;
 
@@ -134,17 +156,15 @@ Agent Name: Coordinator
 
 	#uses plan PCoord_AssimilatePlayerStates ;
 
-	#uses plan Coord_AssimilatePlayerPercept ;
+	#uses plan PCoord_UpdateCellsAround ;
 
 	#uses plan PIdentifyExploreTarget ;
 
-	#uses plan Coord_EndSimulation ;
-
 
 	// Inner capabilities are declared here.
-	#has capability CPathFinding cpathfinding_cap;
-
 	#has capability CResolvePlayerActions cresolveplayeractions_cap;
+
+	#has capability CPathFinding cpathfinding_cap;
 
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/

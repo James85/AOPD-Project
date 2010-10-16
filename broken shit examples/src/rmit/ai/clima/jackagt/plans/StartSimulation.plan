@@ -1,0 +1,130 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.iface.PerceiveClimaServer;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+//modify
+import rmit.ai.clima.comms.SimStart;
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.iface.PerceiveClimaServer;
+import rmit.ai.clima.interfaces.*;
+import rmit.ai.clima.gui.grid.*;
+import java.util.*;
+
+
+public plan StartSimulation extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: StartSimulation
+Description: Initialize a simulation
+*/
+	//Events handled by the plan are declared here.
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+	#sends event MESimStart mesimstart_s;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles event PerceiveClimaServer perceiveclimaserver_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#modifies data BCurrentPosition bel_currentPosition_dat;
+
+	#modifies data BGoldAt bel_goldAt_dat;
+
+	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
+
+	#modifies data BCurrentPath bel_currentPath_dat;
+
+	#modifies data BObstacleAt bel_obstacleAt_dat;
+
+	#modifies data BCurrentPosition bel_currentTarget_dat;
+
+	#modifies data BCurrentState bel_currentState_dat;
+
+	#modifies data SimulationProp bel_simulationProp_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
+
+
+
+   static boolean relevant(PerceiveClimaServer perceiveclimaserver_h)
+    {
+        return perceiveclimaserver_h.data instanceof SimStart;
+    }
+    
+    context()
+    {
+        true;
+    }
+    
+    #reasoning method
+    fail()
+    {
+		consoleIface.showConsoleDebug(getPlanName()+" :: Plan has failed!");
+    }
+
+    
+    
+    #reasoning method
+    body()
+    {
+		consoleIface.showConsoleDebug("I have received a SIM-START message....");
+
+        // Obtain sim-start message from the perceiveclimaserver_h and all data inside the message
+        SimStart simStart = (SimStart)perceiveclimaserver_h.data;
+    
+        // Initialise agent's beliefs (it is assumed the beliefs are empty)
+        bel_currentRequestActionId_dat.add(0,0);	
+        bel_simulationProp_dat.add(simStart.gsizex, simStart.gsizey, simStart.depotx, simStart.depoty, simStart.steps);	// Update the beliefs about the current simulation
+        
+        //agent believes he is at the origin which will be updated in the first instance of HandlePercept
+        bel_currentPosition_dat.add(0,0);
+        //agent believes he is poor and as 0 gold
+        bel_numCarryingGold_dat.add(0);
+        //agent begins the simulation in the idle state
+        bel_currentState_dat.add("idle");
+        //agent's target defaults to origin
+        bel_currentTarget_dat.add(0,0);
+        //agent's path defaults to empty
+        bel_currentPath_dat.add( new Vector(), false );
+        
+        //#TODO modify the bel_goldAt beliefset to say there is no gold at the depot
+        
+        // Iterate on all grid positions 
+        for(int x=0;x<simStart.gsizex; x++) {
+            for(int y=0; y<simStart.gsizey;y++) {
+                // Do something here with each cell (x,y)
+            }
+        }
+        
+        
+        // Inform the coordinator that the simulation has just started
+        // Pass grid size, depot position, and no of simulation steps
+        @send("boss", mesimstart_s.send(simStart.id, simStart.opponent, GridPoint.getCur(simStart.gsizex, simStart.gsizey),
+                GridPoint.getCur(simStart.depotx, simStart.depoty), simStart.steps));
+    
+        // Inform the GUI agent that a simulation has just started
+        // Pass grid size, depot position, and no of simulation steps
+    	@send("gui", mesimstart_s.send(simStart.id, simStart.opponent, GridPoint.getCur(simStart.gsizex, simStart.gsizey),
+                GridPoint.getCur(simStart.depotx, simStart.depoty), simStart.steps));
+
+    	// Inform the GUI of where we believe the depot is located
+    	GridObject gridobj = new GridObject(simStart.depotx, simStart.depoty, GameGraphics.getDepotString());
+    	@send("gui", meinformcellstatus_s.send(gridobj));
+    	
+    	
+    	
+    	
+        // Report the start of a new simulation for this agent
+		consoleIface.showConsoleDebug("I have just started a new simulation!");
+    }
+}

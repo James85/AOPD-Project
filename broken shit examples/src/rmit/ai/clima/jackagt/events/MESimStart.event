@@ -1,0 +1,61 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+
+import rmit.ai.clima.gui.grid.GridPoint;
+
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event MESimStart extends MessageEvent
+{
+/*
+ * Message Name: MESimStart
+ * Description: Inform that a simulation has just started
+ * Covered: true
+ * Overlap: true
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+ /*Posting Method Declarations*/
+   //modify
+    public GridPoint gridSize;
+    public GridPoint depotPosition;
+    public int numSteps;
+    public boolean saveToFile;
+    public String id;
+    public String opponent;
+    public int agentNo = -1;
+
+    #posted as
+    send(String id, String opponent, GridPoint gridSize, GridPoint depotPosition, int numSteps, boolean saveToFile) {
+        this.id = id;
+        this.opponent = opponent;
+        this.gridSize = gridSize;
+        this.depotPosition = depotPosition;
+        this.numSteps = numSteps;
+        this.saveToFile = saveToFile;
+    }
+
+    #posted as
+    send(String id, String opponent, GridPoint gridSize, GridPoint depotPosition, int numSteps, boolean saveToFile, int agentNo) {
+        this.id = id;
+        this.opponent = opponent;
+        this.gridSize = gridSize;
+        this.depotPosition = depotPosition;
+        this.numSteps = numSteps;
+        this.saveToFile = saveToFile;
+        this.agentNo = agentNo;
+    }
+
+	#posted as
+    send(String id, String opponent, GridPoint gridSize, GridPoint depotPosition, int numSteps) {
+        this.id = id;
+        this.opponent = opponent;
+        this.gridSize = gridSize;
+        this.depotPosition = depotPosition;
+        this.numSteps = numSteps;
+        this.saveToFile = true;
+    }
+
+    #set transport java;
+
+}

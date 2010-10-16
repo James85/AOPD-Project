@@ -1,0 +1,59 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.iface.ClimaAdapter;
+import rmit.ai.clima.iface;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+//modify
+import rmit.ai.clima.comms.AuthRequest;
+import rmit.ai.clima.iface.TellClimaServer;
+import aos.util.timer.Timer;
+
+public plan AuthenticateToServer extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: AuthenticateToServer
+Description: Authenticate to the game server with the agent login/password
+*/
+	//Events handled by the plan are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#posts event TellClimaServer tellclimaserver_p;
+
+	#handles event EStart estart_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data Timer clima_timer_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+
+   static boolean relevant(EStart ev)
+    {
+        return true;
+    }
+    
+    context()
+    {
+        true;
+    }
+    
+    
+   
+    #reasoning method
+    body()
+    {
+        // Get the agent name and construct the agent's path
+        getAgent().timer = clima_timer_dat;
+        String path = "clima.agent." + getAgent().getBasename();
+    
+        
+        // Post event to send and Auth-Request message to game server
+        @subtask(tellclimaserver_p.tell( new AuthRequest (
+            System.getProperty(path + ".username"),
+            System.getProperty(path + ".password") ) ) );
+    }
+}

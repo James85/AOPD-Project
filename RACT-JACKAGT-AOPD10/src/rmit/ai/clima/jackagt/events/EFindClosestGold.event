@@ -12,12 +12,14 @@ public event EFindClosestGold extends BDIGoalEvent
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	
 	public Vector relevantPlayers;
+	public Vector relevantTargets;
 	public Vector playerGold; 
 	
 	/*Posting Method Declarations*/
-	#posted as post(Vector relevantPlayers)
+	#posted as post (Vector relevantPlayers, Vector relevantTargets)
 	{
 		this.relevantPlayers = relevantPlayers;
+		this.relevantTargets = relevantTargets;
 		this.playerGold = new Vector();
 	}
 }

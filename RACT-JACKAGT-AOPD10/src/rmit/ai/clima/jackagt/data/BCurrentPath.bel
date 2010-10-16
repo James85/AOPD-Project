@@ -1,5 +1,6 @@
 package rmit.ai.clima.jackagt.data;
 import rmit.ai.clima.jackagt.events.*;
+import java.util.*;
 
 public beliefset BCurrentPath extends ClosedWorld /*or OpenWorld*/
 {
@@ -21,4 +22,20 @@ public beliefset BCurrentPath extends ClosedWorld /*or OpenWorld*/
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	
 	#indexed query get (logical Object path, logical boolean reachable);
+	
+	#function query public Vector getPath ()
+	{
+	   logical Object $path;
+	   logical boolean $reachable;
+	   get( $path, $reachable ).next();
+	   return (Vector) $path.as_object();
+	}
+	
+   #function query public boolean getReachable ()
+   {
+      logical Object $path;
+      logical boolean $reachable;
+      get( $path, $reachable ).next();
+      return $reachable.as_boolean();
+   }
 }

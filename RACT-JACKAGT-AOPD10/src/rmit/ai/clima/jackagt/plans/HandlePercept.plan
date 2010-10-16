@@ -21,7 +21,7 @@ Description: This plan assimilates each percept information received from the ga
 
 */
 	//Events handled by the plan are declared here.
-	#sends event MEReportPlayerPercept mereportplayerpercept_s;
+	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#sends event EUpdateBel eupdatebel_s;
 
@@ -29,7 +29,7 @@ Description: This plan assimilates each percept information received from the ga
 
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
-	#posts event MEInformAgentStatus meinformagentstatus_p;
+	#sends event MEReportPlayerPercept mereportplayerpercept_s;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 

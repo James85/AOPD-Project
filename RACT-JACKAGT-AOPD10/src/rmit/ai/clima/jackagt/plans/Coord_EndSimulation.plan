@@ -20,13 +20,15 @@ Description: Coordination plan to finish a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BUnexplored bel_unexplored_dat;
+
 	#modifies data BPlayerGold bel_playerGold_dat;
 
-	#modifies data BPlayer bel_players_dat;
+	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
 	#modifies data BPlayerPosition bel_playerPositions_dat;
 
-	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+	#modifies data BPlayer bel_players_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
@@ -52,10 +54,15 @@ Description: Coordination plan to finish a simulation
         // Clear current simulation properties
         logical int $gridX, $gridY, $depotX, $depotY, $noSteps;
         bel_simulationProp_dat.get($gridX, $gridY, $depotX, $depotY, $noSteps).removeAll();
-        logical String $agentName;
+        
+        
         logical int $xPos, $yPos;
+        logical String $agentName;
         bel_playerPositions_dat.get($agentName,$xPos,$yPos).removeAll();
         bel_playerPerceptReceived_dat.get($agentName).removeAll();
+        
+        logical int $uX, $uY;
+        bel_unexplored_dat.get($uX, $uY).removeAll();
 
 
       	consoleIface.showConsoleDebug("Agent "+mesimend_h.from+ " reported the end of a simulation...");

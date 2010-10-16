@@ -18,9 +18,9 @@ Plan Name: PReceiveState
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentState bel_currentState_dat;
-
 	#modifies data BCurrentPosition bel_currentTarget_dat;
+
+	#modifies data BCurrentState bel_currentState_dat;
 
 	#modifies data BCurrentPath bel_currentPath_dat;
 
@@ -58,18 +58,9 @@ Plan Name: PReceiveState
       String state = $state.as_string();
       System.out.println("Our current state is: " + state);
       
-      //logical int $posX, $posY, $targetX, $targetY;
-      //logical int $numGold;
-      
-      //bel_currentPosition_dat.get( $posX, $posY );
-      //bel_currentTarget_dat.get( $targetX, $targetY );
-      //bel_numCarryingGold_dat.get( $numGold );
-      
       //Get current path
-      logical Object $path;
-      logical boolean $reachable;
-      bel_currentPath_dat.get( $path, $reachable );
-      Vector path = (Vector) $path.as_object();
+      Vector path = bel_currentPath_dat.getPath();
+      boolean reachable = bel_currentPath_dat.getReachable();
       
       //Check if empty state received
       if (! newState.equals(""))

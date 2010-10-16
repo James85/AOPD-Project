@@ -37,4 +37,9 @@ public beliefset BPlayerPosition extends ClosedWorld /*or OpenWorld*/
 	   logical int $x, $y;
 	   return getByName(name , $x, $y) == Cursor.trueCursor;
 	}
+	#function query public boolean checkByCoord(int posX, int posY)
+	{
+	   logical String $name;
+	   return getByCoord($name, posX, posY).next();  
+	}
 }

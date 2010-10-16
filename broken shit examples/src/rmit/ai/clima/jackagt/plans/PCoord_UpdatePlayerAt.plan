@@ -1,0 +1,47 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.comms.Cell;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+public plan PCoord_UpdatePlayerAt extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PCoord_UpdatePlayerAt
+*/
+	//Events handled by the plan are declared here.
+
+	// Declarations of any beliefset/data that the plan accesses.
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	context()
+	{
+		true;
+	}
+
+	body()
+	{
+      Cell[] cells = eupdateenemypositions_h.cells;
+      GridPoint pos = eupdateenemypositions_h.currentPos; 
+      
+      //Iterate on each cell
+      for(int i=0; i < cells.length; i++) 
+      {
+         // Calculate the exact point of cells[i]: store it in GridPoint loc
+         String dir = cells[i].id;   // first, get its direction (e.g., n, nw, s, se, etc.)
+         GridPoint cellPos = GridPoint.getFromDir( pos.x, pos.y, dir);
+
+         // Iterate on all the marks/labels for cells[i] (which is location loc)
+         for(int j = 0; j < cells[i].marks.length; j++) 
+         {
+            //Check if an agent and not our own
+            if( cells[i].marks[j].type.equalsIgnoreCase("agent"))
+            {
+            
+            }
+         }
+      }
+	}
+}

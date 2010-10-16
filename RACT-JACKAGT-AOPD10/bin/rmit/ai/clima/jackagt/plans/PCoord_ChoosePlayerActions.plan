@@ -3,7 +3,7 @@ import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.*;
 import java.util.*;
-import rmit.ai.clima.jackagt.PlayerGold;
+import rmit.ai.clima.jackagt.*;
 
 public plan PCoord_ChoosePlayerActions extends Plan
 {
@@ -13,37 +13,41 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
-	#posts event EIdentifyTarget eidentifytarget_p;
-
-	#posts event EPostPlayerAction epostplayeraction_p;
-
 	#posts event EFindPath efindpath_p;
+
+	#posts event EFindClosestGold efindclosestgold_p;
+
+	#posts event EIdentifyTarget eidentifytarget_p;
 
 	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
-	#posts event EFindClosestGold efindclosestgold_p;
+	#posts event EPostPlayerAction epostplayeraction_p;
+
+	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
 
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BPlayerAt bel_playerAt_dat;
+
 	#modifies data BPlayerPosition bel_playerTarget_dat;
-
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
-	#reads data BPathCache bel_moveHint_dat;
 
 	#reads data BPlayerState bel_playerState_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
+	#reads data BPlayer bel_players_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
-	#reads data BPlayer bel_players_dat;
+	#reads data BPathCache bel_moveHint_dat;
 
-	#reads data BObstacleAt bel_obstacleAt_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -68,6 +72,7 @@ Plan Name: PCoord_ChoosePlayerActions
       bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
 
       Vector relevantPlayers = new Vector();
+      Vector relevantTargets = new Vector();
       
       //Loop through all the players on the team
       logical String $name;
@@ -81,8 +86,26 @@ Plan Name: PCoord_ChoosePlayerActions
             relevantPlayers.add( $name.as_string() );
       }
       
+      //Loop through all the gold
+      logical int $goldX, $goldY;
+      Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
+      while ( c_gold.next() )
+      {
+         //Check if gold is relevant
+         GridPoint goldPos = new GridPoint( $goldX.as_int(), $goldY.as_int() );
+         relevantTargets.add( goldPos );
+      }
+      
+      EIdentifyExploreTargets identifyExplore = eidentifyexploretargets_p.post();
+      @subtask( identifyExplore );
+      for (int e=0; e<identifyExplore.targets.size(); ++e)
+      {
+         UnexploredBlock block = (UnexploredBlock) identifyExplore.targets.get(e); 
+         relevantTargets.add( block.pivot );
+      }
+      
       //Find the closest player-gold pairs
-      EFindClosestGold goldRequest = efindclosestgold_p.post(relevantPlayers);
+      EFindClosestGold goldRequest = efindclosestgold_p.post( relevantPlayers, relevantTargets );
       @subtask( goldRequest );
       //relevantPlayers.clear();
       
@@ -132,9 +155,11 @@ Plan Name: PCoord_ChoosePlayerActions
       
       //Clear the pathfinding results
       logical int $srcX, $srcY,  $dstX,  $dstY;
+      logical int $playerAtX, $playerAtY;
       logical Object $path;
       logical boolean $reachable;
       bel_moveHint_dat.get($srcX, $srcY, $dstX, $dstY, $path, $reachable).removeAll();
+      bel_playerAt_dat.get($playerAtX, $playerAtY).removeAll();
       
       //TODO: Clear the player-explore pairs
    }

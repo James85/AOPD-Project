@@ -1,0 +1,31 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.comms.Cell;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event ECoordUpdateBel extends BDIGoalEvent
+{
+/*
+ * Message Name: ECoordUpdateBel
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Message Name: EUpdatePlayerAt
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Message Name: EUpdateEnemyPositions
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   
+   public Cell[] cells;
+   public GridPoint currentPos;
+   
+	#posted as
+	post (GridPoint currentPos, Cell[] cells)
+	{
+	   this.currentPos = currentPos;
+	   this.cells = cells;
+	}
+}

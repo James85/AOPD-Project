@@ -1,0 +1,75 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+//modify
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.interfaces.*;
+
+import rmit.ai.clima.grid.content.*;
+import rmit.ai.clima.gui.grid.*;
+
+
+
+public plan BeliefReporting extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: BeliefReporting
+Description: Report the beliefs of the agent somewhere (e.g., in the GUI)
+*/
+	//Events handled by the plan are declared here.
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles event EShowBeliefs eshowbeliefs_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
+
+	#reads data CurrentStatus bel_currentStatus_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+
+
+   final static String [] dir = { "cur", "n", "ne", "e", "se", "s", "sw", "w", "nw" };
+   final static String ID = "BEL_REPORT";	// The ID of the plan (for printing)	
+
+   static boolean relevant(EShowBeliefs ev)
+    {
+        return true;
+    }
+    
+    context()
+    {
+    	bel_currentStatus_dat.debugGUI();
+    }
+    
+    fail()
+    {
+		// @send("gui", eguidebugmessage_s.reportMessage(getPlanName(), "Plan has failed!"));
+    }
+
+    
+    #reasoning method
+    body()
+    {
+   
+        // Get all the current values believed true
+        logical int $lastActionSentId, $step;
+		bel_currentRequestActionId_dat.query_step($step);
+
+		// Report the current action id known
+		@send("gui", eguidebugmessage_s.reportMessage(ID, "My current request action id is "+ $step.as_int()) );
+	
+    }
+}

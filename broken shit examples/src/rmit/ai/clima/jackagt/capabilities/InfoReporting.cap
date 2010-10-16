@@ -1,0 +1,86 @@
+package rmit.ai.clima.jackagt.capabilities;
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.jackagt.plans.*;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+import rmit.ai.clima.iface.*;
+
+//import ;
+//import ;
+//import ;
+//import ;
+//import ;
+//import ;
+//import ;
+//import ;
+//import ;
+
+
+public capability InfoReporting extends Capability
+		 /*implements Interface*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+Capability Name: InfoReporting
+Description: Tasks to report on information believed
+*/
+
+	//Knowledge bases used are declared here.
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentStatus bel_currentStatus_dat();
+
+
+	//Events handled, posted and sent are declared here.
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+	#handles external event EShowBeliefs ;
+
+	#handles external event ECellChange ;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+
+	//Plans directly used are declared here.
+	#uses plan BeliefReporting ;
+
+	#uses plan ConsoleBeliefPrinting ;
+
+	#uses plan ReportCellChangeToGUI ;
+
+
+	// Inner capabilities are declared here.
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   //other Data Member and Method definitions.
+}

@@ -1,0 +1,115 @@
+package rmit.ai.clima.jackagt.plans;
+import aos.jack.jak.cursor.Cursor;
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+//modify
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.interfaces.*;
+
+import rmit.ai.clima.gui.grid.*;
+
+public plan ConsoleBeliefPrinting extends Plan
+{
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: ConsoleBeliefPrinting
+Description: Reports believed information in the console
+*/
+	//Events handled by the plan are declared here.
+	#handles event EShowBeliefs eshowbeliefs_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BNumCarryingGold bel_numCarryingGold_dat;
+
+	#reads data CurrentStatus bel_currentStatus_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BCurrentPosition bel_currentPosition_dat;
+
+	#reads data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+
+   // The enclosing agent or capability has to implement these interfaces
+   #uses interface DebugInterface consoleIface;
+
+
+
+   final static String [] dir = { "cur", "n", "ne", "e", "se", "s", "sw", "w", "nw" };
+   final static String [] niceDirs = { "current", "North", "North-East", "East", "South-East","South", "South-West", "West", "North-West" };
+
+   static boolean relevant(EShowBeliefs ev)
+   {
+      return true;
+   }
+
+   context()
+   {
+      bel_currentStatus_dat.debugConsole();
+   }
+
+
+   #reasoning method
+   body()
+   {
+      // Shows agent current location & no of items
+      logical int $id, $step;
+
+      bel_currentRequestActionId_dat.get($id,$step);
+      //consoleIface.showConsoleDebug("Current ID step: "+$id);
+
+      // ************* Print out number of cells that are believed empty
+      logical int $x,$y;
+      int count=0;
+
+      for ( Cursor c = bel_obstacleAt_dat.get($x,$y).negate() ; c.next() ; ) 
+      {
+         count++;
+      }
+//      consoleIface.showConsoleDebug("Number of cells believed empty of obstacles: "+count);
+
+      // Now print the cells that are known to be blocked
+      count = 0;
+      for ( Cursor c = bel_obstacleAt_dat.get($x,$y) ; c.next() ; ) 
+      {
+         count++;
+      }
+//      consoleIface.showConsoleDebug("Number of believed obstructed cells: "+count);
+
+      // Print the number of gold believed to be carried
+      logical int $numGold;
+      bel_numCarryingGold_dat.get( $numGold );
+//      consoleIface.showConsoleDebug( "Number of believed carried gold: "+$numGold.as_int() );
+
+      // ************* BELOW HERE YOU MAY WANT TO REPORT MORE STUFF IN THE CONSOLE ....
+      logical int $xPos,$yPos;
+      bel_currentPosition_dat.get($xPos,$yPos);
+      GridPoint currentPos = new GridPoint($xPos.as_int(), $yPos.as_int());
+
+      for(int i = 0; i < dir.length; i+=1)
+      {
+         GridPoint tempPos = currentPos.getFromDir(dir[i]);
+         if(bel_obstacleAt_dat.check(tempPos.x,tempPos.y))
+         {
+            //print that there is a obstacle in this direction
+//            consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is an obstacle in the " + niceDirs[i]);
+
+         }
+         else
+            if(bel_goldAt_dat.check(tempPos.x,tempPos.y))
+            {
+//               consoleIface.showConsoleDebug("Agent "+getAgent().name()+" believes there is gold in the " + niceDirs[i]);
+            }
+      }
+      
+
+   }
+}

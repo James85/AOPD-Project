@@ -1,0 +1,60 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PTellPlayerToMove extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PTellPlayerToMove
+*/
+	//Events handled by the plan are declared here.
+	#posts event EFindPath efindpath_p;
+
+	#posts event MEPlayerAction meplayeraction_p;
+
+	#posts event EFindClosestGold efindclosestgold_p;
+
+	#handles event EPostPlayerAction epostplayeraction_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BMoveHint bel_moveHint_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerPosition bel_playerTarget_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	logical int $goldX, $goldY, $playerX, $playerY, $depotX, $depotY, $targetX, $targetY, $numGold;
+	context()
+	{
+	   
+	   bel_playerTarget_dat.getByName(epostplayeraction_h.playerName, $targetX, $targetY);
+	}
+
+	body()
+	{
+      //System.out.print("TRYYYYYYYING TO MOVE!!!!!");
+	   logical int $x, $y;
+	   bel_playerPositions_dat.getByName( epostplayeraction_h.playerName, $x, $y );
+	   
+	     String baseName = epostplayeraction_h.playerName;
+	      baseName = baseName.substring(0,baseName.indexOf("@"));
+	   
+	   @subtask(efindpath_p.post( epostplayeraction_h.playerName, $x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int() ));
+	   
+	   logical String $targetMove;
+      //bel_moveHint_dat.getByEndPoints($x.as_int(), $y.as_int(), $targetX.as_int(), $targetY.as_int(), $targetMove );
+	  // @send( baseName, meplayeraction_s.send( "moveTo", $targetMove.as_string() ));
+	}
+   public PlanInstanceInfo getInstanceInfo()
+   {
+      return PlanInstanceInfo.def[4];
+   }
+}

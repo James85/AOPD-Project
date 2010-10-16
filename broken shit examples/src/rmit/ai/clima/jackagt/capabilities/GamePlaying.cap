@@ -1,0 +1,131 @@
+package rmit.ai.clima.jackagt.capabilities;
+import rmit.ai.clima.iface.LastActionSentBel;
+import rmit.ai.clima.iface;
+import rmit.ai.clima.iface.PerceiveClimaServer;
+import rmit.ai.clima.jackagt.plans.*;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+import rmit.ai.clima.iface.*;
+
+import aos.jack.jak.event.PlanChoice;
+
+
+public capability GamePlaying extends Capability
+		 /*implements Interface*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+Capability Name: GamePlaying
+*/
+
+	//Knowledge bases used are declared here.
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPosition bel_currentTarget_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPath bel_currentPath_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentState bel_currentState_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data SimulationProp bel_simulationProp_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentStatus bel_currentStatus_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+
+
+	//Events handled, posted and sent are declared here.
+	#sends event MEReportPlayerState mereportplayerstate_s;
+
+	#handles external event MEPlayerPerceptsAssimilated ;
+
+	#handles external event ECellChange ;
+
+	#handles external event MEReturnPlayerState ;
+
+	#handles event EExecuteCLIMAaction ;
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event PerceiveClimaServer ;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
+	#posts event EAct eact_p;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#posts event MEReportPlayerPercept mereportplayerpercept_p;
+
+	#posts external event TellClimaServer tellclimaserver_p;
+
+	#sends event EUpdateBel eupdatebel_s;
+
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#handles external event MEReturnCellInfo ;
+
+	#handles event EShowBeliefs ;
+	#posts event EShowBeliefs eshowbeliefs_p;
+
+	#handles external event MEReturnPathfinding ;
+
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+
+	//Plans directly used are declared here.
+	#uses plan SendActionAndWait ;
+
+	#uses plan HandlePercept ;
+
+	#uses plan UpdateCellsAround ;
+
+
+	// Inner capabilities are declared here.
+	#has capability InfoReporting inforeporting_cap;
+
+	#has capability ActionDecision actiondecision_cap;
+
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   //other Data Member and Method definitions.
+}

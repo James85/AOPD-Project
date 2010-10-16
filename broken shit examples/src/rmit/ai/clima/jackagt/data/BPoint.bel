@@ -1,0 +1,28 @@
+package rmit.ai.clima.jackagt.data;
+import rmit.ai.clima.jackagt.events.*;
+
+public beliefset BPoint extends ClosedWorld /*or OpenWorld*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: BPoint
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+	/*	the x component of this "vector"
+	*/
+	#value field int xCoord;
+
+	/*	the y component of this "vector"
+	*/
+	#value field int yCoord;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
+	#indexed query get(logical int xCoord, logical int yCoord);
+}

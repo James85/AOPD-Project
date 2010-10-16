@@ -1,0 +1,24 @@
+package rmit.ai.clima.jackagt.events;
+
+//modify
+import aos.jack.util.cursor.Change;
+import java.util.Observable;
+
+
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event EStart extends BDIGoalEvent
+{
+/*
+ * Message Name: EStart
+ * Covered: true
+ * Overlap: true
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   
+   // The agent posts this event itself as soon as it starts
+   // This event then starts the whole behavior, starting with authentication...
+   #posted when ( new Change( new Observable(),true ) ) { 
+    
+    }
+}

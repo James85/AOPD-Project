@@ -23,6 +23,8 @@ Plan Name: PCoord_HandleCellInfoRequest
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
+	#reads data BUnexplored bel_unexplored_dat;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
 	static boolean relevant (MERequestCellInfo e)
@@ -44,7 +46,8 @@ Plan Name: PCoord_HandleCellInfoRequest
 	   GridPoint cellPos = merequestcellinfo_h.cellPos;
 	   boolean hasGold = bel_goldAt_dat.check( cellPos.x, cellPos.y ).next();
 	   boolean hasObstacle = bel_obstacleAt_dat.check( cellPos.x, cellPos.y ).next();
-	   boolean isExplored = ! bel_obstacleAt_dat.checkUnknown( cellPos.x, cellPos.y );
-	   @reply( merequestcellinfo_h, mereturncellinfo_s.reply( cellPos, hasGold, hasObstacle, isExplored ));
+	   boolean isExplored = ! bel_unexplored_dat.check( cellPos.x, cellPos.y ).next();
+	   boolean hasPlayer = bel_playerPositions_dat.checkByCoord( cellPos.x, cellPos.y);
+	   @reply( merequestcellinfo_h, mereturncellinfo_s.reply( cellPos, hasGold, hasObstacle, isExplored, hasPlayer ));
 	}
 }

@@ -1,0 +1,19 @@
+package rmit.ai.clima.jackagt.events;
+
+
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event EShowBeliefs extends BDIGoalEvent
+{
+/*
+ * Message Name: EShowBeliefs
+ * Covered: true
+ * Overlap: true
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   /*Posting Method Declarations*/
+   //modify
+   #posted as
+    show() {}
+
+}

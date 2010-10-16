@@ -1,0 +1,16 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event MEPlayerPerceptsAssimilated extends MessageEvent
+{
+/*
+ * Message Name: MEPlayerPerceptsAssimilated
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	/*Posting Method Declarations*/
+	#posted as send()
+	{
+		
+	}
+}

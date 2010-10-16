@@ -1,0 +1,25 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event MEReturnCellInfo extends MessageEvent
+{
+/*
+ * Message Name: MEReturnCellInfo
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   
+   public boolean hasGold;
+   public boolean hasObstacle;
+   public boolean isExplored;
+   public GridPoint cellPos;
+	
+	#posted as reply(GridPoint cellPos, boolean hasGold, boolean hasObstacle, boolean isExplored)
+	{
+	   this.cellPos = cellPos;
+	   this.hasGold = hasGold;
+	   this.hasObstacle = hasObstacle;
+	   this.isExplored = isExplored;
+	}
+}
