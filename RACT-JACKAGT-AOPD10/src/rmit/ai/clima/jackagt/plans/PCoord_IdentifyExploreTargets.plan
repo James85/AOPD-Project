@@ -93,7 +93,7 @@ Plan Name: PCoord_IdentifyExploreTargets
 	         Target target = new Target();
             target.type = Target.Type.EXPLORE;
 	         target.pos = blocks[b].pivot;
-	         target.weight = BLOCK_RES_X*BLOCK_RES_Y - blocks[b].count;
+	         target.weight = BLOCK_W*BLOCK_H - blocks[b].count;
 	         eidentifyexploretargets_h.targets.add( target );
 	      }
 	   }

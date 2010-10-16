@@ -77,6 +77,8 @@ Plan Name: PFindPlayersNearestGold
 	         pt.target = target;
 	         //pt.dist = target.weight + target.pos.getManhattanDist(playerPos);
 	         pt.dist = target.weight + pathRequest.path.size();
+	         
+	         //if (target.type == Target.Type.EXPLORE)
 	         targets.add(pt);
 	      }
 	   }
@@ -91,7 +93,12 @@ Plan Name: PFindPlayersNearestGold
 	      //Compare to other targets assigned so far
 	      boolean b_discard = false;
 	      PlayerTarget pt = (PlayerTarget) targets.get(i);
-	      for( int j = 0 ; j < usedTargets.size() ; ++ j)
+
+	      System.out.println( "Assigning target " +
+	            (pt.target.type == Target.Type.GOLD ? "GOLD" : "EXPLORE") +
+	            " weight " + pt.dist);
+	      
+         for( int j = 0 ; j < usedTargets.size() ; ++ j)
 	      {
 	         //Skip if either the player or the target has already been assigned
 	         PlayerTarget ptUsed = (PlayerTarget) usedTargets.get(j);
