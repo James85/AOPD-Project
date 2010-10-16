@@ -101,14 +101,6 @@ Plan Name: PFindPath
          Cursor c_obstacleAt = bel_obstacleAt_dat.get( $obstacleX, $obstacleY );
          Cursor c_playerAt = bel_playerAt_dat.get( $playerX, $playerY );
 
-
-         // if depot is not our start or end point make it an obstacle
-         if(!depotPoint.equals(src) && !depotPoint.equals(dst))
-         {
-            PathNode node = grid.getNode( depotPoint.x, depotPoint.y ); 
-            node.obstacle = true;
-         }
-
          // Obstacles are obstacles
          while(c_obstacleAt.next())
          {
@@ -124,6 +116,14 @@ Plan Name: PFindPath
                node.obstacle = true;
          }
       }
+      
+      // if depot is not our start or end point make it an obstacle - needs to be done outside the above check as it is player specific
+      PathNode node = grid.getNode( depotPoint.x, depotPoint.y );
+      if(!depotPoint.equals(src) && !depotPoint.equals(dst)) 
+         node.obstacle = true; 
+      else
+         node.obstacle = false;
+      
       //Init root node
       PathNode root = grid.getNode( src );
       root.dir = "";
