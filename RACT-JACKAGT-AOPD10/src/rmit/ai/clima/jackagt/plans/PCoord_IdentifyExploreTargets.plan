@@ -23,6 +23,11 @@ Plan Name: PCoord_IdentifyExploreTargets
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
+   #reasoning method fail()
+   {
+       System.out.println("OMGZORS ===========DickZilla : IdentifyExploreTargets");
+   }
+   
 	context()
 	{
 		true;

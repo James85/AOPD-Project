@@ -65,6 +65,7 @@ Plan Name: PCoord_ChoosePlayerActions
    {
        System.out.println("OMGZORS ===========DickZilla : ChoosePlayerActions");
    }
+   
    final static String[] lookUpDirs = { "up", "down", "right", "left" };
 
    
