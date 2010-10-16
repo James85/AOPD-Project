@@ -59,22 +59,24 @@ Plan Name: PFindPlayersNearestGold
 
 	      for (int t=0; t<relevantTargets.size(); ++t)
 	      {
-	         //TODO: this turned out to be to slow, so we check actual distance
-	         //only when accepting the new path
-
 	         Target target = (Target) relevantTargets.get(t);
+	         if (target.type == Target.Type.EXPLORE)
+	            continue;
 
+            //TODO: this turned out to be to slow, so we check actual distance
+            //only when accepting the new path
+	         
 	         //Find distance from player to target, skip if unreachable
-//            EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), goldPos.x, goldPos.y);
-//            @subtask( pathRequest);  
-//            if (!pathRequest.reachable) continue;
+            EFindPath pathRequest = efindpath_p.post( name, playerPos.x, playerPos.y, target.pos.x, target.pos.y);
+            @subtask( pathRequest);  
+            if (!pathRequest.reachable) continue;
             
 	         //Calculate distance and store a new player-target pair
 	         PlayerTarget pt = new PlayerTarget();
 	         pt.name = name;
 	         pt.target = target;
-	         pt.dist = target.pos.getManhattanDist(playerPos);
-	         //pt.dist = pathRequest.path.size();
+	         //pt.dist = target.pos.getManhattanDist(playerPos);
+	         pt.dist = pathRequest.path.size();
 	         targets.add(pt);
 	      }
 	   }
