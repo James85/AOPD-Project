@@ -61,8 +61,7 @@ Description: Coordination plan to start a simulation
       //initialise flag that tracks which players have sent info this turn 
       bel_players_dat.add(mesimstart_h.from);
       
-      //instantiate the pathfinding grid for this simulation
-      PathGrid.initInstance( gridX, gridY );
+
 
 
       if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps)) 
