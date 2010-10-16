@@ -36,7 +36,12 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BGoldAt bel_goldAt_dat();
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPosition bel_currentTarget_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -46,7 +51,17 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data Timer clima_timer_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -56,12 +71,7 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data Timer clima_timer_dat();
+	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -73,19 +83,11 @@ Capability Name: GameSyncing
 	*/
 	#imports data SimulationProp bel_simulationProp_dat();
 
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentPosition bel_currentTarget_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
-
 
 	//Events handled, posted and sent are declared here.
-	#handles external event EStart ;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MEGameEnd megameend_s;
 
 	#posts external event TellClimaServer tellclimaserver_p;
 
@@ -95,21 +97,19 @@ Capability Name: GameSyncing
 
 	#sends event MEInformCellStatus meinformcellstatus_s;
 
-	#sends event MEGameEnd megameend_s;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#handles external event EStart ;
 
 	#sends event MESimStart mesimstart_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan AuthenticateToServer ;
-
 	#uses plan FinishSimulation ;
+
+	#uses plan StartSimulation ;
 
 	#uses plan FinishGame ;
 
-	#uses plan StartSimulation ;
+	#uses plan AuthenticateToServer ;
 
 
 	// Inner capabilities are declared here.

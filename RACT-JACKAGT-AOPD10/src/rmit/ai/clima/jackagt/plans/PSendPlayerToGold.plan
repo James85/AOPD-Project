@@ -22,11 +22,11 @@ Plan Name: PSendPlayerToGold
 
 	#reads data BPlayerPosition bel_playerTarget_dat;
 
-	#reads data BPathCache bel_moveHint_dat;
-
 	#reads data BPlayerGold bel_playerGold_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPathCache bel_moveHint_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	logical int $goldX, $goldY, $playerX, $playerY;
