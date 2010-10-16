@@ -95,12 +95,12 @@ Plan Name: PCoord_ChoosePlayerActions
       for (int g=0; g<identifyGold.targets.size(); ++g)
          relevantTargets.add( identifyGold.targets.get(g) );
       
-      //Find all the relevant exploration targets
-      EIdentifyExploreTargets identifyExplore = eidentifyexploretargets_p.post();
-      @subtask( identifyExplore );
-      
-      for (int e=0; e<identifyExplore.targets.size(); ++e)
-         relevantTargets.add( identifyExplore.targets.get(e) );
+//      //Find all the relevant exploration targets
+//      EIdentifyExploreTargets identifyExplore = eidentifyexploretargets_p.post();
+//      @subtask( identifyExplore );
+//      
+//      for (int e=0; e<identifyExplore.targets.size(); ++e)
+//         relevantTargets.add( identifyExplore.targets.get(e) );
       
       //Find the closest player-target pairs
       EFindClosestGold goldRequest = efindclosestgold_p.post( relevantPlayers, relevantTargets );
@@ -117,22 +117,22 @@ Plan Name: PCoord_ChoosePlayerActions
          
          //Check if the player has gold assigned
          boolean goldFound = false;
-         for (int p=0; p<goldRequest.playerGold.size(); ++p)
+         for (int p=0; p<goldRequest.playerTargets.size(); ++p)
          {
-            PlayerGold pg = (PlayerGold) goldRequest.playerGold.get(p);
+            PlayerTarget pg = (PlayerTarget) goldRequest.playerTargets.get(p);
             if (pg.name.equals( name ))
             {
                //Find path to gold
                logical int $playerX, $playerY;
                bel_playerPositions_dat.getByName( name, $playerX, $playerY );
-               EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), pg.pos.x, pg.pos.y );
+               EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), pg.target.pos.x, pg.target.pos.y );
                @subtask(pathRequest);
                
                //Report new state to player
                @send( baseName, mereturnplayerstate_s.send(
-                     "gold", pg.pos, pathRequest.path, pathRequest.reachable ));
+                     "gold", pg.target.pos, pathRequest.path, pathRequest.reachable ));
                
-               System.out.println( baseName + " closest gold at " + pg.pos.x + "," + pg.pos.y );
+               System.out.println( baseName + " closest gold at " + pg.target.pos.x + "," + pg.target.pos.y );
                System.out.println("I'M SENDING PLAYERS TO THE GOLD");
                goldFound = true;
             }
