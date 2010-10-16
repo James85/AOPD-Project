@@ -45,10 +45,9 @@ Plan Name: PFindPlayersNearestGold
 	{
 	   Vector relevantPlayers = efindclosestgold_h.relevantPlayers;
 	   Vector relevantTargets = efindclosestgold_h.relevantTargets;
-	   Vector distances = new Vector(); 
-	   Vector usedDistances = new Vector();
+	   Vector targets = new Vector(); 
+	   Vector usedTargets = new Vector();
 	   
-	   //Calculate the distance between all players with all known gold positions
 	   for (int p=0; p<relevantPlayers.size(); ++p)
 	   {
 	      String name = (String) relevantPlayers.get(p);
@@ -58,7 +57,6 @@ Plan Name: PFindPlayersNearestGold
 	      bel_playerPositions_dat.getByName( name, $playerX, $playerY );
 	      GridPoint playerPos = new GridPoint( $playerX.as_int(), $playerY.as_int() );
 
-	      //Get positions of all gold pieces
 	      for (int t=0; t<relevantTargets.size(); ++t)
 	      {
 	         //TODO: this turned out to be to slow, so we check actual distance
@@ -66,43 +64,43 @@ Plan Name: PFindPlayersNearestGold
 
 	         Target target = (Target) relevantTargets.get(t);
 
-	         //Find distance from player to gold, skip if unreachable
+	         //Find distance from player to target, skip if unreachable
 //            EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), goldPos.x, goldPos.y);
 //            @subtask( pathRequest);  
 //            if (!pathRequest.reachable) continue;
             
-	         //Calculate distance and store a new player-gold pair
-	         PlayerTarget pg = new PlayerTarget();
-	         pg.name = name;
-	         pg.target = target;
-	         pg.dist = target.pos.getManhattanDist(playerPos);
-	         //pg.dist = pathRequest.path.size();
-	         distances.add(pg);
+	         //Calculate distance and store a new player-target pair
+	         PlayerTarget pt = new PlayerTarget();
+	         pt.name = name;
+	         pt.target = target;
+	         pt.dist = target.pos.getManhattanDist(playerPos);
+	         //pt.dist = pathRequest.path.size();
+	         targets.add(pt);
 	      }
 	   }
 	   
 
-	   Collections.sort(distances);
+	   Collections.sort(targets);
 	   
-	   
-	   for ( int i = 0; i < distances.size(); ++i )
+	   //Iterate all the targets
+	   for ( int i = 0; i < targets.size(); ++i )
 	   {
-	      //Compare to all the distances assigned so far
+	      //Compare to other targets assigned so far
 	      boolean b_discard = false;
-	      PlayerTarget pg = (PlayerTarget)distances.get(i);
-	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
+	      PlayerTarget pt = (PlayerTarget) targets.get(i);
+	      for( int j = 0 ; j < usedTargets.size() ; ++ j)
 	      {
 	         //Skip if either the player or the gold piece has already been assigned
-	         PlayerTarget pg2 = (PlayerTarget)usedDistances.get(j);
-	         if(pg.name.equals( pg2.name ) || pg.target.pos.equals( pg2.target.pos ))
+	         PlayerTarget ptUsed = (PlayerTarget) usedTargets.get(j);
+	         if(pt.name.equals( ptUsed.name ) || pt.target.pos.equals( ptUsed.target.pos ))
 	            b_discard = true;
 	      }
 	      if(b_discard)
 	         continue;
 	     
-	      //Assign gold piece to player
-	      usedDistances.add(pg);
-	      efindclosestgold_h.playerTargets.add( pg );
+	      //Assign target to player
+	      efindclosestgold_h.playerTargets.add( pt );
+         usedTargets.add(pt);
 	   }
 	}
 }
