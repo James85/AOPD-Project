@@ -20,11 +20,11 @@ Plan Name: PMove
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BCurrentPosition bel_currentTarget_dat;
-
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
 	#reads data BCurrentPath bel_currentPath_dat;
+
+	#reads data BCurrentPosition bel_currentTarget_dat;
 
 	#reads data BCurrentState bel_currentState_dat;
 

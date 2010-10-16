@@ -1,0 +1,44 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.*;
+import rmit.ai.clima.gui.grid.*;
+import java.util.*;
+
+public plan PCoord_IdentifyGoldTargets extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PCoord_IdentifyGoldTargets
+*/
+	//Events handled by the plan are declared here.
+	#handles event EIdentifyGoldTargets eidentifygoldtargets_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BGoldAt bel_goldAt_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	context()
+	{
+		true;
+	}
+
+	body()
+	{
+      //Loop through all the gold
+      logical int $goldX, $goldY;
+      Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
+      while ( c_gold.next() )
+      {
+         //Add a target for this gold
+         Target target = new Target();
+         target.type = Target.Type.GOLD;
+         target.pos = new GridPoint( $goldX.as_int(), $goldY.as_int() );
+         target.weight = 0;
+         eidentifygoldtargets_h.targets.add( target );
+      }
+	}
+}

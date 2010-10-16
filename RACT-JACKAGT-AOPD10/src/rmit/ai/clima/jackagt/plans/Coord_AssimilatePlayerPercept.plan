@@ -13,11 +13,11 @@ public plan Coord_AssimilatePlayerPercept extends Plan
 Plan Name: Coord_AssimilatePlayerPercept
 */
 	//Events handled by the plan are declared here.
+	#posts event ECoordUpdateBel ecoordupdatebel_p;
+
 	#posts event EUpdateBel eupdatebel_p;
 
 	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
-
-	#posts event ECoordUpdateBel ecoordupdatebel_p;
 
 	#handles event MEReportPlayerPercept mereportplayerpercept_h;
 

@@ -19,17 +19,7 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BCurrentState bel_currentState_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentPosition bel_currentTarget_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -44,42 +34,52 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BCurrentPosition bel_currentTarget_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPath bel_currentPath_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BCurrentPosition bel_currentPosition_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event MEPlayerPerceptsAssimilated ;
-
-	#sends event MEReportPlayerState mereportplayerstate_s;
-
-	#handles external event MEReturnCellInfo ;
-
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
-	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
-
-	#handles external event MEReturnPlayerState ;
-
-	#handles external event MEReturnPathfinding ;
-
 	#handles event EExecuteAction ;
 	#posts event EExecuteAction eexecuteaction_p;
 
+	#handles external event MEReturnCellInfo ;
+
+	#handles external event MEReturnPlayerState ;
+
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event MEReturnPathfinding ;
+
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MEReportPlayerState mereportplayerstate_s;
+
+	#handles external event MEPlayerPerceptsAssimilated ;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
 
 	//Plans directly used are declared here.
-	#uses plan PUpdateState ;
-
-	#uses plan PReceiveState ;
-
 	#uses plan PPick ;
 
 	#uses plan PDrop ;
 
 	#uses plan PMove ;
+
+	#uses plan PReceiveState ;
+
+	#uses plan PUpdateState ;
 
 
 	// Inner capabilities are declared here.

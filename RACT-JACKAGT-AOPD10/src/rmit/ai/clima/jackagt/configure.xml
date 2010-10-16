@@ -56,6 +56,7 @@
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/BeliefReporting.plan" ID="46593" name="BeliefReporting"/>
 <Entity DataFields="String agentName, int posX, int posY" DataType="BPlayerPosition" ID="536065" name="bel_playerTarget"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/FinishGame.plan" ID="45057" name="FinishGame"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_IdentifyGoldTargets.plan" ID="729089" name="PCoord_IdentifyGoldTargets"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/eage.event" ID="434177" name="eage"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MESimStart.event" ID="40449" name="MESimStart"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MESimEnd.event" ID="39681" name="MESimEnd"/>
@@ -110,6 +111,7 @@
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/CPathFinding.cap" ID="486913" name="CPathFinding"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EStart.event" ID="44545" name="EStart"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_AssimilatePlayerPercept.plan" ID="338689" name="Coord_AssimilatePlayerPercept"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EIdentifyGoldTargets.event" ID="730113" name="EIdentifyGoldTargets"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PDrop.plan" ID="534017" name="PDrop"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/ConsoleBeliefPrinting.plan" ID="43009" name="ConsoleBeliefPrinting"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EExecuteAction.event" ID="679169" name="EExecuteAction"/>

@@ -21,7 +21,7 @@ Capability Name: CResolvePlayerActions
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerPosition bel_playerTarget_dat();
+	#imports data BPlayerPosition bel_playerPositions_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -36,12 +36,12 @@ Capability Name: CResolvePlayerActions
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerPosition bel_playerPositions_dat();
+	#imports data BPlayerGold bel_playerGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerGold bel_playerGold_dat();
+	#imports data BPlayerPosition bel_playerTarget_dat();
 
 
 	//Events handled, posted and sent are declared here.
@@ -49,11 +49,11 @@ Capability Name: CResolvePlayerActions
 
 	#posts external event EFindPath efindpath_p;
 
-	#posts external event EFindClosestGold efindclosestgold_p;
-
 	#handles external event EPostPlayerAction ;
 
 	#posts external event MEPlayerAction meplayeraction_p;
+
+	#posts external event EFindClosestGold efindclosestgold_p;
 
 
 	//Plans directly used are declared here.

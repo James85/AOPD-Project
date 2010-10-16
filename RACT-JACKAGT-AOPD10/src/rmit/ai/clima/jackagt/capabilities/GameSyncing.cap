@@ -36,12 +36,7 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BGoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+	#imports data BCurrentPath bel_currentPath_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -51,27 +46,12 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data Timer clima_timer_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BCurrentPosition bel_currentPosition_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
+	#imports data BObstacleAt bel_obstacleAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -83,23 +63,43 @@ Capability Name: GameSyncing
 	*/
 	#imports data BCurrentPosition bel_currentTarget_dat();
 
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data Timer clima_timer_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+
 
 	//Events handled, posted and sent are declared here.
-	#sends event MEGameEnd megameend_s;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#posts external event TellClimaServer tellclimaserver_p;
 
-	#sends event MESimEnd mesimend_s;
-
 	#sends event MEInformCellStatus meinformcellstatus_s;
-
-	#sends event MESimStart mesimstart_s;
 
 	#handles external event PerceiveClimaServer ;
 
 	#handles external event EStart ;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#sends event MESimStart mesimstart_s;
+
+	#sends event MEGameEnd megameend_s;
+
+	#sends event MESimEnd mesimend_s;
 
 
 	//Plans directly used are declared here.

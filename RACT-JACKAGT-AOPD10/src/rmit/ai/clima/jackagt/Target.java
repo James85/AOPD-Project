@@ -5,11 +5,11 @@ public class Target
 {
    public class Type
    {
-      static final int GOLD = 0;
-      static final int EXPLORE = 1;
+      public static final int GOLD = 0;
+      public static final int EXPLORE = 1;
    }
    
-   public Type type;
+   public int type;
    public GridPoint pos;
    public int weight;
 }

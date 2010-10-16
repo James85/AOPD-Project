@@ -13,17 +13,19 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
+	#posts event EIdentifyTarget eidentifytarget_p;
+
+	#posts event EIdentifyGoldTargets eidentifygoldtargets_p;
+
 	#posts event EPostPlayerAction epostplayeraction_p;
 
 	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
 
-	#posts event EFindPath efindpath_p;
-
 	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
-	#posts event EIdentifyTarget eidentifytarget_p;
-
 	#posts event EFindClosestGold efindclosestgold_p;
+
+	#posts event EFindPath efindpath_p;
 
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
@@ -33,21 +35,21 @@ Plan Name: PCoord_ChoosePlayerActions
 
 	#modifies data BPlayerPosition bel_playerTarget_dat;
 
+	#reads data BGoldAt bel_goldAt_dat;
+
 	#reads data BPathCache bel_moveHint_dat;
-
-	#reads data BPlayerGold bel_playerGold_dat;
-
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
-	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
+	#reads data BPlayerGold bel_playerGold_dat;
+
 	#reads data BPlayer bel_players_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 	#reads data BPlayerState bel_playerState_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -86,32 +88,25 @@ Plan Name: PCoord_ChoosePlayerActions
             relevantPlayers.add( $name.as_string() );
       }
       
-      //Loop through all the gold
-      logical int $goldX, $goldY;
-      Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
-      while ( c_gold.next() )
-      {
-         //Check if gold is relevant
-         GridPoint goldPos = new GridPoint( $goldX.as_int(), $goldY.as_int() );
-         relevantTargets.add( goldPos );
-      }
+      //Find all the relevant gold targets
+      EIdentifyGoldTargets identifyGold = eidentifygoldtargets_p.post();
+      @subtask( identifyGold );   
       
+      for (int g=0; g<identifyGold.targets.size(); ++g)
+         relevantTargets.add( identifyGold.targets.get(g) );
       
+      //Find all the relevant exploration targets
       EIdentifyExploreTargets identifyExplore = eidentifyexploretargets_p.post();
       @subtask( identifyExplore );
-//      for (int e=0; e<identifyExplore.targets.size(); ++e)
-//      {
-//         UnexploredBlock block = (UnexploredBlock) identifyExplore.targets.get(e); 
-//         relevantTargets.add( block.pivot );
-//      }
       
-      //Find the closest player-gold pairs
+      for (int e=0; e<identifyExplore.targets.size(); ++e)
+         relevantTargets.add( identifyExplore.targets.get(e) );
+      
+      //Find the closest player-target pairs
       EFindClosestGold goldRequest = efindclosestgold_p.post( relevantPlayers, relevantTargets );
       @subtask( goldRequest );
-      //relevantPlayers.clear();
       
       //Loop through all players on the team
-      //for (int p=0; p<relevantPlayers.size(); ++p)
       c_players = bel_players_dat.get( $name );
       while (c_players.next())
       {

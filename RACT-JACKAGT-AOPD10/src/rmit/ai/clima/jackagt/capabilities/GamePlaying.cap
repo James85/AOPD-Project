@@ -23,17 +23,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BGoldAt bel_goldAt_dat();
+	#imports data BCurrentPath bel_currentPath_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -43,17 +33,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentPosition bel_currentTarget_dat();
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -63,7 +43,27 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
+	#imports data BCurrentPosition bel_currentTarget_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data SimulationProp bel_simulationProp_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -72,24 +72,37 @@ Capability Name: GamePlaying
 
 
 	//Events handled, posted and sent are declared here.
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#sends event MEReportPlayerState mereportplayerstate_s;
-
 	#sends event EUpdateBel eupdatebel_s;
 
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
 	#posts event MEReportPlayerPercept mereportplayerpercept_p;
-
-	#handles external event PerceiveClimaServer ;
 
 	#handles event EShowBeliefs ;
 	#posts event EShowBeliefs eshowbeliefs_p;
 
+	#sends event MEInformCellStatus meinformcellstatus_s;
+
+	#handles external event MEReturnPathfinding ;
+
 	#sends event MERequestPathfinding merequestpathfinding_s;
 
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
 	#handles external event ECellChange ;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#handles event EExecuteCLIMAaction ;
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#posts external event TellClimaServer tellclimaserver_p;
+
+	#handles external event MEReturnPlayerState ;
+
+	#handles external event MEReturnCellInfo ;
+
+	#sends event MEReportPlayerState mereportplayerstate_s;
+
+	#handles external event PerceiveClimaServer ;
 
 	#posts event EAct eact_p;
 
@@ -97,26 +110,13 @@ Capability Name: GamePlaying
 
 	#handles external event MEPlayerPerceptsAssimilated ;
 
-	#handles external event MEReturnCellInfo ;
-
-	#handles event EExecuteCLIMAaction ;
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
-
-	#handles external event MEReturnPathfinding ;
-
-	#handles external event MEReturnPlayerState ;
-
-	#posts external event TellClimaServer tellclimaserver_p;
-
-	#sends event MEInformCellStatus meinformcellstatus_s;
-
 
 	//Plans directly used are declared here.
 	#uses plan UpdateCellsAround ;
 
-	#uses plan HandlePercept ;
-
 	#uses plan SendActionAndWait ;
+
+	#uses plan HandlePercept ;
 
 
 	// Inner capabilities are declared here.

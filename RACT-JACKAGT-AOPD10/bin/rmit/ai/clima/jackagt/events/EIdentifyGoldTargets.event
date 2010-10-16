@@ -1,0 +1,20 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.*;
+import java.util.*;
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event EIdentifyGoldTargets extends BDIGoalEvent
+{
+/*
+ * Message Name: EIdentifyGoldTargets
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	
+   public Vector targets;
+   
+	#posted as post()
+	{
+	   targets = new Vector();
+	}
+}

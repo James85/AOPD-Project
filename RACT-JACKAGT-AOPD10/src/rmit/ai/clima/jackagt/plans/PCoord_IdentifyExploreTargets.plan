@@ -75,15 +75,20 @@ Plan Name: PCoord_IdentifyExploreTargets
          block.count++;
 	   }
 	   
-	   //Add blocks with unexplored points to array
+	   //Add blocks with unexplored points to targets
 	   for (int b=0; b<numBlocksX*numBlocksY; ++b)
 	   {
 	      System.out.println( "BLOCK #" + b + " center:" + blocks[b].center.x + "," + blocks[b].center.y
 	            + " count: " + blocks[b].count + " pivot:" + blocks[b].pivot.x + "," + blocks[b].pivot.y );
 	      
 	      if (blocks[b].count == 0)
-	         eidentifyexploretargets_h.targets.add( blocks[b] );
+	      {
+	         Target target = new Target();
+            target.type = Target.Type.EXPLORE;
+	         target.pos = blocks[b].pivot;
+	         target.weight = blocks[b].count;
+	         eidentifyexploretargets_h.targets.add( target );
+	      }
 	   }
 	}
 }
-

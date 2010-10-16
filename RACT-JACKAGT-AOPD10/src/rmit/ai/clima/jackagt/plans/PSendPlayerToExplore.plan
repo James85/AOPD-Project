@@ -18,13 +18,13 @@ Plan Name: PSendPlayerToExplore
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPathCache bel_moveHint_dat;
-
 	#modifies data BPlayerPosition bel_playerTarget_dat;
 
-	#reads data BPlayerGold bel_playerGold_dat;
+	#modifies data BPathCache bel_moveHint_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
