@@ -34,25 +34,26 @@ Plan Name: PCoord_IdentifyExploreTargets
 	}
 
 	body()
-	{
+	{      
 	   logical int $gridW, $gridH;
 	   bel_simulationProp_dat.getGridSize( $gridW, $gridH );
 	   
 	   //Calculate number of blocks required
-	   int BLOCK_SIZE = 10;
-	   int numBlocksX = (int) Math.ceil( (float) $gridW.as_int() / BLOCK_SIZE );
-      int numBlocksY = (int) Math.ceil( (float) $gridH.as_int() / BLOCK_SIZE );
-	   UnexploredBlock[] blocks = new UnexploredBlock[ numBlocksX * numBlocksY ];
+      int BLOCK_RES_X = 5;
+      int BLOCK_RES_Y = 5;
+	   int BLOCK_W = (int) Math.ceil( (float) $gridW.as_int() / BLOCK_RES_X );
+	   int BLOCK_H = (int) Math.ceil( (float) $gridH.as_int() / BLOCK_RES_Y );
+	   UnexploredBlock[] blocks = new UnexploredBlock[ BLOCK_RES_X * BLOCK_RES_Y ];
 	   
 	   //Initialize block centers
-	   for (int x=0; x<numBlocksX; ++x) {
-	      for (int y=0; y<numBlocksY; ++y) {
+	   for (int x=0; x<BLOCK_RES_X; ++x) {
+	      for (int y=0; y<BLOCK_RES_Y; ++y) {
 	         
 	         GridPoint center = new GridPoint(
-               x * BLOCK_SIZE + BLOCK_SIZE/2,
-               y * BLOCK_SIZE + BLOCK_SIZE/2);
+               x * BLOCK_W + BLOCK_W / 2,
+               y * BLOCK_H + BLOCK_H / 2);
 	         
-	         int blockI = y * numBlocksX + x;
+	         int blockI = y * BLOCK_RES_X + x;
 	         blocks[ blockI ] = new UnexploredBlock( center );
 	      }
 	   }
@@ -64,9 +65,9 @@ Plan Name: PCoord_IdentifyExploreTargets
 	   {
 	      //Find block for this unexplored point
 	      GridPoint uPos = new GridPoint( $uX.as_int(), $uY.as_int() );
-	      int blockX = (int) uPos.x / BLOCK_SIZE;
-	      int blockY = (int) uPos.y / BLOCK_SIZE;
-	      int blockI = blockY * numBlocksX + blockX;
+	      int blockX = (int) uPos.x / BLOCK_W;
+	      int blockY = (int) uPos.y / BLOCK_H;
+	      int blockI = blockY * BLOCK_RES_X + blockX;
 	      UnexploredBlock block = blocks[ blockI ];
 	      
 	      //Check if closer to center than old pivot and update pivot
@@ -81,17 +82,18 @@ Plan Name: PCoord_IdentifyExploreTargets
 	   }
 	   
 	   //Add blocks with unexplored points to targets
-	   for (int b=0; b<numBlocksX*numBlocksY; ++b)
+	   for (int b=0; b < BLOCK_RES_X*BLOCK_RES_Y; ++b)
 	   {
 //	      System.out.println( "BLOCK #" + b + " center:" + blocks[b].center.x + "," + blocks[b].center.y
 //	            + " count: " + blocks[b].count + " pivot:" + blocks[b].pivot.x + "," + blocks[b].pivot.y );
 	      
+	      //Check if any unexplored points
 	      if (blocks[b].count > 0)
 	      {
 	         Target target = new Target();
             target.type = Target.Type.EXPLORE;
 	         target.pos = blocks[b].pivot;
-	         target.weight = blocks[b].count;
+	         target.weight = BLOCK_RES_X*BLOCK_RES_Y - blocks[b].count;
 	         eidentifyexploretargets_h.targets.add( target );
 	      }
 	   }

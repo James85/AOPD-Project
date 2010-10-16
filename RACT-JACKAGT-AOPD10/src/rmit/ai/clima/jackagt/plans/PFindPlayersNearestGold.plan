@@ -60,8 +60,8 @@ Plan Name: PFindPlayersNearestGold
 	      for (int t=0; t<relevantTargets.size(); ++t)
 	      {
 	         Target target = (Target) relevantTargets.get(t);
-	         if (target.type == Target.Type.EXPLORE)
-	            continue;
+	         //if (target.type == Target.Type.EXPLORE)
+	           // continue;
 
             //TODO: this turned out to be to slow, so we check actual distance
             //only when accepting the new path
@@ -75,8 +75,8 @@ Plan Name: PFindPlayersNearestGold
 	         PlayerTarget pt = new PlayerTarget();
 	         pt.name = name;
 	         pt.target = target;
-	         //pt.dist = target.pos.getManhattanDist(playerPos);
-	         pt.dist = pathRequest.path.size();
+	         //pt.dist = target.weight + target.pos.getManhattanDist(playerPos);
+	         pt.dist = target.weight + pathRequest.path.size();
 	         targets.add(pt);
 	      }
 	   }

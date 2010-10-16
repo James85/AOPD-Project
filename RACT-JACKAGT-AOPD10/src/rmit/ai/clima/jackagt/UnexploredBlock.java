@@ -12,7 +12,7 @@ public class UnexploredBlock
    {
       this.count = 0;
       this.center = center;
-      this.pivot = new GridPoint();
+      this.pivot = center;
       this.pivotDist = 0;
    }
 }
