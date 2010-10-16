@@ -3,6 +3,7 @@ package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import agetns.*;
+import rmit.ai.clima.jackagt.PathGrid;
 
 import rmit.ai.clima.interfaces.*;
 
@@ -63,6 +64,9 @@ Description: Coordination plan to finish a simulation
         
         logical int $uX, $uY;
         bel_unexplored_dat.get($uX, $uY).removeAll();
+        
+        //release the reference to the pathfinding grid for this simulation
+        PathGrid.getInstance(0, 0).Reset();
 
 
       	consoleIface.showConsoleDebug("Agent "+mesimend_h.from+ " reported the end of a simulation...");

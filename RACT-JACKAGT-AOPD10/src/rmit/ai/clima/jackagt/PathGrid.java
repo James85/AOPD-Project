@@ -3,9 +3,40 @@ import rmit.ai.clima.gui.grid.*;
 
 public class PathGrid
 {
+   //handle to the PathGrid Singleton
+   private static PathGrid instance = null;
+   
    public int width;
    public int height;
    PathNode [] grid;
+   
+      
+   public static PathGrid getInstance(int width, int height)
+   {
+      if(instance == null)
+      {
+         instance = new PathGrid( width, height );
+         System.out.println("Instantiating the grid");
+      }
+      return instance;
+   }
+   
+   public static void Reset()
+   {
+      instance = null;
+   }
+   
+   public void Clean()
+   {
+      for (int x=0; x<this.width; ++x) {
+         for (int y=0; y<this.height; ++y) {
+
+            PathNode node =  grid[y * width + x]; 
+            node.visited = false;
+            node.obstacle = false;
+         }
+      }
+   }
 
    public PathGrid (int width, int height)
    {
