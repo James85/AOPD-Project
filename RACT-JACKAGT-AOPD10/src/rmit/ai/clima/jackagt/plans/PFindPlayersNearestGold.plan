@@ -79,7 +79,8 @@ Plan Name: PFindPlayersNearestGold
 	      }
 	   }
 	   
-
+	   //Sort player-target pairs by distance
+	   //(as defined in their compareTo function)
 	   Collections.sort(targets);
 	   
 	   //Iterate all the targets
@@ -90,7 +91,7 @@ Plan Name: PFindPlayersNearestGold
 	      PlayerTarget pt = (PlayerTarget) targets.get(i);
 	      for( int j = 0 ; j < usedTargets.size() ; ++ j)
 	      {
-	         //Skip if either the player or the gold piece has already been assigned
+	         //Skip if either the player or the target has already been assigned
 	         PlayerTarget ptUsed = (PlayerTarget) usedTargets.get(j);
 	         if(pt.name.equals( ptUsed.name ) || pt.target.pos.equals( ptUsed.target.pos ))
 	            b_discard = true;
