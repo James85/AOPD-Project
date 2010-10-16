@@ -2,7 +2,6 @@ package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.GridPoint;
-import rmit.ai.clima.jackagt.PlayerGold;
 import java.util.*;
 
 public plan PUpdateState extends Plan

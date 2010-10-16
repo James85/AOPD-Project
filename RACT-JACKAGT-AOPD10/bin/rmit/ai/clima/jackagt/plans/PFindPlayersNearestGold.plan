@@ -57,30 +57,27 @@ Plan Name: PFindPlayersNearestGold
 	      logical int $playerX, $playerY;
 	      bel_playerPositions_dat.getByName( name, $playerX, $playerY );
 	      GridPoint playerPos = new GridPoint( $playerX.as_int(), $playerY.as_int() );
-	      
+
 	      //Get positions of all gold pieces
 	      for (int t=0; t<relevantTargets.size(); ++t)
 	      {
-   	    	//TODO: this turned out to be to slow, so we check actual distance
-   	    	//only when accepting the new path
-	         
+	         //TODO: this turned out to be to slow, so we check actual distance
+	         //only when accepting the new path
+
 	         Target target = (Target) relevantTargets.get(t);
-	         
+
 	         //Find distance from player to gold, skip if unreachable
 //            EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), goldPos.x, goldPos.y);
 //            @subtask( pathRequest);  
 //            if (!pathRequest.reachable) continue;
             
-	         if (target.type == Target.Type.GOLD)
-	         {
-               //Calculate distance and store a new player-gold pair
-   	         PlayerGold pg = new PlayerGold();
-               pg.name = name;
-   	         pg.pos = target.pos;
-   	         pg.dist = target.pos.getManhattanDist(playerPos);
-   	         //pg.dist = pathRequest.path.size();
-   	         distances.add(pg);
-	         }
+	         //Calculate distance and store a new player-gold pair
+	         PlayerTarget pg = new PlayerTarget();
+	         pg.name = name;
+	         pg.target = target;
+	         pg.dist = target.pos.getManhattanDist(playerPos);
+	         //pg.dist = pathRequest.path.size();
+	         distances.add(pg);
 	      }
 	   }
 	   
@@ -92,12 +89,12 @@ Plan Name: PFindPlayersNearestGold
 	   {
 	      //Compare to all the distances assigned so far
 	      boolean b_discard = false;
-	      PlayerGold pg = (PlayerGold)distances.get(i);
+	      PlayerTarget pg = (PlayerTarget)distances.get(i);
 	      for( int j = 0 ; j < usedDistances.size() ; ++ j)
 	      {
 	         //Skip if either the player or the gold piece has already been assigned
-	         PlayerGold pg2 = (PlayerGold)usedDistances.get(j);
-	         if(pg.name == pg2.name || pg.pos.x == pg2.pos.x && pg.pos.y == pg2.pos.y)
+	         PlayerTarget pg2 = (PlayerTarget)usedDistances.get(j);
+	         if(pg.name.equals( pg2.name ) || pg.target.pos.equals( pg2.target.pos ))
 	            b_discard = true;
 	      }
 	      if(b_discard)
@@ -105,27 +102,7 @@ Plan Name: PFindPlayersNearestGold
 	     
 	      //Assign gold piece to player
 	      usedDistances.add(pg);
-	      efindclosestgold_h.playerGold.add( pg );
-	      //bel_playerClosestGold_dat.add( pg.name, pg.pos.x, pg.pos.y );
-	   }	   
+	      efindclosestgold_h.playerTargets.add( pg );
+	   }
 	}
-	
-//	class PlayerGold implements Comparable
-//	{
-//	   public String name;
-//	   public GridPoint pos;
-//	   public int dist;
-//	   
-//	   public boolean equals(Object obj)
-//	   {
-//	      PlayerGold pg = (PlayerGold) obj;
-//	      return pg.dist == this.dist;
-//	   }
-//	   public int compareTo(Object obj)
-//	   {
-//	      PlayerGold pg = (PlayerGold) obj;
-//	      return ( this.dist - pg.dist );
-//	   }
-//	
-//	}
 }
