@@ -20,11 +20,11 @@ Plan Name: PFindPath
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPathCache bel_moveHint_dat;
 
-	#reads data BPlayerAt bel_playerAt_dat;
-
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BPlayerAt bel_playerAt_dat;
 
 	#reads data BPlayerPosition bel_playerPositions_dat;
 
@@ -87,38 +87,9 @@ Plan Name: PFindPath
          return true;
       }
 
-      //	  System.out.println("STARTING PATHFINDING");
-      //     System.out.println("Src " + src.x + ", "+ src.y);
-      //     System.out.println("Dst " + dst.x + ", "+ dst.y);
       //Init obstacles
       
-      PathGrid grid = PathGrid.getInstance( width, height );
-
-      //	   for (int x=0; x<width; ++x) {
-      //	      for (int y=0; y<height; ++y) {
-      //
-      //	         PathNode node = grid.getNode( x, y ); 
-      //	         
-      //            //Check if obstacle at this location
-      //	         if(bel_obstacleAt_dat.check( x, y ))
-      //	            node.obstacle = true;
-      //	         
-      //	         //Check if depot at this location 
-      //	         if(node.pos.equals(depotPoint))
-      //	         {
-      //	            //(and not start or end point)
-      //	            if(!node.pos.equals(src) && !node.pos.equals(dst))
-      //	               node.obstacle = true;
-      //	            continue;
-      //	         }
-      //	         //Check if any player at this location
-      //	         logical String $name;
-      //	         if (bel_playerPositions_dat.getByCoord( $name, x, y ))
-      //	            if (!$name.as_string().equals( efindpath_h.playerName ))
-      //	               node.obstacle = true;
-      //	      }
-      //	   }
-
+      PathGrid grid = PathGrid.getInstance( );
 
       logical int $obstacleX, $obstacleY;
       logical int $playerX, $playerY;
@@ -156,8 +127,6 @@ Plan Name: PFindPath
 
       Vector open = new Vector();
       open.add( root );
-      //      System.out.println("Root " + root.pos.x + ", "+ root.pos.y);
-
 
       boolean dstReached = false; 
       while (!open.isEmpty())
@@ -172,7 +141,6 @@ Plan Name: PFindPath
             dstReached = true;
             break;
          }
-
 
          //Loop through adjacent nodes
          Collections.shuffle(adjacentDir);

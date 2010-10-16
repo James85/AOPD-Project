@@ -34,14 +34,14 @@ Description: This is the agent responsible of showing the evolution of the simul
 	#handles event MESimEnd ;
 	#posts event MESimEnd mesimend_p;
 
-	#handles event EGUIDebugMessage ;
+	#handles event MEInformCellStatus ;
 
 	#handles event MESimStart ;
 	#posts event MESimStart mesimstart_p;
 
-	#handles event MEInformAgentStatus ;
+	#handles event EGUIDebugMessage ;
 
-	#handles event MEInformCellStatus ;
+	#handles event MEInformAgentStatus ;
 
 
 	//Plans directly used are declared here.

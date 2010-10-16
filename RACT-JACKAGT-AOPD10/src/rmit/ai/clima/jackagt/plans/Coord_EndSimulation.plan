@@ -21,15 +21,15 @@ Description: Coordination plan to finish a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayer bel_players_dat;
-
-	#modifies data BPlayerPosition bel_playerPositions_dat;
-
-	#modifies data BPlayerGold bel_playerGold_dat;
+	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
 	#modifies data BUnexplored bel_unexplored_dat;
 
-	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+	#modifies data BPlayerPosition bel_playerPositions_dat;
+
+	#modifies data BPlayer bel_players_dat;
+
+	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
@@ -66,7 +66,7 @@ Description: Coordination plan to finish a simulation
         bel_unexplored_dat.get($uX, $uY).removeAll();
         
         //release the reference to the pathfinding grid for this simulation
-        PathGrid.getInstance(0, 0).Reset();
+        PathGrid.getInstance().Reset();
 
 
       	consoleIface.showConsoleDebug("Agent "+mesimend_h.from+ " reported the end of a simulation...");

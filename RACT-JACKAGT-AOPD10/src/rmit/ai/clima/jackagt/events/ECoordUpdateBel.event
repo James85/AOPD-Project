@@ -11,6 +11,10 @@ public event ECoordUpdateBel extends BDIGoalEvent
 */
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 /*
+ * Message Name: ECoordUpdateBel
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+/*
  * Message Name: EUpdatePlayerAt
 */
 /******** End PDT Design Block *** DO NOT EDIT IT *********/

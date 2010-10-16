@@ -19,7 +19,7 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentState bel_currentState_dat();
+	#imports data BCurrentPosition bel_currentTarget_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -29,12 +29,12 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+	#imports data BCurrentPosition bel_currentPosition_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentTarget_dat();
+	#imports data BCurrentState bel_currentState_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -44,30 +44,30 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles event EExecuteAction ;
-	#posts event EExecuteAction eexecuteaction_p;
+	#sends event MERequestPathfinding merequestpathfinding_s;
 
-	#handles external event MEReturnCellInfo ;
-
-	#handles external event MEReturnPlayerState ;
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
 
+	#handles event EExecuteAction ;
+	#posts event EExecuteAction eexecuteaction_p;
+
 	#handles external event MEReturnPathfinding ;
 
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#handles external event MEReturnPlayerState ;
 
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
 	#handles external event MEPlayerPerceptsAssimilated ;
 
-	#sends event MERequestCellInfo merequestcellinfo_s;
+	#handles external event MEReturnCellInfo ;
 
 
 	//Plans directly used are declared here.

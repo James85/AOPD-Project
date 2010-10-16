@@ -62,7 +62,7 @@ Description: Coordination plan to start a simulation
       bel_players_dat.add(mesimstart_h.from);
       
       //instantiate the pathfinding grid for this simulation
-      PathGrid.getInstance( gridX, gridY );
+      PathGrid.initInstance( gridX, gridY );
 
 
       if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps)) 
