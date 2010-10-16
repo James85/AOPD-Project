@@ -42,6 +42,10 @@ public class PathGrid
 
             PathNode node =  grid[y * width + x]; 
             node.obstacle = false;
+            node.visited = false;
+            node.f = 0;
+            node.g = 0;
+            node.h = 0;
          }
       }
 
