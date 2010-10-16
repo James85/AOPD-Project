@@ -118,16 +118,12 @@ Plan Name: PFindPath
       }
       
       // if depot is not our start or end point make it an obstacle - needs to be done outside the above check as it is player specific
-      if(!depotPoint.equals(src) && !depotPoint.equals(dst))
-      {
-         PathNode node = grid.getNode( depotPoint.x, depotPoint.y ); 
-         node.obstacle = true;
-      }
+      PathNode node = grid.getNode( depotPoint.x, depotPoint.y );
+      if(!depotPoint.equals(src) && !depotPoint.equals(dst)) 
+         node.obstacle = true; 
       else
-      {
-         PathNode node = grid.getNode( depotPoint.x, depotPoint.y ); 
          node.obstacle = false;
-      }
+      
       //Init root node
       PathNode root = grid.getNode( src );
       root.dir = "";
