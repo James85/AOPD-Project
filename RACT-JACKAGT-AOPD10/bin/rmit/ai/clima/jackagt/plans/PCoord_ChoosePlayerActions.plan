@@ -145,8 +145,6 @@ Plan Name: PCoord_ChoosePlayerActions
          }
       }
       
-      //TODO: Follow with a similar subtask to find player-explore pairs
-      
       System.out.println( "CLEARING");
       
       //Clear the pathfinding results

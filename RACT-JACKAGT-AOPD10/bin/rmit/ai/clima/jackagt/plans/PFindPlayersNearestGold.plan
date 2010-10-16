@@ -94,8 +94,7 @@ Plan Name: PFindPlayersNearestGold
 	      {
 	         //Skip if either the player or the gold piece has already been assigned
 	         PlayerTarget pg2 = (PlayerTarget)usedDistances.get(j);
-	         //if(pg.name == pg2.name || pg.pos.x == pg2.pos.x && pg.pos.y == pg2.pos.y)
-	         if(pg.name == pg2.name || pg.target.pos.equals( pg2.target.pos ))
+	         if(pg.name.equals( pg2.name ) || pg.target.pos.equals( pg2.target.pos ))
 	            b_discard = true;
 	      }
 	      if(b_discard)
@@ -104,7 +103,6 @@ Plan Name: PFindPlayersNearestGold
 	      //Assign gold piece to player
 	      usedDistances.add(pg);
 	      efindclosestgold_h.playerTargets.add( pg );
-	      //bel_playerClosestGold_dat.add( pg.name, pg.pos.x, pg.pos.y );
-	   }	   
+	   }
 	}
 }
