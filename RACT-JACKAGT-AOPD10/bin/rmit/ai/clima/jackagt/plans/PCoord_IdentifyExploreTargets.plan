@@ -17,9 +17,9 @@ Plan Name: PCoord_IdentifyExploreTargets
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data SimulationProp bel_simulationProp_dat;
-
 	#reads data BUnexplored bel_unexplored_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

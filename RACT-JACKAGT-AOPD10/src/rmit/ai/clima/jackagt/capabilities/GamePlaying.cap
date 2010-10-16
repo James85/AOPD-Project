@@ -23,7 +23,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
+	#imports data BCurrentPosition bel_currentTarget_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -33,22 +33,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentPosition bel_currentTarget_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
+	#imports data SimulationProp bel_simulationProp_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -63,52 +48,67 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
 	#imports data CurrentStatus bel_currentStatus_dat();
 
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPath bel_currentPath_dat();
+
 
 	//Events handled, posted and sent are declared here.
+	#handles external event MEReturnPlayerState ;
+
 	#sends event EUpdateBel eupdatebel_s;
-
-	#posts event MEReportPlayerPercept mereportplayerpercept_p;
-
-	#handles event EShowBeliefs ;
-	#posts event EShowBeliefs eshowbeliefs_p;
 
 	#sends event MEInformCellStatus meinformcellstatus_s;
 
-	#handles external event MEReturnPathfinding ;
-
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#handles external event ECellChange ;
-
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
-	#handles event EExecuteCLIMAaction ;
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+	#posts event MEReportPlayerPercept mereportplayerpercept_p;
 
 	#posts external event TellClimaServer tellclimaserver_p;
 
-	#handles external event MEReturnPlayerState ;
+	#handles external event ECellChange ;
 
 	#handles external event MEReturnCellInfo ;
 
-	#sends event MEReportPlayerState mereportplayerstate_s;
-
-	#handles external event PerceiveClimaServer ;
+	#handles event EExecuteCLIMAaction ;
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
 	#posts event EAct eact_p;
 
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
+	#handles event EShowBeliefs ;
+	#posts event EShowBeliefs eshowbeliefs_p;
+
+	#handles external event PerceiveClimaServer ;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#handles external event MEReturnPathfinding ;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
 	#handles external event MEPlayerPerceptsAssimilated ;
+
+	#sends event MEReportPlayerState mereportplayerstate_s;
 
 
 	//Plans directly used are declared here.

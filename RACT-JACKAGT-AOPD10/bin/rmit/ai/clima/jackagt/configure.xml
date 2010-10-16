@@ -1,156 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JACKCodeRoot>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PIdentifyExploreTarget.plan" ID="538113" name="PIdentifyExploreTarget"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PIdentifyExploreTarget.plan" ID="538113" name="PIdentifyExploreTarget"/>
 <Entity CodeFileURI="file:/home/ssardina/workspace/RACT-JACKAGT-GOLD-NPDT/src/rmit/ai/clima/jackagt/events/TellClimaServer.event" ID="47105" name="TellClimaServer" package="rmit.ai.clima.iface"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PFindPlayersNearestGold.plan" ID="487937" name="PFindPlayersNearestGold"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEGameEnd.event" ID="45569" name="MEGameEnd"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReturnCellInfo.event" ID="633857" name="MEReturnCellInfo"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/SendActionAndWait.plan" ID="42497" name="SendActionAndWait"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerPosition.bel" ID="336641" name="BPlayerPosition"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReturnPathfinding.event" ID="630785" name="MEReturnPathfinding"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EShowBeliefs.event" ID="40961" name="EShowBeliefs"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_HandlePathfindingRequest.plan" ID="629249" name="PCoord_HandlePathfindingRequest"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BCurrentPosition.bel" ID="285697" name="BCurrentPosition"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/mein.event" ID="432385" name="mein"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EIdentifyExploreTargets.event" ID="726529" name="EIdentifyExploreTargets"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PFindPlayersNearestGold.plan" ID="487937" name="PFindPlayersNearestGold"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEGameEnd.event" ID="45569" name="MEGameEnd"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReturnCellInfo.event" ID="633857" name="MEReturnCellInfo"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/SendActionAndWait.plan" ID="42497" name="SendActionAndWait"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerPosition.bel" ID="336641" name="BPlayerPosition"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReturnPathfinding.event" ID="630785" name="MEReturnPathfinding"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EShowBeliefs.event" ID="40961" name="EShowBeliefs"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_HandlePathfindingRequest.plan" ID="629249" name="PCoord_HandlePathfindingRequest"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BCurrentPosition.bel" ID="285697" name="BCurrentPosition"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/mein.event" ID="432385" name="mein"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EIdentifyExploreTargets.event" ID="726529" name="EIdentifyExploreTargets"/>
 <Entity DataFields="int posX, int posY" DataType="BCurrentPosition" ID="284929" name="bel_currentPosition"/>
 <Entity DataFields="String agentName, int posX, int posY" DataType="PlayerPosition" ID="333569" name="bel_playerPositions"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BPoint" ID="528897" name="bel_worldSize"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEInformCellStatus.event" ID="37889" name="MEInformCellStatus"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GamePlaying.cap" ID="37121" name="GamePlaying"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/CResolvePlayerActions.cap" ID="576001" name="CResolvePlayerActions"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BCurrentPath.bel" ID="671745" name="BCurrentPath"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EUpdateBel.event" ID="33281" name="EUpdateBel"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BMoveHint.bel" ID="521985" name="BMoveHint"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEInformCellStatus.event" ID="37889" name="MEInformCellStatus"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GamePlaying.cap" ID="37121" name="GamePlaying"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/CResolvePlayerActions.cap" ID="576001" name="CResolvePlayerActions"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BCurrentPath.bel" ID="671745" name="BCurrentPath"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EUpdateBel.event" ID="33281" name="EUpdateBel"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BMoveHint.bel" ID="521985" name="BMoveHint"/>
 <Entity DataFields="int srcX, int srcY, int dstX, int dstY, Object path, boolean reachable" DataType="BPathCache" ID="521217" name="bel_moveHint"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEPlayerPerceptsAssimilated.event" ID="617729" name="MEPlayerPerceptsAssimilated"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEPlayerPerceptsAssimilated.event" ID="617729" name="MEPlayerPerceptsAssimilated"/>
 <Entity DataFields="int noGold" DataType="NumCarryingGold" ID="27905" name="bel_numCarryingGold"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PMove.plan" ID="467969" name="PMove"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PMove.plan" ID="467969" name="PMove"/>
 <Entity DataFields="String agentName, int no, int x, int y" DataType="PlayersCurrentPositions" ID="26369" name="bel_playersCurrentPositions"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerState.bel" ID="613889" name="BPlayerState"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerState.bel" ID="613889" name="BPlayerState"/>
 <Entity DataFields="int posX, int posY" DataType="BPlayerAt" ID="711937" name="bel_playerAt"/>
 <Entity DataType="Semaphore" ID="24833" name="mutex_accessGUI" package="aos.jack.util.thread.Semaphore"/>
 <Entity DataFields="String name, String state" DataType="BPlayerState" ID="613121" name="bel_playerState"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BObstacleAt" ID="23297" name="bel_obstacleAt" package=""/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/ECoordUpdateBel.event" ID="708097" name="ECoordUpdateBel"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/ActionDecision.cap" ID="70401" name="ActionDecision"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_ChoosePlayerActions.plan" ID="462593" name="PCoord_ChoosePlayerActions"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/Player.agent" ID="20993" name="Player"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIReportMessage.plan" ID="63489" name="GUIReportMessage"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/ECoordUpdateBel.event" ID="708097" name="ECoordUpdateBel"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/ActionDecision.cap" ID="70401" name="ActionDecision"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_ChoosePlayerActions.plan" ID="462593" name="PCoord_ChoosePlayerActions"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/Player.agent" ID="20993" name="Player"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIReportMessage.plan" ID="63489" name="GUIReportMessage"/>
 <Entity DataFields="String agentName, int posX, int posY" DataType="BPlayerPosition" ID="455681" name="bel_playerPositions"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIClose.plan" ID="62721" name="GUIClose"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPathCache.bel" ID="699649" name="BPathCache"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIClose.plan" ID="62721" name="GUIClose"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPathCache.bel" ID="699649" name="BPathCache"/>
 <Entity DataFields="int goldCount" DataType="BNumCarryingGold" ID="307457" name="bel_numCarryingGold"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/SimulationProp.bel" ID="159233" name="SimulationProp"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/SimulationProp.bel" ID="159233" name="SimulationProp"/>
 <Entity DataFields="String agentName" DataType="BPlayerPerceptReceived" ID="453377" name="bel_playerPerceptReceived"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayer.bel" ID="452609" name="BPlayer"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GUIUpdateCapability.cap" ID="57345" name="GUIUpdateCapability"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/bel_simu.java" DataType="bel_simu" ID="694273" name="bel_simu"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayer.bel" ID="452609" name="BPlayer"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GUIUpdateCapability.cap" ID="57345" name="GUIUpdateCapability"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/bel_simu.java" DataType="bel_simu" ID="694273" name="bel_simu"/>
 <Entity ID="252673" name="LastActionSentBel" package="rmit.ai.clima.iface.LastActionSentBel"/>
 <Entity DataFields="String name" DataType="BPlayer" ID="643329" name="bel_playerStateReceived"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_EndSimulation.plan" ID="51969" name="Coord_EndSimulation"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_EndSimulation.plan" ID="51969" name="Coord_EndSimulation"/>
 <Entity ID="2561" name="sim-start XML"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BGoldAt.bel" ID="296705" name="BGoldAt"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_InitSimulation.plan" ID="51201" name="Coord_InitSimulation"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EExecuteCLIMAaction.event" ID="48897" name="EExecuteCLIMAaction"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/BeliefReporting.plan" ID="46593" name="BeliefReporting"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BGoldAt.bel" ID="296705" name="BGoldAt"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_InitSimulation.plan" ID="51201" name="Coord_InitSimulation"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EExecuteCLIMAaction.event" ID="48897" name="EExecuteCLIMAaction"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/BeliefReporting.plan" ID="46593" name="BeliefReporting"/>
 <Entity DataFields="String agentName, int posX, int posY" DataType="BPlayerPosition" ID="536065" name="bel_playerTarget"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/FinishGame.plan" ID="45057" name="FinishGame"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_IdentifyGoldTargets.plan" ID="729089" name="PCoord_IdentifyGoldTargets"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/eage.event" ID="434177" name="eage"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MESimStart.event" ID="40449" name="MESimStart"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MESimEnd.event" ID="39681" name="MESimEnd"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReportPlayerPercept.event" ID="478209" name="MEReportPlayerPercept"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEInformAgentStatus.event" ID="36609" name="MEInformAgentStatus"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/FinishGame.plan" ID="45057" name="FinishGame"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_IdentifyGoldTargets.plan" ID="729089" name="PCoord_IdentifyGoldTargets"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/eage.event" ID="434177" name="eage"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MESimStart.event" ID="40449" name="MESimStart"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MESimEnd.event" ID="39681" name="MESimEnd"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReportPlayerPercept.event" ID="478209" name="MEReportPlayerPercept"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEInformAgentStatus.event" ID="36609" name="MEInformAgentStatus"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BPoint" ID="526081" name="bel_depotPosition"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerGold.bel" ID="427265" name="BPlayerGold"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerGold.bel" ID="427265" name="BPlayerGold"/>
 <Entity DataFields="String agentName, int goldAmount" DataType="BPlayerGold" ID="426497" name="bel_playerGold"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BUnexplored.bel" ID="719873" name="BUnexplored"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BUnexplored.bel" ID="719873" name="BUnexplored"/>
 <Entity DataFields="int posX, int posY" DataType="BUnexplored" ID="719105" name="bel_unexplored"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MERequestPathfinding.event" ID="619521" name="MERequestPathfinding"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PReceiveState.plan" ID="668161" name="PReceiveState"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BAgentNumbers.bel" ID="275969" name="BAgentNumbers"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/FinishSimulation.plan" ID="30465" name="FinishSimulation"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/ReportCellChangeToGUI.plan" ID="79105" name="ReportCellChangeToGUI"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MERequestPathfinding.event" ID="619521" name="MERequestPathfinding"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PReceiveState.plan" ID="668161" name="PReceiveState"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BAgentNumbers.bel" ID="275969" name="BAgentNumbers"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/FinishSimulation.plan" ID="30465" name="FinishSimulation"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/ReportCellChangeToGUI.plan" ID="79105" name="ReportCellChangeToGUI"/>
 <Entity DataFields="String agentName, int agentNo" DataType="BAgentNumbers" ID="275201" name="bel_agentNumbers"/>
 <Entity CodeFileURI="file:/home/ssardina/workspace/RACT-JACKAGT-GOLD-NPDT/src/rmit/ai/clima/jackagt/events/PerceiveClimaServer.event" ID="29697" name="PerceiveClimaServer" package="rmit.ai.clima.iface.PerceiveClimaServer"/>
 <Entity DataType="Map" ID="28929" name="bel_map"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PFindPath.plan" ID="518401" name="PFindPath"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/HandlePercept.plan" ID="76801" name="HandlePercept"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PPick.plan" ID="468993" name="PPick"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PFindPath.plan" ID="518401" name="PFindPath"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/HandlePercept.plan" ID="76801" name="HandlePercept"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PPick.plan" ID="468993" name="PPick"/>
 <Entity DataFields="int xCoord, int yCoord, int id" DataType="GoldAt" ID="27393" name="bel_goldAt"/>
 <Entity DataFields="int gridX, int gridY, int depotX, int depotY, int noSteps" DataType="SimulationProp" ID="25857" name="bel_simulationProp"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEPlayerAction.event" ID="466689" name="MEPlayerAction"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEPlayerAction.event" ID="466689" name="MEPlayerAction"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="CurrentPosition" ID="24321" name="bel_currentPosition"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/InfoReporting.cap" ID="72961" name="InfoReporting"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/InfoReporting.cap" ID="72961" name="InfoReporting"/>
 <Entity DataFields="int posX, int posY" DataType="BCurrentPosition" ID="610305" name="bel_currentTarget"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BCurrentState.bel" ID="609537" name="BCurrentState"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_UpdateCellsAround.plan" ID="706817" name="PCoord_UpdateCellsAround"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BCurrentState.bel" ID="609537" name="BCurrentState"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_UpdateCellsAround.plan" ID="706817" name="PCoord_UpdateCellsAround"/>
 <Entity DataFields="String agentName, int goldAmount" DataType="BPlayerGold" ID="460545" name="bel_playerGold"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/GUIAgent.agent" ID="18945" name="GUIAgent"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/GUIAgent.agent" ID="18945" name="GUIAgent"/>
 <Entity DataFields="String name" DataType="BPlayer" ID="458241" name="bel_players"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BNumCarryingGold.bel" ID="308481" name="BNumCarryingGold"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIUpdateCell.plan" ID="61441" name="GUIUpdateCell"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BNumCarryingGold.bel" ID="308481" name="BNumCarryingGold"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIUpdateCell.plan" ID="61441" name="GUIUpdateCell"/>
 <Entity DataType="Bdickzilla" ID="696833" name="dickzilla"/>
 <Entity ID="10497" name="request-action XML"/>
 <Entity CodeFileURI="file:/home/ssardina/workspace/RACT-JACKAGT-GOLD-NPDT/src/rmit/ai/clima/jackagt/data/Timer.bel" ID="255233" name="Timer" package="aos.util.timer.Timer"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PSendPlayerToDepot.plan" ID="549377" name="PSendPlayerToDepot"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/CurrentRequestActionId.bel" ID="106241" name="CurrentRequestActionId"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIUpdateAgentLoc.plan" ID="56833" name="GUIUpdateAgentLoc"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PSendPlayerToDepot.plan" ID="549377" name="PSendPlayerToDepot"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/CurrentRequestActionId.bel" ID="106241" name="CurrentRequestActionId"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIUpdateAgentLoc.plan" ID="56833" name="GUIUpdateAgentLoc"/>
 <Entity ID="7425" name="mouse-click"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EPostPlayerAction.event" ID="544769" name="EPostPlayerAction"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EFindClosestGold.event" ID="495361" name="EFindClosestGold"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EPostPlayerAction.event" ID="544769" name="EPostPlayerAction"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EFindClosestGold.event" ID="495361" name="EFindClosestGold"/>
 <Entity ID="5121" name="sim-end XML"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReturnPlayerState.event" ID="640513" name="MEReturnPlayerState"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReturnPlayerState.event" ID="640513" name="MEReturnPlayerState"/>
 <Entity DataFields="String name, int xCoord, int yCoord" DataType="BPlayerClosestGold" ID="492289" name="bel_playerClosestGold"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_AssimilatePlayerStates.plan" ID="638977" name="PCoord_AssimilatePlayerStates"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EGUIDebugMessage.event" ID="48385" name="EGUIDebugMessage"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_AssimilatePlayerStates.plan" ID="638977" name="PCoord_AssimilatePlayerStates"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EGUIDebugMessage.event" ID="48385" name="EGUIDebugMessage"/>
 <Entity CodeFileURI="file:/home/ssardina/workspace/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/CurrentStatus.bel" ID="243713" name="CurrentStatus"/>
 <Entity DataType="CurrentStatus" ID="242945" name="bel_tea"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_HandleCellInfoRequest.plan" ID="634369" name="PCoord_HandleCellInfoRequest"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/CPathFinding.cap" ID="486913" name="CPathFinding"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EStart.event" ID="44545" name="EStart"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_AssimilatePlayerPercept.plan" ID="338689" name="Coord_AssimilatePlayerPercept"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EIdentifyGoldTargets.event" ID="730113" name="EIdentifyGoldTargets"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PDrop.plan" ID="534017" name="PDrop"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/ConsoleBeliefPrinting.plan" ID="43009" name="ConsoleBeliefPrinting"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EExecuteAction.event" ID="679169" name="EExecuteAction"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/AuthenticateToServer.plan" ID="41473" name="AuthenticateToServer"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/eag.event" ID="433665" name="eag"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_IdentifyExploreTargets.plan" ID="725505" name="PCoord_IdentifyExploreTargets"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPoint.bel" ID="527105" name="BPoint"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/StartSimulation.plan" ID="36097" name="StartSimulation"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GameSyncing.cap" ID="35329" name="GameSyncing"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_HandleCellInfoRequest.plan" ID="634369" name="PCoord_HandleCellInfoRequest"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/CPathFinding.cap" ID="486913" name="CPathFinding"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EStart.event" ID="44545" name="EStart"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_AssimilatePlayerPercept.plan" ID="338689" name="Coord_AssimilatePlayerPercept"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EIdentifyGoldTargets.event" ID="730113" name="EIdentifyGoldTargets"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PDrop.plan" ID="534017" name="PDrop"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/ConsoleBeliefPrinting.plan" ID="43009" name="ConsoleBeliefPrinting"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EExecuteAction.event" ID="679169" name="EExecuteAction"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/AuthenticateToServer.plan" ID="41473" name="AuthenticateToServer"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/eag.event" ID="433665" name="eag"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_IdentifyExploreTargets.plan" ID="725505" name="PCoord_IdentifyExploreTargets"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPoint.bel" ID="527105" name="BPoint"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/StartSimulation.plan" ID="36097" name="StartSimulation"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GameSyncing.cap" ID="35329" name="GameSyncing"/>
 <Entity DataFields="boolean debugConsole, boolean debugGUI" DataType="CurrentStatus" ID="34561" name="bel_currentStatus" package=""/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EAct.event" ID="33793" name="EAct"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/ECellChange.event" ID="82433" name="ECellChange"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EAct.event" ID="33793" name="EAct"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/ECellChange.event" ID="82433" name="ECellChange"/>
 <Entity DataFields="Object path, boolean reachable" DataType="BCurrentPath" ID="670721" name="bel_currentPath"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReportPlayerState.event" ID="621313" name="MEReportPlayerState"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEReportPlayerState.event" ID="621313" name="MEReportPlayerState"/>
 <Entity ID="32257" name="ClimaTalking"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EFindPath.event" ID="519425" name="EFindPath"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EFindPath.event" ID="519425" name="EFindPath"/>
 <Entity DataFields="int agentNum, int step" DataType="GUICurrentStep" ID="28417" name="bel_GUICurrentStep"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PUpdateState.plan" ID="615937" name="PUpdateState"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PUpdateState.plan" ID="615937" name="PUpdateState"/>
 <Entity DataType="LastActionSentBel" ID="26881" name="bel_lastActionSent" package="rmit.ai.clima.iface.LastActionSentBel"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MERequestCellInfo.event" ID="615169" name="MERequestCellInfo"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MERequestCellInfo.event" ID="615169" name="MERequestCellInfo"/>
 <Entity DataType="Timer" ID="25345" name="clima_timer" package="aos.util.timer.Timer"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PSendPlayerToExplore.plan" ID="564225" name="PSendPlayerToExplore"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PSendPlayerToExplore.plan" ID="564225" name="PSendPlayerToExplore"/>
 <Entity DataFields="int id, int step" DataType="CurrentRequestActionId" ID="23809" name="bel_currentRequestActionId"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EChoosePlayerActions.event" ID="463105" name="EChoosePlayerActions"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/Coordinator.agent" ID="19969" name="Coordinator"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EChoosePlayerActions.event" ID="463105" name="EChoosePlayerActions"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/Coordinator.agent" ID="19969" name="Coordinator"/>
 <Entity DataFields="String state" DataType="BCurrentState" ID="606721" name="bel_currentState"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerAt.bel" ID="703233" name="BPlayerAt"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerAt.bel" ID="703233" name="BPlayerAt"/>
 <Entity DataFields="int posX, int posY" DataType="BPlayerAt" ID="702465" name="bel_enemyAt"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PSendPlayerToGold.plan" ID="555009" name="PSendPlayerToGold"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIInitiate.plan" ID="60929" name="GUIInitiate"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PSendPlayerToGold.plan" ID="555009" name="PSendPlayerToGold"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIInitiate.plan" ID="60929" name="GUIInitiate"/>
 <Entity DataFields="String name" DataType="PlayerInfo" ID="450817" name="bel_players"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/GUICurrentStep.bel" ID="155905" name="GUICurrentStep"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/GUICurrentStep.bel" ID="155905" name="GUICurrentStep"/>
 <Entity ID="8449" name="bye XML"/>
 <Entity ID="252417" name="Semaphore" package="aos.jack.util.thread.Semaphore"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BObstacleAt.bel" ID="153601" name="BObstacleAt"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerPerceptReceived.bel" ID="447745" name="BPlayerPerceptReceived"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerPerceptReceived.bel" ID="447745" name="BPlayerPerceptReceived"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BObstacleAt.bel" ID="153601" name="BObstacleAt"/>
 <Entity DataFields="String agentName" DataType="PlayerPerceptReceived" ID="446977" name="bel_playerPerceptReceived"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_EndGame.plan" ID="53249" name="Coord_EndGame"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_EndGame.plan" ID="53249" name="Coord_EndGame"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BGoldAt" ID="295681" name="bel_goldAt"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EIdentifyTarget.event" ID="539649" name="EIdentifyTarget"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/UpdateCellsAround.plan" ID="49409" name="UpdateCellsAround"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/UpdateCellsAround.plan" ID="49409" name="UpdateCellsAround"/>
+<Entity CodeFileURI="file:/home/james/workspace/repo/AOPD-Project/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EIdentifyTarget.event" ID="539649" name="EIdentifyTarget"/>
 </JACKCodeRoot>
