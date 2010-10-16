@@ -2,6 +2,8 @@ package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.*;
+import rmit.ai.clima.jackagt.PathGrid;
+import rmit.ai.clima.jackagt.PathNode;
 import java.util.*;
 
 public plan PFindPath extends Plan
@@ -249,71 +251,5 @@ Plan Name: PFindPath
       efindpath_h.reachable = dstReached;
    }
 
-   class PathGrid
-   {
-      public int width;
-      public int height;
-      PathNode [] grid;
-
-      public PathGrid (int width, int height)
-      {
-         this.width = width;
-         this.height = height;
-         grid = new PathNode[ width * height ];
-
-         for (int x=0; x<width; ++x) {
-            for (int y=0; y<height; ++y) {
-
-               PathNode node = new PathNode(); 
-               node.pos.x = x;
-               node.pos.y = y;
-               grid[y * width + x] = node;
-            }
-         }
-      }
-
-      public PathNode getNode (int x, int y)
-      {
-         return grid[ y * width + x ];
-      }
-
-      public PathNode getNode (GridPoint pt)
-      {
-         return getNode( pt.x, pt.y );
-      }
-   }
-
-   class PathNode implements Comparable
-   {
-      public boolean obstacle;
-      public boolean visited;
-      public GridPoint pos;
-      public String dir;
-      public int g;
-      public int h;
-      public int f;
-
-      public PathNode ()
-      {
-         visited = false;
-         obstacle = false;
-         pos = new GridPoint();
-         dir = "";
-         g = 0;
-         h = 0;
-         f = 0;
-      }
-
-      public boolean equals (Object o)
-      {
-         PathNode other = (PathNode)o;
-         return (f == other.f);
-      }
-
-      public int compareTo (Object o)
-      {
-         PathNode other = (PathNode)o;
-         return other.f - f;
-      }
-   }
+   
 }
