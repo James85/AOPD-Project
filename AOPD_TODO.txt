@@ -1,0 +1,10 @@
+BUGS:
+- moving out of the depot into same cell someone else is trying to move (gets you teleported)
+- moving into the depot when our own agent is in gives it a chance to be teleported instead of dropping
+
+MISSING STUFF:
+- pathfinding around enemy players
+- go "idle" if target unreachable 3 times in a row
+- check reachability before suggesting closest gold, drop down to next reachable
+- exploration
+
