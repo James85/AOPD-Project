@@ -89,22 +89,22 @@ Plan Name: PCoord_ChoosePlayerActions
       }
       
       //Find all the relevant gold targets
-      EIdentifyGoldTargets identifyGold = eidentifygoldtargets_p.post();
-      @subtask( identifyGold );   
-      
-      for (int g=0; g<identifyGold.targets.size(); ++g)
-         relevantTargets.add( identifyGold.targets.get(g) );
+//      EIdentifyGoldTargets identifyGold = eidentifygoldtargets_p.post();
+//      @subtask( identifyGold );   
+//      
+//      for (int g=0; g<identifyGold.targets.size(); ++g)
+//         relevantTargets.add( identifyGold.targets.get(g) );
       
 //      //Find all the relevant exploration targets
-//      EIdentifyExploreTargets identifyExplore = eidentifyexploretargets_p.post();
-//      @subtask( identifyExplore );
-//      
-//      for (int e=0; e<identifyExplore.targets.size(); ++e)
-//         relevantTargets.add( identifyExplore.targets.get(e) );
+      EIdentifyExploreTargets identifyExplore = eidentifyexploretargets_p.post();
+      @subtask( identifyExplore );
+      
+      for (int e=0; e<identifyExplore.targets.size(); ++e)
+         relevantTargets.add( identifyExplore.targets.get(e) );
       
       //Find the closest player-target pairs
-      EFindClosestGold goldRequest = efindclosestgold_p.post( relevantPlayers, relevantTargets );
-      @subtask( goldRequest );
+      EFindClosestGold targetRequest = efindclosestgold_p.post( relevantPlayers, relevantTargets );
+      @subtask( targetRequest );
       
       //Loop through all players on the team
       c_players = bel_players_dat.get( $name );
@@ -115,30 +115,37 @@ Plan Name: PCoord_ChoosePlayerActions
          String baseName = $name.as_string();
          baseName = baseName.substring(0,baseName.indexOf("@"));
          
-         //Check if the player has gold assigned
-         boolean goldFound = false;
-         for (int p=0; p<goldRequest.playerTargets.size(); ++p)
+         //Find the target assigned to this player
+         boolean targetFound = false;
+         for (int t=0; t<targetRequest.playerTargets.size(); ++t)
          {
-            PlayerTarget pg = (PlayerTarget) goldRequest.playerTargets.get(p);
-            if (pg.name.equals( name ))
+            PlayerTarget pt = (PlayerTarget) targetRequest.playerTargets.get(t);
+            if (pt.name.equals( name ))
             {
-               //Find path to gold
+               //Find path to target
                logical int $playerX, $playerY;
                bel_playerPositions_dat.getByName( name, $playerX, $playerY );
-               EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), pg.target.pos.x, pg.target.pos.y );
+               EFindPath pathRequest = efindpath_p.post( name, $playerX.as_int(), $playerY.as_int(), pt.target.pos.x, pt.target.pos.y );
                @subtask(pathRequest);
-               
-               //Report new state to player
+
+               //Find state for target type
+               String targetState = "";
+               switch (pt.target.type) {
+               case Target.Type.GOLD: targetState = "gold"; break;
+               case Target.Type.EXPLORE: targetState  = "explore"; break;
+               }
+
+               //Reply to player with the new suggested state
                @send( baseName, mereturnplayerstate_s.send(
-                     "gold", pg.target.pos, pathRequest.path, pathRequest.reachable ));
+                     targetState, pt.target.pos, pathRequest.path, pathRequest.reachable ));
                
-               System.out.println( baseName + " closest gold at " + pg.target.pos.x + "," + pg.target.pos.y );
-               System.out.println("I'M SENDING PLAYERS TO THE GOLD");
-               goldFound = true;
+               System.out.println( baseName + " closest target at " + pt.target.pos.x + "," + pt.target.pos.y );
+               targetFound = true;
+               break;
             }
          }
          
-         if (!goldFound)
+         if (!targetFound)
          {
             //Send empty state
             @send( baseName, mereturnplayerstate_s.sendEmpty() );
