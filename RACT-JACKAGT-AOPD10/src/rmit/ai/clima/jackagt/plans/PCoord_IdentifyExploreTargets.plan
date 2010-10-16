@@ -83,8 +83,8 @@ Plan Name: PCoord_IdentifyExploreTargets
 	   //Add blocks with unexplored points to targets
 	   for (int b=0; b<numBlocksX*numBlocksY; ++b)
 	   {
-	      System.out.println( "BLOCK #" + b + " center:" + blocks[b].center.x + "," + blocks[b].center.y
-	            + " count: " + blocks[b].count + " pivot:" + blocks[b].pivot.x + "," + blocks[b].pivot.y );
+//	      System.out.println( "BLOCK #" + b + " center:" + blocks[b].center.x + "," + blocks[b].center.y
+//	            + " count: " + blocks[b].count + " pivot:" + blocks[b].pivot.x + "," + blocks[b].pivot.y );
 	      
 	      if (blocks[b].count > 0)
 	      {

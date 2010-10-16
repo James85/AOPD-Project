@@ -74,6 +74,7 @@ Plan Name: PUpdateState
       System.out.println( getAgent().name() + " My pos: " + pos.x + "," + pos.y );
 	   System.out.println( getAgent().name() + " My target: " + target.x + "," + target.y );
 	   System.out.println( getAgent().name() + " My path length: " + path.size() );
+	   System.out.println( getAgent().name() + " My path reachable: " + (reachable ? "true" : "false") );
       System.out.println( getAgent().name() + " My initial state: " + state);
 	   
 	   
