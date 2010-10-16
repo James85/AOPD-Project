@@ -4,6 +4,7 @@ import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.gui.grid.*;
 import java.util.*;
 import rmit.ai.clima.jackagt.*;
+import rmit.ai.clima.jackagt.PathGrid;
 
 public plan PCoord_ChoosePlayerActions extends Plan
 {
@@ -163,6 +164,8 @@ Plan Name: PCoord_ChoosePlayerActions
       bel_moveHint_dat.get($srcX, $srcY, $dstX, $dstY, $path, $reachable).removeAll();
       bel_playerAt_dat.get($playerAtX, $playerAtY).removeAll();
       
+      //Reset all the obstacles in the pathfinding grid so it is ready for the next turn
+      PathGrid.getInstance().Reset();
       //TODO: Clear the player-explore pairs
    }
 }

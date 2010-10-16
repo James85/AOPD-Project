@@ -66,7 +66,7 @@ Description: Coordination plan to finish a simulation
         bel_unexplored_dat.get($uX, $uY).removeAll();
         
         //release the reference to the pathfinding grid for this simulation
-        PathGrid.getInstance().Reset();
+        PathGrid.getInstance().Release();
 
 
       	consoleIface.showConsoleDebug("Agent "+mesimend_h.from+ " reported the end of a simulation...");

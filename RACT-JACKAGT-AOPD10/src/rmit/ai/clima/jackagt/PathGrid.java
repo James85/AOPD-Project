@@ -5,17 +5,19 @@ public class PathGrid
 {
    //handle to the PathGrid Singleton
    private static PathGrid instance = null;
-   
+
    public int width;
    public int height;
+   public boolean firstRequest;
    PathNode [] grid;
-   
-      
+
+
    public static PathGrid initInstance(int width, int height)
    {
       if(instance == null)
       {
          instance = new PathGrid( width, height );
+         instance.firstRequest = true;
          System.out.println("Instantiating the grid");
       }
       return instance;
@@ -26,12 +28,25 @@ public class PathGrid
          instance = new PathGrid( 50 , 50);
       return instance;
    }
-   
-   public static void Reset()
+
+   public static void Release()
    {
       instance = null;
    }
-   
+
+   public void Reset()
+   {
+      this.firstRequest = true;
+      for (int x=0; x<this.width; ++x) {
+         for (int y=0; y<this.height; ++y) {
+
+            PathNode node =  grid[y * width + x]; 
+            node.obstacle = false;
+         }
+      }
+
+   }
+
    public void Clean()
    {
       for (int x=0; x<this.width; ++x) {
@@ -39,7 +54,9 @@ public class PathGrid
 
             PathNode node =  grid[y * width + x]; 
             node.visited = false;
-            node.obstacle = false;
+            node.f = 0;
+            node.g = 0;
+            node.h = 0;
          }
       }
    }

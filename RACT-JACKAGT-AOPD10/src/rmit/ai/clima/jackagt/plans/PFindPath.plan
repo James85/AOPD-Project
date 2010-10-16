@@ -88,38 +88,42 @@ Plan Name: PFindPath
       }
 
       //Init obstacles
+      //instantiate the pathfinding grid for this simulation
+      PathGrid grid = PathGrid.initInstance( width, height );
+      //PathGrid grid = PathGrid.getInstance( );
       
-      PathGrid grid = PathGrid.getInstance( );
-
-      logical int $obstacleX, $obstacleY;
-      logical int $playerX, $playerY;
-
-      Cursor c_obstacleAt = bel_obstacleAt_dat.get( $obstacleX, $obstacleY );
-      Cursor c_playerAt = bel_playerAt_dat.get( $playerX, $playerY );
-
-
-      // if depot is not our start or end point make it an obstacle
-      if(!depotPoint.equals(src) && !depotPoint.equals(dst))
+      //only set all the obstacles once per turn
+      if(grid.firstRequest)
       {
-         PathNode node = grid.getNode( depotPoint.x, depotPoint.y ); 
-         node.obstacle = true;
-      }
+         logical int $obstacleX, $obstacleY;
+         logical int $playerX, $playerY;
 
-      // Obstacles are obstacles
-      while(c_obstacleAt.next())
-      {
-         PathNode node = grid.getNode( $obstacleX.as_int(), $obstacleY.as_int() ); 
-         node.obstacle = true;
-      }
+         Cursor c_obstacleAt = bel_obstacleAt_dat.get( $obstacleX, $obstacleY );
+         Cursor c_playerAt = bel_playerAt_dat.get( $playerX, $playerY );
 
-      //players are obstacles unless they are standing on the depot
-      while(c_playerAt.next())
-      {
-         PathNode node = grid.getNode( $playerX.as_int(), $playerY.as_int() ); 
-         if(!node.pos.equals(depotPoint))
+
+         // if depot is not our start or end point make it an obstacle
+         if(!depotPoint.equals(src) && !depotPoint.equals(dst))
+         {
+            PathNode node = grid.getNode( depotPoint.x, depotPoint.y ); 
             node.obstacle = true;
-      }
+         }
 
+         // Obstacles are obstacles
+         while(c_obstacleAt.next())
+         {
+            PathNode node = grid.getNode( $obstacleX.as_int(), $obstacleY.as_int() ); 
+            node.obstacle = true;
+         }
+
+         //players are obstacles unless they are standing on the depot
+         while(c_playerAt.next())
+         {
+            PathNode node = grid.getNode( $playerX.as_int(), $playerY.as_int() ); 
+            if(!node.pos.equals(depotPoint))
+               node.obstacle = true;
+         }
+      }
       //Init root node
       PathNode root = grid.getNode( src );
       root.dir = "";
