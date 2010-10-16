@@ -116,7 +116,6 @@ Plan Name: PCoord_ChoosePlayerActions
       c_players = bel_players_dat.get( $name );
       while (c_players.next())
       {
-         //String name = (String) relevantPlayers.get(p);
          String name = $name.as_string();
          String baseName = $name.as_string();
          baseName = baseName.substring(0,baseName.indexOf("@"));
