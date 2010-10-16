@@ -89,6 +89,7 @@ Plan Name: PCoord_ChoosePlayerActions
             relevantPlayers.add( $name.as_string() );
       }
       
+      
       //Find all the relevant gold targets
 //      EIdentifyGoldTargets identifyGold = eidentifygoldtargets_p.post();
 //      @subtask( identifyGold );   
@@ -96,16 +97,19 @@ Plan Name: PCoord_ChoosePlayerActions
 //      for (int g=0; g<identifyGold.targets.size(); ++g)
 //         relevantTargets.add( identifyGold.targets.get(g) );
       
-//      //Find all the relevant exploration targets
+      
+      //Find all the relevant exploration targets
       EIdentifyExploreTargets identifyExplore = eidentifyexploretargets_p.post();
       @subtask( identifyExplore );
       
       for (int e=0; e<identifyExplore.targets.size(); ++e)
          relevantTargets.add( identifyExplore.targets.get(e) );
       
+      
       //Find the closest player-target pairs
       EFindClosestGold targetRequest = efindclosestgold_p.post( relevantPlayers, relevantTargets );
       @subtask( targetRequest );
+      
       
       //Loop through all players on the team
       c_players = bel_players_dat.get( $name );

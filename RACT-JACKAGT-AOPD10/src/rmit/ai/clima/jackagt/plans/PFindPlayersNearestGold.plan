@@ -69,7 +69,6 @@ Plan Name: PFindPlayersNearestGold
 //            @subtask( pathRequest);  
 //            if (!pathRequest.reachable) continue;
             
-	         System.out.println( "Checking target type :" + target.type + " against player " + name);
 	         //Calculate distance and store a new player-target pair
 	         PlayerTarget pt = new PlayerTarget();
 	         pt.name = name;

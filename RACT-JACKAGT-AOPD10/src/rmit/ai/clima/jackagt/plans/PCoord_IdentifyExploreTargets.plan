@@ -86,7 +86,7 @@ Plan Name: PCoord_IdentifyExploreTargets
 	      System.out.println( "BLOCK #" + b + " center:" + blocks[b].center.x + "," + blocks[b].center.y
 	            + " count: " + blocks[b].count + " pivot:" + blocks[b].pivot.x + "," + blocks[b].pivot.y );
 	      
-	      if (blocks[b].count == 0)
+	      if (blocks[b].count > 0)
 	      {
 	         Target target = new Target();
             target.type = Target.Type.EXPLORE;
