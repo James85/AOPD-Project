@@ -21,6 +21,11 @@ public class PathGrid
       return instance;
    }
    
+   public static void Reset()
+   {
+      instance = null;
+   }
+   
    public void Clean()
    {
       for (int x=0; x<this.width; ++x) {

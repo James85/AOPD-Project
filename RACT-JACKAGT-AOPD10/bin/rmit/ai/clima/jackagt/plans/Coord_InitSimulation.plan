@@ -1,5 +1,6 @@
 package rmit.ai.clima.jackagt.plans;
 import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.PathGrid;
 import rmit.ai.clima.jackagt.data.*;
 
 import rmit.ai.clima.interfaces.*;
@@ -59,6 +60,9 @@ Description: Coordination plan to start a simulation
 
       //initialise flag that tracks which players have sent info this turn 
       bel_players_dat.add(mesimstart_h.from);
+      
+      //instantiate the pathfinding grid for this simulation
+      PathGrid.getInstance( gridX, gridY );
 
 
       if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps)) 
