@@ -46,7 +46,5 @@ Plan Name: PCoord_HandlePathfindingRequest
       @subtask( eFindPath );
       @reply( merequestpathfinding_h,
             mereturnpathfinding_s.reply( src, dst, eFindPath.path, eFindPath.reachable ));
-      
-      System.out.println( "Path len: " + eFindPath.path.size() );
 	}
 }

@@ -46,21 +46,26 @@ Plan Name: PReceiveState
 
 	body()
 	{
-	   System.out.println( "GOT NEW STATE");
+	   //Get new state and path
 	   String newState = mereturnplayerstate_h.state;
 	   GridPoint newTarget = mereturnplayerstate_h.target;
 	   Vector newPath = mereturnplayerstate_h.path;
 	   boolean newReachable = mereturnplayerstate_h.reachable;
 	   
+      System.out.println( getAgent().name() + " GOT NEW STATE: '" + newState +
+            "' pathLen: " + newPath.size() + " reachable: " + (newReachable ? "true" : "false") );
+	   
 	   //Get current state
       logical String $state;
       bel_currentState_dat.get( $state );
       String state = $state.as_string();
-      System.out.println("Our current state is: " + state);
       
       //Get current path
       Vector path = bel_currentPath_dat.getPath();
       boolean reachable = bel_currentPath_dat.getReachable();
+      
+      System.out.println( getAgent().name() + " Our current state is: '" + state +
+            "' pathLen: " + path.size() + " reachable: " + (reachable ? "true" : "false") );
       
       //Check if empty state received
       if (! newState.equals(""))
@@ -73,7 +78,7 @@ Plan Name: PReceiveState
             bel_currentState_dat.add( newState );
             bel_currentTarget_dat.add( newTarget.x, newTarget.y );
             bel_currentPath_dat.add( newPath, newReachable );
-            System.out.println( "ACCEPTED new state: "+ newState );
+            System.out.println( getAgent().name() + " ACCEPTED new state: " + newState );
          }
       }
       

@@ -48,16 +48,15 @@ Plan Name: PCoord_AssimilatePlayerStates
       
       //Check if we got a state message from every player on the team
       bel_playerStateReceived_dat.add( mereportplayerstate_h.name);
-      System.out.println("NFACTS: " +bel_playerStateReceived_dat.nFacts());
       if( bel_playerStateReceived_dat.nFacts() == bel_players_dat.nFacts() )
       {
-    	 //Reset the sync table
+         //Reset the sync table
          logical String $name;
          bel_playerStateReceived_dat.get($name).removeAll();
-         
+
          //Proceed with next task
          @post( echooseplayeractions_p.post() );
-         
+
          System.out.println("ALL YOUR STATES ARE BELONG TO US");
       }
    }

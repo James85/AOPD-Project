@@ -71,11 +71,10 @@ Plan Name: PUpdateState
 	   GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
 	   GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
 	   
-      System.out.println( getAgent().name() + " My pos: " + pos.x + "," + pos.y );
-	   System.out.println( getAgent().name() + " My target: " + target.x + "," + target.y );
-	   System.out.println( getAgent().name() + " My path length: " + path.size() );
-	   System.out.println( getAgent().name() + " My path reachable: " + (reachable ? "true" : "false") );
-      System.out.println( getAgent().name() + " My initial state: " + state);
+	   
+      System.out.println( getAgent().name() + " My initial state:'" + state +
+            "' pos:" + pos.x + "," + pos.y +" target:" + target.x + "," + target.y +
+            " length:" + path.size() + " reachable:" + (reachable ? "true" : "false") );
 	   
 	   
 	   //Check if last move was successful and remove point
