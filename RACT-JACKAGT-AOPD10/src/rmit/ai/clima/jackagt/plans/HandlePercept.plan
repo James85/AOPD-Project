@@ -23,13 +23,13 @@ Description: This plan assimilates each percept information received from the ga
 	//Events handled by the plan are declared here.
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
-	#posts event EShowBeliefs eshowbeliefs_p;
-
 	#sends event EUpdateBel eupdatebel_s;
 
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
 	#sends event MEReportPlayerPercept mereportplayerpercept_s;
+
+	#posts event EShowBeliefs eshowbeliefs_p;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 

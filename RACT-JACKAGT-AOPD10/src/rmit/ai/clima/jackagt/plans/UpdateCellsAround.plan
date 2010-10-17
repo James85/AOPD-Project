@@ -21,9 +21,9 @@ Description: Update the beliefs about the cells around a location
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BObstacleAt bel_obstacleAt_dat;
-
 	#modifies data BGoldAt bel_goldAt_dat;
+
+	#modifies data BObstacleAt bel_obstacleAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -68,7 +68,7 @@ Description: Update the beliefs about the cells around a location
          // Calculate the exact point of cells[i]: store it in GridPoint loc
          locDir = cells[i].id;	// first, get its direction (e.g., n, nw, s, se, etc.)
          GridPoint loc = GridPoint.getFromDir(posX, posY, locDir);
-
+         
          bFoundGold = false;	// Initially, assume the cell does not contain gold
          bUnknown = false;
          // Iterate on all the marks/labels for cells[i] (which is location loc)

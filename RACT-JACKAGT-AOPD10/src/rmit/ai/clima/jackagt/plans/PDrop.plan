@@ -27,6 +27,8 @@ Plan Name: PDrop
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
+	#reads data SimulationProp bel_simulationProp_dat;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
    logical String $state;
@@ -57,17 +59,33 @@ Plan Name: PDrop
 
    body()
    {
+      //Get grid size and depot location 
+      logical int $gridW, $gridH;
+      bel_simulationProp_dat.getGridSize( $gridW, $gridH );
       GridPoint pos = new GridPoint($posX.as_int(), $posY.as_int());
-      for (int i = 0; i < 4; ++i)
+
+      //Check how many points around has obstacles
+      int numObstacles = 0;
+      GridPoint harassPos = pos;
+      for (int i = 0; i < dirs.length; ++i)
       {
-         GridPoint harassPos = pos.getFromDir(dirs[i]);
-         if( bel_obstacleAt_dat.check(harassPos.x, harassPos.y).negate())
-         {
-            //send the harasser his perch
-            @send("player1", meharasspos_s.send(harassPos));
-            break;
-         }
+         //Check if the point is out of the grid
+         GridPoint adjPos = pos.getFromDir(dirs[i]);
+         if (pos.x < 1 || pos.x > $gridW.as_int() &&
+             pos.y < 1 || pos.y > $gridH.as_int())
+            numObstacles++;
+         
+         //Check if there is an obstacle at this point
+         else if(bel_obstacleAt_dat.check( adjPos.x, adjPos.y))
+            numObstacles++;
+         
+         //Assign free point as harass position
+         else harassPos = adjPos;
       }
+
+      //Send the harasser his perch if fairly clear of obstacles
+      if (numObstacles <= 1)
+         @send("player1", meharasspos_s.send(harassPos));
       
       System.out.println( "Dropping gold" );
       eexecuteclimaaction_p.post("drop");

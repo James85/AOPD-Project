@@ -16,9 +16,9 @@ Plan Name: PCoord_UpdateCellsAround
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerAt bel_playerAt_dat;
-
 	#modifies data BUnexplored bel_unexplored_dat;
+
+	#modifies data BPlayerAt bel_playerAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

@@ -20,13 +20,13 @@ Plan Name: PFindPath
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPathCache bel_moveHint_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
-	#reads data BPlayerAt bel_playerAt_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
+	#reads data BPlayerAt bel_playerAt_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -150,15 +150,13 @@ Plan Name: PFindPath
          Collections.shuffle(adjacentDir);
          for (int a=0; a<adjacentDir.size(); ++a)
          {
-            //Get adjacent node
+            //Get adjacent node and check if off the grid
             GridPoint adjPos = cur.pos.getFromDir( (String)adjacentDir.get(a) );
-
-            if(adjPos.x < 0 || adjPos.x >= grid.width || adjPos.y < 0 || adjPos.y >= grid.height)
+            if (adjPos.x < 0 || adjPos.x >= grid.width || adjPos.y < 0 || adjPos.y >= grid.height)
                continue;
 
-            PathNode adj = grid.getNode( adjPos );
-
             //Skip nodes with obstacles
+            PathNode adj = grid.getNode( adjPos );
             if (adj.obstacle) continue;
 
             //Calculate path status
