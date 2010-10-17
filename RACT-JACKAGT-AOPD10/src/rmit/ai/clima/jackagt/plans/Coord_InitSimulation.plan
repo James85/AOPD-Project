@@ -18,13 +18,13 @@ Description: Coordination plan to start a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BObstacleAt bel_obstacleAt_dat;
-
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+
+	#modifies data BPlayer bel_players_dat;
 
 	#modifies data BUnexplored bel_unexplored_dat;
 
-	#modifies data BPlayer bel_players_dat;
+	#modifies data BObstacleAt bel_obstacleAt_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
@@ -64,14 +64,14 @@ Description: Coordination plan to start a simulation
 
 
 
-      if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps)) 
+      if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps, numSteps)) 
       {
          //consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation, but I already know about it...");
       } 
       else
       {
          // Initalize parameters for the new simulation
-         bel_simulationProp_dat.add(gridX, gridY, depotX, depotY, numSteps);
+         bel_simulationProp_dat.add(gridX, gridY, depotX, depotY, numSteps, numSteps);
          bel_obstacleAt_dat.add(depotX, depotY, Cursor.FALSE);
          //consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation!");
 

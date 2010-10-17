@@ -6,91 +6,105 @@ import java.util.*;
 
 public plan PMove extends Plan
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-/*
+   /*
 Plan Name: PMove
-*/
-	//Events handled by the plan are declared here.
-	#sends event MERequestCellInfo merequestcellinfo_s;
+    */
+   //Events handled by the plan are declared here.
+   #posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+   #sends event MERequestCellInfo merequestcellinfo_s;
 
-	#handles event EExecuteAction eexecuteaction_h;
+   #handles event EExecuteAction eexecuteaction_h;
 
 
-	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BCurrentPath bel_currentPath_dat;
+   // Declarations of any beliefset/data that the plan accesses.
+   #reads data BCurrentPosition bel_currentPosition_dat;
 
-	#reads data BCurrentPosition bel_currentTarget_dat;
+   #reads data BCurrentPath bel_currentPath_dat;
 
-	#reads data BCurrentPosition bel_currentPosition_dat;
+   #reads data BCurrentState bel_currentState_dat;
 
-	#reads data BCurrentState bel_currentState_dat;
+   #reads data BCurrentPosition bel_currentTarget_dat;
 
-/******** End PDT Design Block *** DO NOT EDIT IT *********/
-	
+   /******** End PDT Design Block *** DO NOT EDIT IT *********/
+
    logical String $state;
    logical Object $path;
    logical boolean $reachable;
-   
+
    #reasoning method fail()
    {
-       System.out.println("OMGZORS ===========DickZilla : PMove");
+      System.out.println("OMGZORS ===========DickZilla : PMove");
    }
-   
+
    static boolean relevant (EExecuteAction e)
    {
       return true;
    }
-   
+
    context()
    {
       //Need to be in any of moving states
       bel_currentState_dat.get( $state ) &&
       ($state.as_string().equals("gold") ||
-       $state.as_string().equals("explore") ||
-       $state.as_string().equals("depot"))
-       &&
-      //Path needs to be valid
-      bel_currentPath_dat.get( $path, $reachable )
-      && (((Vector)$path.as_object()).size() > 0)
-      && ($reachable.as_boolean() == true);
+            $state.as_string().equals("explore") ||
+            $state.as_string().equals("depot"))
+            &&
+            //Path needs to be valid
+            bel_currentPath_dat.get( $path, $reachable )
+            && (((Vector)$path.as_object()).size() > 0)
+            && ($reachable.as_boolean() == true);
    }
 
-	body()
-	{
+   body()
+   {
       //Get current position
       logical int $posX, $posY;
       bel_currentPosition_dat.get( $posX, $posY );
       GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
-      
+
       //Get next position from the path
       Vector path = (Vector) $path.as_object();
       GridPoint nextPos = (GridPoint) path.get( path.size()-1 );
-      
+      GridPoint lastPos = (GridPoint) path.get(0);
+
+      //Request fresh info about target cell from the coordinator
+      MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( nextPos );
+      @send( "boss", cellInfoRequest );
+      @wait_for( cellInfoRequest.replied() );
+      MEReturnCellInfo cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply();
+
+      //Don't move if there's a player on the target (bumping into players makes them fail)
+      if (cellInfoReply.hasPlayer) {
+         eexecuteclimaaction_p.post( "skip" );
+         return true;
+      }
+
+
       //Check if two squares away from target
       if (path.size() <= 2)
       {
          //Request fresh info about target cell from the coordinator
-         MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( (GridPoint) path.get(0) );
+         MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( lastPos );
          @send( "boss", cellInfoRequest );
          @wait_for( cellInfoRequest.replied() );
          MEReturnCellInfo cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply();
-         
+
          //Don't move if there's a player on the target (bumping into players makes them fail)
          if (cellInfoReply.hasPlayer) {
             eexecuteclimaaction_p.post( "skip" );
             return true;
          }
       }
-      
+
       /*
       for (int p=path.size()-1; p>=0; --p) {
          GridPoint point = (GridPoint) path.get(p);
          System.out.println( "Path point " + point.x + "," + point.y );
       }*/
-      
+
       System.out.println( getAgent().name() + " Moving from " + pos.x + "," + pos.y + " to " + nextPos.x + "," + nextPos.y );
       Object[] dirs = GridPoint.getRelativeDirections( pos, nextPos );
       if (dirs.length > 0)
@@ -104,5 +118,5 @@ Plan Name: PMove
          //This really shouldn't happen
          System.out.println( getAgent().name() + " INVALID PATH NODE!!!!!");
       }
-	}
+   }
 }

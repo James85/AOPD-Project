@@ -21,13 +21,13 @@ Description: This plan assimilates each percept information received from the ga
 
 */
 	//Events handled by the plan are declared here.
-	#sends event MEReportPlayerPercept mereportplayerpercept_s;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
 	#sends event EUpdateBel eupdatebel_s;
 
+	#sends event MEReportPlayerPercept mereportplayerpercept_s;
+
 	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#posts event EShowBeliefs eshowbeliefs_p;
 
@@ -35,9 +35,11 @@ Description: This plan assimilates each percept information received from the ga
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentPosition bel_currentPosition_dat;
-
 	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#modifies data SimulationProp bel_simulationProp_dat;
+
+	#modifies data BCurrentPosition bel_currentPosition_dat;
 
 	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
 
@@ -96,6 +98,15 @@ Description: This plan assimilates each percept information received from the ga
       // *******************************************
       // START OF BELIEF UPDATES
       // *******************************************
+      
+      //decrement the number of steps that are left in this simulation
+      logical int $gridX, $gridY, $depotX, $depotY, $noSteps, $numStepsLeft;
+      bel_simulationProp_dat.get( $gridX, $gridY, $depotX, $depotY, $noSteps, $numStepsLeft );
+      bel_simulationProp_dat.add( $gridX.as_int(), $gridY.as_int(), $depotX.as_int(), $depotY.as_int(), $noSteps.as_int(), $noSteps.as_int() - step);
+      
+      int numStepsLeft = bel_simulationProp_dat.getNumStepsLeft();
+      //System.out.println("There are: " + numStepsLeft + " steps left!  ======D The actual Step Number is: " + step);
+     
 
       logical int $locationX, $locationY;
 

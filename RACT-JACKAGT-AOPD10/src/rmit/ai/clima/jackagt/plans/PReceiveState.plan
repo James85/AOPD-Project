@@ -20,9 +20,9 @@ Plan Name: PReceiveState
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BCurrentPosition bel_currentTarget_dat;
 
-	#modifies data BCurrentPath bel_currentPath_dat;
-
 	#modifies data BCurrentState bel_currentState_dat;
+
+	#modifies data BCurrentPath bel_currentPath_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 

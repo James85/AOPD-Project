@@ -17,6 +17,8 @@ Plan Name: PCoord_IdentifyGoldTargets
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#reads data SimulationProp bel_simulationProp_dat;
+
 	#reads data BGoldAt bel_goldAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
@@ -31,6 +33,7 @@ Plan Name: PCoord_IdentifyGoldTargets
       //Loop through all the gold
       logical int $goldX, $goldY;
       Cursor c_gold = bel_goldAt_dat.get( $goldX, $goldY );
+
       while ( c_gold.next() )
       {
          //Add a target for this gold

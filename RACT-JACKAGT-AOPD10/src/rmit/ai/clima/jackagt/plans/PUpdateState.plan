@@ -6,85 +6,85 @@ import java.util.*;
 
 public plan PUpdateState extends Plan
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 /*
 Plan Name: PUpdateState
 */
 	//Events handled by the plan are declared here.
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
-	#sends event MERequestCellInfo merequestcellinfo_s;
+	#sends event MERequestPathfinding merequestpathfinding_s;
 
 	#posts event EExecuteAction eexecuteaction_p;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentPosition bel_currentTarget_dat;
-
 	#modifies data BCurrentState bel_currentState_dat;
 
-	#reads data BCurrentPath bel_currentPath_dat;
+	#modifies data BCurrentPosition bel_currentTarget_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
+	#reads data BCurrentPath bel_currentPath_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
-	static boolean relevant(MEPlayerPerceptsAssimilated e)
-	{
-	   return true;
-	}
-	
-	context()
-	{
-		true;
-	}
-	
-	  #reasoning method fail()
-	   {
-	       System.out.println("OMGZORS ===========DickZilla : PUpdateState");
-	   }
+   static boolean relevant(MEPlayerPerceptsAssimilated e)
+   {
+      return true;
+   }
 
-	//#reasoning method
-	body()
-	{
-		logical String $state;
-		logical int $posX, $posY, $targetX, $targetY;
-		logical int $numGold;
+   context()
+   {
+      true;
+   }
 
-		bel_currentState_dat.get( $state );
-	   bel_currentPosition_dat.get( $posX, $posY );
-	   bel_currentTarget_dat.get( $targetX, $targetY );
-	   bel_numCarryingGold_dat.get( $numGold );
-	   Vector path = bel_currentPath_dat.getPath();
-	   boolean reachable = bel_currentPath_dat.getReachable();
-      
+   #reasoning method fail()
+   {
+      System.out.println("OMGZORS ===========DickZilla : PUpdateState");
+   }
+
+   //#reasoning method
+   body()
+   {
+      logical String $state;
+      logical int $posX, $posY, $targetX, $targetY;
+      logical int $numGold;
+
+      bel_currentState_dat.get( $state );
+      bel_currentPosition_dat.get( $posX, $posY );
+      bel_currentTarget_dat.get( $targetX, $targetY );
+      bel_numCarryingGold_dat.get( $numGold );
+      Vector path = bel_currentPath_dat.getPath();
+      boolean reachable = bel_currentPath_dat.getReachable();
+
       String state = $state.as_string();
-	   GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
-	   GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
-	   
-	   
+      GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
+      GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
+
+
       System.out.println( getAgent().name() + " My initial state:'" + state +
             "' pos:" + pos.x + "," + pos.y +" target:" + target.x + "," + target.y +
             " length:" + path.size() + " reachable:" + (reachable ? "true" : "false") );
-	   
-	   
-	   //Check if last move was successful and remove point
-	   if (path.size() > 0) {
-	      if (pos.equals( (GridPoint) path.lastElement() )) {
-	         path.remove( path.size()-1 );
-	         bel_currentPath_dat.add( path, reachable );
-	      }
-	   }
-	   
+
+
+      //Check if last move was successful and remove point
+      if (path.size() > 0) {
+         if (pos.equals( (GridPoint) path.lastElement() )) {
+            path.remove( path.size()-1 );
+            bel_currentPath_dat.add( path, reachable );
+         }
+      }
+
       //Check if our position adjacent to next point (otherwise somethings wrong)
       if (path.size() > 0) {
          if (pos.getManhattanDist( (GridPoint) path.lastElement() ) > 1) {
@@ -93,68 +93,80 @@ Plan Name: PUpdateState
             state = "idle";
          }
       }
-	   
-	   
-	   MEReturnCellInfo cellInfoReply;
-	   if (! state.equals("idle"))
-	   {
-   	   //Request fresh info about target cell from the coordinator
+
+
+      MEReturnCellInfo cellInfoReply;
+      if (! state.equals("idle"))
+      {
+         //Request fresh info about target cell from the coordinator
          MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( target );
          @send( "boss", cellInfoRequest );
          @wait_for( cellInfoRequest.replied() );
          cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply();
-	   }
-      
+      }
+
+
+
+
+
+      //Request fresh info about path from the coordinator
+      logical int $depotX, $depotY;
+      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
+      GridPoint depotPos = new GridPoint( $depotX.as_int(), $depotY.as_int() );
+      MERequestPathfinding findPathRequest = merequestpathfinding_s.send( pos, depotPos );
+      @send( "boss", findPathRequest );
+      @wait_for( findPathRequest.replied() );
+      MEReturnPathfinding findPathReply = (MEReturnPathfinding) findPathRequest.getReply();
+      int depotPathLength = findPathReply.path.size();
+      int numStepsLeft = bel_simulationProp_dat.getNumStepsLeft();
+
+      //If we have MAX_GOLD set state to depot
+      if( $numGold.as_int() >= 3 || (numStepsLeft <= depotPathLength * 1.5f && $numGold.as_int() < 3  ))
+      {
+         bel_currentTarget_dat.add( $depotX.as_int(), $depotY.as_int() );
+         target = new GridPoint( $depotX.as_int(), $depotY.as_int() );
+
+         bel_currentState_dat.add("depot");
+         state = "depot";
+      }
+
       //Check current state
       if(state.equals("gold") )
-		{
-		   //If we have MAX_GOLD set state to depot
-		   if($numGold.as_int() >= 2)
-		   {
-		      logical int $depotX, $depotY;
-		      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
-		      
-		      bel_currentTarget_dat.add( $depotX.as_int(), $depotY.as_int() );
-		      target = new GridPoint( $depotX.as_int(), $depotY.as_int() );
-		      
-            bel_currentState_dat.add("depot");
-            state = "depot";
-		   }
-		   
+      {
          //If gold removed set state to idle
-		   else if (!cellInfoReply.hasGold)
-		   {
-		      bel_currentState_dat.add("idle");
-		      state = "idle";
-		   }
-		}
-		else if(state.equals("depot") )
-		{
-   	   //If gold dropped set state to idle
-		   if ($numGold.as_int() == 0) {
-            bel_currentState_dat.add( "idle" );
-            state = "idle";
-		   }
-		}
-		else if(state.equals("explore") )
-		{
-		   //If target became explored set state to idle
-		   if (cellInfoReply.isExplored) {
+         if (!cellInfoReply.hasGold)
+         {
             bel_currentState_dat.add("idle");
             state = "idle";
-		   }
-		}
+         }
+      }
+      else if(state.equals("depot") /*&& ! (numStepsLeft <= depotPathLength + 30) */ )
+      {
+         //If gold dropped set state to idle
+         if ($numGold.as_int() == 0) {
+            bel_currentState_dat.add( "idle" );
+            state = "idle";
+         }
+      }
+      else if(state.equals("explore") )
+      {
+         //If target became explored set state to idle
+         if (cellInfoReply.isExplored) {
+            bel_currentState_dat.add("idle");
+            state = "idle";
+         }
+      }
+
       
-      MEReturnPathfinding findPathReply;
       if (! state.equals("idle"))
-      //if (state.equals("depot"))
+         //if (state.equals("depot"))
       {
          //Request fresh info about path from the coordinator
          MERequestPathfinding findPathRequest = merequestpathfinding_s.send( pos, target );
          @send( "boss", findPathRequest );
          @wait_for( findPathRequest.replied() );
-         findPathReply = (MEReturnPathfinding) findPathRequest.getReply();
-         
+         MEReturnPathfinding findPathReply = (MEReturnPathfinding) findPathRequest.getReply();
+
          //Update path info with fresh data if reachable
          if (findPathReply.reachable) {
             bel_currentPath_dat.add( findPathReply.path, findPathReply.reachable );
@@ -162,8 +174,8 @@ Plan Name: PUpdateState
             reachable = findPathReply.reachable;
          }
       }
-		
-		//Send our state to coordinator
-		@send("boss", mereportplayerstate_s.send( getAgent().name(), state, target ));
-	}
+
+      //Send our state to coordinator
+      @send("boss", mereportplayerstate_s.send( getAgent().name(), state, target ));
+   }
 }

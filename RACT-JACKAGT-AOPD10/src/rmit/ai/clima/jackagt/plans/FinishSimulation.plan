@@ -10,7 +10,7 @@ import rmit.ai.clima.interfaces.*;
 
 public plan FinishSimulation extends Plan
 {
-/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+   /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
 /*
 Plan Name: FinishSimulation
@@ -27,53 +27,53 @@ Description: Finalize a simulation
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
-	#modifies data BGoldAt bel_goldAt_dat;
-
 	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
 
-	#modifies data SimulationProp bel_simulationProp_dat;
-
 	#modifies data BObstacleAt bel_obstacleAt_dat;
+
+	#modifies data BGoldAt bel_goldAt_dat;
+
+	#modifies data SimulationProp bel_simulationProp_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
    // The enclosing agent or capability has to implement these interfaces
    #uses interface DebugInterface debugIface;
-   
-   
+
+
    static boolean relevant(PerceiveClimaServer perceiveclimaserver_h)
-    {
-        return perceiveclimaserver_h.data instanceof SimEnd;
-    }
-    
-    context()
-    {
-        true;
-    }
-    
-    
-    #reasoning method
-    body()
-    {
-		debugIface.showConsoleDebug("I have received a SIM-END message....");
+   {
+      return perceiveclimaserver_h.data instanceof SimEnd;
+   }
 
-       
-        // Clear agent's beliefs
-        logical int $x,$y, $gridX, $gridY, $depotX, $depotY, $noSteps, $id, $step;
-        bel_obstacleAt_dat.get($x,$y).removeAll();
-        bel_simulationProp_dat.get($gridX,$gridY,$depotX,$depotY,$noSteps).removeAll();
-	    bel_currentRequestActionId_dat.get($id,$step).removeAll();
-	    bel_goldAt_dat.get($x,$y).removeAll();
-	    bel_numCarryingGold_dat.get($x).removeAll();
-    
+   context()
+   {
+      true;
+   }
 
 
-        // Inform the coordinator and the GUI agent that the simulation has finished
-        @send("boss", mesimend_s.send());
-    	@send("gui", mesimend_s.send());
+   #reasoning method
+   body()
+   {
+      debugIface.showConsoleDebug("I have received a SIM-END message....");
 
 
-        // Report the end of the current simulation for this agent
-		debugIface.showConsoleDebug("I have finished the current simulation");
-    }
+      // Clear agent's beliefs
+      logical int $x,$y, $gridX, $gridY, $depotX, $depotY, $noSteps, $id, $step, $numStepsLeft;
+      bel_obstacleAt_dat.get($x,$y).removeAll();
+      bel_simulationProp_dat.get($gridX,$gridY,$depotX,$depotY,$noSteps, $numStepsLeft).removeAll();
+      bel_currentRequestActionId_dat.get($id,$step).removeAll();
+      bel_goldAt_dat.get($x,$y).removeAll();
+      bel_numCarryingGold_dat.get($x).removeAll();
+
+
+
+      // Inform the coordinator and the GUI agent that the simulation has finished
+      @send("boss", mesimend_s.send());
+      @send("gui", mesimend_s.send());
+
+
+      // Report the end of the current simulation for this agent
+      debugIface.showConsoleDebug("I have finished the current simulation");
+   }
 }

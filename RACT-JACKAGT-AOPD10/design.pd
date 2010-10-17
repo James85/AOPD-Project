@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project PDTVersion="0.3.2">
-<JACKCodePool IMemento.internal.id="728586" PoolType="148">
+<JACKCodePool IMemento.internal.id="733706" PoolType="148">
 <CodeEntity IMemento.internal.id="386964" cellID="385538"/>
 <CodeEntity IMemento.internal.id="312468" cellID="311554" modifier="5"/>
 <CodeEntity IMemento.internal.id="715668" cellID="713218" modifier="5"/>
@@ -125,9 +125,11 @@
 <Relation DST="536065" IMemento.internal.id="539141" Prominence="0" RelationType="-2147483648" SRC="538113"/>
 <Relation DST="39681" IMemento.internal.id="145669" Prominence="0" RelationType="-2147483648" SRC="30465"/>
 <Relation DST="23297" IMemento.internal.id="537605" Prominence="0" RelationType="-2147483648" SRC="51201"/>
+<Relation DST="25857" IMemento.internal.id="733189" Prominence="0" RelationType="-2147483648" SRC="76801"/>
 <Relation DST="23809" IMemento.internal.id="143365" Prominence="0" RelationType="-2147483648" SRC="76801"/>
-<Relation DST="729089" IMemento.internal.id="731653" Prominence="0" RelationType="-2147483648" SRC="295681"/>
+<Relation DST="729089" IMemento.internal.id="732421" Prominence="0" RelationType="-2147483648" SRC="25857"/>
 <Relation DST="76801" IMemento.internal.id="142597" Prominence="0" RelationType="-2147483648" SRC="29697"/>
+<Relation DST="729089" IMemento.internal.id="731653" Prominence="0" RelationType="-2147483648" SRC="295681"/>
 <Relation DST="47105" IMemento.internal.id="141061" Prominence="0" RelationType="-2147483648" SRC="42497"/>
 <Relation DST="48385" IMemento.internal.id="140293" Prominence="0" RelationType="-2147483648" SRC="41473"/>
 <Relation DST="486913" IMemento.internal.id="532229" Prominence="0" RelationType="-2147483648" SRC="25857"/>
@@ -280,8 +282,8 @@
 <Relation DST="30465" IMemento.internal.id="145413" Prominence="0" RelationType="1073741831" SRC="29697"/>
 <Relation DST="33281" IMemento.internal.id="142341" Prominence="0" RelationType="-2147483648" SRC="76801"/>
 <Relation DST="48897" IMemento.internal.id="535045" Prominence="0" RelationType="-2147483648" SRC="534017"/>
-<Relation DST="730113" IMemento.internal.id="730629" Prominence="0" RelationType="-2147483648" SRC="462593"/>
 <Relation DST="42497" IMemento.internal.id="141573" Prominence="0" RelationType="-2147483648" SRC="23809"/>
+<Relation DST="730113" IMemento.internal.id="730629" Prominence="0" RelationType="-2147483648" SRC="462593"/>
 <Relation DST="42497" IMemento.internal.id="140805" Prominence="0" RelationType="1073741831" SRC="48897"/>
 <Relation DST="518401" IMemento.internal.id="533509" Prominence="0" RelationType="-2147483648" SRC="25857"/>
 <Relation DST="47105" IMemento.internal.id="140037" Prominence="0" RelationType="-2147483648" SRC="41473"/>
@@ -846,6 +848,8 @@
 <Connection ConnectionType="-2147483648" DST="539906" IMemento.internal.id="540932" MotherDiagram="20227" SRC="462850"/>
 <Connection ConnectionType="-2147483648" DST="536578" IMemento.internal.id="539396" MotherDiagram="20227" SRC="538370"/>
 <Connection ConnectionType="-2147483648" DST="345346" IMemento.internal.id="537860" MotherDiagram="20227" SRC="51458"/>
+<Connection ConnectionType="-2147483648" DST="75266" IMemento.internal.id="733444" MotherDiagram="37379" SRC="77058"/>
+<Connection ConnectionType="-2147483648" DST="729346" IMemento.internal.id="732676" MotherDiagram="20227" SRC="54786"/>
 <Connection ConnectionType="-2147483648" DST="729346" IMemento.internal.id="731908" MotherDiagram="20227" SRC="500994"/>
 <Connection ConnectionType="-2147483648" DST="487426" IMemento.internal.id="532484" MotherDiagram="20227" SRC="54786"/>
 <Connection ConnectionType="-2147483648" DST="726786" IMemento.internal.id="727300" MotherDiagram="20227" SRC="462850"/>
@@ -1753,7 +1757,7 @@
 <Look Height="-1" Width="-1" XCoordinate="1062" YCoordinate="720"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="296194" MotherDiagram="21251" WrappedEntity="295681">
-<Look Height="-1" Width="-1" XCoordinate="35" YCoordinate="526"/>
+<Look Height="-1" Width="-1" XCoordinate="18" YCoordinate="464"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="682754" MotherDiagram="70659" WrappedEntity="467969">
 <Look Height="-1" Width="-1" XCoordinate="811" YCoordinate="356"/>
@@ -2075,13 +2079,14 @@
 <DataField ID="701185" INDEX="5"/>
 </Beliefset>
 <Data DataType="308481" Description="The amount of gold an agent believes it is carrying." EntityName="bel_numCarryingGold" IMemento.internal.id="307457"/>
-<DataField FieldName="depotX" FieldType="int" IMemento.internal.id="160001" IsKey="true"/>
+<DataField FieldName="depotX" FieldType="int" IMemento.internal.id="160001" IsKey="false"/>
 <Beliefset EntityName="SimulationProp" IMemento.internal.id="159233">
 <DataField ID="159489" INDEX="0"/>
 <DataField ID="159745" INDEX="1"/>
 <DataField ID="160001" INDEX="2"/>
 <DataField ID="160257" INDEX="3"/>
 <DataField ID="160513" INDEX="4"/>
+<DataField ID="732929" INDEX="5"/>
 </Beliefset>
 <Data DataType="447745" EntityName="bel_playerPerceptReceived" IMemento.internal.id="453377"/>
 <Beliefset EntityName="BPlayer" IMemento.internal.id="452609">
@@ -2104,11 +2109,12 @@
 </Beliefset>
 <Plan Context="" Description="Coordination plan to start a simulation" EntityName="Coord_InitSimulation" Failure="" FailureRecovery="" IMemento.internal.id="51201" Procedure=""/>
 <Message Description="Instruct the execution of an action" EntityName="EExecuteCLIMAaction" IMemento.internal.id="48897" InfoCarried="" IsCovered="true" IsExternal="false" IsOverlapped="true" Package="" Purpose=""/>
+<DataField FieldName="numStepsLeft" FieldType="int" IMemento.internal.id="732929" IsKey="false"/>
 <Plan Context="" Description="Report the beliefs of the agent somewhere (e.g., in the GUI)" EntityName="BeliefReporting" Failure="" FailureRecovery="" IMemento.internal.id="46593" Procedure=""/>
 <Data DataType="336641" EntityName="bel_playerTarget" IMemento.internal.id="536065"/>
 <Plan Context="" Description="" EntityName="FinishGame" Failure="" FailureRecovery="" IMemento.internal.id="45057" Procedure=""/>
-<Plan EntityName="PCoord_IdentifyGoldTargets" IMemento.internal.id="729089"/>
 <DataField Description="name of the agent this belief pertains to" FieldName="agentName" FieldType="String" IMemento.internal.id="336897" IsKey="true"/>
+<Plan EntityName="PCoord_IdentifyGoldTargets" IMemento.internal.id="729089"/>
 <Message EntityName="eage" IMemento.internal.id="434177"/>
 <DataField Description="Agent&apos;s current horizontal position on the grid" FieldName="posX" FieldType="int" IMemento.internal.id="285953" IsKey="false"/>
 <Message Description="Inform that a simulation has just started" EntityName="MESimStart" IMemento.internal.id="40449" InfoCarried="" IsCovered="true" IsExternal="false" IsOverlapped="true" Package="" Purpose=""/>
@@ -2167,9 +2173,9 @@
 <DataField ID="308737" INDEX="0"/>
 </Beliefset>
 <DataField Description="" FieldName="srcX" FieldType="int" IMemento.internal.id="699905" IsKey="true"/>
-<DataField FieldName="depotY" FieldType="int" IMemento.internal.id="160257" IsKey="true"/>
+<DataField FieldName="depotY" FieldType="int" IMemento.internal.id="160257" IsKey="false"/>
 <Goal EntityName="CollectGold" IMemento.internal.id="404993"/>
-<DataField FieldName="gridX" FieldType="int" IMemento.internal.id="159489" IsKey="true"/>
+<DataField FieldName="gridX" FieldType="int" IMemento.internal.id="159489" IsKey="false"/>
 <Plan Context="" Description="Update the information of one cell in the GUI" EntityName="GUIUpdateCell" Failure="" FailureRecovery="" IMemento.internal.id="61441" Procedure=""/>
 <DataField Description="name of agent" FieldName="name" FieldType="String" IMemento.internal.id="452865" IsKey="true"/>
 <Percept Description="XML data that the server sends at every cycle with sensing information" EntityName="request-action XML" Frequency="" IMemento.internal.id="10497" InfoCarried="" IsExternal="true" KnowledgeUpdated="" Package="" Processing="" Source=""/>
@@ -2257,8 +2263,8 @@
 <DataField FieldName="path" FieldType="Object" IMemento.internal.id="700929" IsKey="false"/>
 <DataField Description="Amount of gold this agent is carrying" FieldName="goldCount" FieldType="int" IMemento.internal.id="308737" IsKey="false"/>
 <DataField Description="" FieldName="srcY" FieldType="int" IMemento.internal.id="700161" IsKey="true"/>
-<DataField FieldName="noSteps" FieldType="int" IMemento.internal.id="160513" IsKey="true"/>
-<DataField FieldName="gridY" FieldType="int" IMemento.internal.id="159745" IsKey="true"/>
+<DataField FieldName="noSteps" FieldType="int" IMemento.internal.id="160513" IsKey="false"/>
+<DataField FieldName="gridY" FieldType="int" IMemento.internal.id="159745" IsKey="false"/>
 <Goal EntityName="ExploreWorld" IMemento.internal.id="404481"/>
 <Plan Context="" Description="Start the GUI interface" EntityName="GUIInitiate" Failure="" FailureRecovery="" IMemento.internal.id="60929" Procedure=""/>
 <Scenario Context="" Description="" EntityName="PlayGame" IMemento.internal.id="11521" InitiatedBy="System" IsCoupled="false" RelevantGoal="15873" Variation=""/>
