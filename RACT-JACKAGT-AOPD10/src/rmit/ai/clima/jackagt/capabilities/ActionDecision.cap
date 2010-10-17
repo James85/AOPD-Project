@@ -24,11 +24,6 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BCurrentState bel_currentState_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -39,35 +34,40 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
+	#imports data BCurrentPosition bel_currentPosition_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
 	#imports data BCurrentPosition bel_currentTarget_dat();
 
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPath bel_currentPath_dat();
+
 
 	//Events handled, posted and sent are declared here.
-	#handles external event MEReturnPlayerState ;
-
-	#handles external event MEReturnCellInfo ;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#sends event MERequestPathfinding merequestpathfinding_s;
 
+	#handles external event MEReturnPlayerState ;
+
 	#handles external event MEPlayerPerceptsAssimilated ;
-
-	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
-
-	#handles external event MEReturnPathfinding ;
 
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#handles external event MEReturnPathfinding ;
 
 	#handles event EExecuteAction ;
 	#posts event EExecuteAction eexecuteaction_p;
+
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event MEReturnCellInfo ;
 
 
 	//Plans directly used are declared here.

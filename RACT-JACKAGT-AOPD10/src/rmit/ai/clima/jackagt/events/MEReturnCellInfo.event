@@ -14,15 +14,17 @@ public event MEReturnCellInfo extends MessageEvent
    public boolean hasObstacle;
    public boolean isExplored;
    public boolean hasPlayer;
+   public boolean hasEnemy;
    public GridPoint cellPos;
 	
-	#posted as reply(GridPoint cellPos, boolean hasGold, boolean hasObstacle, boolean isExplored, boolean hasPlayer)
+	#posted as reply(GridPoint cellPos, boolean hasGold, boolean hasObstacle, boolean isExplored, boolean hasPlayer, boolean hasEnemy)
 	{
 	   this.cellPos = cellPos;
 	   this.hasGold = hasGold;
 	   this.hasObstacle = hasObstacle;
 	   this.isExplored = isExplored;
 	   this.hasPlayer = hasPlayer;
+	   this.hasEnemy = hasEnemy;
 	}
 	
 	

@@ -5,6 +5,8 @@ import rmit.ai.clima.jackagt.data.*;
 import rmit.ai.clima.interfaces.*;
 import rmit.ai.clima.gui.grid.*;
 import rmit.ai.clima.comms.Cell;
+import rmit.ai.clima.jackagt.*;
+
 public plan Coord_AssimilatePlayerPercept extends Plan
 {
 	/******** Start PDT Design Block *** DO NOT EDIT IT *********/
@@ -15,19 +17,23 @@ Plan Name: Coord_AssimilatePlayerPercept
 	//Events handled by the plan are declared here.
 	#posts event ECoordUpdateBel ecoordupdatebel_p;
 
-	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
-
 	#posts event EUpdateBel eupdatebel_p;
+
+	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
 
 	#handles event MEReportPlayerPercept mereportplayerpercept_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerGold bel_playerGold_dat;
+	#modifies data BPlayerPosition bel_playerPositions_dat;
+
+	#modifies data BPathCache bel_moveHint_dat;
 
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
-	#modifies data BPlayerPosition bel_playerPositions_dat;
+	#modifies data BPlayerAt bel_playerAt_dat;
+
+	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#reads data BPlayer bel_players_dat;
 
@@ -46,6 +52,25 @@ Plan Name: Coord_AssimilatePlayerPercept
 
 	body()
 	{
+	   //Clear cached info when first percept received in this turn
+	   if (bel_playerPerceptReceived_dat.nFacts() == 0)
+	   {
+	      System.out.println( "CLEARING CACHE" );
+	      
+         //Reset all the obstacles in the pathfinding grid so it is ready for the next turn
+         PathGrid.getInstance().Reset();
+         
+	      //Clear the pathfinding cache
+	      logical int $srcX, $srcY,  $dstX,  $dstY;
+	      logical Object $path;
+	      logical boolean $reachable;
+	      bel_moveHint_dat.get( $srcX, $srcY, $dstX, $dstY, $path, $reachable ).removeAll();
+	      
+         //Clear the enemy player locations
+         logical int $playerAtX, $playerAtY;
+         bel_playerAt_dat.get( $playerAtX, $playerAtY ).removeAll();
+	   }
+      
 	   // Update the information on all the cells around (as a subtask)
       @subtask( eupdatebel_p.post(mereportplayerpercept_h.step, mereportplayerpercept_h.currentPos, mereportplayerpercept_h.cells, mereportplayerpercept_h.noCarryingGold) );
 	   @subtask( ecoordupdatebel_p.post( mereportplayerpercept_h.currentPos, mereportplayerpercept_h.cells ));
@@ -56,7 +81,7 @@ Plan Name: Coord_AssimilatePlayerPercept
 		
 		//Mark that we got percept from this player
 		bel_playerPerceptReceived_dat.add(mereportplayerpercept_h.name);
-		if(bel_playerPerceptReceived_dat.nFacts()  == bel_players_dat.nFacts())
+		if(bel_playerPerceptReceived_dat.nFacts() == bel_players_dat.nFacts())
 		{
 		   logical String $name;
 		   Cursor c_players = bel_playerPerceptReceived_dat.get($name);
@@ -66,11 +91,9 @@ Plan Name: Coord_AssimilatePlayerPercept
 	         baseName = baseName.substring(0,baseName.indexOf("@"));
 		      @send(baseName, meplayerperceptsassimilated_s.send() );
 		   }
-		   //#TODO find out how to do this with a cursor instead
+		   
+		   //Reset the sync counter
 		   bel_playerPerceptReceived_dat.get($name).removeAll();
-		   
 		}
-		   
-
 	}
 }

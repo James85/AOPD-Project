@@ -19,15 +19,18 @@ public beliefset BCurrentPath extends ClosedWorld /*or OpenWorld*/
 
 	#value field boolean reachable;
 
+	#value field int unreachableCount;
+
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	
-	#indexed query get (logical Object path, logical boolean reachable);
+	#indexed query get (logical Object path, logical boolean reachable, logical int unreachableCount);
 	
 	#function query public Vector getPath ()
 	{
 	   logical Object $path;
 	   logical boolean $reachable;
-	   get( $path, $reachable ).next();
+	   logical int $unreachableCount;
+	   get( $path, $reachable, $unreachableCount ).next();
 	   return (Vector) $path.as_object();
 	}
 	
@@ -35,7 +38,17 @@ public beliefset BCurrentPath extends ClosedWorld /*or OpenWorld*/
    {
       logical Object $path;
       logical boolean $reachable;
-      get( $path, $reachable ).next();
+      logical int $unreachableCount;
+      get( $path, $reachable, $unreachableCount ).next();
       return $reachable.as_boolean();
    }
+   
+  #function query public int getUnreachableCount ()
+  {
+     logical Object $path;
+     logical boolean $reachable;
+     logical int $unreachableCount;
+     get( $path, $reachable, $unreachableCount ).next();
+     return $unreachableCount.as_int();
+  }
 }

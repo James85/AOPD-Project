@@ -8,31 +8,32 @@ public plan PMove extends Plan
 {
    /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 
-   /*
+/*
 Plan Name: PMove
-    */
-   //Events handled by the plan are declared here.
-   #posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+*/
+	//Events handled by the plan are declared here.
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
-   #sends event MERequestCellInfo merequestcellinfo_s;
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-   #handles event EExecuteAction eexecuteaction_h;
+	#handles event EExecuteAction eexecuteaction_h;
 
 
-   // Declarations of any beliefset/data that the plan accesses.
-   #reads data BCurrentPosition bel_currentPosition_dat;
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BCurrentPath bel_currentPath_dat;
 
-   #reads data BCurrentPath bel_currentPath_dat;
+	#reads data BCurrentPosition bel_currentTarget_dat;
 
-   #reads data BCurrentState bel_currentState_dat;
+	#reads data BCurrentPosition bel_currentPosition_dat;
 
-   #reads data BCurrentPosition bel_currentTarget_dat;
+	#reads data BCurrentState bel_currentState_dat;
 
-   /******** End PDT Design Block *** DO NOT EDIT IT *********/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
 
    logical String $state;
    logical Object $path;
    logical boolean $reachable;
+   logical int $unreachableCount;
 
    #reasoning method fail()
    {
@@ -53,7 +54,7 @@ Plan Name: PMove
             $state.as_string().equals("depot"))
             &&
             //Path needs to be valid
-            bel_currentPath_dat.get( $path, $reachable )
+            bel_currentPath_dat.get( $path, $reachable, $unreachableCount )
             && (((Vector)$path.as_object()).size() > 0)
             && ($reachable.as_boolean() == true);
    }
@@ -70,30 +71,35 @@ Plan Name: PMove
       GridPoint nextPos = (GridPoint) path.get( path.size()-1 );
       GridPoint lastPos = (GridPoint) path.get(0);
 
-      //Request fresh info about target cell from the coordinator
-      MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( nextPos );
-      @send( "boss", cellInfoRequest );
-      @wait_for( cellInfoRequest.replied() );
-      MEReturnCellInfo cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply();
-
-      //Don't move if there's a player on the target (bumping into players makes them fail)
-      if (cellInfoReply.hasPlayer) {
-         eexecuteclimaaction_p.post( "skip" );
-         return true;
+      //Check if more than two squares away from target
+      if (path.size() > 2)
+      {
+         //Request fresh info about next cell from the coordinator
+         MERequestCellInfo nextCellRequest = merequestcellinfo_s.send( nextPos );
+         @send( "boss", nextCellRequest );
+         @wait_for( nextCellRequest.replied() );
+         MEReturnCellInfo nextCellReply = (MEReturnCellInfo) nextCellRequest.getReply();
+   
+         //Don't move if there's an enemy or friendly player in the next cell
+         //(bumping into players makes them fail and both moves might never resolve)
+         if (nextCellReply.hasPlayer) {
+            System.out.println( getAgent().name() + " WAITING FOR PLAYER IN NEXT CELL!");
+            eexecuteclimaaction_p.post( "skip" );
+            return true;
+         }
       }
-
-
-      //Check if two squares away from target
-      if (path.size() <= 2)
+      else //We must be near the target
       {
          //Request fresh info about target cell from the coordinator
-         MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( lastPos );
-         @send( "boss", cellInfoRequest );
-         @wait_for( cellInfoRequest.replied() );
-         MEReturnCellInfo cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply();
+         MERequestCellInfo lastCellRequest = merequestcellinfo_s.send( lastPos );
+         @send( "boss", lastCellRequest );
+         @wait_for( lastCellRequest.replied() );
+         MEReturnCellInfo lastCellReply = (MEReturnCellInfo) lastCellRequest.getReply();
 
-         //Don't move if there's a player on the target (bumping into players makes them fail)
-         if (cellInfoReply.hasPlayer) {
+         //Don't move if there's a friendly player on the target, but try to bump enemies
+         //(bumping into players makes them fail to pick or drop)
+         if (lastCellReply.hasPlayer && !lastCellReply.hasEnemy) {
+            System.out.println( getAgent().name() + " WAITING FOR FRIENDLY PLAYER IN TARGET CELL!");
             eexecuteclimaaction_p.post( "skip" );
             return true;
          }

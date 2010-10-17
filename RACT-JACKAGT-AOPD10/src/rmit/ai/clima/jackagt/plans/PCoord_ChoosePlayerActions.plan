@@ -14,19 +14,19 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
-	#sends event MEReturnPlayerState mereturnplayerstate_s;
+	#posts event EIdentifyGoldTargets eidentifygoldtargets_p;
+
+	#posts event EPostPlayerAction epostplayeraction_p;
+
+	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
 
 	#posts event EFindClosestGold efindclosestgold_p;
 
 	#posts event EIdentifyTarget eidentifytarget_p;
 
-	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
-
 	#posts event EFindPath efindpath_p;
 
-	#posts event EIdentifyGoldTargets eidentifygoldtargets_p;
-
-	#posts event EPostPlayerAction epostplayeraction_p;
+	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
@@ -38,19 +38,19 @@ Plan Name: PCoord_ChoosePlayerActions
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
-	#reads data BPathCache bel_moveHint_dat;
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 	#reads data BGoldAt bel_goldAt_dat;
 
-	#reads data BPlayerGold bel_playerGold_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BPlayer bel_players_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
-	#reads data SimulationProp bel_simulationProp_dat;
-
 	#reads data BPlayerState bel_playerState_dat;
+
+	#reads data BPathCache bel_moveHint_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -156,19 +156,5 @@ Plan Name: PCoord_ChoosePlayerActions
             @send( baseName, mereturnplayerstate_s.sendEmpty() );
          }
       }
-      
-      System.out.println( "CLEARING");
-      
-      //Clear the pathfinding results
-      logical int $srcX, $srcY,  $dstX,  $dstY;
-      logical int $playerAtX, $playerAtY;
-      logical Object $path;
-      logical boolean $reachable;
-      bel_moveHint_dat.get($srcX, $srcY, $dstX, $dstY, $path, $reachable).removeAll();
-      bel_playerAt_dat.get($playerAtX, $playerAtY).removeAll();
-      
-      //Reset all the obstacles in the pathfinding grid so it is ready for the next turn
-      PathGrid.getInstance().Reset();
-      //TODO: Clear the player-explore pairs
    }
 }

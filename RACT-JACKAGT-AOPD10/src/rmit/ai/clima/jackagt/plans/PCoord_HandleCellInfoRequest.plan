@@ -17,13 +17,15 @@ Plan Name: PCoord_HandleCellInfoRequest
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
-	#reads data BGoldAt bel_goldAt_dat;
-
 	#reads data BUnexplored bel_unexplored_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayerAt bel_playerAt_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -47,7 +49,8 @@ Plan Name: PCoord_HandleCellInfoRequest
 	   boolean hasGold = bel_goldAt_dat.check( cellPos.x, cellPos.y ).next();
 	   boolean hasObstacle = bel_obstacleAt_dat.check( cellPos.x, cellPos.y ).next();
 	   boolean isExplored = ! bel_unexplored_dat.check( cellPos.x, cellPos.y ).next();
-	   boolean hasPlayer = bel_playerPositions_dat.checkByCoord( cellPos.x, cellPos.y);
-	   @reply( merequestcellinfo_h, mereturncellinfo_s.reply( cellPos, hasGold, hasObstacle, isExplored, hasPlayer ));
+	   boolean hasPlayer = bel_playerAt_dat.check( cellPos.x, cellPos.y ).next();
+	   boolean hasEnemy =  hasPlayer &&  (! bel_playerPositions_dat.checkByCoord( cellPos.x, cellPos.y )); 
+	   @reply( merequestcellinfo_h, mereturncellinfo_s.reply( cellPos, hasGold, hasObstacle, isExplored, hasPlayer, hasEnemy ));
 	}
 }

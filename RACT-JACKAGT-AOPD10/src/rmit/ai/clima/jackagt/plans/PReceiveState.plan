@@ -18,9 +18,9 @@ Plan Name: PReceiveState
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentPosition bel_currentTarget_dat;
-
 	#modifies data BCurrentState bel_currentState_dat;
+
+	#modifies data BCurrentPosition bel_currentTarget_dat;
 
 	#modifies data BCurrentPath bel_currentPath_dat;
 
@@ -77,7 +77,7 @@ Plan Name: PReceiveState
             //Update state, target and path with what we received from the coordinator
             bel_currentState_dat.add( newState );
             bel_currentTarget_dat.add( newTarget.x, newTarget.y );
-            bel_currentPath_dat.add( newPath, newReachable );
+            bel_currentPath_dat.add( newPath, newReachable, 0 );
             System.out.println( getAgent().name() + " ACCEPTED new state: " + newState );
          }
       }

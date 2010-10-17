@@ -20,6 +20,6 @@ public beliefset BPlayerAt extends ClosedWorld /*or OpenWorld*/
 	// These describe the data attributes of each belief.
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 	//#indexed query q(logical int dummy); //Dummy stuff for successful compiling as well
-	#indexed query check(int posX, int posY);
-	#indexed query get(logical int posX, logical int posY);
+	#indexed query get (logical int posX, logical int posY);
+   #indexed query check (int posX, int posY);
 }

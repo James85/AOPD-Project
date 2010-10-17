@@ -14,27 +14,27 @@ Plan Name: PUpdateState
 	//Events handled by the plan are declared here.
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
-	#sends event MERequestPathfinding merequestpathfinding_s;
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#posts event EExecuteAction eexecuteaction_p;
 
-	#sends event MERequestCellInfo merequestcellinfo_s;
+	#sends event MERequestPathfinding merequestpathfinding_s;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentState bel_currentState_dat;
-
 	#modifies data BCurrentPosition bel_currentTarget_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
+	#modifies data BCurrentState bel_currentState_dat;
 
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
-	#reads data BCurrentPath bel_currentPath_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
+
+	#reads data BCurrentPath bel_currentPath_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -59,29 +59,34 @@ Plan Name: PUpdateState
       logical String $state;
       logical int $posX, $posY, $targetX, $targetY;
       logical int $numGold;
+      logical int $depotX, $depotY;
 
       bel_currentState_dat.get( $state );
       bel_currentPosition_dat.get( $posX, $posY );
       bel_currentTarget_dat.get( $targetX, $targetY );
       bel_numCarryingGold_dat.get( $numGold );
+      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );      
+      
+      String state = $state.as_string();
       Vector path = bel_currentPath_dat.getPath();
       boolean reachable = bel_currentPath_dat.getReachable();
-
-      String state = $state.as_string();
+      int unreachableCount = bel_currentPath_dat.getUnreachableCount();
       GridPoint pos = new GridPoint( $posX.as_int(), $posY.as_int() );
       GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
-
+      GridPoint depotPos = new GridPoint( $depotX.as_int(), $depotY.as_int() );
+      int numStepsLeft = bel_simulationProp_dat.getNumStepsLeft();
+      
 
       System.out.println( getAgent().name() + " My initial state:'" + state +
             "' pos:" + pos.x + "," + pos.y +" target:" + target.x + "," + target.y +
             " length:" + path.size() + " reachable:" + (reachable ? "true" : "false") );
 
-
+      
       //Check if last move was successful and remove point
       if (path.size() > 0) {
          if (pos.equals( (GridPoint) path.lastElement() )) {
             path.remove( path.size()-1 );
-            bel_currentPath_dat.add( path, reachable );
+            bel_currentPath_dat.add( path, reachable, unreachableCount );
          }
       }
 
@@ -93,73 +98,72 @@ Plan Name: PUpdateState
             state = "idle";
          }
       }
+      
+      //Find out how long path to the depot is at this point
+      MERequestPathfinding depotPathRequest = merequestpathfinding_s.send( pos, depotPos );
+      @send( "boss", depotPathRequest );
+      @wait_for( depotPathRequest.replied() );
+      MEReturnPathfinding depotPathReply = (MEReturnPathfinding) depotPathRequest.getReply();
+      int depotPathLength = depotPathReply.path.size();
 
-
+      
+      //Head to depot if we have max gold or running out of steps
+      if( $numGold.as_int() >= 3 || ($numGold.as_int() > 0 && numStepsLeft <= depotPathLength * 1.5f ))
+      {
+         target = new GridPoint( $depotX.as_int(), $depotY.as_int() );
+         bel_currentTarget_dat.add( target.x, target.y );
+         
+         state = "depot";
+         bel_currentState_dat.add( state );
+         
+         //Always accept path to depot, even if unreachable
+         //(worthless exploring as we would be failing a lot with gold)
+         path = depotPathReply.path;
+         reachable = depotPathReply.reachable;
+         unreachableCount = 0;
+         bel_currentPath_dat.add( path, reachable, unreachableCount );
+      }
+      
+      
+      //Request fresh info about target cell from the coordinator
       MEReturnCellInfo cellInfoReply;
       if (! state.equals("idle"))
       {
-         //Request fresh info about target cell from the coordinator
          MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( target );
          @send( "boss", cellInfoRequest );
          @wait_for( cellInfoRequest.replied() );
          cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply();
       }
 
-
-
-
-
-      //Request fresh info about path from the coordinator
-      logical int $depotX, $depotY;
-      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
-      GridPoint depotPos = new GridPoint( $depotX.as_int(), $depotY.as_int() );
-      MERequestPathfinding findPathRequest = merequestpathfinding_s.send( pos, depotPos );
-      @send( "boss", findPathRequest );
-      @wait_for( findPathRequest.replied() );
-      MEReturnPathfinding findPathReply = (MEReturnPathfinding) findPathRequest.getReply();
-      int depotPathLength = findPathReply.path.size();
-      int numStepsLeft = bel_simulationProp_dat.getNumStepsLeft();
-
-      //If we have MAX_GOLD set state to depot
-      if( $numGold.as_int() >= 3 || (numStepsLeft <= depotPathLength * 1.5f && $numGold.as_int() < 3  ))
-      {
-         bel_currentTarget_dat.add( $depotX.as_int(), $depotY.as_int() );
-         target = new GridPoint( $depotX.as_int(), $depotY.as_int() );
-
-         bel_currentState_dat.add("depot");
-         state = "depot";
-      }
-
-      //Check current state
+      
+      //Check for state changes
       if(state.equals("gold") )
       {
          //If gold removed set state to idle
-         if (!cellInfoReply.hasGold)
-         {
-            bel_currentState_dat.add("idle");
+         if (!cellInfoReply.hasGold) {
             state = "idle";
+            bel_currentState_dat.add( state );
          }
       }
-      else if(state.equals("depot") /*&& ! (numStepsLeft <= depotPathLength + 30) */ )
+      else if(state.equals("depot") )
       {
          //If gold dropped set state to idle
          if ($numGold.as_int() == 0) {
-            bel_currentState_dat.add( "idle" );
             state = "idle";
+            bel_currentState_dat.add( state );
          }
       }
       else if(state.equals("explore") )
       {
          //If target became explored set state to idle
          if (cellInfoReply.isExplored) {
-            bel_currentState_dat.add("idle");
             state = "idle";
+            bel_currentState_dat.add( state );
          }
       }
-
       
+
       if (! state.equals("idle"))
-         //if (state.equals("depot"))
       {
          //Request fresh info about path from the coordinator
          MERequestPathfinding findPathRequest = merequestpathfinding_s.send( pos, target );
@@ -169,13 +173,26 @@ Plan Name: PUpdateState
 
          //Update path info with fresh data if reachable
          if (findPathReply.reachable) {
-            bel_currentPath_dat.add( findPathReply.path, findPathReply.reachable );
             path = findPathReply.path;
             reachable = findPathReply.reachable;
+            bel_currentPath_dat.add( path, reachable, 0 );
+         }else{
+            
+            //Increase unreachable counter
+            unreachableCount++;
+            bel_currentPath_dat.add( path, reachable, unreachableCount );
+            
+            //Check if unreachable for too long and go idle
+            if (unreachableCount >= 3 && !state.equals("depot")) {
+               state = "idle";
+               bel_currentState_dat.add( state );
+               System.out.println( getAgent().name() + " DROPPING UNREACHABLE TARGET!!!" );
+            }
          }
       }
 
       //Send our state to coordinator
+      System.out.println( getAgent().name() + "Sending state '" + state + "' to boss" );
       @send("boss", mereportplayerstate_s.send( getAgent().name(), state, target ));
    }
 }

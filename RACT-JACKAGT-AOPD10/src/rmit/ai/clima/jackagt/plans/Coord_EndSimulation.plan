@@ -25,11 +25,11 @@ Description: Coordination plan to finish a simulation
 
 	#modifies data BPlayerGold bel_playerGold_dat;
 
-	#modifies data BUnexplored bel_unexplored_dat;
+	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
 	#modifies data BPlayerPosition bel_playerPositions_dat;
 
-	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+	#modifies data BUnexplored bel_unexplored_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
