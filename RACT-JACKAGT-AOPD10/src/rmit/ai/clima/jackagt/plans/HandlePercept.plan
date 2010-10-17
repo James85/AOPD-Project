@@ -23,13 +23,13 @@ Description: This plan assimilates each percept information received from the ga
 	//Events handled by the plan are declared here.
 	#posts event MEInformAgentStatus meinformagentstatus_p;
 
-	#sends event EUpdateBel eupdatebel_s;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#posts event EShowBeliefs eshowbeliefs_p;
 
 	#sends event MEReportPlayerPercept mereportplayerpercept_s;
+
+	#sends event EUpdateBel eupdatebel_s;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 
@@ -39,9 +39,9 @@ Description: This plan assimilates each percept information received from the ga
 
 	#modifies data BCurrentPosition bel_currentPosition_dat;
 
-	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
-
 	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
+	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

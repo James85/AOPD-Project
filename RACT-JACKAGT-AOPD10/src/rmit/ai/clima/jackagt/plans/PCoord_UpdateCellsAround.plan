@@ -42,11 +42,12 @@ Plan Name: PCoord_UpdateCellsAround
          // Iterate on all the marks/labels for cells[i] (which is location loc)
          for(int j = 0; j < cells[i].marks.length; j++) 
          {
-            //Check if an agent and not our own
+            //Check if any player (friendly or enemy) in the cell
             if( cells[i].marks[j].type.equalsIgnoreCase("agent"))
             {
                bel_playerAt_dat.add(cellPos.x, cellPos.y);
             }
+            //Check if cell has any valid info
             if( !cells[i].marks[j].type.equalsIgnoreCase("unknown") )
             {
                bel_unexplored_dat.remove( cellPos.x, cellPos.y );

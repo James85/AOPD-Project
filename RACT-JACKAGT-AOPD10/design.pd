@@ -1374,9 +1374,6 @@
 <EntityCell IMemento.internal.id="502786" MotherDiagram="487171" WrappedEntity="295681">
 <Look Height="-1" Width="-1" XCoordinate="35" YCoordinate="143"/>
 </EntityCell>
-<EntityCell IMemento.internal.id="694530" MotherDiagram="2307" WrappedEntity="694273">
-<Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="610"/>
-</EntityCell>
 <EntityCell IMemento.internal.id="496642" MotherDiagram="487171" WrappedEntity="495361">
 <Look Height="-1" Width="-1" XCoordinate="293" YCoordinate="89"/>
 </EntityCell>
@@ -1937,7 +1934,6 @@
 <DataField ID="285953" INDEX="0"/>
 <DataField ID="286209" INDEX="1"/>
 </Beliefset>
-<Message EntityName="mein" IMemento.internal.id="432385"/>
 <Message EntityName="EIdentifyExploreTargets" IMemento.internal.id="726529"/>
 <Data DataType="285697" Description="The position the agent believes it currently resides at." EntityName="bel_currentPosition" IMemento.internal.id="284929"/>
 <DataField FieldName="debugConsole" FieldType="boolean" IMemento.internal.id="284161" IsKey="false"/>
@@ -2025,7 +2021,6 @@
 <DataField FieldName="step" FieldType="int" IMemento.internal.id="106753" IsKey="false"/>
 <DataField FieldName="xCoord" FieldType="int" IMemento.internal.id="155393" IsKey="true"/>
 <Capability Description="" EntityName="GUIUpdateCapability" IMemento.internal.id="57345" IsExternal="false" Package="" Process=""/>
-<Data EntityName="bel_simu" IMemento.internal.id="694273"/>
 <Beliefset EntityName="LastActionSentBel" IMemento.internal.id="252673" IsExternal="true" Package="rmit.ai.clima.iface.LastActionSentBel"/>
 <Goal EntityName="RespondToServer" IMemento.internal.id="399361"/>
 <DataField Description="Name of this agent" FieldName="agentName" FieldType="String" IMemento.internal.id="448001" IsKey="true"/>
@@ -2046,7 +2041,6 @@
 <Plan Context="" Description="" EntityName="FinishGame" Failure="" FailureRecovery="" IMemento.internal.id="45057" Procedure=""/>
 <DataField Description="name of the agent this belief pertains to" FieldName="agentName" FieldType="String" IMemento.internal.id="336897" IsKey="true"/>
 <Plan EntityName="PCoord_IdentifyGoldTargets" IMemento.internal.id="729089"/>
-<Message EntityName="eage" IMemento.internal.id="434177"/>
 <DataField Description="Agent&apos;s current horizontal position on the grid" FieldName="posX" FieldType="int" IMemento.internal.id="285953" IsKey="false"/>
 <Message Description="Inform that a simulation has just started" EntityName="MESimStart" IMemento.internal.id="40449" InfoCarried="" IsCovered="true" IsExternal="false" IsOverlapped="true" Package="" Purpose=""/>
 <Message Description="Inform that a simulation hs just finished" EntityName="MESimEnd" IMemento.internal.id="39681" InfoCarried="" IsCovered="true" IsExternal="false" IsOverlapped="true" Package="" Purpose=""/>
@@ -2139,7 +2133,6 @@
 <Plan Context="" Description="Reports believed information in the console" EntityName="ConsoleBeliefPrinting" Failure="" FailureRecovery="" IMemento.internal.id="43009" Procedure=""/>
 <Message EntityName="EExecuteAction" IMemento.internal.id="679169"/>
 <Plan Context="" Description="Authenticate to the game server with the agent login/password" EntityName="AuthenticateToServer" Failure="" FailureRecovery="" IMemento.internal.id="41473" Procedure=""/>
-<Message EntityName="eag" IMemento.internal.id="433665"/>
 <DataField Description="Agent&apos;s current vertical position on the grid" FieldName="posY" FieldType="int" IMemento.internal.id="286209" IsKey="false"/>
 <Plan EntityName="PCoord_IdentifyExploreTargets" IMemento.internal.id="725505"/>
 <Beliefset EntityName="BPoint" IMemento.internal.id="527105">
