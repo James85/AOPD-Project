@@ -1,4 +1,5 @@
 bin
+Backup
 *.bk
 *.java
 *.class
