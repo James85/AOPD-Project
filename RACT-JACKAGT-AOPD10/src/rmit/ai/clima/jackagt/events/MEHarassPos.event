@@ -1,0 +1,20 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event MEHarassPos extends MessageEvent
+{
+/*
+ * Message Name: MEHarassPos
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+   
+   public GridPoint pos;
+   /*Posting Method Declarations*/
+   #posted as send(GridPoint pos)
+   {
+      this.pos = pos;
+   }
+}

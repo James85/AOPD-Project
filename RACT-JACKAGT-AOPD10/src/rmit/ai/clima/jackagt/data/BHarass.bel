@@ -1,0 +1,43 @@
+package rmit.ai.clima.jackagt.data;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.gui.grid.GridPoint;
+
+public beliefset BHarass extends ClosedWorld /*or OpenWorld*/
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+/*
+ * Beliefset Name: BHarass
+ */
+
+	// Zero or more #key field declarations.
+	// These describe the key attributes of each belief.
+
+
+	// Zero of more #value field declarations.
+	// These describe the data attributes of each belief.
+	#value field int posX;
+
+	#value field int posY;
+
+	#value field boolean pushed;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+	
+	#indexed query get (logical int posX, logical int posY, logical boolean pushed);
+	
+	#function query public GridPoint getPos ()
+	{
+	   logical int $posX, $posY;
+	   logical boolean $pushed;
+	   get( $posX, $posY, $pushed );
+	   return new GridPoint( $posX.as_int(), $posY.as_int() );
+	}
+	
+   #function query public boolean havePushed ()
+   {
+      logical int $posX, $posY;
+      logical boolean $pushed;
+      get( $posX, $posY, $pushed );
+      return $pushed.as_boolean();
+   }
+}

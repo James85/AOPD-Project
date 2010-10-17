@@ -1,0 +1,39 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+
+public plan PReceiveHarassPos extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PReceiveHarassPos
+*/
+	//Events handled by the plan are declared here.
+	#handles event MEHarassPos meharasspos_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BHarass bel_harass_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   #reasoning method fail()
+   {
+      System.out.println("OMGZORS ===========DickZilla : PReceiveHarassPos");
+   }
+   
+   context()
+   {
+      true;
+   }
+
+   body()
+   {
+      logical int $hX, $hY;
+      logical boolean $pushed;
+      
+      if(!bel_harass_dat.get($hX, $hY, $pushed))
+         bel_harass_dat.add( meharasspos_h.pos.x, meharasspos_h.pos.y, false );
+   }
+}

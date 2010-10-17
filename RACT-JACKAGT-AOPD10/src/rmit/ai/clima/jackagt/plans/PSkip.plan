@@ -1,0 +1,47 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import java.util.*;
+
+public plan PSkip extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PSkip
+*/
+	//Events handled by the plan are declared here.
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles event EExecuteAction eexecuteaction_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BCurrentPath bel_currentPath_dat;
+
+	#reads data BCurrentState bel_currentState_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	logical String $state;
+   logical Object $path;
+   logical boolean $reachable;
+   logical int $unreachableCount;
+	
+	context()
+	{
+      //Need to be in idle state
+      (bel_currentState_dat.get( $state ) &&
+      $state.as_string().equals("idle"))
+      ||
+      //Or the path should be empty
+      (bel_currentPath_dat.get( $path, $reachable, $unreachableCount )
+      && (((Vector)$path.as_object()).size() == 0));
+	}
+
+	body()
+	{
+	   //Send skip so we don't timeout
+	   eexecuteclimaaction_p.post( "skip" );
+	}
+}
