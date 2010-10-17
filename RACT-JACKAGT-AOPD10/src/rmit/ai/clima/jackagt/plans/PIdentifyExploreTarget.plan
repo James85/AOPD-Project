@@ -20,15 +20,15 @@ Plan Name: PIdentifyExploreTarget
 	// Declarations of any beliefset/data that the plan accesses.
 	#modifies data BPlayerPosition bel_playerTarget_dat;
 
-	#reads data BUnexplored bel_unexplored_dat;
+	#reads data BPathCache bel_moveHint_dat;
 
-	#reads data BPlayerPosition bel_playerPositions_dat;
+	#reads data BUnexplored bel_unexplored_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
-	#reads data BPathCache bel_moveHint_dat;
-
 	#reads data BObstacleAt bel_obstacleAt_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

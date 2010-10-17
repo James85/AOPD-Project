@@ -19,7 +19,7 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+	#imports data BCurrentPosition bel_currentPosition_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -29,12 +29,17 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPath bel_currentPath_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -44,34 +49,44 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
+	#private data BHarass bel_harass_dat(/*int posX, int posY, boolean pushed*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data SimulationProp bel_simulationProp_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
 	#handles external event MEReturnPlayerState ;
+
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event MEHarassPos ;
+	#sends event MEHarassPos meharasspos_s;
 
 	#handles external event MEPlayerPerceptsAssimilated ;
 
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
-	#handles external event MEReturnPathfinding ;
+	#handles external event MEReturnCellInfo ;
 
 	#handles event EExecuteAction ;
 	#posts event EExecuteAction eexecuteaction_p;
 
-	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
-	#handles external event MEReturnCellInfo ;
+	#handles external event MEReturnPathfinding ;
+
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
 
 	//Plans directly used are declared here.
 	#uses plan PReceiveState ;
+
+	#uses plan PReceiveHarassPos ;
 
 	#uses plan PUpdateState ;
 
@@ -80,6 +95,8 @@ Description: Decide what to do next
 	#uses plan PDrop ;
 
 	#uses plan PMove ;
+
+	#uses plan PSkip ;
 
 
 	// Inner capabilities are declared here.

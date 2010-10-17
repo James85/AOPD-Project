@@ -12,13 +12,13 @@ public plan PUpdateState extends Plan
 Plan Name: PUpdateState
 */
 	//Events handled by the plan are declared here.
-	#sends event MEReportPlayerState mereportplayerstate_s;
-
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
 	#posts event EExecuteAction eexecuteaction_p;
 
 	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
+	#sends event MEReportPlayerState mereportplayerstate_s;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
@@ -28,13 +28,15 @@ Plan Name: PUpdateState
 
 	#modifies data BCurrentState bel_currentState_dat;
 
+	#modifies data BHarass bel_harass_dat;
+
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
+
+	#reads data BCurrentPath bel_currentPath_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
-
-	#reads data BCurrentPath bel_currentPath_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -75,12 +77,61 @@ Plan Name: PUpdateState
       GridPoint target = new GridPoint( $targetX.as_int(), $targetY.as_int() );
       GridPoint depotPos = new GridPoint( $depotX.as_int(), $depotY.as_int() );
       int numStepsLeft = bel_simulationProp_dat.getNumStepsLeft();
+      int numGold = $numGold.as_int();
       
 
       System.out.println( getAgent().name() + " My initial state:'" + state +
             "' pos:" + pos.x + "," + pos.y +" target:" + target.x + "," + target.y +
             " length:" + path.size() + " reachable:" + (reachable ? "true" : "false") );
 
+      
+      //If we have a valid harass point and have some gold set our state to "harass"
+      logical int $hX, $hY; logical boolean $pushed;
+      if (bel_harass_dat.get($hX, $hY, $pushed) && numGold == 1)
+      {
+      //if (getAgent().name().indexOf("1") != -1 &&
+         //if ()
+         {
+            System.out.println( "IM COMING FOR YOU ALL!!!!!! ====================================D");
+            
+            //Move into harass state
+            state = "harass";
+            bel_currentState_dat.add( state );
+            
+            //Check if we are standing on the harass position
+            GridPoint harassPos = new GridPoint( $hX.as_int(), $hY.as_int() );
+            if(pos.equals(harassPos))
+            {
+               MERequestCellInfo cellInfoRequest = merequestcellinfo_s.send( depotPos );
+               @send( "boss", cellInfoRequest );
+               @wait_for( cellInfoRequest.replied() );
+               MEReturnCellInfo cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply(); 
+   
+               //Check if enemy in the depot and we haven't pushed last turn
+               if(cellInfoReply.hasEnemy && ($pushed.as_boolean() == false))
+               {
+                  //Set target to depot and mark we pushed this turn
+                  target = depotPos;
+                  bel_currentTarget_dat.add( target.x, target.y );
+                  bel_harass_dat.add( harassPos.x, harassPos.y, true );
+               }
+               else
+               {
+                  //Set target to harass point and mark we haven't pushed this turn
+                  target = harassPos;
+                  bel_currentTarget_dat.add( target.x, target.y );
+                  bel_harass_dat.add( harassPos.x, harassPos.y, false );
+               }
+            }
+            else
+            {
+               //Set target to harass point to move there
+               target = harassPos;
+               bel_currentTarget_dat.add( target.x, target.y );
+            }
+         }
+      }
+      
       
       //Check if last move was successful and remove point
       if (path.size() > 0) {
@@ -94,8 +145,8 @@ Plan Name: PUpdateState
       if (path.size() > 0) {
          if (pos.getManhattanDist( (GridPoint) path.lastElement() ) > 1) {
             System.out.println( getAgent().name() + " Next point in path NOT ADJACENT!!!");
-            bel_currentState_dat.add("idle");
             state = "idle";
+            bel_currentState_dat.add( state );
          }
       }
       

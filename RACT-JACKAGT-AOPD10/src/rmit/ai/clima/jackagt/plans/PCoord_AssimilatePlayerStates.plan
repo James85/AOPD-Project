@@ -16,11 +16,11 @@ Plan Name: PCoord_AssimilatePlayerStates
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerPosition bel_playerTarget_dat;
-
 	#modifies data BPlayerState bel_playerState_dat;
 
 	#modifies data BPlayer bel_playerStateReceived_dat;
+
+	#modifies data BPlayerPosition bel_playerTarget_dat;
 
 	#reads data BPlayer bel_players_dat;
 

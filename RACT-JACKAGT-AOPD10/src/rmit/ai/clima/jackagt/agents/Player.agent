@@ -31,27 +31,12 @@ Agent Name: Player
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BCurrentPath bel_currentPath_dat(/*Object path, boolean reachable, int unreachableCount*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BCurrentPosition bel_currentPosition_dat(/*int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
 	#private data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BCurrentPosition bel_currentTarget_dat(/*int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	//#private data CurrentStatus bel_currentStatus_dat(/*boolean debugConsole, boolean debugGUI*/);
+	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps, int numStepsLeft*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -66,7 +51,7 @@ Agent Name: Player
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+	//#private data CurrentStatus bel_currentStatus_dat(/*boolean debugConsole, boolean debugGUI*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -76,52 +61,70 @@ Agent Name: Player
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps, int numStepsLeft*/);
+	#private data BCurrentPosition bel_currentTarget_dat(/*int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BCurrentPath bel_currentPath_dat(/*Object path, boolean reachable, int unreachableCount*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BCurrentPosition bel_currentPosition_dat(/*int posX, int posY*/);
 
 
 	//Events handled, posted and sent are declared here.
-	#sends event MEInformCellStatus meinformcellstatus_s;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
-	#handles event MEPlayerPerceptsAssimilated ;
+	#sends event MESimEnd mesimend_s;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#sends event MESimStart mesimstart_s;
+
+	#sends event MEInformCellStatus meinformcellstatus_s;
 
 	#handles event PerceiveClimaServer ;
 	#posts event PerceiveClimaServer perceiveclimaserver_p;
 
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
 	#handles event EStart ;
 	#posts event EStart estart_p;
 
-	#handles event MEReturnPathfinding ;
-
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#handles event EUpdateBel ;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
-	#handles event TellClimaServer ;
-	#posts event TellClimaServer tellclimaserver_p;
-
-	#handles event MEReturnPlayerState ;
-
-	#handles event MEReturnCellInfo ;
-
-	#sends event MEGameEnd megameend_s;
-
 	#sends event MEReportPlayerPercept mereportplayerpercept_s;
 
-	#sends event MESimStart mesimstart_s;
-
-	#posts event MEInformAgentStatus meinformagentstatus_p;
+	#handles event EUpdateBel ;
 
 
 	#handles event ECellChange ;
 	#posts event ECellChange ecellchange_p;
 
-	#sends event MESimEnd mesimend_s;
+	#sends event MERequestPathfinding merequestpathfinding_s;
 
 	#sends event MEReportPlayerState mereportplayerstate_s;
+
+	#sends event MEGameEnd megameend_s;
+
+	#handles event MEPlayerPerceptsAssimilated ;
+
+	#handles event TellClimaServer ;
+	#posts event TellClimaServer tellclimaserver_p;
+
+	#handles event MEHarassPos ;
+	#sends event MEHarassPos meharasspos_s;
+
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
+	#handles event MEReturnPathfinding ;
+
+	#handles event MEReturnPlayerState ;
+
+	#handles event MEReturnCellInfo ;
 
 
 	//Plans directly used are declared here.
@@ -129,9 +132,9 @@ Agent Name: Player
 	// Inner capabilities are declared here.
 	#has capability ClimaTalking climatalking_cap;
 
-	#has capability GamePlaying gameplaying_cap;
-
 	#has capability GameSyncing gamesyncing_cap;
+
+	#has capability GamePlaying gameplaying_cap;
 
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
