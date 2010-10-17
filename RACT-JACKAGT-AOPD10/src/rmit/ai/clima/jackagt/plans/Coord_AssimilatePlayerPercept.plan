@@ -15,25 +15,25 @@ public plan Coord_AssimilatePlayerPercept extends Plan
 Plan Name: Coord_AssimilatePlayerPercept
 */
 	//Events handled by the plan are declared here.
-	#posts event ECoordUpdateBel ecoordupdatebel_p;
-
 	#posts event EUpdateBel eupdatebel_p;
 
 	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
+
+	#posts event ECoordUpdateBel ecoordupdatebel_p;
 
 	#handles event MEReportPlayerPercept mereportplayerpercept_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPathCache bel_moveHint_dat;
-
 	#modifies data BPlayerPosition bel_playerPositions_dat;
+
+	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
 	#modifies data BPlayerGold bel_playerGold_dat;
 
-	#modifies data BPlayerAt bel_playerAt_dat;
+	#modifies data BPathCache bel_moveHint_dat;
 
-	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+	#modifies data BPlayerAt bel_playerAt_dat;
 
 	#reads data BPlayer bel_players_dat;
 

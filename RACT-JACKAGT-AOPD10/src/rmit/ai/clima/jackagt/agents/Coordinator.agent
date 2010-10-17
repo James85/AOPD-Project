@@ -22,22 +22,7 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps, int numStepsLeft*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerPosition bel_playerTarget_dat(/*String agentName, int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerGold bel_playerGold_dat(/*String agentName, int goldAmount*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
+	#private data BPlayer bel_players_dat(/*String name*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -47,17 +32,12 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayerAt bel_playerAt_dat(/*int posX, int posY*/);
+	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayer bel_playerStateReceived_dat(/*String name*/);
+	#private data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -67,12 +47,12 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayer bel_players_dat(/*String name*/);
+	#private data BPlayerAt bel_playerAt_dat(/*int posX, int posY*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
+	#private data BPlayerGold bel_playerGold_dat(/*String agentName, int goldAmount*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -82,14 +62,30 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps, int numStepsLeft*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerPosition bel_playerTarget_dat(/*String agentName, int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayer bel_playerStateReceived_dat(/*String name*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
 
 
 	//Events handled, posted and sent are declared here.
-	#handles event MERequestPathfinding ;
-
-	#handles event MERequestCellInfo ;
-
 	#handles event MEReportPlayerState ;
 
 	#handles event EUpdateBel ;
@@ -100,41 +96,43 @@ Agent Name: Coordinator
 	#handles event ECoordUpdateBel ;
 	#posts event ECoordUpdateBel ecoordupdatebel_p;
 
+	#handles event MESimStart ;
+
 	#handles event MESimEnd ;
+
+	#handles event MERequestPathfinding ;
 
 	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
 
-	#handles event MEGameEnd ;
+	#handles event EIdentifyGoldTargets ;
+	#posts event EIdentifyGoldTargets eidentifygoldtargets_p;
+
+	#sends event MEReturnPlayerState mereturnplayerstate_s;
+
+	#handles event EFindClosestGold ;
+	#posts event EFindClosestGold efindclosestgold_p;
 
 	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#handles event EChoosePlayerActions ;
 	#posts event EChoosePlayerActions echooseplayeractions_p;
 
-	#handles event MESimStart ;
-
-	#sends event MEReturnCellInfo mereturncellinfo_s;
-
 	#handles event EFindPath ;
 	#posts event EFindPath efindpath_p;
 
-	#handles event EFindClosestGold ;
-	#posts event EFindClosestGold efindclosestgold_p;
+	#handles event MERequestCellInfo ;
+
+	#sends event MEReturnCellInfo mereturncellinfo_s;
+
+	#handles event MEGameEnd ;
+
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
 
 	#handles event EIdentifyExploreTargets ;
 	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
 
-	#sends event MEReturnPlayerState mereturnplayerstate_s;
-
-	#handles event EIdentifyGoldTargets ;
-	#posts event EIdentifyGoldTargets eidentifygoldtargets_p;
-
-	#sends event MEReturnPathfinding mereturnpathfinding_s;
-
 
 	//Plans directly used are declared here.
-	#uses plan PCoord_HandleCellInfoRequest ;
-
 	#uses plan PCoord_AssimilatePlayerStates ;
 
 	#uses plan UpdateCellsAround ;
@@ -143,17 +141,19 @@ Agent Name: Coordinator
 
 	#uses plan PCoord_UpdateCellsAround ;
 
+	#uses plan Coord_InitSimulation ;
+
 	#uses plan Coord_EndSimulation ;
 
-	#uses plan Coord_EndGame ;
+	#uses plan PCoord_IdentifyGoldTargets ;
 
 	#uses plan PCoord_ChoosePlayerActions ;
 
-	#uses plan Coord_InitSimulation ;
+	#uses plan PCoord_HandleCellInfoRequest ;
+
+	#uses plan Coord_EndGame ;
 
 	#uses plan PCoord_IdentifyExploreTargets ;
-
-	#uses plan PCoord_IdentifyGoldTargets ;
 
 
 	// Inner capabilities are declared here.

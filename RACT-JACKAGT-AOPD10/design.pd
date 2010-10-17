@@ -1045,7 +1045,7 @@
 <Look Height="-1" Width="-1" XCoordinate="234" YCoordinate="39"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="479234" MotherDiagram="37379" WrappedEntity="478209">
-<Look Height="-1" Width="-1" XCoordinate="704" YCoordinate="91"/>
+<Look Height="-1" Width="-1" XCoordinate="700" YCoordinate="166"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="478466" MotherDiagram="20227" WrappedEntity="478209">
 <Look Height="-1" Width="-1" XCoordinate="26" YCoordinate="62"/>
@@ -1105,7 +1105,7 @@
 <Look Height="-1" Width="-1" XCoordinate="908" YCoordinate="376"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="657154" MotherDiagram="37379" WrappedEntity="617729">
-<Look Height="-1" Width="-1" XCoordinate="698" YCoordinate="225"/>
+<Look Height="-1" Width="-1" XCoordinate="699" YCoordinate="223"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="67330" MotherDiagram="35587" WrappedEntity="39681">
 <Look Height="-1" Width="-1" XCoordinate="723" YCoordinate="383"/>
@@ -1159,7 +1159,7 @@
 <Look Height="-1" Width="-1" XCoordinate="814" YCoordinate="289"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="446210" MotherDiagram="37379" WrappedEntity="36609">
-<Look Height="-1" Width="-1" XCoordinate="574" YCoordinate="12"/>
+<Look Height="-1" Width="-1" XCoordinate="576" YCoordinate="16"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="53506" MotherDiagram="20227" WrappedEntity="53249">
 <Look Height="-1" Width="-1" XCoordinate="1006" YCoordinate="249"/>
@@ -1743,9 +1743,6 @@
 <EntityCell IMemento.internal.id="275458" MotherDiagram="2307" WrappedEntity="275201">
 <Look Height="-1" Width="-1" XCoordinate="963" YCoordinate="84"/>
 </EntityCell>
-<EntityCell IMemento.internal.id="78338" MotherDiagram="37379" WrappedEntity="33793">
-<Look Height="-1" Width="-1" XCoordinate="516" YCoordinate="184"/>
-</EntityCell>
 <EntityCell IMemento.internal.id="75266" MotherDiagram="37379" WrappedEntity="25857">
 <Look Height="-1" Width="-1" XCoordinate="548" YCoordinate="289"/>
 </EntityCell>
@@ -1753,7 +1750,7 @@
 <Look Height="-1" Width="-1" XCoordinate="365" YCoordinate="191"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="73730" MotherDiagram="37379" WrappedEntity="37889">
-<Look Height="-1" Width="-1" XCoordinate="610" YCoordinate="141"/>
+<Look Height="-1" Width="-1" XCoordinate="618" YCoordinate="61"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="72194" MotherDiagram="37379" WrappedEntity="33281">
 <Look Height="-1" Width="-1" XCoordinate="14" YCoordinate="193"/>
@@ -2155,7 +2152,6 @@
 <DataField Description="" FieldName="reachable" FieldType="boolean" IMemento.internal.id="672257" IsKey="false"/>
 <Data DataType="243713" Description="Stores the status of the agent (e.g., is debug on?)" EntityName="bel_currentStatus" IMemento.internal.id="34561" Initialization="" IsExternal="false" IsPersistent="true" Package="" WriteWhen=""/>
 <DataField FieldName="posX" FieldType="int" IMemento.internal.id="720129" IsKey="true"/>
-<Message Description="" EntityName="EAct" IMemento.internal.id="33793" InfoCarried="" IsCovered="true" IsExternal="false" IsOverlapped="true" Package="" Purpose=""/>
 <Message Description="" EntityName="ECellChange" IMemento.internal.id="82433" InfoCarried="" IsCovered="true" IsExternal="false" IsOverlapped="true" Package="" Purpose=""/>
 <Data DataType="671745" EntityName="bel_currentPath" IMemento.internal.id="670721"/>
 <DataField Description="the direction in which to move to get from start to end" FieldName="move" FieldType="String" IMemento.internal.id="523265" IsKey="false"/>
