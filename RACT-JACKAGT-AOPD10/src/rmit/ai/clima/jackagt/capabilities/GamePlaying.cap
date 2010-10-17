@@ -23,22 +23,7 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentState bel_currentState_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentPath bel_currentPath_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BCurrentPosition bel_currentPosition_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -58,7 +43,17 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+	#imports data CurrentStatus bel_currentStatus_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentState bel_currentState_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -68,64 +63,69 @@ Capability Name: GamePlaying
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentStatus bel_currentStatus_dat();
+	#imports data BCurrentPath bel_currentPath_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
 
 
 	//Events handled, posted and sent are declared here.
+	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event EUpdateBel eupdatebel_s;
+
 	#handles external event PerceiveClimaServer ;
 
-	#posts event MEReportPlayerPercept mereportplayerpercept_p;
-
-	#sends event MEReportPlayerState mereportplayerstate_s;
-
-	#handles external event MEReturnPlayerState ;
-
-	#posts event EAct eact_p;
-
-	#sends event MEInformCellStatus meinformcellstatus_s;
-
-	#posts external event TellClimaServer tellclimaserver_p;
-
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
 	#handles external event MEReturnCellInfo ;
-
-	#handles external event MEReturnPathfinding ;
 
 	#handles event EShowBeliefs ;
 	#posts event EShowBeliefs eshowbeliefs_p;
 
-	#handles external event MEHarassPos ;
-	#sends event MEHarassPos meharasspos_s;
-
-	#handles external event ECellChange ;
-
-	#sends event EGUIDebugMessage eguidebugmessage_s;
-
-	#handles external event MEPlayerPerceptsAssimilated ;
-
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
-	#sends event EUpdateBel eupdatebel_s;
+	#sends event MEInformCellStatus meinformcellstatus_s;
 
 	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#handles event EExecuteCLIMAaction ;
 	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
+	#handles external event MEHarassPos ;
+	#sends event MEHarassPos meharasspos_s;
+
+	#sends event MEReportPlayerState mereportplayerstate_s;
+
+	#handles external event MEPlayerPerceptsAssimilated ;
+
+	#handles external event ECellChange ;
+
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#posts external event TellClimaServer tellclimaserver_p;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#posts event EAct eact_p;
+
+	#handles external event MEReturnPlayerState ;
+
+	#handles external event MEReturnPathfinding ;
+
+	#posts event MEReportPlayerPercept mereportplayerpercept_p;
+
 
 	//Plans directly used are declared here.
-	#uses plan HandlePercept ;
-
 	#uses plan UpdateCellsAround ;
+
+	#uses plan HandlePercept ;
 
 	#uses plan SendActionAndWait ;
 
 
 	// Inner capabilities are declared here.
-	#has capability InfoReporting inforeporting_cap;
-
 	#has capability ActionDecision actiondecision_cap;
+
+	#has capability InfoReporting inforeporting_cap;
 
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/

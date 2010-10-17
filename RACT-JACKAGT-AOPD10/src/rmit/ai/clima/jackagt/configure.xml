@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JACKCodeRoot>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PIdentifyExploreTarget.plan" ID="538113" name="PIdentifyExploreTarget"/>
 <Entity CodeFileURI="file:/home/ssardina/workspace/RACT-JACKAGT-GOLD-NPDT/src/rmit/ai/clima/jackagt/events/TellClimaServer.event" ID="47105" name="TellClimaServer" package="rmit.ai.clima.iface"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PFindPlayersNearestGold.plan" ID="487937" name="PFindPlayersNearestGold"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEGameEnd.event" ID="45569" name="MEGameEnd"/>
@@ -151,7 +150,6 @@
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_EndGame.plan" ID="53249" name="Coord_EndGame"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PReceiveHarassPos.plan" ID="737281" name="PReceiveHarassPos"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BGoldAt" ID="295681" name="bel_goldAt"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EIdentifyTarget.event" ID="539649" name="EIdentifyTarget"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/UpdateCellsAround.plan" ID="49409" name="UpdateCellsAround"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BPoint" ID="735745" name="bel_harassPos"/>
 </JACKCodeRoot>
