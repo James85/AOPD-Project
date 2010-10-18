@@ -21,12 +21,7 @@ Capability Name: ActionExecution
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentState bel_currentState_dat();
+	#imports data BObstacleAt bel_obstacleAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -36,28 +31,33 @@ Capability Name: ActionExecution
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BCurrentPath bel_currentPath_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data SimulationProp bel_simulationProp_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
+	#imports data BCurrentState bel_currentState_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
-
-	#handles external event EExecuteAction ;
-
 	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#sends event MEHarassPos meharasspos_s;
 
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event EExecuteAction ;
+
 
 	//Plans directly used are declared here.
-	#uses plan PPick ;
-
 	#uses plan PDrop ;
+
+	#uses plan PPick ;
 
 	#uses plan PMove ;
 
