@@ -4,39 +4,24 @@ import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 
 
-public capability CPathFinding extends Capability
+public capability CoordGameSyncing extends Capability
 		 /*implements Interface*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
-Capability Name: CPathFinding
+Capability Name: CoordGameSyncing
 */
 
 	//Knowledge bases used are declared here.
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerAt bel_playerAt_dat();
+	#imports data BUnexplored bel_unexplored_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPathCache bel_moveHint_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerPosition bel_playerPositions_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BGoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
+	#imports data BPlayerGold bel_playerGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -46,24 +31,38 @@ Capability Name: CPathFinding
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayer bel_players_dat();
+	#imports data BPlayerPerceptReceived bel_playerPerceptReceived_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerState bel_playerState_dat();
+	#imports data BPlayerPosition bel_playerPositions_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayer bel_players_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event EFindPath ;
+	#handles external event MEGameEnd ;
 
-	#handles external event EFindClosestGold ;
+	#handles external event MESimEnd ;
+
+	#handles external event MESimStart ;
 
 
 	//Plans directly used are declared here.
-	#uses plan PFindPath ;
+	#uses plan Coord_EndGame ;
 
-	#uses plan PFindPlayersNearestGold ;
+	#uses plan Coord_EndSimulation ;
+
+	#uses plan Coord_InitSimulation ;
 
 
 	// Inner capabilities are declared here.
@@ -72,7 +71,7 @@ Capability Name: CPathFinding
 	//other Data Member and Method definitions.
 
 	/* Constructor */
-	public CPathFinding()
+	public CoordGameSyncing()
 	{
 		super();
 	}

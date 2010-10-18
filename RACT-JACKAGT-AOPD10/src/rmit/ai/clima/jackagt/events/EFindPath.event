@@ -18,18 +18,18 @@ public event EFindPath extends BDIGoalEvent
    public Vector path;
    public boolean reachable;
    
-	/*Posting Method Declarations*/
-	#posted as post( String playerName, int srcX, int srcY, int dstX, int dstY )
-	{
-	   this.playerName = playerName;
-	   
-		this.srcX = srcX;
-		this.srcY = srcY;
-		
-		this.dstX = dstX;
-		this.dstY = dstY;
-		
-		this.path = new Vector();
-		this.reachable = false;
-	}
+   /*Posting Method Declarations*/
+   #posted as post( String playerName, int srcX, int srcY, int dstX, int dstY )
+   {
+      this.playerName = playerName;
+      
+      this.srcX = srcX;
+      this.srcY = srcY;
+      
+      this.dstX = dstX;
+      this.dstY = dstY;
+      
+      this.path = new Vector();
+      this.reachable = false;
+   }
 }

@@ -12,19 +12,19 @@ public plan PMove extends Plan
 Plan Name: PMove
 */
 	//Events handled by the plan are declared here.
-	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
-
 	#sends event MERequestCellInfo merequestcellinfo_s;
+
+	#posts event EExecuteCLIMAaction eexecuteclimaaction_p;
 
 	#handles event EExecuteAction eexecuteaction_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BCurrentPath bel_currentPath_dat;
+	#reads data BCurrentPosition bel_currentTarget_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
-	#reads data BCurrentPosition bel_currentTarget_dat;
+	#reads data BCurrentPath bel_currentPath_dat;
 
 	#reads data BCurrentState bel_currentState_dat;
 

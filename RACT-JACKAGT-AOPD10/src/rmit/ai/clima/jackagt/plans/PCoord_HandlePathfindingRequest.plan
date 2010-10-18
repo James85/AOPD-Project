@@ -12,9 +12,9 @@ public plan PCoord_HandlePathfindingRequest extends Plan
 Plan Name: PCoord_HandlePathfindingRequest
 */
 	//Events handled by the plan are declared here.
-	#sends event MEReturnPathfinding mereturnpathfinding_s;
-
 	#posts event EFindPath efindpath_p;
+
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
 
 	#handles event MERequestPathfinding merequestpathfinding_h;
 
@@ -29,16 +29,17 @@ Plan Name: PCoord_HandlePathfindingRequest
 	
 	context()
 	{
-		true;
+	   true;
 	}
-	  #reasoning method fail()
-	   {
-	       System.out.println("OMGZORS ===========DickZilla : HandlePathfinding");
-	   }
+	
+	#reasoning method fail()
+	{
+	   System.out.println("OMGZORS ===========DickZilla : HandlePathfinding");
+	}
 
 	body()
 	{
-      String name = merequestpathfinding_h.from;
+	   String name = merequestpathfinding_h.from;
 	   GridPoint src = merequestpathfinding_h.src;
 	   GridPoint dst = merequestpathfinding_h.dst;
 
