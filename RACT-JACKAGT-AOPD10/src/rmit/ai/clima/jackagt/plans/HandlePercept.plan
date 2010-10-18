@@ -21,25 +21,25 @@ Description: This plan assimilates each percept information received from the ga
 
 */
 	//Events handled by the plan are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#sends event EUpdateBel eupdatebel_s;
+
+	#sends event MEReportPlayerPercept mereportplayerpercept_s;
 
 	#posts event MEInformAgentStatus meinformagentstatus_p;
 
 	#posts event EShowBeliefs eshowbeliefs_p;
 
-	#sends event EUpdateBel eupdatebel_s;
-
-	#sends event MEReportPlayerPercept mereportplayerpercept_s;
+	#sends event EGUIDebugMessage eguidebugmessage_s;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
+
 	#modifies data SimulationProp bel_simulationProp_dat;
 
 	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
-
-	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
 	#modifies data BCurrentPosition bel_currentPosition_dat;
 

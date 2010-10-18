@@ -16,17 +16,7 @@ Capability Name: ActionExecution
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BObstacleAt bel_obstacleAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentState bel_currentState_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -36,22 +26,32 @@ Capability Name: ActionExecution
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
+	#imports data BCurrentState bel_currentState_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
 	#imports data BCurrentPosition bel_currentTarget_dat();
 
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPath bel_currentPath_dat();
+
 
 	//Events handled, posted and sent are declared here.
-	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#sends event MEHarassPos meharasspos_s;
-
 	#handles external event EExecuteAction ;
 
+	#sends event MERequestCellInfo merequestcellinfo_s;
+
 	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#sends event MEHarassPos meharasspos_s;
 
 
 	//Plans directly used are declared here.

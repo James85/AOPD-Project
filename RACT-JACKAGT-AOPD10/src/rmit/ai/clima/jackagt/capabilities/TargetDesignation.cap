@@ -21,32 +21,12 @@ Capability Name: TargetDesignation
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerAt bel_playerAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data SimulationProp bel_simulationProp_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BGoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BPlayerPosition bel_playerTarget_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerGold bel_playerGold_dat();
+	#imports data SimulationProp bel_simulationProp_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -61,16 +41,34 @@ Capability Name: TargetDesignation
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BPlayer bel_players_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerAt bel_playerAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerGold bel_playerGold_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event EChoosePlayerActions ;
-
 	#handles event EIdentifyExploreTargets ;
 	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
 
-	#posts external event EFindPath efindpath_p;
+	#handles external event EChoosePlayerActions ;
 
 	#handles event EFindClosestGold ;
 	#posts event EFindClosestGold efindclosestgold_p;
@@ -78,13 +76,15 @@ Capability Name: TargetDesignation
 	#handles event EIdentifyGoldTargets ;
 	#posts event EIdentifyGoldTargets eidentifygoldtargets_p;
 
+	#posts external event EFindPath efindpath_p;
+
 	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan PCoord_ChoosePlayerActions ;
-
 	#uses plan PCoord_IdentifyExploreTargets ;
+
+	#uses plan PCoord_ChoosePlayerActions ;
 
 	#uses plan PFindPlayersNearestGold ;
 

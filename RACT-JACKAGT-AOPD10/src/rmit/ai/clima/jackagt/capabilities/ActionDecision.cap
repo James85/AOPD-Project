@@ -19,22 +19,7 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#private data BHarass bel_harass_dat(/*int posX, int posY, boolean pushed*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentState bel_currentState_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data BCurrentPath bel_currentPath_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -44,7 +29,7 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
+	#private data BHarass bel_harass_dat(/*int posX, int posY, boolean pushed*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -54,39 +39,54 @@ Description: Decide what to do next
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
+	#imports data SimulationProp bel_simulationProp_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentState bel_currentState_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BCurrentPosition bel_currentPosition_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BNumCarryingGold bel_numCarryingGold_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event MEReturnPathfinding ;
-
-	#handles external event MEHarassPos ;
-	#sends event MEHarassPos meharasspos_s;
-
-	#sends event MERequestPathfinding merequestpathfinding_s;
-
-	#handles external event MEReturnCellInfo ;
-
-	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
-
-	#handles external event MEPlayerPerceptsAssimilated ;
-
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
 	#handles event EExecuteAction ;
 	#posts event EExecuteAction eexecuteaction_p;
 
+	#handles external event MEReturnCellInfo ;
+
 	#handles external event MEReturnPlayerState ;
+
+	#handles external event MEHarassPos ;
+	#sends event MEHarassPos meharasspos_s;
 
 	#sends event MERequestCellInfo merequestcellinfo_s;
 
+	#handles external event MEPlayerPerceptsAssimilated ;
+
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
+
+	#handles external event MEReturnPathfinding ;
+
 
 	//Plans directly used are declared here.
+	#uses plan PReceiveState ;
+
 	#uses plan PReceiveHarassPos ;
 
 	#uses plan PUpdateState ;
-
-	#uses plan PReceiveState ;
 
 
 	// Inner capabilities are declared here.

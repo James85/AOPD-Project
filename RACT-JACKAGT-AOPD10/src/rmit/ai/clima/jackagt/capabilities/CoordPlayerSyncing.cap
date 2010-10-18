@@ -1,67 +1,37 @@
 package rmit.ai.clima.jackagt.capabilities;
-import rmit.ai.clima.iface.ClimaAdapter;
-import rmit.ai.clima.iface;
-import rmit.ai.clima.iface.PerceiveClimaServer;
-import rmit.ai.clima.iface.*;
 import rmit.ai.clima.jackagt.plans.*;
 import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 
 
-import aos.util.timer.Timer;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-//import ;
-
-
-public capability GameSyncing extends Capability
+public capability CoordPlayerSyncing extends Capability
 		 /*implements Interface*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
-Capability Name: GameSyncing
+Capability Name: CoordPlayerSyncing
 */
 
 	//Knowledge bases used are declared here.
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data CurrentRequestActionId bel_currentRequestActionId_dat();
+	#imports data BPlayerAt bel_playerAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data Timer clima_timer_dat();
+	#imports data BPlayerState bel_playerState_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPath bel_currentPath_dat();
+	#imports data BPlayerPosition bel_playerPositions_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BNumCarryingGold bel_numCarryingGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BCurrentState bel_currentState_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data BPlayerPerceptReceived bel_playerPerceptReceived_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -71,50 +41,73 @@ Capability Name: GameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BUnexplored bel_unexplored_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPathCache bel_moveHint_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerGold bel_playerGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BObstacleAt bel_obstacleAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentPosition_dat();
+	#imports data BPlayer bel_playerStateReceived_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BCurrentPosition bel_currentTarget_dat();
+	#imports data BPlayerPosition bel_playerTarget_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayer bel_players_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#sends event EGUIDebugMessage eguidebugmessage_s;
+	#handles event EUpdateBel ;
+	#posts event EUpdateBel eupdatebel_p;
 
-	#sends event MESimStart mesimstart_s;
+	#handles external event MEReportPlayerPercept ;
 
-	#handles external event EStart ;
+	#handles external event MEReportPlayerState ;
 
-	#sends event MESimEnd mesimend_s;
+	#posts external event EChoosePlayerActions echooseplayeractions_p;
 
-	#sends event MEGameEnd megameend_s;
+	#handles event ECoordUpdateBel ;
+	#posts event ECoordUpdateBel ecoordupdatebel_p;
 
-	#posts external event TellClimaServer tellclimaserver_p;
-
-	#handles external event PerceiveClimaServer ;
-
-	#sends event MEInformCellStatus meinformcellstatus_s;
+	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan AuthenticateToServer ;
+	#uses plan UpdateCellsAround ;
 
-	#uses plan FinishSimulation ;
+	#uses plan Coord_AssimilatePlayerPercept ;
 
-	#uses plan FinishGame ;
+	#uses plan PCoord_AssimilatePlayerStates ;
 
-	#uses plan StartSimulation ;
+	#uses plan PCoord_UpdateCellsAround ;
 
 
 	// Inner capabilities are declared here.
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
- 
-   //other Data Member and Method definitions.
+	//other Data Member and Method definitions.
+
+	/* Constructor */
+	public CoordPlayerSyncing()
+	{
+		super();
+	}
 }

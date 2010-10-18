@@ -39,6 +39,7 @@
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/RequestHandling.cap" ID="801537" name="RequestHandling"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIReportMessage.plan" ID="63489" name="GUIReportMessage"/>
 <Entity DataFields="String agentName, int posX, int posY" DataType="BPlayerPosition" ID="455681" name="bel_playerPositions"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/CoordPlayerSyncing.cap" ID="847105" name="CoordPlayerSyncing"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/GUIClose.plan" ID="62721" name="GUIClose"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPathCache.bel" ID="699649" name="BPathCache"/>
 <Entity DataFields="int goldCount" DataType="BNumCarryingGold" ID="307457" name="bel_numCarryingGold"/>
