@@ -22,42 +22,7 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayerGold bel_playerGold_dat(/*String agentName, int goldAmount*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
 	#private data BPathCache bel_moveHint_dat(/*int srcX, int srcY, int dstX, int dstY, Object path, boolean reachable*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerAt bel_playerAt_dat(/*int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BUnexplored bel_unexplored_dat(/*int posX, int posY*/);
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private
-	*/
-	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -67,7 +32,12 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
-	#private data BPlayer bel_players_dat(/*String name*/);
+	#private data BUnexplored bel_unexplored_dat(/*int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerAt bel_playerAt_dat(/*int posX, int posY*/);
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
@@ -77,53 +47,88 @@ Agent Name: Coordinator
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private
 	*/
+	#private data BGoldAt bel_goldAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayer bel_playerStateReceived_dat(/*String name*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BObstacleAt bel_obstacleAt_dat(/*int xCoord, int yCoord*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayer bel_players_dat(/*String name*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerPerceptReceived bel_playerPerceptReceived_dat(/*String agentName*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerPosition bel_playerPositions_dat(/*String agentName, int posX, int posY*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
+	#private data BPlayerGold bel_playerGold_dat(/*String agentName, int goldAmount*/);
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private
+	*/
 	#private data SimulationProp bel_simulationProp_dat(/*int gridX, int gridY, int depotX, int depotY, int noSteps, int numStepsLeft*/);
 
 
 	//Events handled, posted and sent are declared here.
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
+
+	#handles event EChoosePlayerActions ;
+	#posts event EChoosePlayerActions echooseplayeractions_p;
+
+	#sends event MEReturnCellInfo mereturncellinfo_s;
+
+	#handles event MESimEnd ;
+
+	#posts event MEInformAgentStatus meinformagentstatus_p;
+
+	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
+
+	#handles event MEReportPlayerState ;
+
 	#handles event MERequestPathfinding ;
 
 	#handles event MESimStart ;
 
 	#handles event MEReportPlayerPercept ;
 
+	#handles event MEGameEnd ;
+
 	#handles event EFindPath ;
 	#posts event EFindPath efindpath_p;
 
-	#handles event EChoosePlayerActions ;
-	#posts event EChoosePlayerActions echooseplayeractions_p;
-
-	#handles event MEGameEnd ;
-
-	#posts event MEInformAgentStatus meinformagentstatus_p;
-
-	#sends event MEReturnPathfinding mereturnpathfinding_s;
-
-	#sends event MEReturnPlayerState mereturnplayerstate_s;
-
-	#sends event MEReturnCellInfo mereturncellinfo_s;
-
 	#handles event MERequestCellInfo ;
 
-	#handles event MEReportPlayerState ;
-
-	#handles event MESimEnd ;
-
-	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
+	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
 
 	//Plans directly used are declared here.
 
 	// Inner capabilities are declared here.
+	#has capability TargetDesignation targetdesignation_cap;
+
+	#has capability CoordGameSyncing coordgamesyncing_cap;
+
 	#has capability RequestHandling requesthandling_cap;
 
 	#has capability CPathFinding cpathfinding_cap;
 
-	#has capability TargetDesignation targetdesignation_cap;
-
 	#has capability CoordPlayerSyncing coordplayersyncing_cap;
-
-	#has capability CoordGameSyncing coordgamesyncing_cap;
 
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/

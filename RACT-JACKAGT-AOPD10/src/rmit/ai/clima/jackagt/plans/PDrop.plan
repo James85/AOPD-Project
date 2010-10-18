@@ -21,15 +21,15 @@ Plan Name: PDrop
 	// Declarations of any beliefset/data that the plan accesses.
 	#reads data BCurrentPosition bel_currentTarget_dat;
 
-	#reads data SimulationProp bel_simulationProp_dat;
-
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
-	#reads data BCurrentPath bel_currentPath_dat;
+	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
 
 	#reads data BCurrentState bel_currentState_dat;
 
-	#reads data BObstacleAt bel_obstacleAt_dat;
+	#reads data BCurrentPath bel_currentPath_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

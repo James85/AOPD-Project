@@ -12,27 +12,27 @@ public plan PUpdateState extends Plan
 Plan Name: PUpdateState
 */
 	//Events handled by the plan are declared here.
+	#sends event MEReportPlayerState mereportplayerstate_s;
+
 	#sends event MERequestCellInfo merequestcellinfo_s;
 
 	#sends event MERequestPathfinding merequestpathfinding_s;
-
-	#sends event MEReportPlayerState mereportplayerstate_s;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentState bel_currentState_dat;
-
 	#modifies data BCurrentPosition bel_currentTarget_dat;
 
+	#modifies data BCurrentState bel_currentState_dat;
+
 	#modifies data BHarass bel_harass_dat;
+
+	#reads data BCurrentPath bel_currentPath_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
 	#reads data BNumCarryingGold bel_numCarryingGold_dat;
-
-	#reads data BCurrentPath bel_currentPath_dat;
 
 	#reads data BCurrentPosition bel_currentPosition_dat;
 
@@ -239,7 +239,7 @@ Plan Name: PUpdateState
       }
 
       //Send our state to coordinator
-      System.out.println( getAgent().name() + "Sending state '" + state + "' to boss" );
+      System.out.println( getAgent().name() + " Sending state '" + state + "' to boss" );
       @send("boss", mereportplayerstate_s.send( getAgent().name(), state, target ));
    }
 }

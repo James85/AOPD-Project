@@ -30,15 +30,17 @@ Plan Name: PCoord_AssimilatePlayerStates
 	{
 	   return true;
 	}
+	
 	context()
 	{
-		// Trigger: Event "MEReportPlayerState"
 		true;
 	}
-	  #reasoning method fail()
-	   {
-	       System.out.println("OMGZORS ===========DickZilla : AssimilatePlayerStates");
-	   }
+	
+	#reasoning method fail()
+	{
+	   System.out.println("OMGZORS ===========DickZilla : AssimilatePlayerStates");
+	}
+	
 	#reasoning method
 	body()
    {

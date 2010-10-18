@@ -21,11 +21,13 @@ Description: Coordination plan to finish a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
-
 	#modifies data BPlayerGold bel_playerGold_dat;
 
+	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+
 	#modifies data BUnexplored bel_unexplored_dat;
+
+	#modifies data BPlayer bel_playerStateReceived_dat;
 
 	#modifies data BPlayer bel_players_dat;
 
@@ -59,8 +61,9 @@ Description: Coordination plan to finish a simulation
         
         logical int $xPos, $yPos;
         logical String $agentName;
-        bel_playerPositions_dat.get($agentName,$xPos,$yPos).removeAll();
-        bel_playerPerceptReceived_dat.get($agentName).removeAll();
+        bel_playerPositions_dat.get( $agentName,$xPos,$yPos ).removeAll();
+        bel_playerPerceptReceived_dat.get( $agentName ).removeAll();
+        bel_playerStateReceived_dat.get( $agentName ).removeAll();
         
         logical int $uX, $uY;
         bel_unexplored_dat.get($uX, $uY).removeAll();

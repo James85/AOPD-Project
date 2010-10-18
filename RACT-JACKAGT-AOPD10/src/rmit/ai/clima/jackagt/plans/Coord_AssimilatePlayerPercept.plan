@@ -15,25 +15,25 @@ public plan Coord_AssimilatePlayerPercept extends Plan
 Plan Name: Coord_AssimilatePlayerPercept
 */
 	//Events handled by the plan are declared here.
+	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
+
 	#posts event EUpdateBel eupdatebel_p;
 
 	#posts event ECoordUpdateBel ecoordupdatebel_p;
-
-	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
 
 	#handles event MEReportPlayerPercept mereportplayerpercept_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerAt bel_playerAt_dat;
-
-	#modifies data BPathCache bel_moveHint_dat;
-
 	#modifies data BPlayerPosition bel_playerPositions_dat;
 
 	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+
+	#modifies data BPlayerAt bel_playerAt_dat;
+
+	#modifies data BPathCache bel_moveHint_dat;
 
 	#reads data BPlayer bel_players_dat;
 
@@ -45,11 +45,12 @@ Plan Name: Coord_AssimilatePlayerPercept
 		
 		true;
 	}
-	  #reasoning method fail()
-	   {
-	       System.out.println("OMGZORS ===========DickZilla : AssimilatePlayerPercepts");
-	   }
-
+	
+	#reasoning method fail()
+	{
+	   System.out.println("OMGZORS ===========DickZilla : AssimilatePlayerPercepts");
+	}
+	
 	body()
 	{
 	   //Clear cached info when first percept received in this turn
@@ -83,13 +84,15 @@ Plan Name: Coord_AssimilatePlayerPercept
 		bel_playerPerceptReceived_dat.add(mereportplayerpercept_h.name);
 		if(bel_playerPerceptReceived_dat.nFacts() == bel_players_dat.nFacts())
 		{
+		   System.out.println( "ALL YOUR PERCEPTS ARE BELONG TO US" );
+		   
 		   logical String $name;
 		   Cursor c_players = bel_playerPerceptReceived_dat.get($name);
 		   while(c_players.next())
 		   {
 		      String baseName = $name.as_string();
 	         baseName = baseName.substring(0,baseName.indexOf("@"));
-		      @send(baseName, meplayerperceptsassimilated_s.send() );
+		      @send( baseName, meplayerperceptsassimilated_s.send() );
 		   }
 		   
 		   //Reset the sync counter
