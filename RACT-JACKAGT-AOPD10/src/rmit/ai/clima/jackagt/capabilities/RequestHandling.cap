@@ -21,11 +21,6 @@ Capability Name: RequestHandling
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BUnexplored bel_unexplored_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
@@ -36,25 +31,30 @@ Capability Name: RequestHandling
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BUnexplored bel_unexplored_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BObstacleAt bel_obstacleAt_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event MERequestCellInfo ;
-
 	#sends event MEReturnCellInfo mereturncellinfo_s;
-
-	#sends event MEReturnPathfinding mereturnpathfinding_s;
-
-	#posts external event EFindPath efindpath_p;
 
 	#handles external event MERequestPathfinding ;
 
+	#posts external event EFindPath efindpath_p;
+
+	#handles external event MERequestCellInfo ;
+
+	#sends event MEReturnPathfinding mereturnpathfinding_s;
+
 
 	//Plans directly used are declared here.
-	#uses plan PCoord_HandleCellInfoRequest ;
-
 	#uses plan PCoord_HandlePathfindingRequest ;
+
+	#uses plan PCoord_HandleCellInfoRequest ;
 
 
 	// Inner capabilities are declared here.

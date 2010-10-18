@@ -17,15 +17,15 @@ Plan Name: FinishSimulation
 Description: Finalize a simulation
 */
 	//Events handled by the plan are declared here.
-	#sends event MESimEnd mesimend_s;
-
 	#sends event EGUIDebugMessage eguidebugmessage_s;
+
+	#sends event MESimEnd mesimend_s;
 
 	#handles event PerceiveClimaServer perceiveclimaserver_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
+	#modifies data BObstacleAt bel_obstacleAt_dat;
 
 	#modifies data BGoldAt bel_goldAt_dat;
 
@@ -33,7 +33,7 @@ Description: Finalize a simulation
 
 	#modifies data CurrentRequestActionId bel_currentRequestActionId_dat;
 
-	#modifies data BObstacleAt bel_obstacleAt_dat;
+	#modifies data BNumCarryingGold bel_numCarryingGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

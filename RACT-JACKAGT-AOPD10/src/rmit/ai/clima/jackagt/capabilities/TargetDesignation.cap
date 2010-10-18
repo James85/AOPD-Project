@@ -4,25 +4,15 @@ import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 
 
-public capability CoordGameSyncing extends Capability
+public capability TargetDesignation extends Capability
 		 /*implements Interface*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
-Capability Name: CoordGameSyncing
+Capability Name: TargetDesignation
 */
 
 	//Knowledge bases used are declared here.
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerPerceptReceived bel_playerPerceptReceived_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BUnexplored bel_unexplored_dat();
-
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
@@ -31,12 +21,7 @@ Capability Name: CoordGameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerGold bel_playerGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
+	#imports data BPlayerAt bel_playerAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -46,23 +31,64 @@ Capability Name: CoordGameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BGoldAt bel_goldAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerPosition bel_playerTarget_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerGold bel_playerGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerState bel_playerState_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BUnexplored bel_unexplored_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BPlayer bel_players_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event MESimEnd ;
+	#handles external event EChoosePlayerActions ;
 
-	#handles external event MESimStart ;
+	#handles event EIdentifyExploreTargets ;
+	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
 
-	#handles external event MEGameEnd ;
+	#posts external event EFindPath efindpath_p;
+
+	#handles event EFindClosestGold ;
+	#posts event EFindClosestGold efindclosestgold_p;
+
+	#handles event EIdentifyGoldTargets ;
+	#posts event EIdentifyGoldTargets eidentifygoldtargets_p;
+
+	#sends event MEReturnPlayerState mereturnplayerstate_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan Coord_EndSimulation ;
+	#uses plan PCoord_ChoosePlayerActions ;
 
-	#uses plan Coord_InitSimulation ;
+	#uses plan PCoord_IdentifyExploreTargets ;
 
-	#uses plan Coord_EndGame ;
+	#uses plan PFindPlayersNearestGold ;
+
+	#uses plan PCoord_IdentifyGoldTargets ;
 
 
 	// Inner capabilities are declared here.
@@ -71,7 +97,7 @@ Capability Name: CoordGameSyncing
 	//other Data Member and Method definitions.
 
 	/* Constructor */
-	public CoordGameSyncing()
+	public TargetDesignation()
 	{
 		super();
 	}

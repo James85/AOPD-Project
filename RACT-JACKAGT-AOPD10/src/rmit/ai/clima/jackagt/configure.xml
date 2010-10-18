@@ -17,6 +17,7 @@
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEInformCellStatus.event" ID="37889" name="MEInformCellStatus"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/GamePlaying.cap" ID="37121" name="GamePlaying"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/CResolvePlayerActions.cap" ID="576001" name="CResolvePlayerActions"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/TargetDesignation.cap" ID="819201" name="TargetDesignation"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BCurrentPath.bel" ID="671745" name="BCurrentPath"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/EUpdateBel.event" ID="33281" name="EUpdateBel"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BMoveHint.bel" ID="521985" name="BMoveHint"/>
