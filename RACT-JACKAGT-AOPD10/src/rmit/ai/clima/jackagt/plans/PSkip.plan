@@ -17,9 +17,9 @@ Plan Name: PSkip
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BCurrentPath bel_currentPath_dat;
-
 	#reads data BCurrentState bel_currentState_dat;
+
+	#reads data BCurrentPath bel_currentPath_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -27,7 +27,7 @@ Plan Name: PSkip
    logical Object $path;
    logical boolean $reachable;
    logical int $unreachableCount;
-	
+   
 	context()
 	{
       //Need to be in idle state

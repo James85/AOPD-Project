@@ -4,44 +4,34 @@ import rmit.ai.clima.jackagt.events.*;
 import rmit.ai.clima.jackagt.data.*;
 
 
-public capability CPathFinding extends Capability
+public capability ActionExecution extends Capability
 		 /*implements Interface*/
 {
 /******** Start PDT Design Block *** DO NOT EDIT IT *********/
 /*
-Capability Name: CPathFinding
+Capability Name: ActionExecution
 */
 
 	//Knowledge bases used are declared here.
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BGoldAt bel_goldAt_dat();
+	#imports data BCurrentPosition bel_currentTarget_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerState bel_playerState_dat();
+	#imports data BCurrentPath bel_currentPath_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPathCache bel_moveHint_dat();
+	#imports data BCurrentState bel_currentState_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayer bel_players_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerPosition bel_playerPositions_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerAt bel_playerAt_dat();
+	#imports data BCurrentPosition bel_currentPosition_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -55,21 +45,23 @@ Capability Name: CPathFinding
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event EFindPath ;
+	#posts external event EExecuteCLIMAaction eexecuteclimaaction_p;
 
-	#handles external event MERequestPathfinding ;
+	#handles external event EExecuteAction ;
 
-	#handles external event EFindClosestGold ;
+	#sends event MERequestCellInfo merequestcellinfo_s;
 
-	#sends event MEReturnPathfinding mereturnpathfinding_s;
+	#sends event MEHarassPos meharasspos_s;
 
 
 	//Plans directly used are declared here.
-	#uses plan PFindPath ;
+	#uses plan PPick ;
 
-	#uses plan PCoord_HandlePathfindingRequest ;
+	#uses plan PDrop ;
 
-	#uses plan PFindPlayersNearestGold ;
+	#uses plan PMove ;
+
+	#uses plan PSkip ;
 
 
 	// Inner capabilities are declared here.
@@ -78,7 +70,7 @@ Capability Name: CPathFinding
 	//other Data Member and Method definitions.
 
 	/* Constructor */
-	public CPathFinding()
+	public ActionExecution()
 	{
 		super();
 	}
