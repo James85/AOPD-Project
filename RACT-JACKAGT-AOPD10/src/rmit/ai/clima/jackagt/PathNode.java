@@ -15,7 +15,7 @@ public class PathNode implements Comparable
    {
       visited = false;
       obstacle = false;
-      pos = new GridPoint();
+      pos = new GridPoint(0,0);
       dir = "";
       g = 0;
       h = 0;
