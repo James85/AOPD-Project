@@ -83,8 +83,8 @@ Plan Name: PCoord_UpdateScore
       {
          //Find player with gold closest to the depot
          String closestPlayer = megolddropped_h.from;
+         int closestDist = -1;
          int closestGold = 0;
-         int closestDist = 0;
          
          //Loop through all the players on the team
          logical String $name;
@@ -92,28 +92,45 @@ Plan Name: PCoord_UpdateScore
          while (c_players.next())
          {
             //Skip the one that just dropped gold
-            if ($name.as_string().equals( megolddropped_h.from ))
+            String name = $name.as_string();
+            if (name.equals( megolddropped_h.from ))
                continue;
             
             //Get player position
             logical int $playerX, $playerY;
-            bel_playerPositions_dat.getByName( $name.as_string(), $playerX, $playerY );
+            bel_playerPositions_dat.getByName( name, $playerX, $playerY );
             GridPoint playerPos = new GridPoint( $playerX.as_int(), $playerY.as_int() );
             
             //Get number of gold pieces
             logical int $numGold;
-            bel_playerGold_dat.getByName( $name.as_string(), $numGold );
+            bel_playerGold_dat.getByName( name, $numGold );
+            int gold = $numGold.as_int();
             
             //Find distance from player to depot
             int dist = playerPos.getManhattanDist( depotPos ); 
-            if (dist < closestDist || $numGold.as_int() > closestGold) {
-               
-               //Update closest
-               //(set gold to 3 to treat everyone the same, except
-               //those that have no gold at all)
-               closestPlayer = $name.as_string();
+            
+            //if first one
+            boolean closest = false;
+            if (closestDist == -1)
+               closest = true; //accept always
+            
+            //if closest DOES NOT have gold and we DO gold
+            else if (closestGold == 0 && gold > 0) 
+               closest = true; //accept always
+            
+            //if closest DOES NOT have gold and we DO NOT have gold
+            else if (closestGold == 0 && gold == 0) 
+               closest = (dist < closestDist); //accept if closer
+            
+            //if closest DOES have gold and we DO have gold
+            else if (closestGold > 0 && gold > 0)
+               closest = (dist < closestDist); //accept if closer
+            
+            //Update closest
+            if (closest) {
+               closestPlayer = name;
                closestDist = dist;
-               closestGold = 3;
+               closestGold = gold;
             }
          }
          
