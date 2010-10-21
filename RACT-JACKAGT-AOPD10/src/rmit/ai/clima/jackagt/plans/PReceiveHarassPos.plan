@@ -33,7 +33,12 @@ Plan Name: PReceiveHarassPos
       logical int $hX, $hY;
       logical boolean $pushed;
       
+      //Check if we already have the harass position
       if(!bel_harass_dat.get($hX, $hY, $pushed))
-         bel_harass_dat.add( meharasspos_h.pos.x, meharasspos_h.pos.y, false );
+      {
+         //Store harass position and set pushed flag so we don't
+         //push right away and fall into the depot
+         bel_harass_dat.add( meharasspos_h.pos.x, meharasspos_h.pos.y, true );
+      }
    }
 }

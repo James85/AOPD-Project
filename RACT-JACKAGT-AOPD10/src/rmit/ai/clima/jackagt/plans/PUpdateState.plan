@@ -102,28 +102,31 @@ Plan Name: PUpdateState
             @wait_for( cellInfoRequest.replied() );
             MEReturnCellInfo cellInfoReply = (MEReturnCellInfo) cellInfoRequest.getReply(); 
 
-            //Check if enemy in the depot and we haven't pushed last turn
+            //Check if enemy in the depot and pushed flag is cleared
             if(cellInfoReply.hasEnemy && ($pushed.as_boolean() == false))
             {
-               //Set target to depot and mark we pushed this turn
+               //Set target to depot and set pushed flag
                target = depotPos;
                bel_currentTarget_dat.add( target.x, target.y );
                bel_harass_dat.add( harassPos.x, harassPos.y, true );
             }
             else
             {
-               //Set target to harass point and mark we haven't pushed this turn
+               //Set target to harass point
                target = harassPos;
                bel_currentTarget_dat.add( target.x, target.y );
-               bel_harass_dat.add( harassPos.x, harassPos.y, false );
             }
+            
+            //Clear pushed flag once the depot is clear of enemy
+            if (cellInfoReply.hasEnemy == false)
+               bel_harass_dat.add( harassPos.x, harassPos.y, false );
          }
          else
          {
-            //Set target to harass point to move there and mark we haven't pushed this turn
+            //Set target to harass point and set pushed flag
             target = harassPos;
             bel_currentTarget_dat.add( target.x, target.y );
-            bel_harass_dat.add( harassPos.x, harassPos.y, false );
+            bel_harass_dat.add( harassPos.x, harassPos.y, true );
          }
       }
       
@@ -153,23 +156,27 @@ Plan Name: PUpdateState
       int depotPathLength = depotPathReply.path.size();
       int safeReturnBuffer = (int) Math.ceil( depotPathLength * 1.5f );
       
-      //Head to depot if we have max gold or running out of steps
-      if(($numGold.as_int() >= 3 && !state.equals( "harass" )) ||
-         ($numGold.as_int() > 0 && numStepsLeft <= safeReturnBuffer ))
+
+      if (!state.equals("depot") && !state.equals( "harass" ))
       {
-         //Set target and state to depot
-         target = new GridPoint( $depotX.as_int(), $depotY.as_int() );
-         bel_currentTarget_dat.add( target.x, target.y );
-         
-         state = "depot";
-         bel_currentState_dat.add( state );
-         
-         //Always accept path to depot, even if unreachable
-         //(worthless exploring as we would be failing a lot with gold)
-         path = depotPathReply.path;
-         reachable = depotPathReply.reachable;
-         unreachableCount = 0;
-         bel_currentPath_dat.add( path, reachable, unreachableCount );
+         //Head to depot if we have max gold or running out of steps
+         if ($numGold.as_int() >= 3 || ($numGold.as_int() > 0 && numStepsLeft <= safeReturnBuffer ))
+         {
+            //Set target to depot
+            target = new GridPoint( $depotX.as_int(), $depotY.as_int() );
+            bel_currentTarget_dat.add( target.x, target.y );
+            
+            //Set state to depot
+            state = "depot";
+            bel_currentState_dat.add( state );
+            
+            //Always accept path to depot, even if unreachable
+            //(worthless exploring as we would be failing a lot with gold)
+            path = depotPathReply.path;
+            reachable = depotPathReply.reachable;
+            unreachableCount = 0;
+            bel_currentPath_dat.add( path, reachable, unreachableCount );
+         }
       }
       
       
@@ -184,7 +191,7 @@ Plan Name: PUpdateState
       }
 
       
-      //Check for state changes
+      //Check for state termination
       if(state.equals("gold") )
       {
          //If gold removed set state to idle
