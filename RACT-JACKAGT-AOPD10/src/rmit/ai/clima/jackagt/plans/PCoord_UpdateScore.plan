@@ -114,7 +114,7 @@ Plan Name: PCoord_UpdateScore
             if (closestDist == -1)
                closest = true; //accept always
             
-            //if closest DOES NOT have gold and we DO gold
+            //if closest DOES NOT have gold and we DO have gold
             else if (closestGold == 0 && gold > 0) 
                closest = true; //accept always
             
