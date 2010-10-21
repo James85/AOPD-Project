@@ -120,9 +120,10 @@ Plan Name: PUpdateState
          }
          else
          {
-            //Set target to harass point to move there
+            //Set target to harass point to move there and mark we haven't pushed this turn
             target = harassPos;
             bel_currentTarget_dat.add( target.x, target.y );
+            bel_harass_dat.add( harassPos.x, harassPos.y, false );
          }
       }
       

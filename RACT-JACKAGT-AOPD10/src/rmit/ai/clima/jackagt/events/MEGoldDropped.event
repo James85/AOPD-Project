@@ -1,0 +1,15 @@
+package rmit.ai.clima.jackagt.events;
+import rmit.ai.clima.jackagt.data.*;
+
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+public event MEGoldDropped extends MessageEvent
+{
+/*
+ * Message Name: MEGoldDropped
+*/
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+	#posted as send()
+	{
+	}
+}

@@ -1,0 +1,129 @@
+package rmit.ai.clima.jackagt.plans;
+import rmit.ai.clima.jackagt.events.*;
+import rmit.ai.clima.jackagt.data.*;
+import rmit.ai.clima.jackagt.*;
+import rmit.ai.clima.gui.grid.*;
+
+public plan PCoord_UpdateScore extends Plan
+{
+/******** Start PDT Design Block *** DO NOT EDIT IT *********/
+
+/*
+Plan Name: PCoord_UpdateScore
+*/
+	//Events handled by the plan are declared here.
+	#sends event MEHarassPos meharasspos_s;
+
+	#handles event MEGoldDropped megolddropped_h;
+
+
+	// Declarations of any beliefset/data that the plan accesses.
+	#modifies data BPoint bel_harassPos_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayer bel_players_dat;
+
+	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
+
+/******** End PDT Design Block *** DO NOT EDIT IT *********/
+
+   static final String dirs[] = { "left", "right", "up", "down" };
+   
+	context()
+	{
+		true;
+	}
+
+	body()
+	{
+      //Check if harasser has already been assigned
+      logical int $hX, $hY;
+      if (bel_harassPos_dat.get( $hX, $hY ))
+         return true;
+      
+      System.out.println( "COORDINATOR KNOWS THAT GOLD WAS DROPPED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
+      
+      
+      //Get grid size
+      logical int $gridW, $gridH;
+      bel_simulationProp_dat.getGridSize( $gridW, $gridH );
+
+      //Get depot location 
+      logical int $depotX, $depotY;
+      bel_simulationProp_dat.getDepotLoc( $depotX, $depotY );
+      GridPoint depotPos = new GridPoint( $depotX.as_int(), $depotY.as_int());
+
+      //Check how many points around has obstacles
+      int numObstacles = 0;
+      GridPoint harassPos = depotPos;
+      for (int i = 0; i < dirs.length; ++i)
+      {
+         //Check if the point is out of the grid
+         GridPoint adjPos = depotPos.getFromDir(dirs[i]);
+         if (adjPos.x < 0 || adjPos.x >= $gridW.as_int() &&
+             adjPos.y < 0 || adjPos.y >= $gridH.as_int())
+            numObstacles++;
+         
+         //Check if there is an obstacle at this point
+         else if(bel_obstacleAt_dat.check( adjPos.x, adjPos.y))
+            numObstacles++;
+         
+         //Assign free point as harass position
+         else harassPos = adjPos;
+      }
+
+      
+      //Only harass if depot fairly clear of obstacles
+      if (numObstacles <= 1)
+      {
+         //Find player with gold closest to the depot
+         String closestPlayer = megolddropped_h.from;
+         int closestGold = 0;
+         int closestDist = 0;
+         
+         //Loop through all the players on the team
+         logical String $name;
+         Cursor c_players = bel_players_dat.get( $name );
+         while (c_players.next())
+         {
+            //Skip the one that just dropped gold
+            if ($name.as_string().equals( megolddropped_h.from ))
+               continue;
+            
+            //Get player position
+            logical int $playerX, $playerY;
+            bel_playerPositions_dat.getByName( $name.as_string(), $playerX, $playerY );
+            GridPoint playerPos = new GridPoint( $playerX.as_int(), $playerY.as_int() );
+            
+            //Get number of gold pieces
+            logical int $numGold;
+            bel_playerGold_dat.getByName( $name.as_string(), $numGold );
+            
+            //Find distance from player to depot
+            int dist = playerPos.getManhattanDist( depotPos ); 
+            if (dist < closestDist || $numGold.as_int() > closestGold) {
+               
+               //Update closest
+               //(set gold to 3 to treat everyone the same, except
+               //those that have no gold at all)
+               closestPlayer = $name.as_string();
+               closestDist = dist;
+               closestGold = 3;
+            }
+         }
+         
+         //Send the harasser his perch 
+         String baseName = closestPlayer;
+         baseName = baseName.substring(0,baseName.indexOf("@"));
+         @send( baseName, meharasspos_s.send(harassPos) );
+         
+         //Store harass position
+         bel_harassPos_dat.add( harassPos.x, harassPos.y );
+      }
+	}
+}
