@@ -14,37 +14,37 @@ public plan PCoord_ChoosePlayerActions extends Plan
 Plan Name: PCoord_ChoosePlayerActions
 */
 	//Events handled by the plan are declared here.
+	#sends event MEReturnPlayerState mereturnplayerstate_s;
+
+	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
+
 	#posts event EFindPath efindpath_p;
 
 	#posts event EIdentifyGoldTargets eidentifygoldtargets_p;
 
 	#posts event EFindClosestGold efindclosestgold_p;
 
-	#posts event EIdentifyExploreTargets eidentifyexploretargets_p;
-
-	#sends event MEReturnPlayerState mereturnplayerstate_s;
-
 	#handles event EChoosePlayerActions echooseplayeractions_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerPosition bel_playerTarget_dat;
-
 	#modifies data BPlayerAt bel_playerAt_dat;
 
-	#reads data BPlayer bel_players_dat;
-
-	#reads data BPlayerPosition bel_playerPositions_dat;
-
-	#reads data BPlayerState bel_playerState_dat;
-
-	#reads data BGoldAt bel_goldAt_dat;
+	#modifies data BPlayerPosition bel_playerTarget_dat;
 
 	#reads data BObstacleAt bel_obstacleAt_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
+	#reads data BGoldAt bel_goldAt_dat;
+
 	#reads data BPlayerGold bel_playerGold_dat;
+
+	#reads data BPlayerState bel_playerState_dat;
+
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
+	#reads data BPlayer bel_players_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
@@ -112,6 +112,7 @@ Plan Name: PCoord_ChoosePlayerActions
       c_players = bel_players_dat.get( $name );
       while (c_players.next())
       {
+         //Get base name for sending message
          String name = $name.as_string();
          String baseName = $name.as_string();
          baseName = baseName.substring(0,baseName.indexOf("@"));

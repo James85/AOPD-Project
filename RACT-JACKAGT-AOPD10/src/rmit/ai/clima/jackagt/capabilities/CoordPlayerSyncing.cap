@@ -16,17 +16,7 @@ Capability Name: CoordPlayerSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerGold bel_playerGold_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BUnexplored bel_unexplored_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerAt bel_playerAt_dat();
+	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -36,7 +26,7 @@ Capability Name: CoordPlayerSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerPosition bel_playerPositions_dat();
+	#imports data BPlayerPerceptReceived bel_playerPerceptReceived_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -46,22 +36,7 @@ Capability Name: CoordPlayerSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerState bel_playerState_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerPerceptReceived bel_playerPerceptReceived_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayer bel_playerStateReceived_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BGoldAt bel_goldAt_dat();
+	#imports data BPlayerAt bel_playerAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -71,11 +46,37 @@ Capability Name: CoordPlayerSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data BPlayer bel_playerStateReceived_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerState bel_playerState_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BPlayerPosition bel_playerTarget_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BUnexplored bel_unexplored_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerGold bel_playerGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerPosition bel_playerPositions_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#posts external event EChoosePlayerActions echooseplayeractions_p;
+	#handles event EUpdateBel ;
+	#posts event EUpdateBel eupdatebel_p;
 
 	#handles event ECoordUpdateBel ;
 	#posts event ECoordUpdateBel ecoordupdatebel_p;
@@ -86,18 +87,17 @@ Capability Name: CoordPlayerSyncing
 
 	#sends event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_s;
 
-	#handles event EUpdateBel ;
-	#posts event EUpdateBel eupdatebel_p;
+	#posts external event EChoosePlayerActions echooseplayeractions_p;
 
 
 	//Plans directly used are declared here.
+	#uses plan UpdateCellsAround ;
+
 	#uses plan PCoord_UpdateCellsAround ;
 
 	#uses plan Coord_AssimilatePlayerPercept ;
 
 	#uses plan PCoord_AssimilatePlayerStates ;
-
-	#uses plan UpdateCellsAround ;
 
 
 	// Inner capabilities are declared here.

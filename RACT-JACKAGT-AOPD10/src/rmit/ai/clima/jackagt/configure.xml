@@ -33,6 +33,7 @@
 <Entity DataFields="String name, String state" DataType="BPlayerState" ID="613121" name="bel_playerState"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BObstacleAt" ID="23297" name="bel_obstacleAt" package=""/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/ECoordUpdateBel.event" ID="708097" name="ECoordUpdateBel"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEGoldDropped.event" ID="904193" name="MEGoldDropped"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/ActionDecision.cap" ID="70401" name="ActionDecision"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_ChoosePlayerActions.plan" ID="462593" name="PCoord_ChoosePlayerActions"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/Player.agent" ID="20993" name="Player"/>
@@ -84,8 +85,10 @@
 <Entity DataFields="int gridX, int gridY, int depotX, int depotY, int noSteps, int numStepsLeft" DataType="SimulationProp" ID="25857" name="bel_simulationProp"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="CurrentPosition" ID="24321" name="bel_currentPosition"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/capabilities/InfoReporting.cap" ID="72961" name="InfoReporting"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/events/MEGold.event" ID="905985" name="MEGold"/>
 <Entity DataFields="int posX, int posY" DataType="BCurrentPosition" ID="610305" name="bel_currentTarget"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BCurrentState.bel" ID="609537" name="BCurrentState"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_UpdateScore.plan" ID="903681" name="PCoord_UpdateScore"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PCoord_UpdateCellsAround.plan" ID="706817" name="PCoord_UpdateCellsAround"/>
 <Entity DataFields="String agentName, int goldAmount" DataType="BPlayerGold" ID="460545" name="bel_playerGold"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/agents/GUIAgent.agent" ID="18945" name="GUIAgent"/>
@@ -144,12 +147,12 @@
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/GUICurrentStep.bel" ID="155905" name="GUICurrentStep"/>
 <Entity ID="8449" name="bye XML"/>
 <Entity ID="252417" name="Semaphore" package="aos.jack.util.thread.Semaphore"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BObstacleAt.bel" ID="153601" name="BObstacleAt"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerPerceptReceived.bel" ID="447745" name="BPlayerPerceptReceived"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BObstacleAt.bel" ID="153601" name="BObstacleAt"/>
 <Entity DataFields="String agentName" DataType="PlayerPerceptReceived" ID="446977" name="bel_playerPerceptReceived"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_EndGame.plan" ID="53249" name="Coord_EndGame"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PReceiveHarassPos.plan" ID="737281" name="PReceiveHarassPos"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BGoldAt" ID="295681" name="bel_goldAt"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/UpdateCellsAround.plan" ID="49409" name="UpdateCellsAround"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BPoint" ID="735745" name="bel_harassPos"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/UpdateCellsAround.plan" ID="49409" name="UpdateCellsAround"/>
 </JACKCodeRoot>

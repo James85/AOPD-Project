@@ -17,15 +17,15 @@ Plan Name: PCoord_HandleCellInfoRequest
 
 
 	// Declarations of any beliefset/data that the plan accesses.
+	#reads data BPlayerPosition bel_playerPositions_dat;
+
 	#reads data BGoldAt bel_goldAt_dat;
+
+	#reads data BObstacleAt bel_obstacleAt_dat;
 
 	#reads data BUnexplored bel_unexplored_dat;
 
 	#reads data BPlayerAt bel_playerAt_dat;
-
-	#reads data BObstacleAt bel_obstacleAt_dat;
-
-	#reads data BPlayerPosition bel_playerPositions_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

@@ -12,19 +12,19 @@ public plan PUpdateState extends Plan
 Plan Name: PUpdateState
 */
 	//Events handled by the plan are declared here.
+	#sends event MERequestPathfinding merequestpathfinding_s;
+
 	#sends event MEReportPlayerState mereportplayerstate_s;
 
 	#sends event MERequestCellInfo merequestcellinfo_s;
-
-	#sends event MERequestPathfinding merequestpathfinding_s;
 
 	#handles event MEPlayerPerceptsAssimilated meplayerperceptsassimilated_h;
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BCurrentPosition bel_currentTarget_dat;
-
 	#modifies data BCurrentState bel_currentState_dat;
+
+	#modifies data BCurrentPosition bel_currentTarget_dat;
 
 	#modifies data BHarass bel_harass_dat;
 
@@ -32,9 +32,9 @@ Plan Name: PUpdateState
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
-	#reads data BNumCarryingGold bel_numCarryingGold_dat;
-
 	#reads data BCurrentPosition bel_currentPosition_dat;
+
+	#reads data BNumCarryingGold bel_numCarryingGold_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 

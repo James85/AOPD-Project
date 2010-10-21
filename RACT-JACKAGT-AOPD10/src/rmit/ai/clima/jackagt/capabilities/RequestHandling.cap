@@ -16,7 +16,7 @@ Capability Name: RequestHandling
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerAt bel_playerAt_dat();
+	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -26,17 +26,17 @@ Capability Name: RequestHandling
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BUnexplored bel_unexplored_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BGoldAt bel_goldAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BObstacleAt bel_obstacleAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerAt bel_playerAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BUnexplored bel_unexplored_dat();
 
 
 	//Events handled, posted and sent are declared here.

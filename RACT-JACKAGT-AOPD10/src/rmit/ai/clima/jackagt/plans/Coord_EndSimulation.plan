@@ -21,17 +21,19 @@ Description: Coordination plan to finish a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerGold bel_playerGold_dat;
-
-	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+	#modifies data BPlayerPosition bel_playerPositions_dat;
 
 	#modifies data BUnexplored bel_unexplored_dat;
 
-	#modifies data BPlayer bel_playerStateReceived_dat;
+	#modifies data BPoint bel_harassPos_dat;
+
+	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#modifies data BPlayer bel_players_dat;
 
-	#modifies data BPlayerPosition bel_playerPositions_dat;
+	#modifies data BPlayer bel_playerStateReceived_dat;
+
+	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
@@ -58,15 +60,20 @@ Description: Coordination plan to finish a simulation
         logical int $gridX, $gridY, $depotX, $depotY, $noSteps, $numStepsLeft;
         bel_simulationProp_dat.get($gridX, $gridY, $depotX, $depotY, $noSteps, $numStepsLeft).removeAll();
         
-        
+        //Clear player info
         logical int $xPos, $yPos;
         logical String $agentName;
         bel_playerPositions_dat.get( $agentName,$xPos,$yPos ).removeAll();
         bel_playerPerceptReceived_dat.get( $agentName ).removeAll();
         bel_playerStateReceived_dat.get( $agentName ).removeAll();
         
+        //Clear unexplored points
         logical int $uX, $uY;
         bel_unexplored_dat.get($uX, $uY).removeAll();
+        
+        //Clear harass position
+        logical int $hX, $hY;
+        bel_harassPos_dat.get( $hX, $hY ).removeAll();
         
         //release the reference to the pathfinding grid for this simulation
         PathGrid.getInstance().Release();
