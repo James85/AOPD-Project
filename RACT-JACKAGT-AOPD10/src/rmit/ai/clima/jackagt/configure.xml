@@ -147,12 +147,12 @@
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/GUICurrentStep.bel" ID="155905" name="GUICurrentStep"/>
 <Entity ID="8449" name="bye XML"/>
 <Entity ID="252417" name="Semaphore" package="aos.jack.util.thread.Semaphore"/>
-<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerPerceptReceived.bel" ID="447745" name="BPlayerPerceptReceived"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BObstacleAt.bel" ID="153601" name="BObstacleAt"/>
+<Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/data/BPlayerPerceptReceived.bel" ID="447745" name="BPlayerPerceptReceived"/>
 <Entity DataFields="String agentName" DataType="PlayerPerceptReceived" ID="446977" name="bel_playerPerceptReceived"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/Coord_EndGame.plan" ID="53249" name="Coord_EndGame"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/PReceiveHarassPos.plan" ID="737281" name="PReceiveHarassPos"/>
 <Entity DataFields="int xCoord, int yCoord" DataType="BGoldAt" ID="295681" name="bel_goldAt"/>
-<Entity DataFields="int xCoord, int yCoord" DataType="BPoint" ID="735745" name="bel_harassPos"/>
 <Entity CodeFileURI="file:/home/ivan/Projects/Code/AOPD/RACT-JACKAGT-AOPD10/src/rmit/ai/clima/jackagt/plans/UpdateCellsAround.plan" ID="49409" name="UpdateCellsAround"/>
+<Entity DataFields="int xCoord, int yCoord" DataType="BPoint" ID="735745" name="bel_harassPos"/>
 </JACKCodeRoot>

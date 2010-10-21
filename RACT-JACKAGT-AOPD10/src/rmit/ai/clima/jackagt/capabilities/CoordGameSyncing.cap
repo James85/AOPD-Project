@@ -21,12 +21,7 @@ Capability Name: CoordGameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BObstacleAt bel_obstacleAt_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data SimulationProp bel_simulationProp_dat();
+	#imports data BGoldAt bel_goldAt_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -36,17 +31,7 @@ Capability Name: CoordGameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
-	#imports data BPlayerPerceptReceived bel_playerPerceptReceived_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
 	#imports data BPlayer bel_players_dat();
-
-	/*	You may need to change the statement declaration of data/beliefset to:
-	#agent | #global | #private | #import | #export
-	*/
-	#imports data BPlayerGold bel_playerGold_dat();
 
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
@@ -56,15 +41,40 @@ Capability Name: CoordGameSyncing
 	/*	You may need to change the statement declaration of data/beliefset to:
 	#agent | #global | #private | #import | #export
 	*/
+	#imports data SimulationProp bel_simulationProp_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerAt bel_playerAt_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerPerceptReceived bel_playerPerceptReceived_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BPlayerGold bel_playerGold_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
 	#imports data BPoint bel_harassPos_dat();
+
+	/*	You may need to change the statement declaration of data/beliefset to:
+	#agent | #global | #private | #import | #export
+	*/
+	#imports data BObstacleAt bel_obstacleAt_dat();
 
 
 	//Events handled, posted and sent are declared here.
-	#handles external event MEGoldDropped ;
+	#sends event MEHarassPos meharasspos_s;
 
 	#handles external event MEGameEnd ;
 
-	#sends event MEHarassPos meharasspos_s;
+	#handles external event MEGoldDropped ;
 
 	#handles external event MESimEnd ;
 
@@ -72,9 +82,9 @@ Capability Name: CoordGameSyncing
 
 
 	//Plans directly used are declared here.
-	#uses plan PCoord_UpdateScore ;
-
 	#uses plan Coord_EndGame ;
+
+	#uses plan PCoord_UpdateScore ;
 
 	#uses plan Coord_EndSimulation ;
 

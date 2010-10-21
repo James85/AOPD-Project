@@ -21,19 +21,25 @@ Description: Coordination plan to finish a simulation
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#modifies data BPlayerPosition bel_playerPositions_dat;
-
-	#modifies data BUnexplored bel_unexplored_dat;
+	#modifies data BPlayerGold bel_playerGold_dat;
 
 	#modifies data BPoint bel_harassPos_dat;
 
-	#modifies data BPlayerGold bel_playerGold_dat;
+	#modifies data BObstacleAt bel_obstacleAt_dat;
 
-	#modifies data BPlayer bel_players_dat;
+	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+
+	#modifies data BPlayerPosition bel_playerPositions_dat;
+
+	#modifies data BPlayerAt bel_playerAt_dat;
 
 	#modifies data BPlayer bel_playerStateReceived_dat;
 
-	#modifies data BPlayerPerceptReceived bel_playerPerceptReceived_dat;
+	#modifies data BPlayer bel_players_dat;
+
+	#modifies data BUnexplored bel_unexplored_dat;
+
+	#modifies data BGoldAt bel_goldAt_dat;
 
 	#reads data SimulationProp bel_simulationProp_dat;
 
@@ -60,9 +66,17 @@ Description: Coordination plan to finish a simulation
         logical int $gridX, $gridY, $depotX, $depotY, $noSteps, $numStepsLeft;
         bel_simulationProp_dat.get($gridX, $gridY, $depotX, $depotY, $noSteps, $numStepsLeft).removeAll();
         
+        //Clear grid info
+        logical int $atX, $atY;
+        bel_playerAt_dat.get( $atX, $atY ).removeAll();
+        bel_obstacleAt_dat.get( $atX, $atY ).removeAll();
+        bel_goldAt_dat.get( $atX, $atY ).removeAll();
+        
         //Clear player info
-        logical int $xPos, $yPos;
+        logical int $xPos, $yPos, $numGold;
         logical String $agentName;
+        bel_players_dat.get( $agentName ).removeAll();
+        bel_playerGold_dat.get( $agentName, $numGold ).removeAll();
         bel_playerPositions_dat.get( $agentName,$xPos,$yPos ).removeAll();
         bel_playerPerceptReceived_dat.get( $agentName ).removeAll();
         bel_playerStateReceived_dat.get( $agentName ).removeAll();

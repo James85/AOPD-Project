@@ -17,9 +17,9 @@ Plan Name: PCoord_IdentifyGoldTargets
 
 
 	// Declarations of any beliefset/data that the plan accesses.
-	#reads data BGoldAt bel_goldAt_dat;
-
 	#reads data SimulationProp bel_simulationProp_dat;
+
+	#reads data BGoldAt bel_goldAt_dat;
 
 /******** End PDT Design Block *** DO NOT EDIT IT *********/
 
