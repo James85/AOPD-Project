@@ -87,23 +87,24 @@ Plan Name: PFindPath
          return true;
       }
 
-      //Init obstacles
-      //instantiate the pathfinding grid for this simulation
-      PathGrid grid = PathGrid.initInstance( width, height );
-      //PathGrid grid = PathGrid.getInstance( );
+      //Clear pathfinding data on the grid nodes
+      PathGrid grid = PathGrid.GetInstance();
+      grid.clearNodes();
       
-      //only set all the obstacles once per turn
-      if(grid.firstRequest)
+      //Only set the obstacles once per turn
+      if(! grid.gotObstacles)
       {
+         System.out.println( "INITIALISING GRID OBSTACLES" );
          logical int $obstacleX, $obstacleY;
          logical int $playerX, $playerY;
-
+         
          Cursor c_obstacleAt = bel_obstacleAt_dat.get( $obstacleX, $obstacleY );
          Cursor c_playerAt = bel_playerAt_dat.get( $playerX, $playerY );
 
          // Obstacles are obstacles
          while(c_obstacleAt.next())
          {
+            //System.out.println( "GETTING OBSTACLE NODE AT " + $obstacleX.as_int() +","+ $obstacleY.as_int() );
             PathNode node = grid.getNode( $obstacleX.as_int(), $obstacleY.as_int() ); 
             node.obstacle = true;
          }
@@ -111,18 +112,24 @@ Plan Name: PFindPath
          //players are obstacles unless they are standing on the depot
          while(c_playerAt.next())
          {
+            //System.out.println( "GETTING PLAYER NODE AT " + $playerX.as_int() +","+ $playerY.as_int() );
             PathNode node = grid.getNode( $playerX.as_int(), $playerY.as_int() ); 
             if(!node.pos.equals(depotPoint))
                node.obstacle = true;
          }
+         
+         //Mark obstacles initialised
+         grid.gotObstacles = true;
       }
       
-      // if depot is not our start or end point make it an obstacle - needs to be done outside the above check as it is player specific
+      //If depot is not our start or end point make it an obstacle
+      //(needs to be done outside the above check as it is specific to each path)
       PathNode node = grid.getNode( depotPoint.x, depotPoint.y );
       if(!depotPoint.equals(src) && !depotPoint.equals(dst)) 
          node.obstacle = true; 
       else
          node.obstacle = false;
+      
       
       //Init root node
       PathNode root = grid.getNode( src );
@@ -220,9 +227,5 @@ Plan Name: PFindPath
       bel_moveHint_dat.add( src.x, src.y, dst.x, dst.y, path, dstReached );
       efindpath_h.path = path;
       efindpath_h.reachable = dstReached;
-      
-      grid.Clean();
    }
-
-   
 }

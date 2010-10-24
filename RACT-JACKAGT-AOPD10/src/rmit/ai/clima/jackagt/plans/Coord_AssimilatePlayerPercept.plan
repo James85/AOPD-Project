@@ -59,7 +59,7 @@ Plan Name: Coord_AssimilatePlayerPercept
 	      System.out.println( "CLEARING CACHE" );
 	      
          //Reset all the obstacles in the pathfinding grid so it is ready for the next turn
-         PathGrid.getInstance().Reset();
+         PathGrid.GetInstance().clearObstacles();
          
 	      //Clear the pathfinding cache
 	      logical int $srcX, $srcY,  $dstX,  $dstY;

@@ -35,8 +35,8 @@ public beliefset SimulationProp extends ClosedWorld /*or OpenWorld*/
    // These describe the data attributes of each belief.
    
     
-    #indexed query get(logical int gridX, logical int gridY, logical int depotX, logical int depotY, logical int noSteps, logical int numStepsLeft);
-    #indexed query check(int gridX, int gridY, int depotX, int depotY, int noSteps, int numStepsLeft);
+	#indexed query get(logical int gridX, logical int gridY, logical int depotX, logical int depotY, logical int noSteps, logical int numStepsLeft);
+	#indexed query check(int gridX, int gridY, int depotX, int depotY, int noSteps, int numStepsLeft);
 
 	#complex query getDepotLoc(logical int $depotX, logical int $depotY) {
 		logical int $gridX, $gridY, $noSteps, $numStepsLeft;

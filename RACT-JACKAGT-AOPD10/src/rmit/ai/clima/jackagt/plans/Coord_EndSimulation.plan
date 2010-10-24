@@ -90,9 +90,9 @@ Description: Coordination plan to finish a simulation
         bel_harassPos_dat.get( $hX, $hY ).removeAll();
         
         //release the reference to the pathfinding grid for this simulation
-        PathGrid.getInstance().Release();
+        PathGrid.ReleaseInstance();
 
-
-      	consoleIface.showConsoleDebug("Agent "+mesimend_h.from+ " reported the end of a simulation...");
+        //Report the simulation uninitialised
+        consoleIface.showConsoleDebug("Agent "+mesimend_h.from+ " reported the end of a simulation...");
     }
 }

@@ -47,34 +47,36 @@ Description: Coordination plan to start a simulation
    #reasoning method
    body()
    {
-      // Retrieve all the information in the event
+      //Retrieve data from the event structure
       int gridX = mesimstart_h.gridSize.x;
       int gridY = mesimstart_h.gridSize.y;
       int depotX = mesimstart_h.depotPosition.x;
       int depotY = mesimstart_h.depotPosition.y;
       int numSteps = mesimstart_h.numSteps;
-      
-      for(int x=0; x < gridX; ++x)
-         for(int y=0; y < gridY; ++y)
-            bel_unexplored_dat.add(x,y);
 
-      //initialise flag that tracks which players have sent info this turn 
+      //Add name to the list of all players on the team 
       bel_players_dat.add(mesimstart_h.from);
       
-
-
-
+      //Check if simulation properties already exist and match current ones
       if (bel_simulationProp_dat.check(gridX, gridY, depotX, depotY, numSteps, numSteps)) 
       {
-         //consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation, but I already know about it...");
+         //Report the simulation already initialized
+         consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation, but I already know about it...");
       } 
       else
       {
-         // Initalize parameters for the new simulation
+         //Initalize parameters for the new simulation
          bel_simulationProp_dat.add(gridX, gridY, depotX, depotY, numSteps, numSteps);
          bel_obstacleAt_dat.add(depotX, depotY, Cursor.FALSE);
-         //consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation!");
-
+         consoleIface.showConsoleDebug("Agent "+mesimstart_h.from+ " reported the start of a new simulation!");
+         
+         //Initialize list of unexplored cells
+         for(int x=0; x < gridX; ++x)
+            for(int y=0; y < gridY; ++y)
+               bel_unexplored_dat.add(x,y);
+         
+         //Initialize pathfinding grid
+         PathGrid.InitInstance( gridX, gridY );
       }
    } 
 }
