@@ -8,8 +8,8 @@ set PATH_JAR_JACKAGT=%JACKAGT%\lib\jackagt.jar
 set PATH_JAR_EXTRAS=%JACKAGT%\lib\gui.jar
 set PATH_JARS=%PATH_JAR_JACKAGT%;%PATH_JAR_JACK%;%PATH_JAR_CLIMACOMMS%;%PATH_JAR_EXTRAS%
 
-set HOST=10.0.2.2
-set PORT=12300
+set HOST=10.1.1.7
+set PORT=12345
 
 REM Team information login/password
 set USER1=participant1
